@@ -46,6 +46,11 @@
     .search.compact label>span,.form-grid.compact label>span{line-height:32px}
     .field-box{flex:1;min-width:0}
     .input,.select{height:32px;border:1px solid #bfc8d4;background:white;border-radius:2px;padding:6px 10px;color:#5f6b7a;display:flex;justify-content:space-between;align-items:center}
+    .select{position:relative;cursor:pointer;overflow:visible}
+    .select b{margin-left:8px;color:#909399}
+    .select-menu{position:absolute;top:34px;left:0;min-width:100%;width:max-content;max-width:460px;max-height:260px;overflow:auto;background:white;border:1px solid #bfc8d4;box-shadow:0 8px 18px rgba(15,23,42,.14);border-radius:3px;padding:4px 0;z-index:5000}
+    .select-option{height:30px;display:flex;align-items:center;padding:0 12px;color:#333;white-space:nowrap}
+    .select-option:hover,.select-option.active{background:#eef6ff;color:#1d65ad}
     .textarea{height:76px;border:1px solid #bfc8d4;background:white;border-radius:2px;padding:8px 10px;color:#5f6b7a}
     .form-grid.compact .textarea{height:64px}
     .enum{font-size:12px;color:#1d65ad;background:#eef6ff;border:1px solid #b8d7ff;padding:5px 7px;margin-top:4px}
@@ -184,9 +189,9 @@
         <div class="search compact">
           <label><span>导入批次号</span><div class="field-box"><div class="input">支持模糊查询</div><div class="limit">文本，最多50字符；非必填。</div></div></label>
           <label><span>批次名称</span><div class="field-box"><div class="input">支持模糊查询</div><div class="limit">文本，最多50字符；非必填。</div></div></label>
-          <label><span>来源平台</span><div class="field-box"><div class="select">创新<b>⌄</b></div><div class="enum">枚举：租赁 / 分期 / 大平台 / 创新</div><div class="limit">默认选中创新。</div></div></label>
-          <label><span>业务类型</span><div class="field-box"><div class="select">请选择业务类型<b>⌄</b></div><div class="enum">枚举：租赁 / 分期 / 其他</div><div class="limit">本期默认租赁。</div></div></label>
-          <label><span>导入状态</span><div class="field-box"><div class="select">请选择导入状态<b>⌄</b></div><div class="enum">枚举：待上传 / 导入中 / 导入成功 / 部分成功 / 导入失败 / 已取消</div><div class="limit">按批次状态筛选。</div></div></label>
+          <label><span>来源平台</span><div class="field-box"><div class="select" data-options="全部|租赁|分期|大平台|创新">创新<b>⌄</b></div><div class="enum">枚举：全部 / 租赁 / 分期 / 大平台 / 创新</div><div class="limit">默认选中创新。</div></div></label>
+          <label><span>业务类型</span><div class="field-box"><div class="select" data-options="全部|租赁|分期|其他">请选择业务类型<b>⌄</b></div><div class="enum">枚举：全部 / 租赁 / 分期 / 其他</div><div class="limit">本期默认租赁。</div></div></label>
+          <label><span>导入状态</span><div class="field-box"><div class="select" data-options="全部|待上传|导入中|导入成功|部分成功|导入失败|已取消">请选择导入状态<b>⌄</b></div><div class="enum">枚举：全部 / 待上传 / 导入中 / 导入成功 / 部分成功 / 导入失败 / 已取消</div><div class="limit">按批次状态筛选。</div></div></label>
           <label><span>导入时间</span><div class="field-box"><div class="input">开始时间 - 结束时间</div><div class="limit">日期范围；精确到秒。</div></div></label>
           <div class="search-actions"><button class="primary">查询</button><button>重置</button></div>
         </div>
@@ -223,10 +228,10 @@
         <div class="notice">填写批次基础信息后上传资产明细和材料包。模板以 V1.1 为准：按上报模型请求载体拆分Sheet，并在“字段映射说明”中补充校验说明和示例。</div>
         <div class="form-grid compact">
           <label><span>批次名称</span><div class="field-box"><div class="input">例：创新租赁旧合同批次01</div><div class="limit">必填，2-50字符；同一天允许重名但建议避免重复。</div></div></label>
-          <label><span>来源平台</span><div class="field-box"><div class="select">创新<b>⌄</b></div><div class="enum">枚举：租赁 / 分期 / 大平台 / 创新</div><div class="limit">默认选中创新。</div></div></label>
-          <label><span>业务类型</span><div class="field-box"><div class="select">租赁<b>⌄</b></div><div class="enum">枚举：租赁 / 分期 / 其他</div><div class="limit">本期默认租赁。</div></div></label>
-          <label><span>导入规则</span><div class="field-box"><div class="select">创新租赁旧合同<b>⌄</b></div><div class="enum">创新租赁旧合同 / 创新租赁新合同</div><div class="limit">必填；决定材料规则、合同必传项和模板口径。</div></div></label>
-          <label><span>债权主体</span><div class="field-box"><div class="select">请选择债权主体<b>⌄</b></div><div class="limit">必填；用于诉讼主体、要素表和报表统计。</div></div></label>
+          <label><span>来源平台</span><div class="field-box"><div class="select" data-options="租赁|分期|大平台|创新">创新<b>⌄</b></div><div class="enum">枚举：租赁 / 分期 / 大平台 / 创新</div><div class="limit">默认选中创新。</div></div></label>
+          <label><span>业务类型</span><div class="field-box"><div class="select" data-options="租赁|分期|其他">租赁<b>⌄</b></div><div class="enum">枚举：租赁 / 分期 / 其他</div><div class="limit">本期默认租赁。</div></div></label>
+          <label><span>导入规则</span><div class="field-box"><div class="select" data-options="创新租赁旧合同|创新租赁新合同">创新租赁旧合同<b>⌄</b></div><div class="enum">创新租赁旧合同 / 创新租赁新合同</div><div class="limit">必填；决定材料规则、合同必传项和模板口径。</div></div></label>
+          <label><span>债权主体</span><div class="field-box"><div class="select" data-options="青年优品租赁主体|创新业务资产主体|大平台资产主体|分期业务资产主体|外部资产方">请选择债权主体<b>⌄</b></div><div class="enum">青年优品租赁主体 / 创新业务资产主体 / 大平台资产主体 / 分期业务资产主体 / 外部资产方</div><div class="limit">必填；用于诉讼主体、要素表和报表统计。</div></div></label>
           <label><span>债权总额</span><div class="field-box"><div class="input">例：12036800.00</div><div class="limit">必填，金额字段；保留2位小数，不允许负数。</div></div></label>
           <label><span>债权对价</span><div class="field-box"><div class="input">例：8425760.00</div><div class="limit">必填，金额字段；不允许大于债权总额。</div></div></label>
           <label><span>备注</span><div class="field-box"><div class="textarea">记录本批次数据来源、业务口径或特殊说明</div><div class="limit">非必填，最多200字符。</div></div></label>
@@ -267,10 +272,10 @@
         <div class="summary compact"><div class="card">导入成功<b>1,268</b></div><div class="card">导入失败<b>12</b></div><div class="card">材料待补传<b>22</b></div></div>
         <div class="search compact">
           <label><span>订单编号</span><div class="field-box"><div class="input">loanNo，支持模糊查询</div><div class="limit">最多50字符。</div></div></label>
-          <label><span>导入结果</span><div class="field-box"><div class="select">全部<b>⌄</b></div><div class="enum">枚举：导入成功 / 导入失败</div></div></label>
-          <label><span>材料状态</span><div class="field-box"><div class="select">全部<b>⌄</b></div><div class="enum">完整 / 材料待补传 / 未上传</div></div></label>
+          <label><span>导入结果</span><div class="field-box"><div class="select" data-options="全部|导入成功|导入失败">全部<b>⌄</b></div><div class="enum">枚举：全部 / 导入成功 / 导入失败</div></div></label>
+          <label><span>材料状态</span><div class="field-box"><div class="select" data-options="全部|完整|材料待补传|未上传">全部<b>⌄</b></div><div class="enum">全部 / 完整 / 材料待补传 / 未上传</div></div></label>
           <label><span>客户姓名</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
-          <label><span>失败原因</span><div class="field-box"><div class="select">请选择失败原因<b>⌄</b></div><div class="enum">必填缺失 / 枚举错误 / 金额异常 / 主续关系异常 / 必传材料缺失</div></div></label>
+          <label><span>失败原因</span><div class="field-box"><div class="select" data-options="全部|必填缺失|枚举错误|日期格式错误|金额异常|主续关系异常|订单状态不允许|必传材料缺失|材料命名错误|文件解析失败|重复订单">请选择失败原因<b>⌄</b></div><div class="enum">全部 / 必填缺失 / 枚举错误 / 日期格式错误 / 金额异常 / 主续关系异常 / 订单状态不允许 / 必传材料缺失 / 材料命名错误 / 文件解析失败 / 重复订单</div></div></label>
           <div class="search-actions"><button class="primary">查询</button><button>重置</button></div>
         </div>
         <div class="toolbar"><a class="btn primary" href="./result_detail.xlsx" download="法诉案件导入_导入结果明细.xlsx" onclick="showToast('已下载所选订单明细')">下载</a><button class="primary" data-action="open-supplement">批量补传</button><span class="tag info">勾选订单后下载；未勾选时默认下载当前筛选结果</span></div>
@@ -295,7 +300,7 @@
           <label><span>批次号</span><div class="field-box"><div class="input" id="supplementBatchNo">DR202606100001</div></div></label>
           <label><span>订单编号</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
           <label><span>客户姓名</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
-          <label><span>处理级别</span><div class="field-box"><div class="select">全部<b>⌄</b></div><div class="enum">必传 / 建议传</div></div></label>
+          <label><span>处理级别</span><div class="field-box"><div class="select" data-options="全部|必传|建议传">全部<b>⌄</b></div><div class="enum">全部 / 必传 / 建议传</div></div></label>
           <label><span>上传时间</span><div class="field-box"><div class="input">开始时间 - 结束时间</div></div></label>
           <div class="search-actions"><button class="primary">查询</button><button>重置</button></div>
         </div>
@@ -362,9 +367,9 @@
       <section class="anno-block">
         <h3>搜索条件要求</h3>
         <p><b>1.</b>导入批次号、批次名称：支持模糊查询，最多50字符。</p>
-        <p><b>2.</b>来源平台：租赁、分期、大平台、创新；默认选中创新。</p>
-        <p><b>3.</b>业务类型：枚举筛选，本期默认租赁。</p>
-        <p><b>4.</b>导入状态：待上传、导入中、导入成功、部分成功、导入失败、已取消。</p>
+        <p><b>2.</b>来源平台：全部、租赁、分期、大平台、创新；默认选中创新。</p>
+        <p><b>3.</b>业务类型：全部、租赁、分期、其他；本期默认租赁。</p>
+        <p><b>4.</b>导入状态：全部、待上传、导入中、导入成功、部分成功、导入失败、已取消。</p>
         <p><b>5.</b>导入时间：按开始时间和结束时间筛选，精确到秒。</p>
       </section>
       <section class="anno-block">
@@ -425,9 +430,9 @@
         <h3>字段要求</h3>
         <p><b>1.</b>批次名称：必填，2-50字符，建议能区分业务批次。</p>
         <p><b>2.</b>来源平台：租赁、分期、大平台、创新；默认选中创新。</p>
-        <p><b>3.</b>业务类型：本期默认租赁。</p>
+        <p><b>3.</b>业务类型：租赁、分期、其他；本期默认租赁。</p>
         <p><b>4.</b>导入规则：创新租赁旧合同、创新租赁新合同；需与模板中的合同模式保持一致。</p>
-        <p><b>5.</b>债权主体：导入前必填，缺失不允许生成案件。</p>
+        <p><b>5.</b>债权主体：青年优品租赁主体、创新业务资产主体、大平台资产主体、分期业务资产主体、外部资产方；导入前必填，缺失不允许生成案件。</p>
         <p><b>6.</b>债权总额：必填，金额格式，保留2位小数，不允许负数；用于批次层面债权规模统计。</p>
         <p><b>7.</b>债权对价：必填，金额格式，保留2位小数，不允许负数，且不能大于债权总额。</p>
         <p><b>8.</b>备注：非必填，最多200字符。</p>
@@ -447,9 +452,9 @@
       <section class="anno-block">
         <h3>搜索条件要求</h3>
         <p><b>1.</b>订单编号、客户姓名：支持模糊查询。</p>
-        <p><b>2.</b>导入结果：导入成功、导入失败。</p>
-        <p><b>3.</b>材料状态：完整、材料待补传、未上传。</p>
-        <p><b>4.</b>失败原因：必填缺失、枚举错误、金额异常、主续关系异常、必传材料缺失。</p>
+        <p><b>2.</b>导入结果：全部、导入成功、导入失败。</p>
+        <p><b>3.</b>材料状态：全部、完整、材料待补传、未上传。</p>
+        <p><b>4.</b>失败原因：全部、必填缺失、枚举错误、日期格式错误、金额异常、主续关系异常、订单状态不允许、必传材料缺失、材料命名错误、文件解析失败、重复订单。</p>
         <p><b>5.</b>不展示服务商和逾期阶段筛选，避免和后续委外管理混淆。</p>
       </section>
     </div>
@@ -468,7 +473,7 @@
         <h3>搜索条件要求</h3>
         <p><b>1.</b>批次号：默认加载从导入详情或批次列表传递过来的批次号，支持手工调整。</p>
         <p><b>2.</b>订单编号、客户姓名：支持模糊查询。</p>
-        <p><b>3.</b>处理级别：必传、建议传。</p>
+        <p><b>3.</b>处理级别：全部、必传、建议传。</p>
         <p><b>4.</b>上传时间：按材料上传时间范围筛选。</p>
         <p><b>5.</b>来源平台、材料类型、材料状态、处理人不放在筛选区，避免筛选项过重。</p>
         <p><b>6.</b>必传缺失会影响材料导出/诉讼推单；建议传缺失只做提示，不阻断主流程。</p>
@@ -624,10 +629,10 @@
       <div class="form-grid" style="grid-template-columns:1fr 1fr;padding:0">
         <label><span>订单编号</span><div class="field-box"><div class="input" id="materialLoanNo">26012915050167612328</div></div></label>
         <label><span>客户姓名</span><div class="field-box"><div class="input" id="materialCustomer">黄丽</div></div></label>
-        <label><span>主续订单</span><div class="field-box"><div class="select" id="materialRelation">续租订单<b>⌄</b></div></div></label>
-        <label><span>材料项</span><div class="field-box"><div class="select" id="materialType">电子签章授权书<b>⌄</b></div><div class="enum">电子签章授权书 / 租赁服务合同 / 合同附件 / 担保合同(诉讼) / 担保合同(金量-汕尾) / 担保补充约定2-中卫雅安 / 身份证正面 / 身份证反面 / 活体识别照 / 路由详情图 / 运单信息图 / 签收底单图 / 电子存根图 / 运单图 / 快递照片</div></div></label>
-        <label><span>上传方式</span><div class="field-box"><div class="select">单订单上传<b>⌄</b></div><div class="enum">单订单上传 / 批量上传材料包 / 未匹配材料绑定</div></div></label>
-        <label><span>材料规则</span><div class="field-box"><div class="select">创新租赁旧合同材料规则<b>⌄</b></div></div></label>
+        <label><span>主续订单</span><div class="field-box"><div class="select" id="materialRelation" data-options="主订单|续租订单">续租订单<b>⌄</b></div><div class="enum">主订单 / 续租订单</div></div></label>
+        <label><span>材料项</span><div class="field-box"><div class="select" id="materialType" data-options="电子签章授权书|租赁服务合同|租赁服务合同(个体户)|合同附件|担保合同(诉讼)|担保合同(金量-汕尾)|担保合同(金量-大同)|担保合同(金量-中卫)|担保补充约定1|担保补充约定2-中卫雅安|担保补充约定3|身份证正面|身份证反面|活体识别照|路由详情图|运单信息图|签收底单图|电子存根图|运单图|快递照片">电子签章授权书<b>⌄</b></div><div class="enum">电子签章授权书 / 租赁服务合同 / 租赁服务合同(个体户) / 合同附件 / 担保合同(诉讼) / 担保合同(金量-汕尾) / 担保合同(金量-大同) / 担保合同(金量-中卫) / 担保补充约定1 / 担保补充约定2-中卫雅安 / 担保补充约定3 / 身份证正面 / 身份证反面 / 活体识别照 / 路由详情图 / 运单信息图 / 签收底单图 / 电子存根图 / 运单图 / 快递照片</div></div></label>
+        <label><span>上传方式</span><div class="field-box"><div class="select" data-options="单订单上传|批量上传材料包|未匹配材料绑定">单订单上传<b>⌄</b></div><div class="enum">单订单上传 / 批量上传材料包 / 未匹配材料绑定</div></div></label>
+        <label><span>材料规则</span><div class="field-box"><div class="select" data-options="创新租赁旧合同材料规则|创新租赁新合同材料规则|通用身份材料规则|物流建议材料规则">创新租赁旧合同材料规则<b>⌄</b></div><div class="enum">创新租赁旧合同材料规则 / 创新租赁新合同材料规则 / 通用身份材料规则 / 物流建议材料规则</div></div></label>
       </div>
       <div class="upload-zone" style="grid-template-columns:120px 1fr;margin:16px 0">
         <div class="upload-icon">↑</div>
@@ -649,7 +654,7 @@
     <div class="modal-body">
       <div class="form-grid" style="grid-template-columns:1fr 1fr;padding:0">
         <label><span>批次号</span><div class="field-box"><div class="input" id="batchSupplementNo">DR202606100001</div><div class="limit">默认加载当前页面批次号，可按业务需要调整。</div></div></label>
-        <label><span>处理场景</span><div class="field-box"><div class="select" id="batchSupplementScene">待补传材料清单<b>⌄</b></div><div class="limit" id="batchSupplementHint">当前页签建议优先上传材料，上传订单非必填。</div></div></label>
+        <label><span>处理场景</span><div class="field-box"><div class="select" id="batchSupplementScene" data-options="待补传材料清单|未匹配材料池">待补传材料清单<b>⌄</b></div><div class="enum">待补传材料清单 / 未匹配材料池</div><div class="limit" id="batchSupplementHint">当前页签建议优先上传材料，上传订单非必填。</div></div></label>
       </div>
       <div class="batch-upload-grid">
         <div class="upload-card">
@@ -846,6 +851,59 @@
   var batchUploadState = { order:false, material:false };
   var pendingBindRowNo = '';
   var editingDraft = false;
+  function getSelectText(select){
+    var clone = select.cloneNode(true);
+    clone.querySelectorAll('b,.select-menu').forEach(function(node){ node.remove(); });
+    return clone.textContent.trim();
+  }
+  function setSelectValue(select, value){
+    if(select){ select.innerHTML = value + '<b>⌄</b>'; }
+  }
+  function getSelectOptions(select){
+    var raw = select.getAttribute('data-options') || '';
+    if(!raw){
+      var enumNode = select.parentElement ? select.parentElement.querySelector('.enum') : null;
+      raw = enumNode ? enumNode.textContent.replace(/^枚举[:：]/,'') : '';
+      raw = raw.replace(/\s*\/\s*/g, '|').replace(/、/g, '|');
+    }
+    return raw.split('|').map(function(item){ return item.trim(); }).filter(Boolean);
+  }
+  function closeSelectMenus(except){
+    document.querySelectorAll('.select-menu').forEach(function(menu){
+      if(!except || !except.contains(menu)){ menu.remove(); }
+    });
+  }
+  function setupSelectDropdowns(){
+    document.querySelectorAll('.select').forEach(function(select){
+      if(select.getAttribute('data-select-ready') === '1'){ return; }
+      select.setAttribute('data-select-ready','1');
+      select.setAttribute('tabindex','0');
+      select.addEventListener('click', function(event){
+        event.stopPropagation();
+        var existing = select.querySelector('.select-menu');
+        closeSelectMenus(select);
+        if(existing){ existing.remove(); return; }
+        var options = getSelectOptions(select);
+        if(!options.length){ return; }
+        var current = getSelectText(select);
+        var menu = document.createElement('div');
+        menu.className = 'select-menu';
+        options.forEach(function(option){
+          var item = document.createElement('div');
+          item.className = 'select-option' + (option === current ? ' active' : '');
+          item.textContent = option;
+          item.addEventListener('click', function(e){
+            e.stopPropagation();
+            setSelectValue(select, option);
+            closeSelectMenus();
+          });
+          menu.appendChild(item);
+        });
+        select.appendChild(menu);
+      });
+    });
+  }
+  document.addEventListener('click', function(){ closeSelectMenus(); });
   function revealProcess(id){
     var idx = processOrder.indexOf(id);
     if(idx >= 0){ processLevel = Math.max(processLevel, idx + 1); }
@@ -1012,8 +1070,8 @@
     document.getElementById('materialTitle').innerText = title;
     document.getElementById('materialLoanNo').innerText = loanNo;
     document.getElementById('materialCustomer').innerText = customer;
-    document.getElementById('materialRelation').innerHTML = relation + '<b>⌄</b>';
-    document.getElementById('materialType').innerHTML = materialType + '<b>⌄</b>';
+    setSelectValue(document.getElementById('materialRelation'), relation);
+    setSelectValue(document.getElementById('materialType'), materialType);
     document.getElementById('materialFileName').innerText = loanNo === '批量上传' ? '材料包_创新租赁旧合同批次01.zip' : loanNo + '_' + materialType + '_01.jpg';
     openModal('materialModal');
   }
@@ -1027,14 +1085,14 @@
     document.getElementById('orderUploadStatus').className = 'tag gray';
     document.getElementById('materialUploadStatus').className = 'tag gray';
     if(currentSupplementTab === 'unmatched'){
-      document.getElementById('batchSupplementScene').innerHTML = '未匹配材料池<b>⌄</b>';
+      setSelectValue(document.getElementById('batchSupplementScene'), '未匹配材料池');
       document.getElementById('batchSupplementHint').innerText = '当前页签建议优先上传订单，上传材料非必填。';
       document.getElementById('orderUploadTip').innerText = '建议上传。用于把订单明细与当前系统中的未匹配材料做绑定。';
       document.getElementById('materialUploadTip').innerText = '非必填。若同时补充材料，系统会继续按命名规则自动识别。';
       document.getElementById('orderUploadStatus').innerText = '待上传';
       document.getElementById('materialUploadStatus').innerText = '非必填';
     }else{
-      document.getElementById('batchSupplementScene').innerHTML = '待补传材料清单<b>⌄</b>';
+      setSelectValue(document.getElementById('batchSupplementScene'), '待补传材料清单');
       document.getElementById('batchSupplementHint').innerText = '当前页签建议优先上传材料，上传订单非必填。';
       document.getElementById('orderUploadTip').innerText = '非必填。若材料需要新增订单信息，可同步上传订单明细。';
       document.getElementById('materialUploadTip').innerText = '建议上传。用于把材料与当前系统中的订单做绑定。';
@@ -1129,6 +1187,7 @@
     toast.classList.add('show');
     setTimeout(function(){ toast.classList.remove('show'); }, 1800);
   }
+  setupSelectDropdowns();
 </script>
 </body>
 </html>
