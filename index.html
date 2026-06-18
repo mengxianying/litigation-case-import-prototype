@@ -213,9 +213,9 @@
             </thead>
             <tbody>
               <tr id="draftBatchRow" style="display:none"><td>创新</td><td>DR202606150001</td><td>创新租赁旧合同批次草稿</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>-</td><td>-</td><td>-</td><td id="draftStatusCell"><span class="tag gray">待上传</span></td><td id="draftTimeCell">2026-06-15 10:20:00</td><td id="draftActionCell"><button class="text-link" onclick="continueDraft()">继续编辑</button> <button class="text-link danger-link" onclick="openDraftCancelModal()">取消</button></td></tr>
-              <tr><td>创新</td><td><button class="text-link" data-jump="detail">DR202606100001</button></td><td>创新租赁旧合同批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>1280</td><td>1268</td><td>12</td><td><span class="tag warn">部分成功</span></td><td>2026-06-10 20:15:32</td><td><button class="text-link" data-jump="detail">详情</button> <button class="text-link" data-jump="supplement">补传</button> <a class="text-link" href="./problem_detail.xlsx" download="法诉案件导入_问题明细.xlsx">错误明细</a></td></tr>
+              <tr><td>创新</td><td><button class="text-link" data-jump="detail">DR202606100001</button></td><td>创新租赁旧合同批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>1280</td><td>1268</td><td>12</td><td><span class="tag warn">部分成功</span></td><td>2026-06-10 20:15:32</td><td><button class="text-link" data-jump="detail">详情</button> <button class="text-link" data-jump="supplement">补传</button> <a class="text-link" href="javascript:void(0)" onclick="downloadOnlineFile('problem');return false;">错误明细</a></td></tr>
               <tr><td>创新</td><td>DR202606090006</td><td>创新租赁新合同批次02</td><td>租赁</td><td>3,680,500.00</td><td>2,576,350.00</td><td>386</td><td>386</td><td>0</td><td><span class="tag ok">导入成功</span></td><td>2026-06-09 18:42:10</td><td><button class="text-link" data-jump="detail">详情</button></td></tr>
-              <tr><td>创新</td><td>DR202606090005</td><td>创新租赁旧合同批次03</td><td>租赁</td><td>4,982,000.00</td><td>3,487,400.00</td><td>518</td><td>0</td><td>518</td><td><span class="tag bad">导入失败</span></td><td>2026-06-09 11:08:55</td><td><button class="text-link" data-jump="detail">详情</button> <a class="text-link" href="./problem_detail.xlsx" download="法诉案件导入_问题明细.xlsx">错误明细</a></td></tr>
+              <tr><td>创新</td><td>DR202606090005</td><td>创新租赁旧合同批次03</td><td>租赁</td><td>4,982,000.00</td><td>3,487,400.00</td><td>518</td><td>0</td><td>518</td><td><span class="tag bad">导入失败</span></td><td>2026-06-09 11:08:55</td><td><button class="text-link" data-jump="detail">详情</button> <a class="text-link" href="javascript:void(0)" onclick="downloadOnlineFile('problem');return false;">错误明细</a></td></tr>
             </tbody>
           </table>
           <div class="pagination"><span>共 55 条</span><button>‹</button><span class="active">1</span><span>2</span><span>3</span><span>4</span><span>5</span><button>›</button><span>10条/页</span></div>
@@ -242,7 +242,7 @@
             <div class="toolbar" style="padding:0 0 10px">
               <button class="primary" onclick="restoreImportFile('assetFileRow','资产明细已上传')">上传资产明细</button>
               <button onclick="restoreImportFile('materialPackageRow','材料包已上传')">上传材料包</button>
-              <a class="btn primary" href="./template_v1_1.xlsx" download="法诉案件导入_Excel模板及文件格式说明V1.1.xlsx">下载模板</a>
+              <a class="btn primary" href="javascript:void(0)" onclick="downloadOnlineFile('template');return false;">下载模板</a>
               <button class="text-link" onclick="openModal('templateModal')">模板说明</button>
             </div>
             <div class="limit">资产明细和材料包均为必传：资产明细支持xlsx/xls，建议不超过50M；材料包支持zip/rar/7z。材料包一级文件夹：订单编号_姓名；二级材料文件：订单编号_材料名称_序号.扩展名。</div>
@@ -278,7 +278,7 @@
           <label><span>失败原因</span><div class="field-box"><div class="select" data-options="全部|必填缺失|枚举错误|日期格式错误|金额异常|主续关系异常|订单状态不允许|必传材料缺失|材料命名错误|文件解析失败|重复订单">请选择失败原因<b>⌄</b></div><div class="enum">全部 / 必填缺失 / 枚举错误 / 日期格式错误 / 金额异常 / 主续关系异常 / 订单状态不允许 / 必传材料缺失 / 材料命名错误 / 文件解析失败 / 重复订单</div></div></label>
           <div class="search-actions"><button class="primary">查询</button><button>重置</button></div>
         </div>
-        <div class="toolbar"><a class="btn primary" href="./result_detail.xlsx" download="法诉案件导入_导入结果明细.xlsx" onclick="showToast('已下载所选订单明细')">下载</a><button class="primary" data-action="open-supplement">批量补传</button><span class="tag info">勾选订单后下载；未勾选时默认下载当前筛选结果</span></div>
+        <div class="toolbar"><a class="btn primary" href="javascript:void(0)" onclick="downloadOnlineFile('result');showToast('已下载所选订单明细');return false;">下载</a><button class="primary" data-action="open-supplement">批量补传</button><span class="tag info">勾选订单后下载；未勾选时默认下载当前筛选结果</span></div>
         <div class="table-wrap">
           <table>
             <thead><tr><th style="width:54px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th>订单编号</th><th>客户姓名</th><th>业务类型</th><th>主续订单</th><th>债权金额</th><th>逾期天数</th><th>导入结果</th><th>材料状态</th><th style="width:180px">操作</th></tr></thead>
@@ -307,7 +307,7 @@
         <div class="summary compact"><div class="card">待处理订单<b>42</b></div><div class="card">必传缺失项<b>18</b></div><div class="card">建议补传项<b>31</b></div><div class="card">待匹配文件<b>9</b></div></div>
         <div class="toolbar">
           <button class="primary" onclick="openBatchSupplementModal()">批量补传</button>
-          <a class="btn primary" href="./problem_detail.xlsx" download="法诉案件导入_问题明细.xlsx">下载</a>
+          <a class="btn primary" href="javascript:void(0)" onclick="downloadOnlineFile('problem');return false;">下载</a>
           <button onclick="showToast('材料状态已刷新')">刷新材料状态</button>
           <span class="spacer"></span>
           <button class="text-link" onclick="openModal('supplementHelpModal')">补传处理说明</button>
@@ -563,7 +563,7 @@
       </div>
       <div class="submit-note">模板只填写资产方能提供的订单明细和材料文件信息；页面来源平台、导入规则、债转主体、债权总额、债权对价和批次号由法诉系统维护。续租订单导入时需同步准备首租订单或确认系统内已有首租订单。</div>
     </div>
-    <div class="modal-foot"><button onclick="closeModal('templateModal')">关闭</button><a class="btn primary" href="./template_v1_1.xlsx" download="法诉案件导入_Excel模板及文件格式说明V1.1.xlsx">下载模板</a></div>
+    <div class="modal-foot"><button onclick="closeModal('templateModal')">关闭</button><a class="btn primary" href="javascript:void(0)" onclick="downloadOnlineFile('template');return false;">下载模板</a></div>
   </div>
 </div>
 
@@ -1160,6 +1160,94 @@
     if(!table){ return; }
     table.querySelectorAll('tbody input[type="checkbox"]').forEach(function(item){
       item.checked = source.checked;
+    });
+  }
+  function downloadOnlineFile(type){
+    var configs = {
+      template: {
+        name: '法诉案件导入_Excel模板及文件格式说明V1.1.xls',
+        sheets: [
+          {name:'订单基础信息', rows:[
+            ['订单编号','父订单编号','合同开始日期','合同结束日期','订单模式','客户姓名','证件号码','手机号','债权金额','租赁本金','逾期天数','订单状态','买断状态','备注'],
+            ['26012915050167612327','','2025-01-01','2025-12-31','旧合同模式','张三','420100199001011234','13800000000','12036.80','9999.00','61','还款中','未买断','示例数据，导入时删除后填写真实数据']
+          ]},
+          {name:'收货人信息', rows:[
+            ['订单编号','收货人姓名','收货人手机号','收货省','收货市','收货区县','收货详细地址'],
+            ['26012915050167612327','张三','13800000000','湖北省','武汉市','江汉区','示例地址1号']
+          ]},
+          {name:'快递信息', rows:[
+            ['订单编号','物流公司','运单号','发货时间','签收时间','物流状态'],
+            ['26012915050167612327','顺丰速运','SF1234567890','2025-01-02 10:00:00','2025-01-03 18:00:00','已签收']
+          ]},
+          {name:'联系人信息', rows:[
+            ['订单编号','联系人姓名','联系人关系','联系人手机号'],
+            ['26012915050167612327','李四','朋友','13900000000']
+          ]},
+          {name:'文件材料清单', rows:[
+            ['订单编号','客户姓名','订单模式','材料名称','处理级别','命名示例','说明'],
+            ['26012915050167612327','张三','旧合同模式','租赁服务合同','必传','26012915050167612327_租赁服务合同_01.pdf','旧合同模式合同必传'],
+            ['26012915050167612327','张三','新合同模式','融资租赁合同','必传','26012915050167612327_融资租赁合同_01.pdf','新合同模式合同必传'],
+            ['26012915050167612327','张三','通用','身份证正面','必传','26012915050167612327_身份证正面_01.jpg','身份证正反面均必传'],
+            ['26012915050167612327','张三','通用','身份证反面','必传','26012915050167612327_身份证反面_01.jpg','身份证正反面均必传'],
+            ['26012915050167612327','张三','通用','活体识别照','必传','26012915050167612327_活体识别照_01.jpg','活体识别照必传'],
+            ['26012915050167612327','张三','通用','路由详情图','建议传','26012915050167612327_路由详情图_01.jpg','物流材料建议传']
+          ]},
+          {name:'字段映射说明', rows:[
+            ['字段名称','是否必填','校验说明','示例'],
+            ['订单编号','是','文本格式；同一来源平台不可重复；各Sheet通过订单编号关联','26012915050167612327'],
+            ['父订单编号','续租必填','续租订单必须填写父订单编号；父订单需同批次导入或系统已存在','26012915050167610001'],
+            ['合同开始日期','是','日期格式yyyy-MM-dd','2025-01-01'],
+            ['合同结束日期','是','日期格式yyyy-MM-dd','2025-12-31'],
+            ['订单模式','是','仅允许：旧合同模式、新合同模式','旧合同模式'],
+            ['债权金额','是','金额保留2位小数，不填写货币符号','12036.80']
+          ]}
+        ]
+      },
+      result: {
+        name: '法诉案件导入_导入结果明细.xls',
+        sheets: [{name:'导入结果明细', rows:[
+          ['批次号','订单编号','客户姓名','业务类型','主续订单','债权金额','导入结果','材料状态','失败原因','处理建议'],
+          ['DR202606100001','26012915050167612327','张三','租赁','主订单','12036.80','导入成功','完整','','可进入待委外管理继续处理'],
+          ['DR202606100001','26012915050167612328','黄丽','租赁','续租订单','9420.00','导入成功','材料待补传','身份证反面缺失','进入批量补传页面补传材料'],
+          ['DR202606100001','26012915050167612330','李明','租赁','续租订单','7290.00','导入失败','未上传','父订单编号未找到','补充首租订单后重新导入']
+        ]}]
+      },
+      problem: {
+        name: '法诉案件导入_问题明细.xls',
+        sheets: [{name:'问题明细', rows:[
+          ['批次号','订单编号','客户姓名','业务类型','问题类型','问题字段','当前值','问题说明','处理建议'],
+          ['DR202606100001','26012915050167612328','黄丽','租赁','必传材料缺失','身份证反面','','身份证反面为必传材料','补传：26012915050167612328_身份证反面_01.jpg'],
+          ['DR202606100001','26012915050167612330','李明','租赁','主续关系异常','父订单编号','26012915050167612000','父订单未同批次导入，系统内也不存在','补充首租订单后重新导入'],
+          ['DR202606100001','','','租赁','材料命名错误','文件名','身份证照片.jpg','无法从文件名识别订单编号','按订单编号_材料名称_序号.扩展名重命名后补传']
+        ]}]
+      }
+    };
+    var config = configs[type] || configs.template;
+    var html = '<html><head><meta charset="utf-8"></head><body>';
+    config.sheets.forEach(function(sheet, sheetIndex){
+      html += '<table><caption>' + escapeCell(sheet.name) + '</caption>';
+      sheet.rows.forEach(function(row, rowIndex){
+        html += '<tr>';
+        row.forEach(function(cell){
+          html += (rowIndex === 0 ? '<th>' : '<td>') + escapeCell(cell) + (rowIndex === 0 ? '</th>' : '</td>');
+        });
+        html += '</tr>';
+      });
+      html += '</table>';
+      if(sheetIndex < config.sheets.length - 1){ html += '<br style="mso-data-placement:same-cell;">'; }
+    });
+    html += '</body></html>';
+    var blob = new Blob(['\ufeff' + html], {type:'application/vnd.ms-excel;charset=utf-8'});
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = config.name;
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(function(){ URL.revokeObjectURL(link.href); link.remove(); }, 500);
+  }
+  function escapeCell(value){
+    return String(value == null ? '' : value).replace(/[&<>"']/g, function(ch){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
     });
   }
   var pendingDeleteFileRowId = '';
