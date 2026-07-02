@@ -107,6 +107,25 @@
     .split{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;padding:0 20px 18px}
     .box{border:1px solid #e1e5ea;background:#fff;border-radius:4px;padding:12px}
     .box h4{margin:0 0 10px;font-size:15px}
+    .config-block{padding:0 20px 18px}
+    .config-head{height:42px;display:flex;align-items:center;justify-content:space-between;color:#333;font-weight:600}
+    .config-head small{font-weight:400;color:#6b7280}
+    .inline-input{height:30px;border:1px solid #bfc8d4;background:white;border-radius:2px;padding:5px 8px;color:#5f6b7a;text-align:left}
+    .inline-select{height:30px;border:1px solid #bfc8d4;background:white;border-radius:2px;padding:5px 8px;color:#5f6b7a;text-align:left}
+    .table-select{height:28px;min-width:88px;padding:4px 8px;justify-content:center;white-space:nowrap}
+    .table-select .select-menu{top:30px}
+    .readonly-code{color:#6b7280;background:#f6f7f9;border-radius:3px;padding:4px 6px;font-family:Menlo,Consolas,monospace;font-size:12px}
+    .chip-box{display:flex;gap:6px;flex-wrap:wrap;align-items:center;min-height:30px;text-align:left}
+    .chip{display:inline-flex;align-items:center;height:26px;background:#eef6ff;border:1px solid #b8d7ff;color:#1d65ad;border-radius:3px;padding:0 8px;white-space:nowrap}
+    .chip b{font-weight:400;color:#8095ad;margin-left:6px}
+    .chip em{font-style:normal;font-size:12px;border-radius:9px;padding:1px 5px;margin-left:6px;background:#ffecec;color:#d93026}
+    .chip em.optional{background:#eef2f6;color:#64748b}
+    .chip-add{display:inline-flex;align-items:center;height:26px;border:1px dashed #8db5df;color:#1d65ad;background:#fff;border-radius:3px;padding:0 8px}
+    .field-tabs{display:flex;gap:8px;margin:0 0 12px;flex-wrap:wrap}
+    .field-tabs span{height:28px;display:inline-flex;align-items:center;border:1px solid #a9c8ea;color:#1d65ad;border-radius:3px;padding:0 9px;background:#fff}
+    .field-tabs span.active{background:#1d65ad;color:#fff}
+    .logic-list{margin:0;padding-left:18px;color:#4b5563}
+    .logic-list li{margin:5px 0}
     .mini-tabs{display:flex;gap:8px;margin:6px 0 12px}
     .mini-tabs span{border:1px solid #a9c8ea;color:#1d65ad;border-radius:4px;padding:5px 10px}
     .mini-tabs span.active{background:#1d65ad;color:white}
@@ -159,6 +178,7 @@
       <li>□ 法诉材料管理</li>
       <li class="sub">法诉材料</li>
       <li class="sub active">案件导入管理</li>
+      <li class="sub">导入规则配置</li>
       <li class="sub">诉讼信息</li>
       <li>▤ 财务工作台</li>
       <li>▤ 三方管理</li>
@@ -189,7 +209,7 @@
         <div class="search compact">
           <label><span>导入批次号</span><div class="field-box"><div class="input">支持模糊查询</div><div class="limit">文本，最多50字符；非必填。</div></div></label>
           <label><span>批次名称</span><div class="field-box"><div class="input">支持模糊查询</div><div class="limit">文本，最多50字符；非必填。</div></div></label>
-          <label><span>来源平台</span><div class="field-box"><div class="select" data-options="全部|租赁|分期|大平台|创新">创新<b>⌄</b></div><div class="enum">枚举：全部 / 租赁 / 分期 / 大平台 / 创新</div><div class="limit">默认选中创新。</div></div></label>
+          <label><span>外部资产方</span><div class="field-box"><div class="select" data-options="全部|创新租赁|外部资产方A|外部资产方B|其他">创新租赁<b>⌄</b></div><div class="enum">枚举：全部 / 创新租赁 / 外部资产方A / 外部资产方B / 其他</div><div class="limit">默认选中创新租赁。</div></div></label>
           <label><span>业务类型</span><div class="field-box"><div class="select" data-options="全部|租赁|分期|其他">请选择业务类型<b>⌄</b></div><div class="enum">枚举：全部 / 租赁 / 分期 / 其他</div><div class="limit">本期默认租赁。</div></div></label>
           <label><span>批次状态</span><div class="field-box"><div class="select" data-options="全部|草稿|导入中|导入成功|部分成功|导入失败|已取消">请选择批次状态<b>⌄</b></div><div class="enum">枚举：全部 / 草稿 / 导入中 / 导入成功 / 部分成功 / 导入失败 / 已取消</div><div class="limit">按批次生命周期筛选；草稿表示已保存但未点击导入。</div></div></label>
           <label><span>导入时间</span><div class="field-box"><div class="input">开始时间 - 结束时间</div><div class="limit">日期范围；精确到秒。</div></div></label>
@@ -200,22 +220,23 @@
       <div class="panel">
         <div class="toolbar">
           <button class="primary" data-action="start-import">新建导入</button>
+          <button data-jump="ruleConfig">导入规则配置</button>
           <button onclick="openModal('templateModal')">模板说明</button>
           <span class="spacer"></span>
           <button class="text-link" onclick="openModal('batchStateModal')">批次状态说明</button>
-          <span class="tag info">默认来源平台：创新</span>
+          <span class="tag info">默认外部资产方：创新租赁</span>
         </div>
         <div class="summary compact"><div class="card">资产总数<b>3,758</b></div><div class="card">导入成功<b>3,229</b></div><div class="card">导入失败<b>529</b></div></div>
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th style="width:110px">来源平台</th><th style="width:150px">导入批次号</th><th style="width:210px">批次名称</th><th>业务类型</th><th>债权总额</th><th>债权对价</th><th>资产总数</th><th>导入成功</th><th>导入失败</th><th>批次状态</th><th style="width:160px">导入时间</th><th style="width:190px">操作</th></tr>
+              <tr><th style="width:130px">外部资产方</th><th style="width:150px">导入批次号</th><th style="width:210px">批次名称</th><th>业务类型</th><th>债权总额</th><th>债权对价</th><th>资产总数</th><th>导入成功</th><th>导入失败</th><th>批次状态</th><th style="width:160px">导入时间</th><th style="width:190px">操作</th></tr>
             </thead>
             <tbody>
-              <tr id="draftBatchRow" style="display:none"><td>创新</td><td>DR202606150001</td><td>创新租赁旧合同批次草稿</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>-</td><td>-</td><td>-</td><td id="draftStatusCell"><span class="tag gray">草稿</span></td><td id="draftTimeCell">2026-06-15 10:20:00</td><td id="draftActionCell"><button class="text-link" onclick="continueDraft()">继续编辑</button> <button class="text-link danger-link" onclick="openDraftCancelModal()">取消</button></td></tr>
-              <tr><td>创新</td><td><button class="text-link" data-jump="detail">DR202606100001</button></td><td>创新租赁旧合同批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>1280</td><td>1268</td><td>12</td><td><span class="tag warn">部分成功</span></td><td>2026-06-10 20:15:32</td><td><button class="text-link" data-jump="detail">详情</button> <button class="text-link" data-jump="supplement">补传</button> <a class="text-link" href="./法诉案件导入_问题明细.xlsx" download>错误明细</a></td></tr>
-              <tr><td>创新</td><td>DR202606090006</td><td>创新租赁新合同批次02</td><td>租赁</td><td>3,680,500.00</td><td>2,576,350.00</td><td>386</td><td>386</td><td>0</td><td><span class="tag ok">导入成功</span></td><td>2026-06-09 18:42:10</td><td><button class="text-link" data-jump="detail">详情</button></td></tr>
-              <tr><td>创新</td><td>DR202606090005</td><td>创新租赁旧合同批次03</td><td>租赁</td><td>4,982,000.00</td><td>3,487,400.00</td><td>518</td><td>0</td><td>518</td><td><span class="tag bad">导入失败</span></td><td>2026-06-09 11:08:55</td><td><button class="text-link" data-jump="detail">详情</button> <a class="text-link" href="./法诉案件导入_问题明细.xlsx" download>错误明细</a></td></tr>
+              <tr id="draftBatchRow" style="display:none"><td>创新租赁</td><td>DR202606150001</td><td>创新租赁通用规则批次草稿</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>-</td><td>-</td><td>-</td><td id="draftStatusCell"><span class="tag gray">草稿</span></td><td id="draftTimeCell">2026-06-15 10:20:00</td><td id="draftActionCell"><button class="text-link" onclick="continueDraft()">继续编辑</button> <button class="text-link danger-link" onclick="openDraftCancelModal()">取消</button></td></tr>
+              <tr><td>创新租赁</td><td><button class="text-link" data-jump="detail">DR202606100001</button></td><td>创新租赁通用规则批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>1280</td><td>1268</td><td>12</td><td><span class="tag warn">部分成功</span></td><td>2026-06-10 20:15:32</td><td><button class="text-link" data-jump="detail">详情</button> <button class="text-link" data-jump="supplement">补传</button> <a class="text-link" href="./法诉案件导入_问题明细.xlsx" download>错误明细</a></td></tr>
+              <tr><td>外部资产方A</td><td>DR202606090006</td><td>外部资产方A租赁批次02</td><td>租赁</td><td>3,680,500.00</td><td>2,576,350.00</td><td>386</td><td>386</td><td>0</td><td><span class="tag ok">导入成功</span></td><td>2026-06-09 18:42:10</td><td><button class="text-link" data-jump="detail">详情</button></td></tr>
+              <tr><td>外部资产方B</td><td>DR202606090005</td><td>外部资产方B分期批次03</td><td>分期</td><td>4,982,000.00</td><td>3,487,400.00</td><td>518</td><td>0</td><td>518</td><td><span class="tag bad">导入失败</span></td><td>2026-06-09 11:08:55</td><td><button class="text-link" data-jump="detail">详情</button> <a class="text-link" href="./法诉案件导入_问题明细.xlsx" download>错误明细</a></td></tr>
             </tbody>
           </table>
           <div class="pagination"><span>共 55 条</span><button>‹</button><span class="active">1</span><span>2</span><span>3</span><span>4</span><span>5</span><button>›</button><span>10条/页</span></div>
@@ -223,14 +244,140 @@
       </div>
     </section>
 
+    <section id="ruleConfig" class="tab-page">
+      <div class="panel">
+        <div class="panel-title">查询条件 <small>按外部资产方维护导入字段和材料校验规则</small></div>
+        <div class="search compact">
+          <label><span>资产方名称</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
+          <label><span>业务类型</span><div class="field-box"><div class="select" data-options="全部|租赁|分期|其他">全部<b>⌄</b></div><div class="enum">全部 / 租赁 / 分期 / 其他</div></div></label>
+          <label><span>规则状态</span><div class="field-box"><div class="select" data-options="全部|启用|停用|草稿">全部<b>⌄</b></div><div class="enum">全部 / 启用 / 停用 / 草稿</div></div></label>
+          <div class="search-actions"><button class="primary">查询</button><button>重置</button></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="toolbar">
+          <button class="primary" data-action="new-rule">新建规则</button>
+          <a class="btn primary" href="./法诉案件导入_Excel模板及文件格式说明V1.3_通用规则修订版.xlsx" download>下载V1.3模板</a>
+          <span class="spacer"></span>
+          <span class="tag info">一期按标准Excel列头导入，材料名称按资产方规则配置</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>规则名称</th><th>资产方名称</th><th>业务类型</th><th>启用字段数</th><th>必填材料名数</th><th>非必填材料名数</th><th>规则状态</th><th>最后更新时间</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td>创新租赁通用规则</td><td>创新租赁</td><td>租赁</td><td>72</td><td>6</td><td>6</td><td><span class="tag ok">启用</span></td><td>2026-06-28 18:30:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link" data-action="copy-rule">复制</button></td></tr>
+              <tr><td>外部资产方A租赁规则</td><td>外部资产方A</td><td>租赁</td><td>38</td><td>5</td><td>4</td><td><span class="tag ok">启用</span></td><td>2026-06-28 18:42:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link" data-action="copy-rule">复制</button></td></tr>
+              <tr><td>外部资产方B分期规则</td><td>外部资产方B</td><td>分期</td><td>31</td><td>4</td><td>3</td><td><span class="tag gray">草稿</span></td><td>2026-06-28 17:20:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link danger-link">停用</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="ruleEdit" class="tab-page">
+      <div class="panel">
+        <div class="panel-title"><span id="ruleEditTitle">新建导入规则</span><small>配置后供新建导入页面选择使用</small></div>
+        <div class="notice">导入规则用于维护不同资产方的模板字段启用范围、必填口径、合同名称和材料名称。一期暂不支持资产方自定义Excel表头，资产方需按系统下载模板填写；草稿规则不允许被新建导入选择，启用规则只影响新发起的导入批次。</div>
+        <div class="form-grid compact">
+          <label><span>规则名称</span><div class="field-box"><div class="input" id="ruleNameInput">外部资产方A租赁规则</div><div class="limit">必填，2-50字符；同一资产方下不可重复。</div></div></label>
+          <label><span>外部资产方</span><div class="field-box"><div class="select" data-options="创新租赁|外部资产方A|外部资产方B|其他">外部资产方A<b>⌄</b></div><div class="enum">创新租赁 / 外部资产方A / 外部资产方B / 其他</div><div class="limit">必填；用于匹配导入规则和材料命名。</div></div></label>
+          <label><span>业务类型</span><div class="field-box"><div class="select" data-options="租赁|分期|其他">租赁<b>⌄</b></div><div class="enum">租赁 / 分期 / 其他</div></div></label>
+          <label><span>规则状态</span><div class="field-box"><div class="select" data-options="草稿|启用|停用">草稿<b>⌄</b></div><div class="enum">草稿 / 启用 / 停用</div><div class="limit">保存并启用后，新建导入页面才可选择。</div></div></label>
+          <label><span>适用说明</span><div class="field-box"><div class="textarea">用于外部资产方A租赁旧/新合同订单导入，合同名称和材料名称按本页配置识别。</div><div class="limit">非必填，最多200字符。</div></div></label>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="config-block">
+          <div class="config-head">
+            <span>Excel模板字段配置</span>
+            <div>
+              <button data-action="add-field-rule">新增字段配置</button>
+              <button onclick="showToast('已按字段名称检查重复映射')">检查重复</button>
+            </div>
+          </div>
+          <div class="field-tabs"><span class="active">订单基础信息</span><span>订单扩展信息</span><span>商品信息</span><span>用户信息</span><span>账单信息</span><span>收货信息</span><span>物流信息</span><span>联系人信息</span><span>文件信息</span></div>
+          <div class="table-wrap" style="padding:0">
+            <table id="fieldRuleTable">
+              <thead><tr><th style="width:180px">工作表</th><th style="width:150px">Excel列名</th><th style="width:140px">系统字段</th><th style="width:112px">启用</th><th style="width:90px">必填</th><th>校验说明</th><th style="width:90px">操作</th></tr></thead>
+              <tbody>
+                <tr><td>loanInfo-订单基础信息</td><td>订单编号</td><td><span class="readonly-code">loanNo</span></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否">是<b>⌄</b></div></td><td><div class="inline-input">文本格式；同一外部资产方不可重复；一期只识别模板列头“订单编号”</div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+                <tr><td>loanInfo-订单基础信息</td><td>父订单编号</td><td><span class="readonly-code">parentLoanNo</span></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否">否<b>⌄</b></div></td><td><div class="inline-input">首租为空；续租订单必填父订单编号</div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+                <tr><td>loanInfo-订单基础信息</td><td>合同开始日期</td><td><span class="readonly-code">rentStartDate</span></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否">是<b>⌄</b></div></td><td><div class="inline-input">格式yyyy-MM-dd</div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+                <tr><td>loanInfo-订单基础信息</td><td>合同结束日期</td><td><span class="readonly-code">rentEndDate</span></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否">是<b>⌄</b></div></td><td><div class="inline-input">格式yyyy-MM-dd，不早于合同开始日期</div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+                <tr><td>loanInfo-订单基础信息</td><td>债权金额</td><td><span class="readonly-code">claimAmt</span></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否">是<b>⌄</b></div></td><td><div class="inline-input">资产进入法诉前的债权金额，保留2位小数</div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+                <tr><td>loanInfo-订单基础信息</td><td>剩余保证金</td><td><span class="readonly-code">surplusBondAmt</span></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否">是<b>⌄</b></div></td><td><div class="inline-input">金额保留2位小数，允许为0</div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+                <tr><td>loanExtInfo-订单扩展信息</td><td>平台来源</td><td><span class="readonly-code">platformName</span></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否">是<b>⌄</b></div></td><td><div class="inline-input">资产方明细中的渠道/平台字段，例如支付宝；不是页面筛选字段</div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+                <tr><td>userInfo-用户信息</td><td>客户姓名</td><td><span class="readonly-code">username</span></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否">是<b>⌄</b></div></td><td><div class="inline-input">不脱敏，前后空格自动去除</div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+                <tr><td>系统生成字段</td><td>已还金额/剩余未还</td><td><span class="readonly-code">-</span></td><td><div class="select table-select" data-options="不启用">不启用<b>⌄</b></div></td><td><div class="select table-select" data-options="否">否<b>⌄</b></div></td><td><div class="inline-input">订单入池后由法诉还款流水生成，不在导入模板中维护</div></td><td>-</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="config-block">
+          <div class="config-head">
+            <span>材料规则配置</span>
+            <div>
+              <button data-action="add-material-rule">新增材料规则</button>
+              <button onclick="openModal('materialCheckModal')">检查材料配置</button>
+            </div>
+          </div>
+          <div class="table-wrap" style="padding:0">
+            <table id="materialRuleTable">
+              <thead><tr><th style="width:150px">标准材料类别</th><th style="width:110px">证据大类</th><th>资产方材料名称</th><th style="width:260px">必填材料名称</th><th style="width:120px">文件类型</th><th>缺失处理</th><th style="width:90px">操作</th></tr></thead>
+              <tbody>
+                <tr><td><div class="inline-select">电子签章授权书</div></td><td>合同材料</td><td><div class="chip-box"><span class="chip">电子签章授权书<em>必填</em><b>×</b></span><span class="chip">验签截图<em>必填</em><b>×</b></span><span class="chip">签署证明<em class="optional">非必填</em><b>×</b></span><span class="chip-add" onclick="openMaterialNameModal('电子签章授权书', this)">+ 添加名称</span></div></td><td><span class="tag bad">电子签章授权书</span> <span class="tag bad">验签截图</span></td><td><div class="select table-select" data-options="pdf|jpg/png|pdf/jpg/png|xlsx|zip">pdf/jpg/png<b>⌄</b></div></td><td><div class="select" data-options="必填名称缺失进入补传清单并阻断|仅提示不阻断">必填名称缺失进入补传清单并阻断<b>⌄</b></div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+                <tr><td><div class="inline-select">主合同</div></td><td>合同材料</td><td><div class="chip-box"><span class="chip">租赁服务合同<em>必填</em><b>×</b></span><span class="chip">融资租赁合同<em>必填</em><b>×</b></span><span class="chip">手机租赁协议<em class="optional">非必填</em><b>×</b></span><span class="chip-add" onclick="openMaterialNameModal('主合同', this)">+ 添加名称</span></div></td><td><span class="tag bad">租赁服务合同</span> <span class="tag bad">融资租赁合同</span></td><td><div class="select table-select" data-options="pdf|jpg/png|pdf/jpg/png|xlsx|zip">pdf<b>⌄</b></div></td><td><div class="select" data-options="必填名称缺失进入补传清单并阻断|仅提示不阻断">必填名称缺失进入补传清单并阻断<b>⌄</b></div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+                <tr><td><div class="inline-select">合同附件</div></td><td>合同材料</td><td><div class="chip-box"><span class="chip">合同附件<em>必填</em><b>×</b></span><span class="chip">补充协议<em class="optional">非必填</em><b>×</b></span><span class="chip">还款协议<em class="optional">非必填</em><b>×</b></span><span class="chip-add" onclick="openMaterialNameModal('合同附件', this)">+ 添加名称</span></div></td><td><span class="tag bad">合同附件</span></td><td><div class="select table-select" data-options="pdf|jpg/png|pdf/jpg/png|xlsx|zip">pdf<b>⌄</b></div></td><td><div class="select" data-options="必填名称缺失进入补传清单并阻断|仅提示不阻断">必填名称缺失进入补传清单并阻断<b>⌄</b></div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+                <tr><td><div class="inline-select">身份证正面</div></td><td>身份材料</td><td><div class="chip-box"><span class="chip">身份证正面<em>必填</em><b>×</b></span><span class="chip">身份证人像面<em>必填</em><b>×</b></span><span class="chip-add" onclick="openMaterialNameModal('身份证正面', this)">+ 添加名称</span></div></td><td><span class="tag bad">身份证正面</span> <span class="tag bad">身份证人像面</span></td><td><div class="select table-select" data-options="jpg/png|pdf|pdf/jpg/png">jpg/png<b>⌄</b></div></td><td><div class="select" data-options="必填名称缺失进入补传清单并阻断|仅提示不阻断">必填名称缺失进入补传清单并阻断<b>⌄</b></div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+                <tr><td><div class="inline-select">身份证反面</div></td><td>身份材料</td><td><div class="chip-box"><span class="chip">身份证反面<em>必填</em><b>×</b></span><span class="chip">身份证国徽面<em>必填</em><b>×</b></span><span class="chip-add" onclick="openMaterialNameModal('身份证反面', this)">+ 添加名称</span></div></td><td><span class="tag bad">身份证反面</span> <span class="tag bad">身份证国徽面</span></td><td><div class="select table-select" data-options="jpg/png|pdf|pdf/jpg/png">jpg/png<b>⌄</b></div></td><td><div class="select" data-options="必填名称缺失进入补传清单并阻断|仅提示不阻断">必填名称缺失进入补传清单并阻断<b>⌄</b></div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+                <tr><td><div class="inline-select">活体识别照</div></td><td>身份材料</td><td><div class="chip-box"><span class="chip">活体识别照<em>必填</em><b>×</b></span><span class="chip">人脸识别照<em>必填</em><b>×</b></span><span class="chip-add" onclick="openMaterialNameModal('活体识别照', this)">+ 添加名称</span></div></td><td><span class="tag bad">活体识别照</span> <span class="tag bad">人脸识别照</span></td><td><div class="select table-select" data-options="jpg/png|pdf|pdf/jpg/png">jpg/png<b>⌄</b></div></td><td><div class="select" data-options="必填名称缺失进入补传清单并阻断|仅提示不阻断">必填名称缺失进入补传清单并阻断<b>⌄</b></div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+                <tr><td><div class="inline-select">物流材料</div></td><td>物流材料</td><td><div class="chip-box"><span class="chip">路由详情图<em class="optional">非必填</em><b>×</b></span><span class="chip">运单信息图<em class="optional">非必填</em><b>×</b></span><span class="chip">签收底单图<em class="optional">非必填</em><b>×</b></span><span class="chip-add" onclick="openMaterialNameModal('物流材料', this)">+ 添加名称</span></div></td><td><span class="tag gray">无</span></td><td><div class="select table-select" data-options="jpg/png/pdf|pdf|jpg/png|zip">jpg/png/pdf<b>⌄</b></div></td><td><div class="select" data-options="仅提示不阻断|必填名称缺失进入补传清单并阻断">仅提示不阻断<b>⌄</b></div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="split" style="padding-top:16px">
+          <div class="box">
+            <h4>还款计划生成规则</h4>
+            <ul class="logic-list">
+              <li>外部导入前还款计划默认合并为一期，期数默认1。</li>
+              <li>应还金额默认取订单基础信息中的债权金额。</li>
+              <li>已还金额不作为资产方导入字段，入池后由法诉系统还款流水累计。</li>
+              <li>剩余未还不作为资产方导入字段，入池后按债权金额-法诉入池后已还金额计算；导入后不再新增罚息。</li>
+            </ul>
+          </div>
+          <div class="box">
+            <h4>启用前检查</h4>
+            <table>
+              <thead><tr><th>检查项</th><th>规则</th><th>结果</th></tr></thead>
+              <tbody>
+                <tr><td>基础信息</td><td>规则名称、外部资产方、业务类型必填</td><td><span class="tag ok">通过</span></td></tr>
+                <tr><td>模板字段</td><td>订单编号、债权金额、剩余保证金必须启用并配置为必填</td><td><span class="tag ok">通过</span></td></tr>
+                <tr><td>材料规则</td><td>主合同、身份证正反面、活体识别照必须至少配置一个必填材料名称</td><td><span class="tag ok">通过</span></td></tr>
+                <tr><td>命名规则</td><td>同一资产方材料名称不可重复到多个标准类别</td><td><span class="tag warn">需确认</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="footer-btns"><button data-action="cancel-rule-edit">取消</button><button data-action="save-rule-draft">保存草稿</button><button class="primary" data-action="save-rule-enable">保存并启用</button></div>
+      </div>
+    </section>
+
     <section id="newImport" class="tab-page">
       <div class="panel">
-        <div class="notice">填写批次基础信息后上传资产明细和材料包。模板以 V1.1 为准：按业务数据类型拆分为多个工作表，并在“字段映射说明”中补充校验说明和填写示例。</div>
+        <div class="notice">填写批次基础信息后上传资产明细和材料包。模板以 V1.3 为准：一期要求资产方按系统下载模板填写中文列头；合同和材料按“标准材料类别+资产方材料名称”配置识别。</div>
         <div class="form-grid compact">
-          <label><span>批次名称</span><div class="field-box"><div class="input">例：创新租赁旧合同批次01</div><div class="limit">必填，2-50字符；同一天允许重名但建议避免重复。</div></div></label>
-          <label><span>来源平台</span><div class="field-box"><div class="select" data-options="租赁|分期|大平台|创新">创新<b>⌄</b></div><div class="enum">枚举：租赁 / 分期 / 大平台 / 创新</div><div class="limit">默认选中创新。</div></div></label>
+          <label><span>批次名称</span><div class="field-box"><div class="input">例：外部资产方A租赁批次01</div><div class="limit">必填，2-50字符；同一天允许重名但建议避免重复。</div></div></label>
+          <label><span>外部资产方</span><div class="field-box"><div class="select" data-options="创新租赁|外部资产方A|外部资产方B|其他">创新租赁<b>⌄</b></div><div class="enum">创新租赁 / 外部资产方A / 外部资产方B / 其他</div><div class="limit">必填；用于匹配模板字段配置和材料规则。</div></div></label>
           <label><span>业务类型</span><div class="field-box"><div class="select" data-options="租赁|分期|其他">租赁<b>⌄</b></div><div class="enum">枚举：租赁 / 分期 / 其他</div><div class="limit">本期默认租赁。</div></div></label>
-          <label><span>导入规则</span><div class="field-box"><div class="select" data-options="创新租赁旧合同|创新租赁新合同">创新租赁旧合同<b>⌄</b></div><div class="enum">创新租赁旧合同 / 创新租赁新合同</div><div class="limit">必填；决定材料规则、合同必传项和模板口径。</div></div></label>
+          <label><span>导入规则</span><div class="field-box"><div class="select" data-options="创新租赁通用规则|外部资产方A租赁规则|外部资产方B分期规则">创新租赁通用规则<b>⌄</b></div><div class="enum">创新租赁通用规则 / 外部资产方A租赁规则 / 外部资产方B分期规则</div><div class="limit">必填；决定模板字段启用范围、合同类别、材料名称和必填规则。</div></div></label>
           <label><span>债转主体</span><div class="field-box"><div class="select" data-options="襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)|武汉小优企业管理有限公司(91420115MACRLKWJ1A)|聊城小优企业管理有限公司(91371521MADE8H2E0)|天津小优企业管理有限公司(91120116MABU4DAY3Q)|沈阳小优企业管理有限公司(91210104MACDQBF833)|石家庄晓优企业管理有限公司(91130108MADAANMX3XG)|宁波小优企业管理有限公司(91330212MA2CK8RF79)|扬州轩翔电子商务有限公司(91370211MA3QN39G8W)">请选择债转主体<b>⌄</b></div><div class="enum">襄阳鸿飞企业管理有限公司(91420600MACTCY0R42) / 武汉小优企业管理有限公司(91420115MACRLKWJ1A) / 聊城小优企业管理有限公司(91371521MADE8H2E0) / 天津小优企业管理有限公司(91120116MABU4DAY3Q) / 沈阳小优企业管理有限公司(91210104MACDQBF833) / 石家庄晓优企业管理有限公司(91130108MADAANMX3XG) / 宁波小优企业管理有限公司(91330212MA2CK8RF79) / 扬州轩翔电子商务有限公司(91370211MA3QN39G8W)</div><div class="limit">必填；沿用待委外管理“债转主体”枚举，用于诉讼主体、要素表和报表统计。</div></div></label>
           <label><span>债权总额</span><div class="field-box"><div class="input">例：12036800.00</div><div class="limit">必填，金额字段；保留2位小数，不允许负数。</div></div></label>
           <label><span>债权对价</span><div class="field-box"><div class="input">例：8425760.00</div><div class="limit">必填，金额字段；不允许大于债权总额。</div></div></label>
@@ -242,24 +389,24 @@
             <div class="toolbar" style="padding:0 0 10px">
               <button class="primary" onclick="restoreImportFile('assetFileRow','资产明细已上传')">上传资产明细</button>
               <button onclick="restoreImportFile('materialPackageRow','材料包已上传')">上传材料包</button>
-              <a class="btn primary" href="./法诉案件导入_Excel模板及文件格式说明V1.1.xlsx" download>下载模板</a>
+              <a class="btn primary" href="./法诉案件导入_Excel模板及文件格式说明V1.3_通用规则修订版.xlsx" download>下载模板</a>
               <button class="text-link" onclick="openModal('templateModal')">模板说明</button>
             </div>
             <div class="limit">资产明细和材料包均为必传：资产明细支持xlsx/xls，建议不超过50M；材料包支持zip/rar/7z。材料包一级文件夹：订单编号_姓名；二级材料文件：订单编号_材料名称_序号.扩展名。</div>
             <div class="file-row" id="assetFileRow">
-              <div class="file-meta"><span class="file-name">法诉案件导入_Excel模板及文件格式说明V1.1.xlsx</span><span class="tag ok">上传成功</span></div>
-              <div class="file-actions"><button class="text-link danger-link" onclick="openDeleteFileModal('assetFileRow','法诉案件导入_Excel模板及文件格式说明V1.1.xlsx')">删除</button></div>
+              <div class="file-meta"><span class="file-name">法诉案件导入_Excel模板及文件格式说明V1.3_通用规则修订版.xlsx</span><span class="tag ok">上传成功</span></div>
+              <div class="file-actions"><button class="text-link danger-link" onclick="openDeleteFileModal('assetFileRow','法诉案件导入_Excel模板及文件格式说明V1.3_通用规则修订版.xlsx')">删除</button></div>
             </div>
             <div class="file-row" id="materialPackageRow">
-              <div class="file-meta"><span class="file-name">创新租赁旧合同批次01_材料包.zip</span><span class="tag ok">上传成功</span></div>
-              <div class="file-actions"><button class="text-link danger-link" onclick="openDeleteFileModal('materialPackageRow','创新租赁旧合同批次01_材料包.zip')">删除</button></div>
+              <div class="file-meta"><span class="file-name">外部资产方A租赁批次01_材料包.zip</span><span class="tag ok">上传成功</span></div>
+              <div class="file-actions"><button class="text-link danger-link" onclick="openDeleteFileModal('materialPackageRow','外部资产方A租赁批次01_材料包.zip')">删除</button></div>
             </div>
           </div>
         </div>
         <div class="rule-strip">
-          <div class="rule-item"><b>字段校验</b><span>必填、枚举、日期、金额、手机号、身份证号按字段映射说明执行；错误进入下载明细。</span></div>
-          <div class="rule-item"><b>主续订单</b><span>续租订单必须填写父订单编号；父订单需同批次导入或系统已存在。</span></div>
-          <div class="rule-item"><b>材料规则</b><span>订单模式为旧/新合同模式，决定合同材料必传范围；通用身份材料均必传。</span></div>
+          <div class="rule-item"><b>字段配置</b><span>一期按系统模板中文列头导入；规则只配置字段启用、必填和校验说明，无法提供的非必填字段允许为空。</span></div>
+          <div class="rule-item"><b>核心金额</b><span>资产方导入只校验债权金额、剩余保证金；已还金额和剩余未还由订单入池后的法诉还款流水产生。</span></div>
+          <div class="rule-item"><b>材料配置</b><span>标准材料类别固定；资产方合同名称、材料名称和是否必填在规则配置中维护。</span></div>
           <div class="rule-item"><b>上传拦截</b><span>资产明细和材料包缺少任一项时，不生成导入详情，不生成案件和材料记录。</span></div>
         </div>
         <div class="footer-btns"><button data-action="cancel-edit">取消</button><button data-action="save-draft">保存草稿</button><button class="primary" data-action="submit-import">导入</button></div>
@@ -268,24 +415,24 @@
 
     <section id="detail" class="tab-page">
       <div class="panel">
-        <div class="notice">导入批次 DR202606100001，当前状态：部分成功。续租订单导入时必须同时导入首租订单，且需满足系统内未完结、未归还、未买断的准入条件。</div>
+        <div class="notice">导入批次 DR202606100001，当前状态：部分成功。外部导入订单的催收详情页仅保留核心金额：债权金额、已还金额、剩余未还、剩余保证金；导入前还款计划合并为一期。</div>
         <div class="summary compact"><div class="card">导入成功<b>1,268</b></div><div class="card">导入失败<b>12</b></div><div class="card">材料待补传<b>22</b></div></div>
         <div class="search compact">
           <label><span>订单编号</span><div class="field-box"><div class="input">loanNo，支持模糊查询</div><div class="limit">最多50字符。</div></div></label>
           <label><span>导入结果</span><div class="field-box"><div class="select" data-options="全部|导入成功|导入失败">全部<b>⌄</b></div><div class="enum">枚举：全部 / 导入成功 / 导入失败</div></div></label>
           <label><span>材料状态</span><div class="field-box"><div class="select" data-options="全部|完整|材料待补传|未上传">全部<b>⌄</b></div><div class="enum">全部 / 完整 / 材料待补传 / 未上传</div></div></label>
           <label><span>客户姓名</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
-          <label><span>失败原因</span><div class="field-box"><div class="select" data-options="全部|必填缺失|枚举错误|日期格式错误|金额异常|主续关系异常|订单状态不允许|必传材料缺失|材料命名错误|文件解析失败|重复订单">请选择失败原因<b>⌄</b></div><div class="enum">全部 / 必填缺失 / 枚举错误 / 日期格式错误 / 金额异常 / 主续关系异常 / 订单状态不允许 / 必传材料缺失 / 材料命名错误 / 文件解析失败 / 重复订单</div></div></label>
+          <label><span>失败原因</span><div class="field-box"><div class="select" data-options="全部|必填缺失|枚举错误|日期格式错误|金额异常|主续关系异常|订单状态不允许|必填材料缺失|材料命名错误|文件解析失败|重复订单">请选择失败原因<b>⌄</b></div><div class="enum">全部 / 必填缺失 / 枚举错误 / 日期格式错误 / 金额异常 / 主续关系异常 / 订单状态不允许 / 必填材料缺失 / 材料命名错误 / 文件解析失败 / 重复订单</div></div></label>
           <div class="search-actions"><button class="primary">查询</button><button>重置</button></div>
         </div>
         <div class="toolbar"><a class="btn primary" href="./法诉案件导入_导入结果明细.xlsx" download onclick="showToast('已下载所选订单明细')">下载</a><button class="primary" data-action="open-supplement">批量补传</button><span class="tag info">勾选订单后下载；未勾选时默认下载当前筛选结果</span></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th style="width:54px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th>订单编号</th><th>客户姓名</th><th>业务类型</th><th>主续订单</th><th>债权金额</th><th>逾期天数</th><th>导入结果</th><th>材料状态</th><th style="width:180px">操作</th></tr></thead>
+            <thead><tr><th style="width:54px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th>订单编号</th><th>客户姓名</th><th>业务类型</th><th>债权金额</th><th>已还金额</th><th>剩余未还</th><th>剩余保证金</th><th>导入结果</th><th>材料状态</th><th style="width:180px">操作</th></tr></thead>
             <tbody>
-              <tr><td><input type="checkbox" checked></td><td>26012915050167612327</td><td>张三</td><td>租赁</td><td>主订单</td><td>12,036.80</td><td>61</td><td><span class="tag ok">导入成功</span></td><td><span class="tag ok">完整</span></td><td><button class="text-link" onclick="openParseModal('26012915050167612327')">查看解析</button></td></tr>
-              <tr><td><input type="checkbox" checked></td><td>26012915050167612328</td><td>黄丽</td><td>租赁</td><td>续租订单</td><td>9,420.00</td><td>54</td><td><span class="tag ok">导入成功</span></td><td><span class="tag warn">材料待补传</span></td><td><button class="text-link" onclick="openParseModal('26012915050167612328')">查看解析</button> <button class="text-link" data-action="open-supplement">补传</button></td></tr>
-              <tr><td><input type="checkbox"></td><td>26012915050167612330</td><td>李明</td><td>租赁</td><td>续租订单</td><td>7,290.00</td><td>35</td><td><span class="tag bad">导入失败</span></td><td><span class="tag gray">未上传</span></td><td><button class="text-link" onclick="openParseModal('26012915050167612330')">查看解析</button> <button class="text-link" onclick="openFailureModal('26012915050167612330')">失败原因</button></td></tr>
+              <tr><td><input type="checkbox" checked></td><td>26012915050167612327</td><td>张三</td><td>租赁</td><td>12,036.80</td><td>0.00</td><td>12,036.80</td><td>259.05</td><td><span class="tag ok">导入成功</span></td><td><span class="tag ok">完整</span></td><td><button class="text-link" onclick="openParseModal('26012915050167612327')">查看解析</button></td></tr>
+              <tr><td><input type="checkbox" checked></td><td>26012915050167612328</td><td>黄丽</td><td>租赁</td><td>9,420.00</td><td>300.00</td><td>9,120.00</td><td>500.00</td><td><span class="tag ok">导入成功</span></td><td><span class="tag warn">材料待补传</span></td><td><button class="text-link" onclick="openParseModal('26012915050167612328')">查看解析</button> <button class="text-link" data-action="open-supplement">补传</button></td></tr>
+              <tr><td><input type="checkbox"></td><td>26012915050167612330</td><td>李明</td><td>租赁</td><td>7,290.00</td><td>0.00</td><td>7,290.00</td><td>0.00</td><td><span class="tag bad">导入失败</span></td><td><span class="tag gray">未上传</span></td><td><button class="text-link" onclick="openParseModal('26012915050167612330')">查看解析</button> <button class="text-link" onclick="openFailureModal('26012915050167612330')">失败原因</button></td></tr>
             </tbody>
           </table>
           <div class="pagination"><span>共 1,258 条</span><button>‹</button><span class="active">1</span><span>2</span><span>3</span><span>4</span><span>5</span><button>›</button><span>10条/页</span></div>
@@ -300,11 +447,11 @@
           <label><span>批次号</span><div class="field-box"><div class="input" id="supplementBatchNo">DR202606100001</div></div></label>
           <label><span>订单编号</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
           <label><span>客户姓名</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
-          <label><span>处理级别</span><div class="field-box"><div class="select" data-options="全部|必传|建议传">全部<b>⌄</b></div><div class="enum">全部 / 必传 / 建议传</div></div></label>
+          <label><span>材料要求</span><div class="field-box"><div class="select" data-options="全部|必填|非必填">全部<b>⌄</b></div><div class="enum">全部 / 必填 / 非必填</div></div></label>
           <label><span>上传时间</span><div class="field-box"><div class="input">开始时间 - 结束时间</div></div></label>
           <div class="search-actions"><button class="primary">查询</button><button>重置</button></div>
         </div>
-        <div class="summary compact"><div class="card">待处理订单<b>42</b></div><div class="card">必传缺失项<b>18</b></div><div class="card">建议补传项<b>31</b></div><div class="card">待匹配文件<b>9</b></div></div>
+        <div class="summary compact"><div class="card">待处理订单<b>42</b></div><div class="card">必填缺失项<b>18</b></div><div class="card">非必填提示项<b>31</b></div><div class="card">待匹配文件<b>9</b></div></div>
         <div class="toolbar">
           <button class="primary" onclick="openBatchSupplementModal()">批量补传</button>
           <a class="btn primary" href="./法诉案件导入_问题明细.xlsx" download>下载</a>
@@ -321,14 +468,14 @@
         <div id="missingPane" class="supp-pane active">
           <div class="table-wrap">
             <table>
-              <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th style="width:64px">序号</th><th>来源平台</th><th>订单编号</th><th>客户姓名</th><th>业务类型</th><th>主续订单</th><th>材料项</th><th>处理级别</th><th>当前状态</th><th>处理建议</th><th>操作</th></tr></thead>
+              <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th style="width:64px">序号</th><th>外部资产方</th><th>订单编号</th><th>客户姓名</th><th>业务类型</th><th>主续订单</th><th>材料项</th><th>材料要求</th><th>当前状态</th><th>处理建议</th><th>操作</th></tr></thead>
               <tbody>
-                <tr><td><input type="checkbox"></td><td>1</td><td>创新</td><td>26012915050167612328</td><td>黄丽</td><td>租赁</td><td>续租订单</td><td>电子签章授权书</td><td><span class="tag bad">必传</span></td><td><span class="tag bad">待补传</span></td><td>新旧合同模式均必传</td><td><button class="text-link" onclick="openMaterialModal('26012915050167612328','黄丽','电子签章授权书','续租订单')">上传</button></td></tr>
-                <tr><td><input type="checkbox"></td><td>2</td><td>创新</td><td>26012915050167612331</td><td>周强</td><td>租赁</td><td>主订单</td><td>租赁服务合同</td><td><span class="tag bad">必传</span></td><td><span class="tag bad">待补传</span></td><td>新旧合同模式均必传，不允许导出法诉材料</td><td><button class="text-link" onclick="openMaterialModal('26012915050167612331','周强','租赁服务合同','主订单')">上传</button></td></tr>
-                <tr><td><input type="checkbox"></td><td>3</td><td>创新</td><td>26012915050167612334</td><td>陈晨</td><td>租赁</td><td>主订单</td><td>合同附件</td><td><span class="tag bad">必传</span></td><td><span class="tag bad">待补传</span></td><td>新旧合同模式均必传</td><td><button class="text-link" onclick="openMaterialModal('26012915050167612334','陈晨','合同附件','主订单')">上传</button></td></tr>
-                <tr><td><input type="checkbox"></td><td>4</td><td>创新</td><td>26012915050167612335</td><td>刘洋</td><td>租赁</td><td>续租订单</td><td>担保合同(金量-汕尾)</td><td><span class="tag bad">必传</span></td><td><span class="tag bad">待补传</span></td><td>创新旧合同模式必传合同</td><td><button class="text-link" onclick="openMaterialModal('26012915050167612335','刘洋','担保合同(金量-汕尾)','续租订单')">上传</button></td></tr>
-                <tr><td><input type="checkbox"></td><td>5</td><td>创新</td><td>26012915050167612336</td><td>赵敏</td><td>租赁</td><td>主订单</td><td>担保补充约定2-中卫雅安</td><td><span class="tag bad">必传</span></td><td><span class="tag bad">待补传</span></td><td>创新新合同模式必传合同</td><td><button class="text-link" onclick="openMaterialModal('26012915050167612336','赵敏','担保补充约定2-中卫雅安','主订单')">上传</button></td></tr>
-                <tr><td><input type="checkbox"></td><td>6</td><td>创新</td><td>26012915050167612337</td><td>孙杰</td><td>租赁</td><td>续租订单</td><td>路由详情图</td><td><span class="tag warn">建议传</span></td><td><span class="tag warn">待补传</span></td><td>物流材料建议传</td><td><button class="text-link" onclick="openMaterialModal('26012915050167612337','孙杰','路由详情图','续租订单')">上传</button></td></tr>
+                <tr><td><input type="checkbox"></td><td>1</td><td>创新租赁</td><td>26012915050167612328</td><td>黄丽</td><td>租赁</td><td>续租订单</td><td>电子签章授权书</td><td><span class="tag bad">必填</span></td><td><span class="tag bad">待补传</span></td><td>该材料名称在规则中标记为必填</td><td><button class="text-link" onclick="openMaterialModal('26012915050167612328','黄丽','电子签章授权书','续租订单')">上传</button></td></tr>
+                <tr><td><input type="checkbox"></td><td>2</td><td>外部资产方A</td><td>26012915050167612331</td><td>周强</td><td>租赁</td><td>主订单</td><td>主合同</td><td><span class="tag bad">必填</span></td><td><span class="tag bad">待补传</span></td><td>规则中租赁服务合同/融资租赁合同配置为必填</td><td><button class="text-link" onclick="openMaterialModal('26012915050167612331','周强','主合同','主订单')">上传</button></td></tr>
+                <tr><td><input type="checkbox"></td><td>3</td><td>外部资产方A</td><td>26012915050167612334</td><td>陈晨</td><td>租赁</td><td>主订单</td><td>合同附件</td><td><span class="tag bad">必填</span></td><td><span class="tag bad">待补传</span></td><td>规则中合同附件配置为必填材料名称</td><td><button class="text-link" onclick="openMaterialModal('26012915050167612334','陈晨','合同附件','主订单')">上传</button></td></tr>
+                <tr><td><input type="checkbox"></td><td>4</td><td>外部资产方A</td><td>26012915050167612335</td><td>刘洋</td><td>租赁</td><td>续租订单</td><td>担保合同</td><td><span class="tag warn">非必填</span></td><td><span class="tag warn">待补传</span></td><td>该材料名称在规则中标记为非必填，仅提示补充</td><td><button class="text-link" onclick="openMaterialModal('26012915050167612335','刘洋','担保合同','续租订单')">上传</button></td></tr>
+                <tr><td><input type="checkbox"></td><td>5</td><td>外部资产方B</td><td>26012915050167612336</td><td>赵敏</td><td>租赁</td><td>主订单</td><td>债权转让材料</td><td><span class="tag warn">非必填</span></td><td><span class="tag warn">待补传</span></td><td>适配买断或外部资产方债权转让场景</td><td><button class="text-link" onclick="openMaterialModal('26012915050167612336','赵敏','债权转让材料','主订单')">上传</button></td></tr>
+                <tr><td><input type="checkbox"></td><td>6</td><td>创新租赁</td><td>26012915050167612337</td><td>孙杰</td><td>租赁</td><td>续租订单</td><td>路由详情图</td><td><span class="tag warn">非必填</span></td><td><span class="tag warn">待补传</span></td><td>物流材料非必填，有则完善证据链</td><td><button class="text-link" onclick="openMaterialModal('26012915050167612337','孙杰','路由详情图','续租订单')">上传</button></td></tr>
               </tbody>
             </table>
           </div>
@@ -337,13 +484,13 @@
         <div id="unmatchedPane" class="supp-pane">
           <div class="table-wrap">
             <table>
-              <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th style="width:64px">序号</th><th>来源平台</th><th>文件名</th><th>识别结果</th><th>所属订单</th><th>客户姓名</th><th>业务类型</th><th>主续订单</th><th>当前状态</th><th>操作</th></tr></thead>
+              <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th style="width:64px">序号</th><th>外部资产方</th><th>文件名</th><th>识别结果</th><th>所属订单</th><th>客户姓名</th><th>业务类型</th><th>主续订单</th><th>当前状态</th><th>操作</th></tr></thead>
               <tbody>
-                <tr id="unmatchedRow1"><td><input type="checkbox"></td><td>1</td><td>创新</td><td>26012915050167612327_身份证正面_01.jpg</td><td>识别到材料类型，未识别订单归属</td><td id="unmatchedOrder1">-</td><td>-</td><td>租赁</td><td>-</td><td id="unmatchedStatus1"><span class="tag info">待匹配</span></td><td id="unmatchedAction1"><button class="text-link" onclick="openBindOrderModal('1','26012915050167612327_身份证正面_01.jpg')">绑定订单</button> <button class="text-link danger-link" onclick="deleteUnmatchedRow('unmatchedRow1')">删除</button></td></tr>
-                <tr id="unmatchedRow2"><td><input type="checkbox"></td><td>2</td><td>创新</td><td>26012915050167612327_租赁服务合同_01.pdf</td><td>识别到材料类型，未识别订单归属</td><td id="unmatchedOrder2">-</td><td>-</td><td>租赁</td><td>-</td><td id="unmatchedStatus2"><span class="tag info">待匹配</span></td><td id="unmatchedAction2"><button class="text-link" onclick="openBindOrderModal('2','26012915050167612327_租赁服务合同_01.pdf')">绑定订单</button> <button class="text-link danger-link" onclick="deleteUnmatchedRow('unmatchedRow2')">删除</button></td></tr>
-                <tr id="unmatchedRow3"><td><input type="checkbox"></td><td>3</td><td>创新</td><td>26012915050167612338_担保补充约定2-中卫雅安_01.pdf</td><td>已人工绑定</td><td id="unmatchedOrder3">26012915050167612338</td><td>赵敏</td><td>租赁</td><td>主订单</td><td id="unmatchedStatus3"><span class="tag ok">已绑定</span></td><td id="unmatchedAction3"><button class="text-link" onclick="openBindOrderModal('3','26012915050167612338_担保补充约定2-中卫雅安_01.pdf')">重新绑定</button> <button class="text-link danger-link" onclick="deleteUnmatchedRow('unmatchedRow3')">删除</button></td></tr>
-                <tr id="unmatchedRow4"><td><input type="checkbox"></td><td>4</td><td>创新</td><td>26012915050167612339_担保合同(金量-汕尾)_01.pdf</td><td>订单不存在或已结清</td><td id="unmatchedOrder4">26012915050167612339</td><td>-</td><td>租赁</td><td>-</td><td id="unmatchedStatus4"><span class="tag bad">绑定失败</span></td><td id="unmatchedAction4"><button class="text-link" onclick="openBindOrderModal('4','26012915050167612339_担保合同(金量-汕尾)_01.pdf')">重新绑定</button> <button class="text-link danger-link" onclick="deleteUnmatchedRow('unmatchedRow4')">删除</button></td></tr>
-                <tr id="unmatchedRow5"><td><input type="checkbox"></td><td>5</td><td>创新</td><td>26012915050167612340_签收底单图_01.png</td><td>识别到物流材料，未识别订单归属</td><td id="unmatchedOrder5">-</td><td>-</td><td>租赁</td><td>-</td><td id="unmatchedStatus5"><span class="tag info">待匹配</span></td><td id="unmatchedAction5"><button class="text-link" onclick="openBindOrderModal('5','26012915050167612340_签收底单图_01.png')">绑定订单</button> <button class="text-link danger-link" onclick="deleteUnmatchedRow('unmatchedRow5')">删除</button></td></tr>
+                <tr id="unmatchedRow1"><td><input type="checkbox"></td><td>1</td><td>创新租赁</td><td>26012915050167612327_身份证正面_01.jpg</td><td>识别到材料类型，未识别订单归属</td><td id="unmatchedOrder1">-</td><td>-</td><td>租赁</td><td>-</td><td id="unmatchedStatus1"><span class="tag info">待匹配</span></td><td id="unmatchedAction1"><button class="text-link" onclick="openBindOrderModal('1','26012915050167612327_身份证正面_01.jpg')">绑定订单</button> <button class="text-link danger-link" onclick="deleteUnmatchedRow('unmatchedRow1')">删除</button></td></tr>
+                <tr id="unmatchedRow2"><td><input type="checkbox"></td><td>2</td><td>外部资产方A</td><td>26012915050167612327_借款合同_01.pdf</td><td>识别到主合同材料名称，未识别订单归属</td><td id="unmatchedOrder2">-</td><td>-</td><td>租赁</td><td>-</td><td id="unmatchedStatus2"><span class="tag info">待匹配</span></td><td id="unmatchedAction2"><button class="text-link" onclick="openBindOrderModal('2','26012915050167612327_借款合同_01.pdf')">绑定订单</button> <button class="text-link danger-link" onclick="deleteUnmatchedRow('unmatchedRow2')">删除</button></td></tr>
+                <tr id="unmatchedRow3"><td><input type="checkbox"></td><td>3</td><td>外部资产方A</td><td>26012915050167612338_保证合同_01.pdf</td><td>已按担保合同类别人工绑定</td><td id="unmatchedOrder3">26012915050167612338</td><td>赵敏</td><td>租赁</td><td>主订单</td><td id="unmatchedStatus3"><span class="tag ok">已绑定</span></td><td id="unmatchedAction3"><button class="text-link" onclick="openBindOrderModal('3','26012915050167612338_保证合同_01.pdf')">重新绑定</button> <button class="text-link danger-link" onclick="deleteUnmatchedRow('unmatchedRow3')">删除</button></td></tr>
+                <tr id="unmatchedRow4"><td><input type="checkbox"></td><td>4</td><td>创新租赁</td><td>26012915050167612339_担保合同(金量-汕尾)_01.pdf</td><td>订单不存在或已结清</td><td id="unmatchedOrder4">26012915050167612339</td><td>-</td><td>租赁</td><td>-</td><td id="unmatchedStatus4"><span class="tag bad">绑定失败</span></td><td id="unmatchedAction4"><button class="text-link" onclick="openBindOrderModal('4','26012915050167612339_担保合同(金量-汕尾)_01.pdf')">重新绑定</button> <button class="text-link danger-link" onclick="deleteUnmatchedRow('unmatchedRow4')">删除</button></td></tr>
+                <tr id="unmatchedRow5"><td><input type="checkbox"></td><td>5</td><td>创新租赁</td><td>26012915050167612340_签收底单图_01.png</td><td>识别到物流材料，未识别订单归属</td><td id="unmatchedOrder5">-</td><td>-</td><td>租赁</td><td>-</td><td id="unmatchedStatus5"><span class="tag info">待匹配</span></td><td id="unmatchedAction5"><button class="text-link" onclick="openBindOrderModal('5','26012915050167612340_签收底单图_01.png')">绑定订单</button> <button class="text-link danger-link" onclick="deleteUnmatchedRow('unmatchedRow5')">删除</button></td></tr>
               </tbody>
             </table>
           </div>
@@ -376,29 +523,79 @@
       <section class="anno-block">
         <h3>查询和操作</h3>
         <p><b>1.</b>导入批次号、批次名称支持模糊查询，最多50字符。</p>
-        <p><b>2.</b>来源平台枚举：全部、租赁、分期、大平台、创新；默认选中创新。</p>
+        <p><b>2.</b>外部资产方枚举：全部、创新租赁、外部资产方A、外部资产方B、其他；默认选中创新租赁。</p>
         <p><b>3.</b>业务类型枚举：全部、租赁、分期、其他；本期以租赁为主。</p>
         <p><b>4.</b>列表操作按状态控制：草稿展示继续编辑/取消；成功和部分成功展示详情；部分成功和失败展示错误明细。</p>
       </section>
       <section class="anno-block">
         <h3>材料规则</h3>
-        <p><b>1.</b>新旧合同模式均要求电子签章授权书、租赁服务合同、合同附件等合同材料按规则必传。</p>
-        <p><b>2.</b>身份证正面、身份证反面、活体识别照为通用必传材料。</p>
-        <p><b>3.</b>物流材料为建议传：路由详情图、运单信息图、签收底单图、电子存根图、运单图、快递照片。</p>
-        <p><b>4.</b>必传材料缺失时不影响订单导入成功，但会进入补传清单；补齐前阻断法诉材料导出和诉讼推单。</p>
+        <p><b>1.</b>材料规则不再按具体合同模式写死，统一按标准材料类别识别。</p>
+        <p><b>2.</b>标准材料类别固定，例如电子签章授权书、主合同、合同附件、担保合同、身份材料、物流材料。</p>
+        <p><b>3.</b>每个外部资产方可配置自己的合同名称、材料名称，并在新增材料名称时指定必填或非必填。</p>
+        <p><b>4.</b>必填材料缺失不影响订单导入成功，但会进入补传清单；补齐前阻断法诉材料导出和诉讼推单。</p>
+      </section>
+    </div>
+    <div class="anno-page" data-anno="ruleConfig">
+      <section class="anno-block">
+        <h3>配置目标</h3>
+        <p><b>1.</b>导入规则配置用于支持不同外部资产方，不再为每个资产方单独做一套导入逻辑。</p>
+        <p><b>2.</b>系统固定标准字段和标准材料类别；一期只识别下载模板中的中文列头，资产方需按模板填写。</p>
+        <p><b>3.</b>规则启用后，新建导入页面选择对应规则，系统按该规则解析Excel和材料包。</p>
+      </section>
+      <section class="anno-block">
+        <h3>字段通用化</h3>
+        <p><b>1.</b>资产方导入模板只维护入池前字段，核心金额为债权金额、剩余保证金。</p>
+        <p><b>2.</b>债权金额=资产方订单进入法诉系统时确认的入池债权金额。</p>
+        <p><b>3.</b>已还金额不是资产方导入字段，订单进入法诉后由法诉还款流水累计。</p>
+        <p><b>4.</b>剩余未还不是资产方导入字段，由法诉系统按债权金额-入池后已还金额计算。</p>
+      </section>
+      <section class="anno-block">
+        <h3>材料通用化</h3>
+        <p><b>1.</b>标准材料类别固定，方便后续材料导出、要素表、诉讼推单统一使用。</p>
+        <p><b>2.</b>资产方材料名称可配置多个，例如主合同可识别租赁服务合同、借款合同、分期服务合同。</p>
+        <p><b>3.</b>材料规则只保留必填、非必填；不同资产方的材料名称和必填标记在规则配置页维护。</p>
+      </section>
+    </div>
+    <div class="anno-page" data-anno="ruleEdit">
+      <section class="anno-block">
+        <h3>页面定位</h3>
+        <p><b>1.</b>新建/编辑规则是本次通用化的核心页面，用于维护不同外部资产方的模板字段启用范围和材料识别规则。</p>
+        <p><b>2.</b>规则草稿不允许被新建导入选择；保存并启用后，新发起的导入批次才可使用。</p>
+        <p><b>3.</b>启用后的规则只影响后续导入，不回写历史批次，避免历史数据口径被动变化。</p>
+        <p><b>4.</b>规则名称在同一外部资产方下不可重复；停用规则不影响已经导入成功的案件。</p>
+      </section>
+      <section class="anno-block">
+        <h3>模板字段</h3>
+        <p><b>1.</b>字段配置按Excel模板工作表加载，每个字段都可配置是否启用、是否必填和校验说明。</p>
+        <p><b>2.</b>系统标准字段固定，例如订单编号、父订单编号、合同日期、债权金额、剩余保证金。</p>
+        <p><b>3.</b>一期只识别系统模板中的中文列头，不支持资产方自定义表头或历史表头。</p>
+        <p><b>4.</b>已还金额、剩余未还属于入池后系统生成字段，不在本页配置为导入字段。</p>
+      </section>
+      <section class="anno-block">
+        <h3>材料规则</h3>
+        <p><b>1.</b>标准材料类别固定，用于后续材料导出、要素表、诉讼推单和补传清单统一处理。</p>
+        <p><b>2.</b>外部资产方自己的合同名称、材料名称在本页配置，不要求资产方按法诉内部名称改文件。</p>
+        <p><b>3.</b>每个资产方材料名称新增时直接指定“必填/非必填”；展示时同步展示哪些具体材料名称是必填。</p>
+        <p><b>4.</b>必填材料名称缺失进入补传清单，并阻断材料导出和诉讼推单；非必填材料名称缺失仅提示，不阻断后续流程。</p>
+      </section>
+      <section class="anno-block">
+        <h3>保存逻辑</h3>
+        <p><b>1.</b>保存草稿：只保存配置内容，不做启用校验，不允许被新建导入选择。</p>
+        <p><b>2.</b>保存并启用：需通过基础信息、核心字段启用、核心必填材料、材料名称重复检查后才允许启用。</p>
+        <p><b>3.</b>取消：未保存的新建规则直接返回列表；编辑已有规则时放弃本次修改，历史规则不变。</p>
       </section>
     </div>
     <div class="anno-page" data-anno="newImport">
       <section class="anno-block">
         <h3>填写口径</h3>
         <p><b>1.</b>页面字段用于生成导入批次，资产方无法提供的内部字段不要放进Excel模板。</p>
-        <p><b>2.</b>来源平台、业务类型、导入规则、债转主体、债权总额、债权对价在页面填写。</p>
+        <p><b>2.</b>外部资产方、业务类型、导入规则、债转主体、债权总额、债权对价在页面填写。</p>
         <p><b>3.</b>资产明细Excel只填写资产方可提供的订单、用户、账单、支付、收货、物流、联系人、文件等业务数据。</p>
-        <p><b>4.</b>导入规则用于确定合同模式和材料必传范围；需与Excel中的订单模式保持一致。</p>
+        <p><b>4.</b>导入规则用于确定模板字段启用范围、材料类别、资产方材料名称和必填范围；Excel不再要求填写合同模式字段。</p>
       </section>
       <section class="anno-block">
         <h3>必填和拦截</h3>
-        <p><b>1.</b>页面必填：批次名称、来源平台、业务类型、导入规则、债转主体、债权总额、债权对价。</p>
+        <p><b>1.</b>页面必填：批次名称、外部资产方、业务类型、导入规则、债转主体、债权总额、债权对价。</p>
         <p><b>2.</b>文件必传：资产明细Excel和材料包，点击“导入”时缺少任一项均阻止提交并弹出提示。</p>
         <p><b>3.</b>资产明细支持xlsx/xls；材料包支持zip/rar/7z。</p>
         <p><b>4.</b>债权总额和债权对价均保留2位小数，不允许负数；债权对价不能大于债权总额。</p>
@@ -427,8 +624,9 @@
         <h3>结果页定位</h3>
         <p><b>1.</b>导入详情承接点击“导入”后的处理结果，也可从批次列表进入查看历史批次。</p>
         <p><b>2.</b>导入结果只区分导入成功、导入失败；材料状态单独展示完整、材料待补传、未上传。</p>
-        <p><b>3.</b>成功订单自动进入原待委外链路，页面不再提供手工推送按钮。</p>
-        <p><b>4.</b>失败订单不生成案件；点击失败原因查看具体拦截原因，按错误明细修正后重新导入。</p>
+        <p><b>3.</b>外部导入订单详情页简单处理，催收详情重点保留债权金额、已还金额、剩余未还、剩余保证金。</p>
+        <p><b>4.</b>成功订单自动进入原待委外链路，页面不再提供手工推送按钮。</p>
+        <p><b>5.</b>失败订单不生成案件；点击失败原因查看具体拦截原因，按错误明细修正后重新导入。</p>
       </section>
       <section class="anno-block">
         <h3>列表操作</h3>
@@ -439,8 +637,8 @@
       </section>
       <section class="anno-block">
         <h3>主续订单规则</h3>
-        <p><b>1.</b>续租订单导入时，首租订单必须同批次导入或系统内已存在。</p>
-        <p><b>2.</b>续租订单必须满足未完结、未归还、未买断状态；不满足时导入失败并写入错误明细。</p>
+        <p><b>1.</b>外部导入前的还款计划统一合并为一期，默认应还金额=债权金额。</p>
+        <p><b>2.</b>资产方无法提供完整还款计划时，不阻断导入，由系统按核心金额生成一期待还计划。</p>
         <p><b>3.</b>逾期天数按本地还款计划计算，导入后不再新增罚息。</p>
       </section>
     </div>
@@ -461,8 +659,8 @@
       </section>
       <section class="anno-block">
         <h3>待补传清单</h3>
-        <p><b>1.</b>处理级别只保留必传、建议传；必传缺失阻断法诉材料导出和诉讼推单。</p>
-        <p><b>2.</b>建议传缺失只做提示，不阻断订单进入后续处置流程。</p>
+        <p><b>1.</b>材料要求只保留必填、非必填；必填缺失阻断法诉材料导出和诉讼推单。</p>
+        <p><b>2.</b>非必填缺失只做提示，不阻断订单进入后续处置流程。</p>
         <p><b>3.</b>单条“上传”用于补当前订单当前材料项；批量补传用于一次处理多条缺失。</p>
       </section>
       <section class="anno-block">
@@ -478,7 +676,7 @@
         <h3>兼容原则</h3>
         <p><b>1.</b>案件导入只补充资产入口，不改变原订单详情页和后续处置链路。</p>
         <p><b>2.</b>导入案件复用原待委外管理、调解管理、诉讼管理、还款、结清、材料导出和结算报表。</p>
-        <p><b>3.</b>来源平台用于区分租赁、分期、大平台、创新，便于后续统计、排查和权限控制。</p>
+        <p><b>3.</b>外部资产方用于区分创新租赁、外部资产方A、外部资产方B等导入来源，便于后续统计、排查和权限控制。</p>
       </section>
     </div>
   </aside>
@@ -508,19 +706,20 @@
   <div class="modal large">
     <div class="modal-head">模板说明 <button onclick="closeModal('templateModal')">×</button></div>
     <div class="modal-body">
-      <div class="notice" style="margin:0 0 14px">本说明用于辅助填写 V1.1 Excel 模板。来源平台、业务类型、导入规则、债转主体、债权总额、债权对价在页面填写；导入批次号由系统自动生成。Excel 只填写资产方可提供的订单、用户、账单、支付、收货、物流、联系人、文件等业务数据和材料文件信息。</div>
+      <div class="notice" style="margin:0 0 14px">本说明用于辅助填写 V1.3 Excel 模板。外部资产方、业务类型、导入规则、债转主体、债权总额、债权对价在页面填写；导入批次号由系统自动生成。Excel 只填写资产方可提供的订单、核心金额、用户、收货、物流、联系人、文件等业务数据和材料文件信息。</div>
       <table>
         <thead><tr><th style="width:260px">工作表</th><th>内容</th><th>关键限制</th></tr></thead>
         <tbody>
-          <tr><td>订单基础信息</td><td>订单编号、父订单编号、订单状态、合同开始/结束日期、剩余保证金、完结时间、最后更新时间、订单模式</td><td>订单编号必填且跨页签关联；订单模式填写旧合同模式/新合同模式；续租订单需填写父订单编号</td></tr>
-          <tr><td>订单扩展信息</td><td>下单日期、保证金、平台来源、小程序、商户、期数、债权金额、合同签署日期、出租人等</td><td>页面来源平台仍由页面选择；这里的平台来源按资产方实际来源填写，例如支付宝</td></tr>
-          <tr><td>商品信息 / 用户信息</td><td>商品名称、商品规格、用户姓名、身份证号、手机号、身份证照片、活体识别照等</td><td>客户姓名、身份证号、手机号不脱敏；身份证正反面和活体识别照为必传材料</td></tr>
-          <tr><td>账单信息 / 买断金信息 / 支付流水</td><td>应还日期、应还金额、已还金额、买断金、支付时间、第三方流水号、回款金额等</td><td>同一订单下账单期次不可重复；买断金流水期次填-1；金额不带货币符号和千分位</td></tr>
-          <tr><td>收货人信息 / 快递信息</td><td>收货人姓名、手机号、收货地址、快递公司、快递单号、物流轨迹、运单图等</td><td>物流轨迹建议按模板示例填写；物流图片属于建议传材料，不阻断导入</td></tr>
+          <tr><td>订单基础信息</td><td>订单编号、父订单编号、订单状态、合同开始/结束日期、债权金额、剩余保证金、完结时间、最后更新时间</td><td>债权金额为资产进入法诉系统时的入池债权金额；已还金额、剩余未还不在模板中填写</td></tr>
+          <tr><td>订单扩展信息</td><td>下单日期、初始保证金、平台来源、期数、合同签署日期、业务主体等</td><td>仅保留资产方可提供字段；商户、赋强、公证、服务商等内部字段不要求资产方填写</td></tr>
+          <tr><td>商品信息 / 用户信息</td><td>商品名称、商品规格、用户姓名、身份证号、手机号、身份证照片、活体识别照等</td><td>客户姓名、身份证号、手机号不脱敏；身份证正反面和活体识别照为必填材料</td></tr>
+          <tr><td>账单信息</td><td>期数、应还日期、应还金额、逾期天数、更新时间、备注等</td><td>外部导入前还款计划默认合并为一期；资产方无法提供时系统按债权金额生成一期计划</td></tr>
+          <tr><td>收货人信息 / 快递信息</td><td>收货人姓名、手机号、收货地址、快递公司、快递单号、物流轨迹、运单图等</td><td>物流轨迹建议按模板示例填写；物流图片属于非必填材料，不阻断导入</td></tr>
           <tr><td>碎屏保障信息 / 紧急联系人</td><td>碎屏保障购买状态、保障金额、联系人姓名、联系人手机号、联系人关系等</td><td>有业务数据则填写；联系人关系按模板枚举填写</td></tr>
-          <tr><td>文件信息 / 优惠券信息</td><td>文件地址、合同编码、合同签订时间、优惠券金额、优惠券使用时间等</td><td>已有文件地址时可填写；普通材料包上传仍按文件材料清单和命名规则识别</td></tr>
+          <tr><td>文件信息</td><td>文件地址、原始文件名、文件类型、合同编码、合同签订时间等</td><td>材料识别以标准材料类别为准，资产方自己的材料名称在导入规则配置中维护</td></tr>
           <tr><td>字段映射说明</td><td>中文标题、系统字段、字段类型、是否必填、填写说明、校验说明、填写示例</td><td>只作查看说明，不填写；研发、测试和业务核对错误明细时使用</td></tr>
-          <tr><td>文件材料清单</td><td>资产明细、材料包、旧合同/新合同必传合同、通用身份材料、物流建议传材料</td><td>处理级别仅支持必传、建议传；文件名需和材料包内文件一致</td></tr>
+          <tr><td>文件材料清单</td><td>标准材料类别、证据大类、资产方材料名称、是否必填、缺失处理</td><td>标准类别固定，资产方合同名称、材料名称和必填标记可配置</td></tr>
+          <tr><td>导入规则配置说明</td><td>模板字段启用规则、材料规则、默认值/计算规则、还款计划合并规则</td><td>新增外部资产方时先配置规则，再发起导入</td></tr>
         </tbody>
       </table>
       <div class="split" style="padding:16px 0 0">
@@ -529,11 +728,12 @@
           <table>
             <thead><tr><th>字段</th><th>填写示例</th><th>校验说明</th></tr></thead>
             <tbody>
-              <tr><td>订单编号</td><td>26012915050167612327</td><td>文本格式；同一来源平台不可重复；所有明细Sheet通过订单编号关联</td></tr>
+              <tr><td>订单编号</td><td>26012915050167612327</td><td>文本格式；同一外部资产方不可重复；所有明细Sheet通过订单编号关联</td></tr>
               <tr><td>父订单编号</td><td>26012915050167610001</td><td>首租为空，续租必填；父订单需同批次导入或系统已存在</td></tr>
-              <tr><td>订单模式</td><td>旧合同模式</td><td>仅允许旧合同模式/新合同模式，决定合同必传材料范围</td></tr>
+              <tr><td>债权金额</td><td>5999.00</td><td>资产进入法诉系统时的入池债权金额，必填</td></tr>
+              <tr><td>剩余保证金</td><td>500.00</td><td>资产方可提供的保证金余额，必填，允许为0</td></tr>
               <tr><td>合同开始日期</td><td>2025-01-01</td><td>日期格式yyyy-MM-dd</td></tr>
-              <tr><td>债权金额</td><td>5999.00</td><td>导入详情展示字段；金额保留2位小数，不填写货币符号</td></tr>
+              <tr><td>账单信息</td><td>期数=1</td><td>导入前还款计划合并为一期，默认应还金额=债权金额</td></tr>
             </tbody>
           </table>
         </div>
@@ -547,9 +747,9 @@
           <div class="submit-note" style="margin-top:10px">无法识别订单编号或材料名称的文件进入未匹配材料池；支持人工绑定订单。</div>
         </div>
       </div>
-      <div class="submit-note">模板只填写资产方能提供的订单明细和材料文件信息；页面来源平台、导入规则、债转主体、债权总额、债权对价和批次号由法诉系统维护。续租订单导入时需同步准备首租订单或确认系统内已有首租订单。</div>
+      <div class="submit-note">模板只填写资产方能提供的订单明细和材料文件信息；页面外部资产方、导入规则、债转主体、债权总额、债权对价和批次号由法诉系统维护。外部资产方的合同名称、材料名称和是否必填在“导入规则配置”中维护；一期不支持资产方自定义Excel表头。</div>
     </div>
-    <div class="modal-foot"><button onclick="closeModal('templateModal')">关闭</button><a class="btn primary" href="./法诉案件导入_Excel模板及文件格式说明V1.1.xlsx" download>下载模板</a></div>
+    <div class="modal-foot"><button onclick="closeModal('templateModal')">关闭</button><a class="btn primary" href="./法诉案件导入_Excel模板及文件格式说明V1.3_通用规则修订版.xlsx" download>下载模板</a></div>
   </div>
 </div>
 
@@ -567,22 +767,22 @@
           <tr><td>订单状态</td><td>90 还款中</td><td><span class="tag ok">通过</span></td><td>续租订单不允许完结状态导入</td></tr>
           <tr><td>合同开始日期</td><td>2025-01-01</td><td><span class="tag ok">通过</span></td><td>格式yyyy-MM-dd</td></tr>
           <tr><td>合同结束日期</td><td>2025-12-31</td><td><span class="tag ok">通过</span></td><td>格式yyyy-MM-dd</td></tr>
-          <tr><td>订单模式</td><td>旧合同模式</td><td><span class="tag ok">通过</span></td><td>用于匹配旧合同/新合同材料规则</td></tr>
-          <tr><td>剩余保证金</td><td>500.00</td><td><span class="tag ok">通过</span></td><td>金额保留2位小数</td></tr>
+          <tr><td>债权金额</td><td>12,036.80</td><td><span class="tag ok">通过</span></td><td>资产进入法诉系统时确认的入池债权金额</td></tr>
+          <tr><td>剩余保证金</td><td>259.05</td><td><span class="tag ok">通过</span></td><td>催收详情页保留字段</td></tr>
           <tr><td>最后更新时间</td><td>2026-06-01 10:00:00</td><td><span class="tag ok">通过</span></td><td>格式yyyy-MM-dd HH:mm:ss</td></tr>
         </tbody></table>
       </div>
-      <div class="parse-pane" data-parse-pane="ext"><table><thead><tr><th>字段名称</th><th>解析值</th><th>检查结果</th><th>说明</th></tr></thead><tbody><tr><td>下单日期</td><td>2025-01-01 09:30:00</td><td><span class="tag ok">通过</span></td><td>来自订单扩展信息</td></tr><tr><td>初始保证金</td><td>800.00</td><td><span class="tag ok">通过</span></td><td>金额不允许负数</td></tr><tr><td>平台来源</td><td>支付宝</td><td><span class="tag ok">通过</span></td><td>资产明细中的平台来源，区别于页面来源平台“创新”</td></tr><tr><td>债权金额</td><td>5999.00</td><td><span class="tag ok">通过</span></td><td>导入详情列表展示字段</td></tr><tr><td>出租人</td><td>杭州某某租赁有限公司</td><td><span class="tag ok">通过</span></td><td>用于合同主体核对</td></tr></tbody></table></div>
+      <div class="parse-pane" data-parse-pane="ext"><table><thead><tr><th>字段名称</th><th>解析值</th><th>检查结果</th><th>说明</th></tr></thead><tbody><tr><td>下单日期</td><td>2025-01-01 09:30:00</td><td><span class="tag ok">通过</span></td><td>来自订单扩展信息</td></tr><tr><td>初始保证金</td><td>800.00</td><td><span class="tag ok">通过</span></td><td>金额不允许负数</td></tr><tr><td>平台来源</td><td>支付宝</td><td><span class="tag ok">通过</span></td><td>资产明细中的渠道/平台字段，与页面外部资产方不是同一字段</td></tr><tr><td>业务主体1</td><td>杭州某某租赁有限公司</td><td><span class="tag ok">通过</span></td><td>按模板字段解析</td></tr><tr><td>导入规则</td><td>创新租赁通用规则</td><td><span class="tag ok">通过</span></td><td>用于校验字段启用、必填和材料规则</td></tr></tbody></table></div>
       <div class="parse-pane" data-parse-pane="item"><table><thead><tr><th>字段名称</th><th>解析值</th><th>检查结果</th><th>说明</th></tr></thead><tbody><tr><td>产品名称</td><td>Apple iPhone 15 128G 黑色</td><td><span class="tag ok">通过</span></td><td>商品信息必填</td></tr><tr><td>合同内产品名称</td><td>iPhone 15 128G 黑色</td><td><span class="tag ok">通过</span></td><td>用于合同要素表展示</td></tr><tr><td>是否监管机</td><td>1 是</td><td><span class="tag ok">通过</span></td><td>枚举：0否、1是</td></tr><tr><td>序列号</td><td>861234567890123</td><td><span class="tag ok">通过</span></td><td>监管机必填，文本格式保存</td></tr></tbody></table></div>
       <div class="parse-pane" data-parse-pane="user"><table><thead><tr><th>字段名称</th><th>解析值</th><th>检查结果</th><th>说明</th></tr></thead><tbody><tr><td>客户姓名</td><td>张三</td><td><span class="tag ok">通过</span></td><td>导入账单列表不打码</td></tr><tr><td>身份证号</td><td>530111200211261425</td><td><span class="tag ok">通过</span></td><td>文本格式保存</td></tr><tr><td>手机号</td><td>18860789896</td><td><span class="tag ok">通过</span></td><td>11位手机号</td></tr></tbody></table></div>
-      <div class="parse-pane" data-parse-pane="bill"><table><thead><tr><th>字段名称</th><th>解析值</th><th>检查结果</th><th>说明</th></tr></thead><tbody><tr><td>期次</td><td>1-12</td><td><span class="tag ok">通过</span></td><td>同一订单下不可重复</td></tr><tr><td>应还日期</td><td>2025-10-30 至 2026-09-30</td><td><span class="tag ok">通过</span></td><td>日期格式检查</td></tr><tr><td>逾期天数</td><td>61</td><td><span class="tag ok">通过</span></td><td>按当前逾期账单计算</td></tr></tbody></table></div>
+      <div class="parse-pane" data-parse-pane="bill"><table><thead><tr><th>字段名称</th><th>解析值</th><th>检查结果</th><th>说明</th></tr></thead><tbody><tr><td>期次</td><td>1</td><td><span class="tag ok">通过</span></td><td>外部导入前还款计划整体合并为一期</td></tr><tr><td>应还金额</td><td>12,036.80</td><td><span class="tag ok">通过</span></td><td>默认取债权金额</td></tr><tr><td>逾期天数</td><td>61</td><td><span class="tag ok">通过</span></td><td>按本地还款计划计算，导入后不再新增罚息</td></tr><tr><td>系统生成说明</td><td>已还金额、剩余未还</td><td><span class="tag gray">不解析</span></td><td>订单进入法诉后由还款流水累计和计算，不由资产方模板导入</td></tr></tbody></table></div>
       <div class="parse-pane" data-parse-pane="buyout"><table><thead><tr><th>字段名称</th><th>解析值</th><th>检查结果</th><th>说明</th></tr></thead><tbody><tr><td>应还买断金</td><td>1200.00</td><td><span class="tag ok">通过</span></td><td>金额不允许负数</td></tr><tr><td>还款状态</td><td>10 待还</td><td><span class="tag ok">通过</span></td><td>枚举：10待还、20已还、30展期</td></tr><tr><td>当前剩余应还买断金</td><td>1200.00</td><td><span class="tag ok">通过</span></td><td>减去优惠、已还金额后的剩余金额</td></tr></tbody></table></div>
       <div class="parse-pane" data-parse-pane="pay"><table><thead><tr><th>字段名称</th><th>解析值</th><th>检查结果</th><th>说明</th></tr></thead><tbody><tr><td>业务主流水主键</td><td>987654321</td><td><span class="tag ok">通过</span></td><td>同一流水不可重复</td></tr><tr><td>还款金额</td><td>500.00</td><td><span class="tag ok">通过</span></td><td>复用线下还款、对公还款入账规则</td></tr><tr><td>回款分类</td><td>10 线上回款</td><td><span class="tag ok">通过</span></td><td>枚举：10线上、20线下</td></tr><tr><td>流水方向</td><td>10 入账</td><td><span class="tag ok">通过</span></td><td>枚举：10入账、20退款</td></tr></tbody></table></div>
       <div class="parse-pane" data-parse-pane="receiver"><table><thead><tr><th>字段名称</th><th>解析值</th><th>检查结果</th><th>说明</th></tr></thead><tbody><tr><td>收货人姓名</td><td>张三</td><td><span class="tag ok">通过</span></td><td>收货信息必填</td></tr><tr><td>收货人手机号</td><td>13800000000</td><td><span class="tag ok">通过</span></td><td>明文手机号</td></tr><tr><td>详细地址</td><td>浙江省杭州市西湖区文三路1号</td><td><span class="tag ok">通过</span></td><td>用于物流材料核对</td></tr></tbody></table></div>
       <div class="parse-pane" data-parse-pane="logistics"><table><thead><tr><th>字段名称</th><th>解析值</th><th>检查结果</th><th>说明</th></tr></thead><tbody><tr><td>快递公司</td><td>顺丰速运</td><td><span class="tag ok">通过</span></td><td>物流信息必填</td></tr><tr><td>快递单号</td><td>SF1234567890</td><td><span class="tag ok">通过</span></td><td>文本格式保存</td></tr><tr><td>物流轨迹信息</td><td>[{"nodeTime":"2025-01-03 15:30:00","describe":"已签收"}]</td><td><span class="tag ok">通过</span></td><td>JSON数组格式</td></tr><tr><td>签收时间</td><td>2025-01-03 15:30:00</td><td><span class="tag ok">通过</span></td><td>用于证明交付</td></tr></tbody></table></div>
       <div class="parse-pane" data-parse-pane="insurance"><table><thead><tr><th>字段名称</th><th>解析值</th><th>检查结果</th><th>说明</th></tr></thead><tbody><tr><td>是否购买碎屏保障</td><td>否</td><td><span class="tag ok">通过</span></td><td>枚举字段</td></tr><tr><td>保障金额</td><td>0.00</td><td><span class="tag ok">通过</span></td><td>金额不允许负数</td></tr></tbody></table></div>
       <div class="parse-pane" data-parse-pane="contact"><table><thead><tr><th>字段名称</th><th>解析值</th><th>检查结果</th><th>说明</th></tr></thead><tbody><tr><td>联系人姓名</td><td>李四</td><td><span class="tag ok">通过</span></td><td>紧急联系人信息</td></tr><tr><td>联系人手机号</td><td>13900000000</td><td><span class="tag ok">通过</span></td><td>明文手机号</td></tr><tr><td>关系</td><td>parents</td><td><span class="tag ok">通过</span></td><td>建议填写字典值</td></tr></tbody></table></div>
-      <div class="parse-pane" data-parse-pane="file"><table><thead><tr><th>字段名称</th><th>解析值</th><th>检查结果</th><th>说明</th></tr></thead><tbody><tr><td>租赁服务合同</td><td>26012915050167612327_租赁服务合同_01.pdf</td><td><span class="tag ok">通过</span></td><td>已匹配必传材料</td></tr><tr><td>身份证正面</td><td>26012915050167612327_身份证正面_01.jpg</td><td><span class="tag ok">通过</span></td><td>通用身份必传材料</td></tr><tr><td>电子签章授权书</td><td>-</td><td><span class="tag bad">待补传</span></td><td>新旧合同模式必传，进入材料补传</td></tr><tr><td>路由详情图</td><td>26012915050167612327_路由详情图_01.jpg</td><td><span class="tag warn">建议传</span></td><td>物流证明材料，不阻断导入</td></tr></tbody></table></div>
+      <div class="parse-pane" data-parse-pane="file"><table><thead><tr><th>标准材料类别</th><th>解析文件</th><th>检查结果</th><th>说明</th></tr></thead><tbody><tr><td>主合同</td><td>26012915050167612327_借款合同_01.pdf</td><td><span class="tag ok">通过</span></td><td>按资产方材料名称识别为主合同</td></tr><tr><td>身份证正面</td><td>26012915050167612327_身份证正面_01.jpg</td><td><span class="tag ok">通过</span></td><td>通用身份必填材料</td></tr><tr><td>电子签章授权书</td><td>-</td><td><span class="tag bad">待补传</span></td><td>规则配置为必填，进入材料补传</td></tr><tr><td>物流材料</td><td>26012915050167612327_路由详情图_01.jpg</td><td><span class="tag warn">非必填</span></td><td>物流证明材料，不阻断导入</td></tr></tbody></table></div>
       <div class="submit-note">订单解析详情只展示解析和检查结果，不直接编辑核心字段；需修改时返回模板重新上传或进入材料补传。</div>
     </div>
     <div class="modal-foot"><button onclick="closeModal('parseModal')">关闭</button><button class="primary" onclick="closeModal('parseModal'); switchTab('supplement')">去材料补传</button></div>
@@ -616,9 +816,9 @@
         <label><span>订单编号</span><div class="field-box"><div class="input" id="materialLoanNo">26012915050167612328</div></div></label>
         <label><span>客户姓名</span><div class="field-box"><div class="input" id="materialCustomer">黄丽</div></div></label>
         <label><span>主续订单</span><div class="field-box"><div class="select" id="materialRelation" data-options="主订单|续租订单">续租订单<b>⌄</b></div><div class="enum">主订单 / 续租订单</div></div></label>
-        <label><span>材料项</span><div class="field-box"><div class="select" id="materialType" data-options="电子签章授权书|租赁服务合同|租赁服务合同(个体户)|合同附件|担保合同(诉讼)|担保合同(金量-汕尾)|担保合同(金量-大同)|担保合同(金量-中卫)|担保补充约定1|担保补充约定2-中卫雅安|担保补充约定3|身份证正面|身份证反面|活体识别照|路由详情图|运单信息图|签收底单图|电子存根图|运单图|快递照片">电子签章授权书<b>⌄</b></div><div class="enum">电子签章授权书 / 租赁服务合同 / 租赁服务合同(个体户) / 合同附件 / 担保合同(诉讼) / 担保合同(金量-汕尾) / 担保合同(金量-大同) / 担保合同(金量-中卫) / 担保补充约定1 / 担保补充约定2-中卫雅安 / 担保补充约定3 / 身份证正面 / 身份证反面 / 活体识别照 / 路由详情图 / 运单信息图 / 签收底单图 / 电子存根图 / 运单图 / 快递照片</div></div></label>
+        <label><span>标准材料类别</span><div class="field-box"><div class="select" id="materialType" data-options="电子签章授权书|主合同|合同附件|担保合同|债权转让材料|身份证正面|身份证反面|活体识别照|物流材料|资金明细|账单">电子签章授权书<b>⌄</b></div><div class="enum">电子签章授权书 / 主合同 / 合同附件 / 担保合同 / 债权转让材料 / 身份证正面 / 身份证反面 / 活体识别照 / 物流材料 / 资金明细 / 账单</div></div></label>
         <label><span>上传方式</span><div class="field-box"><div class="select" data-options="单订单上传|批量上传材料包|未匹配材料绑定">单订单上传<b>⌄</b></div><div class="enum">单订单上传 / 批量上传材料包 / 未匹配材料绑定</div></div></label>
-        <label><span>材料规则</span><div class="field-box"><div class="select" data-options="创新租赁旧合同材料规则|创新租赁新合同材料规则|通用身份材料规则|物流建议材料规则">创新租赁旧合同材料规则<b>⌄</b></div><div class="enum">创新租赁旧合同材料规则 / 创新租赁新合同材料规则 / 通用身份材料规则 / 物流建议材料规则</div></div></label>
+        <label><span>适用规则</span><div class="field-box"><div class="select" data-options="创新租赁通用规则|外部资产方A租赁规则|外部资产方B分期规则|通用身份材料规则|物流建议材料规则">外部资产方A租赁规则<b>⌄</b></div><div class="enum">创新租赁通用规则 / 外部资产方A租赁规则 / 外部资产方B分期规则 / 通用身份材料规则 / 物流建议材料规则</div></div></label>
       </div>
       <div class="upload-zone" style="grid-template-columns:120px 1fr;margin:16px 0">
         <div class="upload-icon">↑</div>
@@ -676,8 +876,8 @@
       <table id="bindOrderResult">
         <thead><tr><th style="width:52px">选择</th><th>订单编号</th><th>客户姓名</th><th>业务类型</th><th>主续订单</th><th>订单状态</th><th>材料规则</th></tr></thead>
         <tbody>
-          <tr><td><input type="radio" name="bindOrder" checked></td><td id="bindResultOrderNo">26012915050167612327</td><td>张三</td><td>租赁</td><td>主订单</td><td><span class="tag ok">可绑定</span></td><td>创新租赁旧合同</td></tr>
-          <tr><td><input type="radio" name="bindOrder"></td><td>26012915050167612328</td><td>黄丽</td><td>租赁</td><td>续租订单</td><td><span class="tag ok">可绑定</span></td><td>创新租赁旧合同</td></tr>
+          <tr><td><input type="radio" name="bindOrder" checked></td><td id="bindResultOrderNo">26012915050167612327</td><td>张三</td><td>租赁</td><td>主订单</td><td><span class="tag ok">可绑定</span></td><td>外部资产方A租赁规则</td></tr>
+          <tr><td><input type="radio" name="bindOrder"></td><td>26012915050167612328</td><td>黄丽</td><td>租赁</td><td>续租订单</td><td><span class="tag ok">可绑定</span></td><td>外部资产方A租赁规则</td></tr>
         </tbody>
       </table>
       <div class="submit-note">确认绑定后，文件归属到所选订单；如果订单不存在、已结清、材料规则不匹配或订单不在当前批次内，则绑定失败并允许重新绑定。</div>
@@ -725,7 +925,7 @@
       <table>
         <thead><tr><th>保存内容</th><th>保存说明</th><th>后续可操作</th></tr></thead>
         <tbody>
-          <tr><td>批次基础信息</td><td>保存批次名称、来源平台、业务类型、导入规则、债转主体、债权总额、债权对价、备注</td><td>继续编辑、修改后再次保存或导入</td></tr>
+          <tr><td>批次基础信息</td><td>保存批次名称、外部资产方、业务类型、导入规则、债转主体、债权总额、债权对价、备注</td><td>继续编辑、修改后再次保存或导入</td></tr>
           <tr><td>已上传文件记录</td><td>保存资产明细、材料包的文件名、上传人、上传时间、文件状态；若未上传则保持空</td><td>继续上传、删除或替换文件</td></tr>
           <tr><td>批次状态</td><td>保存后状态为草稿，列表展示导入批次号和草稿批次名称</td><td>返回列表后可继续编辑、导入或取消草稿</td></tr>
         </tbody>
@@ -794,7 +994,7 @@
       <table>
         <thead><tr><th>步骤</th><th>处理方式</th><th>说明</th></tr></thead>
         <tbody>
-          <tr><td>1</td><td>下载</td><td>运营按订单编号、客户姓名、业务类型、主续订单、材料项和处理级别准备文件。</td></tr>
+          <tr><td>1</td><td>下载</td><td>运营按订单编号、客户姓名、业务类型、主续订单、材料项和材料要求准备文件。</td></tr>
           <tr><td>2</td><td>批量补传</td><td>一级文件夹按订单编号_姓名整理，二级材料文件按订单编号_材料名称_序号整理。</td></tr>
           <tr><td>3</td><td>处理未匹配材料</td><td>无法识别归属的文件进入未匹配材料池，由人工查询并选择所属订单绑定。</td></tr>
           <tr><td>4</td><td>刷新材料状态</td><td>补传或绑定后刷新材料状态，并更新材料导出/诉讼推单拦截结果。</td></tr>
@@ -811,19 +1011,85 @@
     <div class="modal-head">材料规则速查 <button onclick="closeModal('materialRuleModal')">×</button></div>
     <div class="modal-body">
       <table>
-        <thead><tr><th>材料项</th><th>处理级别</th><th>影响</th><th>处理建议</th></tr></thead>
+        <thead><tr><th>标准材料类别</th><th>资产方材料名称</th><th>必填材料名称</th><th>影响</th><th>处理建议</th></tr></thead>
         <tbody>
-          <tr><td>电子签章授权书</td><td><span class="tag bad">必传</span></td><td>新旧合同模式均必传，阻断材料导出和诉讼推单</td><td>优先补传或绑定授权书</td></tr>
-          <tr><td>租赁服务合同</td><td><span class="tag bad">必传</span></td><td>新旧合同模式均必传，阻断材料导出和诉讼推单</td><td>优先补传或绑定合同文件</td></tr>
-          <tr><td>合同附件</td><td><span class="tag bad">必传</span></td><td>新旧合同模式均必传，缺失会影响要素表完整性</td><td>与合同一起打包上传</td></tr>
-          <tr><td>身份证正面、身份证反面、活体识别照</td><td><span class="tag bad">必传</span></td><td>身份核验材料必传</td><td>按订单补齐</td></tr>
-          <tr><td>担保合同(诉讼)、担保合同(金量-汕尾/大同/中卫)</td><td><span class="tag bad">必传</span></td><td>创新旧合同模式必传</td><td>按订单对应主体补齐</td></tr>
-          <tr><td>担保补充约定1/2/3</td><td><span class="tag bad">必传</span></td><td>创新新合同模式必传</td><td>按新合同模式和对应地区/主体补齐</td></tr>
-          <tr><td>路由详情图、运单信息图、签收底单图、电子存根图、运单图、快递照片</td><td><span class="tag warn">建议传</span></td><td>物流材料建议传，用于完善证据链</td><td>有则补传，未识别时进入未匹配材料池</td></tr>
+          <tr><td>电子签章授权书</td><td>电子签章授权书、验签截图、签署证明</td><td><span class="tag bad">电子签章授权书</span> <span class="tag bad">验签截图</span></td><td>必填名称缺失时阻断材料导出和诉讼推单</td><td>按规则配置的材料名称识别并补齐</td></tr>
+          <tr><td>主合同</td><td>租赁服务合同、融资租赁合同、手机租赁协议</td><td><span class="tag bad">租赁服务合同</span> <span class="tag bad">融资租赁合同</span></td><td>必填名称缺失时阻断材料导出和诉讼推单</td><td>每个资产方至少配置一个主合同必填名称</td></tr>
+          <tr><td>合同附件</td><td>合同附件、补充协议、还款协议</td><td><span class="tag bad">合同附件</span></td><td>按具体材料名称的必填标记判断是否阻断</td><td>在添加材料名称时指定哪一份是必填</td></tr>
+          <tr><td>担保合同</td><td>担保合同、保证合同、担保补充约定</td><td><span class="tag gray">无</span></td><td>非必填缺失仅提示</td><td>需要强校验时，将对应资产方材料名称改为必填</td></tr>
+          <tr><td>身份证正面、身份证反面、活体识别照</td><td>身份核验材料</td><td><span class="tag bad">身份证正面</span> <span class="tag bad">身份证反面</span> <span class="tag bad">活体识别照</span></td><td>身份材料必填</td><td>所有外部资产方通用，可补充资产方别名</td></tr>
+          <tr><td>物流材料</td><td>路由详情图、运单信息图、签收底单图、电子存根图、运单图、快递照片</td><td><span class="tag gray">无</span></td><td>用于完善证据链，不阻断</td><td>有则补传，未识别时进入未匹配材料池</td></tr>
+          <tr><td>资金明细、账单</td><td>资金明细表、账单表、还款计划截图</td><td><span class="tag gray">无</span></td><td>用于核对债权金额和还款计划</td><td>不阻断导入；无还款计划时系统合并一期</td></tr>
         </tbody>
       </table>
     </div>
     <div class="modal-foot"><button onclick="closeModal('materialRuleModal')">关闭</button></div>
+  </div>
+</div>
+
+<div id="ruleEnableModal" class="modal-mask">
+  <div class="modal">
+    <div class="modal-head"><span>保存并启用确认</span><button onclick="closeModal('ruleEnableModal')">×</button></div>
+    <div class="modal-body">
+      <div class="notice" style="margin:0 0 14px">启用后，新建导入页面可以选择该规则。规则只影响后续新发起的导入批次，不回写历史批次。</div>
+      <table>
+        <thead><tr><th>检查项</th><th>检查口径</th><th>当前结果</th></tr></thead>
+        <tbody>
+          <tr><td>基础信息</td><td>规则名称、外部资产方、业务类型已填写</td><td><span class="tag ok">通过</span></td></tr>
+          <tr><td>模板字段</td><td>订单编号、债权金额、剩余保证金等核心字段已启用并配置为必填</td><td><span class="tag ok">通过</span></td></tr>
+          <tr><td>材料规则</td><td>主合同、身份证正反面、活体识别照已配置必填材料名称</td><td><span class="tag ok">通过</span></td></tr>
+          <tr><td>材料名称重复</td><td>同一资产方材料名称不能同时归属多个标准材料类别</td><td><span class="tag warn">需业务确认</span></td></tr>
+        </tbody>
+      </table>
+      <div class="submit-note">如后续修改启用规则，建议复制一份新规则再启用，避免影响正在准备中的导入批次。</div>
+    </div>
+    <div class="modal-foot"><button onclick="closeModal('ruleEnableModal')">继续编辑</button><button class="primary" onclick="confirmEnableRule()">确认启用</button></div>
+  </div>
+</div>
+
+<div id="materialCheckModal" class="modal-mask">
+  <div class="modal">
+    <div class="modal-head"><span>材料配置检查结果</span><button onclick="closeModal('materialCheckModal')">×</button></div>
+    <div class="modal-body">
+      <div class="notice" style="margin:0 0 14px">用于在保存并启用规则前检查材料配置是否完整，避免规则启用后导入批次无法准确生成补传清单。</div>
+      <table>
+        <thead><tr><th>检查项</th><th>检查口径</th><th>当前结果</th><th>处理说明</th></tr></thead>
+        <tbody>
+          <tr><td>核心必填材料</td><td>主合同、身份证正面、身份证反面、活体识别照必须至少配置1个必填材料名称</td><td><span class="tag ok">通过</span></td><td>缺任一项时不允许启用规则</td></tr>
+          <tr><td>资产方材料名称</td><td>每个标准材料类别至少配置1个可识别的资产方材料名称</td><td><span class="tag ok">通过</span></td><td>系统按材料名称识别材料包文件</td></tr>
+          <tr><td>必填标记</td><td>被标记为必填的具体材料名称，缺失时进入补传清单并阻断</td><td><span class="tag ok">通过</span></td><td>非必填名称缺失仅提示，不阻断</td></tr>
+          <tr><td>缺失处理</td><td>必填材料名称缺失处理应为进入补传清单并阻断</td><td><span class="tag ok">通过</span></td><td>阻断材料导出和诉讼推单，不阻断订单导入</td></tr>
+          <tr><td>材料名称重复</td><td>同一资产方材料名称不能同时归属多个标准材料类别</td><td><span class="tag warn">需确认</span></td><td>重复时需删除或调整到唯一类别</td></tr>
+        </tbody>
+      </table>
+      <div class="submit-note">检查结果只校验当前规则配置本身；实际导入时仍按每个订单的材料包解析结果生成“待处理材料清单”和“未匹配材料池”。</div>
+    </div>
+    <div class="modal-foot"><button onclick="closeModal('materialCheckModal')">关闭</button></div>
+  </div>
+</div>
+
+<div id="materialNameModal" class="modal-mask">
+  <div class="modal">
+    <div class="modal-head"><span id="materialNameTitle">配置资产方材料名称</span><button onclick="closeModal('materialNameModal')">×</button></div>
+    <div class="modal-body">
+      <div class="notice" style="margin:0 0 14px">标准材料类别由系统固定，资产方材料名称可以按外部资产方自己的文件命名维护。添加名称时可指定是否必填；被标记为必填的名称缺失时进入补传清单并阻断材料导出和诉讼推单。</div>
+      <div class="form-grid" style="grid-template-columns:1fr 1fr 160px;padding:0 0 16px">
+        <label><span>标准材料类别</span><div class="field-box"><div class="input" id="materialNameCategory">主合同</div></div></label>
+        <label><span>资产方材料名称</span><div class="field-box"><div class="input" id="materialNameInput" contenteditable="true">融资租赁合同</div><div class="limit">可直接修改后点击“添加名称”；同一名称不能归属多个标准材料类别。</div></div></label>
+        <label><span>是否必填</span><div class="field-box"><div class="select" id="materialNameRequired" data-options="必填|非必填">必填<b>⌄</b></div><div class="limit">缺失时是否进入补传清单。</div></div></label>
+      </div>
+      <table>
+        <thead><tr><th style="width:56px">选择</th><th>资产方材料名称</th><th style="width:110px">是否必填</th><th>识别到的标准类别</th><th>适用说明</th></tr></thead>
+        <tbody>
+          <tr><td><input type="checkbox" checked></td><td>租赁服务合同</td><td><div class="select table-select" data-options="必填|非必填">必填<b>⌄</b></div></td><td>主合同</td><td>创新租赁旧合同常用名称</td></tr>
+          <tr><td><input type="checkbox" checked></td><td>融资租赁合同</td><td><div class="select table-select" data-options="必填|非必填">必填<b>⌄</b></div></td><td>主合同</td><td>外部资产方A合同名称</td></tr>
+          <tr><td><input type="checkbox"></td><td>手机租赁协议</td><td><div class="select table-select" data-options="必填|非必填">非必填<b>⌄</b></div></td><td>主合同</td><td>可作为资产方材料名称加入当前规则</td></tr>
+          <tr><td><input type="checkbox"></td><td>分期服务合同</td><td><div class="select table-select" data-options="必填|非必填">非必填<b>⌄</b></div></td><td>主合同</td><td>分期业务可复用</td></tr>
+        </tbody>
+      </table>
+      <div class="submit-note">保存后，材料包中出现这些名称时，会自动归类到当前标准材料类别；被标记为必填的名称缺失时进入待补传材料清单，非必填名称缺失仅提示。</div>
+    </div>
+    <div class="modal-foot"><button onclick="closeModal('materialNameModal')">取消</button><button onclick="addMaterialNameRow()">添加名称</button><button class="primary" onclick="saveMaterialNames()">保存</button></div>
   </div>
 </div>
 
@@ -837,6 +1103,7 @@
   var batchUploadState = { order:false, material:false };
   var pendingBindRowNo = '';
   var editingDraft = false;
+  var pendingMaterialNameTarget = null;
   function getSelectText(select){
     var clone = select.cloneNode(true);
     clone.querySelectorAll('b,.select-menu').forEach(function(node){ node.remove(); });
@@ -890,6 +1157,18 @@
     });
   }
   document.addEventListener('click', function(){ closeSelectMenus(); });
+  document.addEventListener('click', function(event){
+    if(event.target && event.target.matches('.chip b')){
+      event.stopPropagation();
+      var chip = event.target.closest('.chip');
+      var chipBox = chip ? chip.closest('.chip-box') : null;
+      if(chip){
+        chip.remove();
+        if(chipBox){ renderRequiredMaterialCell(chipBox); }
+        showToast('已删除该名称');
+      }
+    }
+  });
   function revealProcess(id){
     var idx = processOrder.indexOf(id);
     if(idx >= 0){ processLevel = Math.max(processLevel, idx + 1); }
@@ -906,7 +1185,7 @@
     });
   }
   function renderAnno(activeId){
-    var annoKey = ['task','newImport','detail','supplement'].indexOf(activeId) >= 0 ? activeId : 'default';
+    var annoKey = ['task','ruleConfig','ruleEdit','newImport','detail','supplement'].indexOf(activeId) >= 0 ? activeId : 'default';
     document.querySelectorAll('[data-anno]').forEach(function(block){
       block.classList.toggle('active', block.getAttribute('data-anno') === annoKey);
     });
@@ -914,6 +1193,8 @@
   function switchTab(id){
     var titleMap = {
       task:'案件导入管理',
+      ruleConfig:'导入规则配置',
+      ruleEdit:'新建/编辑导入规则',
       newImport:'新建导入',
       detail:'导入详情',
       supplement:'材料补传'
@@ -996,10 +1277,198 @@
       if(action === 'open-supplement'){
         switchTab('supplement');
       }
+      if(action === 'new-rule'){
+        openRuleEdit('new', '新建导入规则');
+      }
+      if(action === 'edit-rule'){
+        var ruleName = btn.closest('tr') ? btn.closest('tr').children[0].innerText : '外部资产方A租赁规则';
+        openRuleEdit('edit', '编辑导入规则：' + ruleName);
+      }
+      if(action === 'copy-rule'){
+        var copyName = btn.closest('tr') ? btn.closest('tr').children[0].innerText : '外部资产方A租赁规则';
+        openRuleEdit('copy', '复制导入规则：' + copyName);
+      }
+      if(action === 'add-field-rule'){
+        addFieldMappingRow();
+      }
+      if(action === 'add-material-rule'){
+        addMaterialRuleRow();
+      }
+      if(action === 'cancel-rule-edit'){
+        switchTab('ruleConfig');
+        showToast('已返回导入规则配置列表');
+      }
+      if(action === 'save-rule-draft'){
+        saveRuleDraft();
+      }
+      if(action === 'save-rule-enable'){
+        openModal('ruleEnableModal');
+      }
     });
   });
   function openModal(id){ document.getElementById(id).classList.add('show'); }
   function closeModal(id){ document.getElementById(id).classList.remove('show'); }
+  function openRuleEdit(mode, title){
+    document.getElementById('ruleEditTitle').innerText = title;
+    var ruleName = document.getElementById('ruleNameInput');
+    if(ruleName && mode === 'new'){
+      ruleName.innerText = '外部资产方租赁规则';
+    }
+    if(ruleName && mode === 'copy'){
+      ruleName.innerText = '外部资产方A租赁规则_复制';
+    }
+    switchTab('ruleEdit');
+  }
+  function deleteConfigRow(btn){
+    var row = btn.closest('tr');
+    if(row){ row.remove(); }
+    showToast('已删除该配置项');
+  }
+  function addFieldMappingRow(){
+    var tbody = document.querySelector('#fieldRuleTable tbody');
+    if(!tbody){ return; }
+    var tr = document.createElement('tr');
+    tr.innerHTML = `<td>请选择工作表</td><td>请选择Excel列名</td><td><span class="readonly-code">-</span></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否">否<b>⌄</b></div></td><td><div class="inline-input">填写格式、枚举、金额或日期限制</div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td>`;
+    tbody.appendChild(tr);
+    setupSelectDropdowns();
+    showToast('已新增字段配置行');
+  }
+  function addMaterialRuleRow(){
+    var tbody = document.querySelector('#materialRuleTable tbody');
+    if(!tbody){ return; }
+    var tr = document.createElement('tr');
+    tr.innerHTML = `<td><div class="inline-select">请选择类别</div></td><td>合同材料</td><td><div class="chip-box"><span class="chip-add" onclick="openMaterialNameModal('请选择类别', this)">+ 添加名称</span></div></td><td><span class="tag gray">未配置</span></td><td><div class="select table-select" data-options="pdf|jpg/png|pdf/jpg/png|xlsx|zip">pdf/jpg/png<b>⌄</b></div></td><td><div class="select" data-options="必填名称缺失进入补传清单并阻断|仅提示不阻断">仅提示不阻断<b>⌄</b></div></td><td><button class="text-link danger-link" onclick="deleteConfigRow(this)">删除</button></td>`;
+    tbody.appendChild(tr);
+    setupSelectDropdowns();
+    showToast('已新增材料规则行');
+  }
+  function escapeHtml(value){
+    return String(value || '').replace(/[&<>"']/g, function(ch){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+    });
+  }
+  function getMaterialSuggestions(category){
+    var map = {
+      '电子签章授权书': [['电子签章授权书','必填','通用签署材料'], ['验签截图','必填','验签材料'], ['签署证明','非必填','可作为补充证明']],
+      '主合同': [['租赁服务合同','必填','创新租赁旧合同常用名称'], ['融资租赁合同','必填','外部资产方A合同名称'], ['手机租赁协议','非必填','可作为资产方材料名称加入当前规则'], ['分期服务合同','非必填','分期业务可复用']],
+      '合同附件': [['合同附件','必填','合同附件必填名称'], ['补充协议','非必填','可作为补充材料'], ['还款协议','非必填','还款约定材料']],
+      '身份证正面': [['身份证正面','必填','通用身份材料'], ['身份证人像面','必填','资产方常见名称']],
+      '身份证反面': [['身份证反面','必填','通用身份材料'], ['身份证国徽面','必填','资产方常见名称']],
+      '活体识别照': [['活体识别照','必填','通用身份核验材料'], ['人脸识别照','必填','资产方常见名称']],
+      '物流材料': [['路由详情图','非必填','物流轨迹证明'], ['运单信息图','非必填','物流单据证明'], ['签收底单图','非必填','签收证明'], ['电子存根图','非必填','运单辅助证明'], ['运单图','非必填','物流辅助证明']]
+    };
+    return map[category] || [[category + '材料','非必填','可作为资产方材料名称加入当前规则']];
+  }
+  function renderMaterialNameModalRows(category){
+    var table = document.querySelector('#materialNameModal tbody');
+    if(!table){ return; }
+    var rows = [];
+    var names = {};
+    if(pendingMaterialNameTarget){
+      Array.from(pendingMaterialNameTarget.querySelectorAll('.chip')).forEach(function(chip){
+        var name = getMaterialChipName(chip);
+        var mark = chip.querySelector('em');
+        var required = mark && mark.textContent.trim() === '必填' ? '必填' : '非必填';
+        names[name] = true;
+        rows.push([true, name, required, '当前已配置']);
+      });
+    }
+    getMaterialSuggestions(category).forEach(function(item){
+      if(!names[item[0]]){
+        rows.push([false, item[0], item[1], item[2]]);
+      }
+    });
+    table.innerHTML = rows.map(function(row){
+      return '<tr><td><input type="checkbox"' + (row[0] ? ' checked' : '') + '></td><td>' + escapeHtml(row[1]) + '</td><td><div class="select table-select" data-options="必填|非必填">' + row[2] + '<b>⌄</b></div></td><td>' + escapeHtml(category) + '</td><td>' + escapeHtml(row[3]) + '</td></tr>';
+    }).join('');
+    setupSelectDropdowns();
+  }
+  function openMaterialNameModal(category, trigger){
+    pendingMaterialNameTarget = trigger ? trigger.closest('.chip-box') : null;
+    document.getElementById('materialNameTitle').innerText = '配置资产方材料名称 - ' + category;
+    document.getElementById('materialNameCategory').innerText = category;
+    document.getElementById('materialNameInput').innerText = category === '主合同' ? '融资租赁合同' : category + '材料';
+    setSelectValue(document.getElementById('materialNameRequired'), category === '物流材料' ? '非必填' : '必填');
+    renderMaterialNameModalRows(category);
+    openModal('materialNameModal');
+  }
+  function createMaterialChip(name, required){
+    var chip = document.createElement('span');
+    chip.className = 'chip';
+    var emClass = required === '必填' ? '' : ' class="optional"';
+    chip.innerHTML = name + '<em' + emClass + '>' + required + '</em><b>×</b>';
+    return chip;
+  }
+  function updateMaterialChipRequired(chip, required){
+    var mark = chip.querySelector('em');
+    if(!mark){
+      mark = document.createElement('em');
+      chip.insertBefore(mark, chip.querySelector('b'));
+    }
+    mark.textContent = required;
+    mark.className = required === '必填' ? '' : 'optional';
+  }
+  function getMaterialChipName(chip){
+    var textNode = Array.from(chip.childNodes).find(function(node){ return node.nodeType === Node.TEXT_NODE; });
+    return textNode ? textNode.textContent.trim() : chip.textContent.replace('×','').replace('必填','').replace('非必填','').trim();
+  }
+  function renderRequiredMaterialCell(chipBox){
+    var row = chipBox.closest('tr');
+    if(!row || !row.children[3]){ return; }
+    var required = Array.from(chipBox.querySelectorAll('.chip')).filter(function(chip){
+      var mark = chip.querySelector('em');
+      return mark && mark.textContent.trim() === '必填';
+    }).map(function(chip){
+      return '<span class="tag bad">' + getMaterialChipName(chip) + '</span>';
+    });
+    row.children[3].innerHTML = required.length ? required.join(' ') : '<span class="tag gray">无</span>';
+  }
+  function addMaterialNameRow(){
+    var value = document.getElementById('materialNameInput').innerText || '资产方材料名称';
+    var requiredSelect = document.getElementById('materialNameRequired');
+    var required = requiredSelect ? getSelectText(requiredSelect) : '必填';
+    var table = document.querySelector('#materialNameModal tbody');
+    if(table){
+      var category = document.getElementById('materialNameCategory').innerText || '-';
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td><input type="checkbox" checked></td><td>' + value + '</td><td><div class="select table-select" data-options="必填|非必填">' + required + '<b>⌄</b></div></td><td>' + category + '</td><td>本次新增，可作为资产方材料名称加入当前规则</td>';
+      table.appendChild(tr);
+      setupSelectDropdowns();
+    }
+    showToast('已添加材料名称');
+  }
+  function saveMaterialNames(){
+    if(pendingMaterialNameTarget){
+      var checkedRows = document.querySelectorAll('#materialNameModal tbody input[type="checkbox"]:checked');
+      var add = pendingMaterialNameTarget.querySelector('.chip-add');
+      checkedRows.forEach(function(item){
+        var name = item.closest('tr').children[1].innerText;
+        var requiredSelect = item.closest('tr').querySelector('.select');
+        var required = requiredSelect ? getSelectText(requiredSelect) : '必填';
+        var exists = Array.from(pendingMaterialNameTarget.querySelectorAll('.chip')).find(function(chip){
+          return getMaterialChipName(chip) === name;
+        });
+        if(exists){
+          updateMaterialChipRequired(exists, required);
+        }else{
+          var chip = createMaterialChip(name, required);
+          pendingMaterialNameTarget.insertBefore(chip, add || null);
+        }
+      });
+      renderRequiredMaterialCell(pendingMaterialNameTarget);
+    }
+    closeModal('materialNameModal');
+    showToast('资产方材料名称已保存');
+  }
+  function saveRuleDraft(){
+    switchTab('ruleConfig');
+    showToast('规则草稿已保存，草稿状态不可用于新建导入');
+  }
+  function confirmEnableRule(){
+    closeModal('ruleEnableModal');
+    switchTab('ruleConfig');
+    showToast('规则已保存并启用，新建导入可选择该规则');
+  }
   function saveDraft(){
     var row = document.getElementById('draftBatchRow');
     if(row){ row.style.display = 'table-row'; }
@@ -1058,7 +1527,7 @@
     document.getElementById('materialCustomer').innerText = customer;
     setSelectValue(document.getElementById('materialRelation'), relation);
     setSelectValue(document.getElementById('materialType'), materialType);
-    document.getElementById('materialFileName').innerText = loanNo === '批量上传' ? '材料包_创新租赁旧合同批次01.zip' : loanNo + '_' + materialType + '_01.jpg';
+    document.getElementById('materialFileName').innerText = loanNo === '批量上传' ? '材料包_外部资产方A租赁批次01.zip' : loanNo + '_' + materialType + '_01.jpg';
     openModal('materialModal');
   }
   function openBatchSupplementModal(){
