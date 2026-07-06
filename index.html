@@ -639,13 +639,13 @@
     <section id="newImport" class="tab-page">
       <div class="panel">
         <div class="notice">填写批次基础信息后上传资产明细和材料包。模板以 0702 最终版为准：一期要求资产方按系统下载模板填写中文列头；合同和材料按“标准材料类别+资产方材料名称”配置识别。</div>
-        <div class="scope-tip" id="retryImportTip">当前为失败订单重新导入：已加载原批次的批次名称、外部资产方、业务类型、导入规则、债转主体、债权总额和债权对价；本次只需要上传修正后的失败订单资产明细和材料包。</div>
+        <div class="scope-tip" id="retryImportTip">当前为失败订单重新导入：已加载原批次的批次名称、外部资产方、业务类型、导入规则、债权接收主体、债权总额和债权对价；本次只需要上传修正后的失败订单资产明细和材料包。</div>
         <div class="form-grid compact">
           <label><span><em class="req">*</em>批次名称</span><div class="field-box"><div class="input" id="importBatchName">例：转转租赁批次01</div><div class="limit">必填，2-50字符；同一天允许重名但建议避免重复。</div></div></label>
           <label><span><em class="req">*</em>外部资产方</span><div class="field-box"><div class="select" id="importAssetOwner" data-options="全部|创新|转转|人人租">创新<b>⌄</b></div><div class="enum">全部 / 创新 / 转转 / 人人租</div><div class="limit">必填；枚举来源于法诉系统数据字典，由研发配置维护。“全部”仅用于筛选，导入时不能选择全部。</div></div></label>
           <label><span><em class="req">*</em>业务类型</span><div class="field-box"><div class="select" id="importBizType" data-options="租赁|分期|其他">租赁<b>⌄</b></div><div class="enum">枚举：租赁 / 分期 / 其他</div><div class="limit">本期默认租赁。</div></div></label>
           <label><span><em class="req">*</em>导入规则</span><div class="field-box"><div class="select" id="importRule" data-options="创新租赁通用规则|转转租赁规则|人人租分期规则">创新租赁通用规则<b>⌄</b></div><div class="enum">创新租赁通用规则 / 转转租赁规则 / 人人租分期规则</div><div class="limit">必填；决定模板字段启用范围、合同类别、材料名称和必填规则。</div></div></label>
-          <label><span><em class="req">*</em>债转主体</span><div class="field-box"><div class="select" id="importDebtSubject" data-options="襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)|武汉小优企业管理有限公司(91420115MACRLKWJ1A)|聊城小优企业管理有限公司(91371521MADE8H2E0)|天津小优企业管理有限公司(91120116MABU4DAY3Q)|沈阳小优企业管理有限公司(91210104MACDQBF833)|石家庄晓优企业管理有限公司(91130108MADAANMX3XG)|宁波小优企业管理有限公司(91330212MA2CK8RF79)|扬州轩翔电子商务有限公司(91370211MA3QN39G8W)">请选择债转主体<b>⌄</b></div><div class="enum">襄阳鸿飞企业管理有限公司(91420600MACTCY0R42) / 武汉小优企业管理有限公司(91420115MACRLKWJ1A) / 聊城小优企业管理有限公司(91371521MADE8H2E0) / 天津小优企业管理有限公司(91120116MABU4DAY3Q) / 沈阳小优企业管理有限公司(91210104MACDQBF833) / 石家庄晓优企业管理有限公司(91130108MADAANMX3XG) / 宁波小优企业管理有限公司(91330212MA2CK8RF79) / 扬州轩翔电子商务有限公司(91370211MA3QN39G8W)</div><div class="limit">必填；沿用待委外管理“债转主体”枚举，用于诉讼主体、要素表和报表统计。</div></div></label>
+          <label><span><em class="req">*</em>债权接收主体</span><div class="field-box"><div class="select" id="importDebtSubject" data-options="襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)|武汉小优企业管理有限公司(91420115MACRLKWJ1A)|聊城小优企业管理有限公司(91371521MADE8H2E0)|天津小优企业管理有限公司(91120116MABU4DAY3Q)|沈阳小优企业管理有限公司(91210104MACDQBF833)|石家庄晓优企业管理有限公司(91130108MADAANMX3XG)|宁波小优企业管理有限公司(91330212MA2CK8RF79)|扬州轩翔电子商务有限公司(91370211MA3QN39G8W)">请选择债权接收主体<b>⌄</b></div><div class="enum">襄阳鸿飞企业管理有限公司(91420600MACTCY0R42) / 武汉小优企业管理有限公司(91420115MACRLKWJ1A) / 聊城小优企业管理有限公司(91371521MADE8H2E0) / 天津小优企业管理有限公司(91120116MABU4DAY3Q) / 沈阳小优企业管理有限公司(91210104MACDQBF833) / 石家庄晓优企业管理有限公司(91130108MADAANMX3XG) / 宁波小优企业管理有限公司(91330212MA2CK8RF79) / 扬州轩翔电子商务有限公司(91370211MA3QN39G8W)</div><div class="limit">必填；沿用待委外管理“债权接收主体”枚举，用于诉讼主体、要素表和报表统计。</div></div></label>
           <label><span><em class="req">*</em>债权总额</span><div class="field-box"><div class="input" id="importTotalDebt">例：12036800.00</div><div class="limit">必填，金额字段；保留2位小数，不允许负数。</div></div></label>
           <label><span><em class="req">*</em>债权对价</span><div class="field-box"><div class="input" id="importDebtPrice">例：8425760.00</div><div class="limit">必填，金额字段；不允许大于债权总额。</div></div></label>
           <label><span>备注</span><div class="field-box"><div class="textarea" id="importRemark">记录本批次数据来源、业务口径或特殊说明</div><div class="limit">非必填，最多200字符。</div></div></label>
@@ -792,7 +792,7 @@
       <section class="anno-block">
         <h3>重点列取数</h3>
         <p><b>1.</b>批次号由系统生成；草稿批次点击批次号进入新建导入草稿页并回显已保存数据。</p>
-        <p><b>2.</b>批次名称、外部资产方、业务类型、债转主体、债权总额、债权对价取新建导入或编辑弹框保存值。</p>
+        <p><b>2.</b>批次名称、外部资产方、业务类型、债权接收主体、债权总额、债权对价取新建导入或编辑弹框保存值。</p>
         <p><b>3.</b>资产总数、导入成功、导入失败取导入处理结果统计；不把材料待补传单独作为批次状态。</p>
         <p><b>4.</b>批次状态按批次生命周期生成：草稿、导入中、导入完成、导入失败、已取消；导入完成后通过导入详情查看每笔订单的处理结果和案件生效状态。</p>
         <p><b>5.</b>导入时间取点击“导入”成功提交的时间；草稿未导入时展示草稿保存时间或为空。</p>
@@ -803,7 +803,7 @@
         <p><b>2.</b>导入规则配置：进入规则列表，维护不同外部资产方的字段和材料规则。</p>
         <p><b>3.</b>详情：进入导入详情页，查看订单级导入结果、解析详情和问题明细。</p>
         <p><b>4.</b>补传：进入批量补传页，默认带入当前批次号，仅处理该批次材料问题。</p>
-        <p><b>5.</b>编辑：只允许修改批次名称、债权总额、债权对价、备注，并展示历史上传文件下载入口；外部资产方、业务类型、规则、债转主体不可改。</p>
+        <p><b>5.</b>编辑：只允许修改批次名称、债权总额、债权对价、备注，并展示历史上传文件下载入口；外部资产方、业务类型、规则、债权接收主体不可改。</p>
         <p><b>6.</b>错误明细：下载当前批次的问题明细，供运营修正后重新导入。</p>
       </section>
     </div>
@@ -888,7 +888,7 @@
       <section class="anno-block">
         <h3>页面字段取数</h3>
         <p><b>1.</b>批次名称由运营录入，保存草稿或导入时均需保留。</p>
-        <p><b>2.</b>外部资产方、业务类型、债转主体取系统下拉；外部资产方示例为创新、转转、人人租。</p>
+        <p><b>2.</b>外部资产方、业务类型、债权接收主体取系统下拉；外部资产方示例为创新、转转、人人租。</p>
         <p><b>3.</b>导入规则根据外部资产方和业务类型过滤，只展示已启用规则。</p>
         <p><b>4.</b>债权总额、债权对价由运营录入，保留2位小数；债权对价不能大于债权总额。</p>
         <p><b>5.</b>资产明细Excel只填写资产方可提供的订单、用户、物流、联系人、文件等业务字段，不填写批次号和内部服务商信息。</p>
@@ -978,7 +978,7 @@
       <section class="anno-block">
         <h3>按钮操作</h3>
         <p><b>1.</b>下载：勾选订单时下载所选订单；未勾选时下载当前筛选结果。</p>
-        <p><b>2.</b>重新导入失败订单：弹框默认加载原批次的批次号、批次名称、外部资产方、业务类型、导入规则、债转主体、债权总额、债权对价，只上传修正后的文件。</p>
+        <p><b>2.</b>重新导入失败订单：弹框默认加载原批次的批次号、批次名称、外部资产方、业务类型、导入规则、债权接收主体、债权总额、债权对价，只上传修正后的文件。</p>
         <p><b>3.</b>批量补传：跳转补传页并带入当前批次号。</p>
         <p><b>4.</b>单条补传：跳转补传页并带入批次号和订单编号，只过滤当前案件缺失材料。</p>
         <p><b>5.</b>查看解析：只读弹框，按字段解析、主续关系、材料解析、落库结果展示；材料解析中的文件名可点击预览或下载。</p>
@@ -1073,7 +1073,7 @@
   <div class="modal large">
     <div class="modal-head">模板说明 <button onclick="closeModal('templateModal')">×</button></div>
     <div class="modal-body">
-      <div class="notice" style="margin:0 0 14px">本说明用于辅助填写 0702 最终版 Excel 模板。外部资产方、业务类型、导入规则、债转主体、债权总额、债权对价在页面填写；导入批次号由系统自动生成。Excel 只填写资产方可提供的案件导入模板字段和材料文件信息。</div>
+      <div class="notice" style="margin:0 0 14px">本说明用于辅助填写 0702 最终版 Excel 模板。外部资产方、业务类型、导入规则、债权接收主体、债权总额、债权对价在页面填写；导入批次号由系统自动生成。Excel 只填写资产方可提供的案件导入模板字段和材料文件信息。</div>
       <table>
         <thead><tr><th style="width:260px">工作表</th><th>内容</th><th>关键限制</th></tr></thead>
         <tbody>
@@ -1109,7 +1109,7 @@
           <div class="submit-note" style="margin-top:10px">无法识别订单编号或材料名称的文件进入未匹配材料池；支持人工绑定订单。</div>
         </div>
       </div>
-      <div class="submit-note">模板只填写资产方能提供的订单明细和材料文件信息；页面外部资产方、导入规则、债转主体、债权总额、债权对价和批次号由法诉系统维护。外部资产方的合同名称、材料名称和是否必填在“导入规则配置”中维护；一期不支持资产方自定义Excel表头。</div>
+      <div class="submit-note">模板只填写资产方能提供的订单明细和材料文件信息；页面外部资产方、导入规则、债权接收主体、债权总额、债权对价和批次号由法诉系统维护。外部资产方的合同名称、材料名称和是否必填在“导入规则配置”中维护；一期不支持资产方自定义Excel表头。</div>
     </div>
     <div class="modal-foot"><button onclick="closeModal('templateModal')">关闭</button><a class="btn primary" href="./法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx" download>下载模板</a></div>
   </div>
@@ -1216,14 +1216,14 @@
   <div class="modal wide">
     <div class="modal-head"><span>编辑批次信息</span><button onclick="closeModal('debtAmountModal')">×</button></div>
     <div class="modal-body">
-      <div class="notice" style="margin:0 0 14px">本弹框用于修改批次级信息。批次名称、债权总价、债权对价、备注允许修改；外部资产方、业务类型、导入规则、债转主体和已上传文件只读展示，避免导入规则口径被事后改动。</div>
+      <div class="notice" style="margin:0 0 14px">本弹框用于修改批次级信息。批次名称、债权总价、债权对价、备注允许修改；外部资产方、业务类型、导入规则、债权接收主体和已上传文件只读展示，避免导入规则口径被事后改动。</div>
       <div class="form-grid" style="grid-template-columns:1fr 1fr;padding:0 0 14px">
         <label><span>导入批次号</span><div class="field-box"><div class="input" id="batchNoEdit">DR202606100001</div><div class="limit">系统生成，不可修改。</div></div></label>
         <label><span>批次名称</span><div class="field-box"><div class="input" id="batchNameEdit" contenteditable="true">创新租赁通用规则批次01</div><div class="limit">可修改，2-50字符；保存后同步批次列表展示。</div></div></label>
         <label><span>外部资产方</span><div class="field-box"><div class="input" id="batchOwnerEdit">创新</div><div class="limit">不可修改；同一批次只能对应一个外部资产方。</div></div></label>
         <label><span>业务类型</span><div class="field-box"><div class="input" id="batchBizEdit">租赁</div><div class="limit">不可修改；如需变更需重新建批次。</div></div></label>
         <label><span>导入规则</span><div class="field-box"><div class="input" id="batchRuleEdit">创新租赁通用规则</div><div class="limit">不可修改；该批次已按此规则解析。</div></div></label>
-        <label><span>债转主体</span><div class="field-box"><div class="input" id="batchSubjectEdit">襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)</div><div class="limit">不可修改；用于诉讼主体、要素表和报表统计。</div></div></label>
+        <label><span>债权接收主体</span><div class="field-box"><div class="input" id="batchSubjectEdit">襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)</div><div class="limit">不可修改；用于诉讼主体、要素表和报表统计。</div></div></label>
         <label><span>债权总价</span><div class="field-box"><div class="input" id="debtTotalInput" contenteditable="true">12,036,800.00</div><div class="limit">可修改；金额字段，保留2位小数，保存后记录操作日志。</div></div></label>
         <label><span>债权对价</span><div class="field-box"><div class="input" id="debtPriceInput" contenteditable="true">8,425,760.00</div><div class="limit">可修改；不允许大于债权总价。</div></div></label>
         <label style="grid-column:1/3"><span>备注</span><div class="field-box"><div class="textarea" id="batchRemarkEdit" contenteditable="true">资产方复核后确认本批次债权口径，已补充合同材料。</div><div class="limit">可修改，最多200字符；保存后写入批次操作日志。</div></div></label>
@@ -1277,7 +1277,7 @@
       <div class="kv" style="margin-bottom:14px">
         <b>原批次号</b><span id="retryBatchNo">DR202606100001</span><b>批次名称</b><span>创新租赁通用规则批次01</span>
         <b>外部资产方</b><span>创新</span><b>业务类型</b><span>租赁</span>
-        <b>导入规则</b><span>创新租赁通用规则</span><b>债转主体</b><span>青年优品</span>
+        <b>导入规则</b><span>创新租赁通用规则</span><b>债权接收主体</b><span>青年优品</span>
         <b>债权总价</b><span>12,036,800.00</span><b>债权对价</b><span>8,425,760.00</span>
         <b>重导范围</b><span>仅导入失败订单 12 笔</span><b>生成方式</b><span>生成关联原批次的新重导批次</span>
       </div>
@@ -1394,7 +1394,7 @@
       <table>
         <thead><tr><th>保存内容</th><th>保存说明</th><th>后续可操作</th></tr></thead>
         <tbody>
-          <tr><td>批次基础信息</td><td>保存批次名称、外部资产方、业务类型、导入规则、债转主体、债权总额、债权对价、备注</td><td>继续编辑、修改后再次保存或导入</td></tr>
+          <tr><td>批次基础信息</td><td>保存批次名称、外部资产方、业务类型、导入规则、债权接收主体、债权总额、债权对价、备注</td><td>继续编辑、修改后再次保存或导入</td></tr>
           <tr><td>已上传文件记录</td><td>保存资产明细、材料包的文件名、上传人、上传时间、文件状态；若未上传则保持空</td><td>继续上传、删除或替换文件</td></tr>
           <tr><td>批次状态</td><td>保存后状态为草稿，列表展示导入批次号和草稿批次名称</td><td>返回列表后可继续编辑、导入或取消草稿</td></tr>
         </tbody>
@@ -2197,7 +2197,7 @@
   function loadDraftImportData(){
     var retryTip = document.getElementById('retryImportTip');
     if(retryTip){
-      retryTip.innerText = '当前打开草稿批次 DR202606150001：已加载上次保存的批次名称、外部资产方、业务类型、导入规则、债转主体、债权总额、债权对价、备注和临时上传文件。';
+      retryTip.innerText = '当前打开草稿批次 DR202606150001：已加载上次保存的批次名称、外部资产方、业务类型、导入规则、债权接收主体、债权总额、债权对价、备注和临时上传文件。';
       retryTip.classList.add('show');
     }
     var batchName = document.getElementById('importBatchName');
