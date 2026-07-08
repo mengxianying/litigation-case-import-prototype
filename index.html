@@ -1479,7 +1479,6 @@
         <b id="previewFileName">材料文件</b>
         <span id="previewFileType">文件预览区</span>
       </div>
-      <div class="submit-note">原型效果：点击文件名打开预览弹框；点击“下载文件”模拟下载对应材料。实际系统中需对接材料文件存储地址，并按用户权限控制查看和下载。</div>
     </div>
     <div class="modal-foot"><button onclick="closeModal('filePreviewModal')">关闭</button><button class="primary" onclick="downloadPreviewFile()">下载文件</button></div>
   </div>
@@ -1524,12 +1523,12 @@
     openModal('filePreviewModal');
   }
   function downloadMockFile(fileName){
-    var content = '原型模拟文件：' + fileName + '\n实际系统需下载材料文件存储中的原始文件。';
+    var content = '材料文件：' + fileName;
     var blob = new Blob([content], {type:'text/plain;charset=utf-8'});
     var url = URL.createObjectURL(blob);
     var link = document.createElement('a');
     link.href = url;
-    link.download = fileName.replace(/\.(pdf|jpg|jpeg|png|gif|bmp|webp|zip|rar|7z)$/i, '') + '_原型示例.txt';
+    link.download = fileName.replace(/\.(pdf|jpg|jpeg|png|gif|bmp|webp|zip|rar|7z)$/i, '') + '.txt';
     document.body.appendChild(link);
     link.click();
     link.remove();
