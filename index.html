@@ -100,26 +100,6 @@
     .state-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 20px 18px}
     .state{border:1px solid #dfe5ee;background:#fafcff;border-radius:4px;padding:10px 12px}
     .state b{display:block;color:#174f89;margin-bottom:4px}
-    .flow-card{background:#fffdf2;border:1px solid #ead36d;border-left:4px solid #d7b600;border-radius:3px;padding:7px 9px;margin-top:6px}
-    .flow-title{font-weight:700;color:#174f89;margin:0 0 5px}
-    .flow-title:before{content:"▸ ";color:#8a6d00}
-    .flow-row{display:flex;align-items:baseline;gap:4px;flex-wrap:wrap;margin:3px 0;color:#333}
-    .flow-node{display:inline;min-width:0;max-width:none;flex:none;border:0;background:transparent;border-radius:0;padding:0;color:#333;line-height:1.45;word-break:break-word}
-    .flow-node b{display:inline;width:auto;color:#1d65ad;margin:0;font-weight:700}
-    .flow-node b:after{content:"：";color:#333;font-weight:400}
-    .flow-node small{display:inline;color:#4b5563;font-size:13px}
-    .flow-node.start,.flow-node.ok-flow,.flow-node.warn-flow,.flow-node.bad-flow{background:transparent;border:0;color:#333}
-    .flow-node.ok-flow b{color:#17854f}
-    .flow-node.warn-flow b{color:#9a6500}
-    .flow-node.bad-flow b{color:#c53030}
-    .flow-arrow{min-width:auto;display:inline-flex;align-items:center;justify-content:center;color:#777;font-weight:400;position:static;padding:0 2px}
-    .flow-arrow:after{content:none}
-    .flow-arrow span{position:static;transform:none;font-size:14px;line-height:1}
-    .flow-legend{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:8px}
-    .flow-legend div{border:1px dashed #c8d3e0;background:#fbfdff;border-radius:3px;padding:6px 8px;color:#4b5563;line-height:1.35}
-    .flow-legend b{width:auto;color:#1d65ad}
-    .modal-flow-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 12px}
-    .modal-flow-grid .flow-card{border-color:#dfe5ee;margin:0}
     .rule-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 20px 16px}
     .rule-item{border:1px solid #dfe5ee;background:#fbfdff;border-radius:4px;padding:10px 12px;min-height:74px}
     .rule-item b{display:block;color:#174f89;margin-bottom:5px}
@@ -278,6 +258,11 @@
     .anno-block h3{margin:0 0 8px;font-size:16px}
     .anno-block p{margin:5px 0}
     .anno-block b{display:inline-block;width:22px}
+    .button-state-table{width:100%;border-collapse:collapse;margin-top:8px;table-layout:auto;font-size:13px}
+    .button-state-table th,.button-state-table td{border:1px solid #d9bf30;padding:6px 8px;text-align:left;vertical-align:top;line-height:1.45;background:#fffef5;color:#333;word-break:normal}
+    .button-state-table thead th{background:#fff4b8;color:#174f89;font-weight:700;white-space:nowrap}
+    .button-state-table tbody th{width:108px;background:#fffbe0;color:#1d65ad;font-weight:700;white-space:nowrap}
+    .button-state-table td{word-break:break-word}
     .anno-page{display:none}
     .anno-page.active{display:block}
     .modal-mask{display:none;position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:20;align-items:center;justify-content:center}
@@ -780,19 +765,16 @@
         <p><b>3.</b>处理详情：进入导入处理详情页，统一查看订单处理清单、待补传材料清单、未匹配材料池和解析详情。</p>
         <p><b>4.</b>编辑：只允许修改批次名称、债权总额、债权对价、备注，并展示历史上传文件下载入口；外部资产方、业务类型、规则、债权接收主体不可改。</p>
         <p><b>5.</b>错误明细：下载当前批次的问题明细，供运营修正后重新导入。</p>
-        <div class="flow-card">
-          <div class="flow-title">按钮状态</div>
-          <div class="flow-row">
-            <div class="flow-node start"><b>草稿</b><small>继续编辑 / 导入 / 取消</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node warn-flow"><b>导入中</b><small>只看进度，不允许编辑</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node ok-flow"><b>导入完成</b><small>处理详情 / 编辑 / 错误明细</small></div>
-          </div>
-          <div class="flow-row">
-            <div class="flow-node bad-flow"><b>导入失败</b><small>处理详情 / 编辑 / 错误明细 / 批量补传</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node start"><b>修正文件</b><small>回到导入处理详情处理</small></div>
-            <div class="flow-node"><b>任意状态</b><small>新建导入批次 / 导入规则配置 / 模板说明</small></div>
-          </div>
-        </div>
+        <table class="button-state-table">
+          <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
+          <tbody>
+            <tr><th>草稿</th><td>继续编辑、导入、取消</td><td>继续编辑回显草稿；导入进入导入中；取消后变为已取消。</td></tr>
+            <tr><th>导入中</th><td>查看进度</td><td>不允许编辑、取消、批量补传；结束后变为导入完成或导入失败。</td></tr>
+            <tr><th>导入完成</th><td>处理详情、编辑、错误明细</td><td>编辑只改批次名称、债权总额、债权对价、备注；不可改导入规则。</td></tr>
+            <tr><th>导入失败</th><td>处理详情、编辑、错误明细</td><td>进入详情后通过批量补传上传修正版文件。</td></tr>
+            <tr><th>任意状态</th><td>新建导入批次、导入规则配置、模板说明</td><td>不依赖当前批次状态，可随时进入。</td></tr>
+          </tbody>
+        </table>
       </section>
     </div>
     <div class="anno-page" data-anno="ruleConfig">
@@ -823,19 +805,15 @@
         <p><b>3.</b>复制：复制当前规则生成新规则配置，方便同类资产方快速调整后启用。</p>
         <p><b>4.</b>停用：停用后新建导入不可选择；不影响已导入批次。</p>
         <p><b>5.</b>下载模板：下载当前最终版Excel模板和填写说明。</p>
-        <div class="flow-card">
-          <div class="flow-title">按钮状态</div>
-          <div class="flow-row">
-            <div class="flow-node start"><b>规则列表</b><small>查询 / 重置 / 下载模板</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node"><b>新建规则</b><small>进入规则编辑页</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node ok-flow"><b>启用规则</b><small>可被新建导入选择</small></div>
-          </div>
-          <div class="flow-row">
-            <div class="flow-node ok-flow"><b>启用</b><small>编辑 / 复制 / 停用</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node warn-flow"><b>停用</b><small>编辑 / 复制 / 启用</small></div>
-            <div class="flow-node"><b>历史批次</b><small>继续按原规则展示</small></div>
-          </div>
-        </div>
+        <table class="button-state-table">
+          <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
+          <tbody>
+            <tr><th>列表查询</th><td>查询、重置、下载模板、新建规则</td><td>新建规则进入规则编辑页；下载模板不改变规则状态。</td></tr>
+            <tr><th>启用规则</th><td>编辑、复制、停用</td><td>启用规则可被新建导入选择；编辑后只影响新批次。</td></tr>
+            <tr><th>停用规则</th><td>编辑、复制、启用</td><td>停用后新建导入不可选择；历史批次继续按原规则处理。</td></tr>
+            <tr><th>复制规则</th><td>复制</td><td>生成一份新规则配置，需保存并启用后才可使用。</td></tr>
+          </tbody>
+        </table>
       </section>
     </div>
     <div class="anno-page" data-anno="ruleEdit">
@@ -877,19 +855,16 @@
         <p><b>3.</b>配置资产方材料名称：支持新增和调整材料名称，并设置必填标记和匹配模式。</p>
         <p><b>4.</b>保存并启用：校验基础信息、锁定字段、必填材料、重复材料名称后启用。</p>
         <p><b>5.</b>取消：放弃本次未保存修改，返回规则列表。</p>
-        <div class="flow-card">
-          <div class="flow-title">按钮状态</div>
-          <div class="flow-row">
-            <div class="flow-node start"><b>编辑规则</b><small>调整字段启用 / 必填</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node"><b>材料规则</b><small>切换首租 / 续租，仅影响材料</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node"><b>配置名称</b><small>新增资产方材料名、必填、匹配模式</small></div>
-          </div>
-          <div class="flow-row">
-            <div class="flow-node warn-flow"><b>取消</b><small>放弃未保存修改，返回列表</small></div>
-            <div class="flow-node ok-flow"><b>保存并启用</b><small>校验通过后规则生效</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node ok-flow"><b>新建导入可选</b><small>仅影响新批次</small></div>
-          </div>
-        </div>
+        <table class="button-state-table">
+          <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
+          <tbody>
+            <tr><th>基础信息未完整</th><td>取消</td><td>保存并启用不可提交，需补齐规则名称、外部资产方、业务类型、规则状态。</td></tr>
+            <tr><th>字段配置</th><td>调整启用、是否必填、校验说明</td><td>锁定字段不可修改；不提供新增字段、删除字段入口。</td></tr>
+            <tr><th>材料配置</th><td>切换首租/续租、配置资产方材料名称</td><td>切换只影响材料规则；标准材料类别由数据字典维护。</td></tr>
+            <tr><th>校验通过</th><td>保存并启用</td><td>规则生效后，新建导入批次可选择；只影响新批次。</td></tr>
+            <tr><th>放弃修改</th><td>取消</td><td>放弃未保存内容，返回导入规则配置列表。</td></tr>
+          </tbody>
+        </table>
       </section>
       <section class="anno-block">
         <h3>材料识别结果</h3>
@@ -922,19 +897,16 @@
         <p><b>3.</b>保存草稿：只保存页面基础信息和已上传文件记录，不解析文件、不生成案件、不进入导入处理详情。</p>
         <p><b>4.</b>导入：提交后解析Excel和材料包，生成导入处理详情记录。</p>
         <p><b>5.</b>取消：未保存内容直接放弃；草稿取消后状态变为已取消，不可继续导入。</p>
-        <div class="flow-card">
-          <div class="flow-title">按钮状态</div>
-          <div class="flow-row">
-            <div class="flow-node start"><b>填写批次</b><small>头部字段除备注外均必填</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node"><b>上传文件</b><small>资产明细 + 材料包均必传</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node ok-flow"><b>导入</b><small>校验通过进入导入中</small></div>
-          </div>
-          <div class="flow-row">
-            <div class="flow-node warn-flow"><b>保存草稿</b><small>只保存，不解析、不生成案件</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node start"><b>继续编辑</b><small>从批次号回显草稿</small></div>
-            <div class="flow-node bad-flow"><b>取消</b><small>未保存放弃；草稿变已取消</small></div>
-          </div>
-        </div>
+        <table class="button-state-table">
+          <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
+          <tbody>
+            <tr><th>新建中</th><td>上传资产明细、上传材料包、下载模板、模板说明、保存草稿、导入、取消</td><td>头部字段除备注外均必填；资产明细和材料包都必须上传后才能导入。</td></tr>
+            <tr><th>缺少必传文件</th><td>去上传、保存草稿、取消</td><td>点击导入时弹提示并阻止导入；不生成处理详情和案件。</td></tr>
+            <tr><th>草稿</th><td>继续编辑、保存草稿、导入、取消</td><td>继续编辑回显上次保存内容；取消后状态变为已取消。</td></tr>
+            <tr><th>提交导入</th><td>导入</td><td>页面必填、金额、文件格式通过后进入导入中。</td></tr>
+            <tr><th>放弃编辑</th><td>取消</td><td>未保存的新建内容直接放弃；已保存草稿只放弃本次未保存修改。</td></tr>
+          </tbody>
+        </table>
       </section>
       <section class="anno-block">
         <h3>案件生成规则</h3>
@@ -1006,23 +978,16 @@
         <p><b>3.</b>补传材料仅允许上传当前导入规则中配置为非必填的材料；非配置材料或必填材料不在补传入口受理。</p>
         <p><b>4.</b>待补传材料清单只展示非必填缺失材料，不提供单条上传；未匹配材料池只保留删除，不提供人工绑定或重新绑定。</p>
         <p><b>5.</b>查看解析：只读弹框，按字段解析、主续关系、材料解析、落库结果展示；材料解析中的文件名可点击预览或下载。</p>
-        <div class="flow-card">
-          <div class="flow-title">按钮状态</div>
-          <div class="flow-row">
-            <div class="flow-node ok-flow"><b>已生效</b><small>查看解析 / 下载结果</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node warn-flow"><b>待补材料</b><small>批量补传非必填材料</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node ok-flow"><b>材料完整</b><small>刷新材料完整度</small></div>
-          </div>
-          <div class="flow-row">
-            <div class="flow-node bad-flow"><b>导入失败</b><small>查看解析 / 失败原因 / 批量补传</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node start"><b>重新解析</b><small>上传修正版订单和材料包</small></div>
-            <div class="flow-node warn-flow"><b>重复待处理</b><small>已分配/已流转只确认跳过</small></div>
-          </div>
-          <div class="flow-row">
-            <div class="flow-node"><b>未匹配材料</b><small>预览/下载、删除、批量补传重新识别</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node ok-flow"><b>识别成功</b><small>进入材料记录或待补清单</small></div>
-          </div>
-        </div>
+        <table class="button-state-table">
+          <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
+          <tbody>
+            <tr><th>已生效</th><td>查看解析、下载</td><td>案件已进入待委外；非必填材料可后续批量补传。</td></tr>
+            <tr><th>待补材料</th><td>查看解析、批量补传、材料规则速查</td><td>只允许补传规则中配置为非必填的材料。</td></tr>
+            <tr><th>导入失败</th><td>查看解析、失败原因、错误明细、批量补传</td><td>不生成案件；上传修正版订单文件和材料包后重新解析。</td></tr>
+            <tr><th>重复待处理</th><td>查看解析、处理重复、确认跳过</td><td>已有案件已分配或已流转，不展示订单覆盖按钮。</td></tr>
+            <tr><th>未匹配材料</th><td>文件预览/下载、删除、批量补传</td><td>本期不做人工绑定；需重新上传整理后的文件让系统识别。</td></tr>
+          </tbody>
+        </table>
       </section>
       <section class="anno-block">
         <h3>主续和账单</h3>
@@ -1049,54 +1014,19 @@
     <div class="modal-head">状态机和按钮权限说明 <button onclick="closeModal('batchStateModal')">×</button></div>
     <div class="modal-body">
       <div class="notice" style="margin:0 0 14px">状态机分为批次状态、订单处理状态、重复订单状态和规则状态。页面按钮是否可点以当前状态为准；没有列出的按钮默认不可操作。</div>
-      <div class="modal-flow-grid">
-        <div class="flow-card">
-          <div class="flow-title">批次按钮主流程</div>
-          <div class="flow-row">
-            <div class="flow-node start"><b>草稿</b><small>保存草稿 / 导入 / 取消</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node warn-flow"><b>导入中</b><small>只允许查看进度</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node ok-flow"><b>导入完成</b><small>处理详情 / 编辑 / 批量补传</small></div>
-          </div>
-          <div class="flow-row">
-            <div class="flow-node bad-flow"><b>导入失败</b><small>错误明细 / 编辑 / 批量补传</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node start"><b>修正重传</b><small>重新解析后回到完成或失败</small></div>
-          </div>
-        </div>
-        <div class="flow-card">
-          <div class="flow-title">订单处理主流程</div>
-          <div class="flow-row">
-            <div class="flow-node ok-flow"><b>已生效</b><small>进入待委外</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node warn-flow"><b>待补材料</b><small>只补非必填材料</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node ok-flow"><b>材料完整</b><small>更新完整度</small></div>
-          </div>
-          <div class="flow-row">
-            <div class="flow-node bad-flow"><b>导入失败</b><small>不生成案件</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node start"><b>批量补传</b><small>上传修正版订单/材料</small></div>
-          </div>
-        </div>
-        <div class="flow-card">
-          <div class="flow-title">重复订单流程</div>
-          <div class="flow-row">
-            <div class="flow-node start"><b>识别重复</b><small>外部资产方 + 订单编号</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node ok-flow"><b>未分配未流转</b><small>自动覆盖字段和同名文件</small></div>
-          </div>
-          <div class="flow-row">
-            <div class="flow-node warn-flow"><b>已分配/已流转</b><small>重复待处理</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node"><b>确认跳过</b><small>已有案件不变化，仅记日志</small></div>
-          </div>
-        </div>
-        <div class="flow-card">
-          <div class="flow-title">规则状态流程</div>
-          <div class="flow-row">
-            <div class="flow-node ok-flow"><b>启用</b><small>可被新建导入选择</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node warn-flow"><b>停用</b><small>新批次不可选</small></div>
-          </div>
-          <div class="flow-row">
-            <div class="flow-node"><b>编辑/复制</b><small>修改后重新保存并启用</small></div><div class="flow-arrow"><span>›</span></div>
-            <div class="flow-node ok-flow"><b>新规则生效</b><small>只影响后续新批次</small></div>
-          </div>
-        </div>
-      </div>
+      <table class="button-state-table" style="margin:0 0 14px">
+        <thead><tr><th>模块</th><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
+        <tbody>
+          <tr><th>批次</th><td>草稿</td><td>继续编辑、导入、取消</td><td>导入进入导入中；取消后终止草稿。</td></tr>
+          <tr><th>批次</th><td>导入中</td><td>查看进度</td><td>不允许编辑、取消、批量补传。</td></tr>
+          <tr><th>批次</th><td>导入完成/导入失败</td><td>处理详情、编辑、错误明细、批量补传</td><td>编辑只改批次基础信息；批量补传用于修正失败订单或补充非必填材料。</td></tr>
+          <tr><th>订单</th><td>已生效/待补材料</td><td>查看解析、下载、批量补传</td><td>已生效案件进入待委外；待补材料只补非必填材料。</td></tr>
+          <tr><th>订单</th><td>导入失败</td><td>查看解析、失败原因、错误明细、批量补传</td><td>不生成案件；修正后重新解析。</td></tr>
+          <tr><th>重复订单</th><td>未分配未流转</td><td>覆盖记录</td><td>系统自动覆盖字段和同名文件，不需要人工点覆盖。</td></tr>
+          <tr><th>重复订单</th><td>已分配/已流转</td><td>处理重复、确认跳过</td><td>不展示订单覆盖按钮，避免影响已流转案件。</td></tr>
+          <tr><th>规则</th><td>启用/停用</td><td>编辑、复制、启用、停用</td><td>启用后新批次可选；停用后新批次不可选，历史批次不受影响。</td></tr>
+        </tbody>
+      </table>
       <h4 style="margin:0 0 10px">一、导入批次状态机</h4>
       <table>
         <thead><tr><th style="width:110px">批次状态</th><th style="width:220px">进入条件</th><th style="width:260px">可操作按钮</th><th>不可操作/限制</th><th style="width:180px">下一状态</th></tr></thead>
