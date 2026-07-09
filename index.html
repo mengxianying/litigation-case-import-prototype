@@ -295,6 +295,7 @@
       <li class="sub" data-left-menu="detail">导入处理详情</li>
       <li class="sub" data-left-menu="ruleConfig">导入规则配置</li>
       <li class="sub" data-left-menu="newRule">新建导入规则</li>
+      <li class="sub" data-left-menu="stateMachine">状态机说明</li>
       <li class="sub">诉讼信息</li>
       <li>▤ 财务工作台</li>
       <li>▤ 三方管理</li>
@@ -339,7 +340,6 @@
           <button data-jump="ruleConfig">导入规则配置</button>
           <button onclick="openModal('templateModal')">模板说明</button>
           <span class="spacer"></span>
-          <button class="text-link" onclick="openModal('batchStateModal')">状态机说明</button>
           <span class="tag info">默认外部资产方：创新</span>
         </div>
         <div class="summary compact"><div class="card">资产总数<b>2,184</b></div><div class="card">已生效<b>1,632</b></div><div class="card">待处理<b>22</b></div><div class="card">导入失败<b>530</b></div></div>
@@ -677,7 +677,7 @@
           <label><span>处理状态</span><div class="field-box"><div class="select" data-options="全部|已生效|待补材料|导入失败|重复待处理|未匹配材料">全部<b>⌄</b></div><div class="enum">全部 / 已生效 / 待补材料 / 导入失败 / 重复待处理 / 未匹配材料</div><div class="limit">合并字段、材料、案件生效后的运营处理状态。</div></div></label>
           <div class="search-actions"><button class="primary">查询</button><button>重置</button></div>
         </div>
-        <div class="toolbar"><a class="btn primary" href="./法诉案件导入_导入结果明细.xlsx" download onclick="showToast('已下载所选订单明细')">下载</a><button class="primary" onclick="openBatchSupplementModal()">批量补传</button><span class="spacer"></span><button class="text-link" onclick="openModal('batchStateModal')">状态机说明</button><button class="text-link" onclick="openModal('supplementHelpModal')">处理说明</button><button class="text-link" onclick="openModal('materialRuleModal')">材料规则速查</button></div>
+        <div class="toolbar"><a class="btn primary" href="./法诉案件导入_导入结果明细.xlsx" download onclick="showToast('已下载所选订单明细')">下载</a><button class="primary" onclick="openBatchSupplementModal()">批量补传</button><span class="spacer"></span><button class="text-link" onclick="openModal('supplementHelpModal')">处理说明</button><button class="text-link" onclick="openModal('materialRuleModal')">材料规则速查</button></div>
         <div class="list-tabs">
           <button class="active" data-supp-tab="orders">订单处理清单</button>
           <button data-supp-tab="missing">待补传材料清单</button>
@@ -727,6 +727,60 @@
             </table>
           </div>
           <div class="pagination"><span>共 9 条</span><button>‹</button><span class="active">1</span><span>2</span><button>›</button><span>10条/页</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="stateMachine" class="tab-page">
+      <div class="panel">
+        <div class="panel-title">状态机和按钮权限说明 <small>集中说明各页面在不同状态下可操作的按钮</small></div>
+        <div class="notice">状态机分为批次状态、订单处理状态、重复订单状态和规则状态。页面按钮是否可点以当前状态为准；没有列出的按钮默认不可操作。页面名称用于说明该操作出现在哪个页面。</div>
+        <div class="table-wrap">
+          <table class="button-state-table">
+            <thead><tr><th style="width:150px">页面名称</th><th style="width:108px">模块</th><th style="width:150px">状态/场景</th><th style="width:260px">可操作按钮</th><th>操作结果/限制</th></tr></thead>
+            <tbody>
+              <tr><th>案件导入管理</th><td>批次</td><td>草稿</td><td>继续编辑、导入、取消</td><td>继续编辑回显草稿；导入进入导入中；取消后终止草稿。</td></tr>
+              <tr><th>案件导入管理</th><td>批次</td><td>导入中</td><td>查看进度</td><td>不允许编辑、取消、批量补传；结束后变为导入完成或导入失败。</td></tr>
+              <tr><th>案件导入管理</th><td>批次</td><td>导入完成</td><td>处理详情、编辑、错误明细</td><td>编辑只改批次名称、债权总额、债权对价、备注；不可改外部资产方、业务类型、导入规则、债权接收主体。</td></tr>
+              <tr><th>案件导入管理</th><td>批次</td><td>导入失败</td><td>处理详情、编辑、错误明细</td><td>可进入处理详情通过批量补传上传修正版文件；不允许取消批次。</td></tr>
+              <tr><th>案件导入管理</th><td>批次</td><td>已取消</td><td>查看操作日志</td><td>草稿取消后的终态，不可继续编辑、不可导入、不可补传、不可恢复。</td></tr>
+              <tr><th>新建导入批次</th><td>导入</td><td>新建中</td><td>上传资产明细、上传材料包、下载模板、模板说明、保存草稿、导入、取消</td><td>头部字段除备注外均必填；资产明细和材料包都必须上传后才能导入。</td></tr>
+              <tr><th>新建导入批次</th><td>导入</td><td>缺少必传文件</td><td>去上传、保存草稿、取消</td><td>点击导入时弹提示并阻止导入；不生成处理详情和案件。</td></tr>
+              <tr><th>新建导入批次</th><td>导入</td><td>提交导入</td><td>导入</td><td>页面必填、金额、文件格式通过后进入导入中，系统校验字段、主续关系、重复订单和必填材料。</td></tr>
+              <tr><th>导入处理详情</th><td>订单</td><td>已生效</td><td>查看解析、下载结果</td><td>案件已进入待委外管理；非必填材料可通过批量补传继续补充。</td></tr>
+              <tr><th>导入处理详情</th><td>订单</td><td>待补材料</td><td>查看解析、批量补传、材料规则速查</td><td>只允许补传当前导入规则中配置为非必填的材料；补传后刷新材料完整度。</td></tr>
+              <tr><th>导入处理详情</th><td>订单</td><td>导入失败</td><td>查看解析、失败原因、错误明细、批量补传</td><td>不生成案件；修正Excel或完整材料包后重新解析。</td></tr>
+              <tr><th>导入处理详情</th><td>重复订单</td><td>自动覆盖</td><td>查看解析、覆盖记录</td><td>已有案件未分配且未流转时，导入时自动更新字段并覆盖同名文件；不同名非必填材料自动补充。</td></tr>
+              <tr><th>导入处理详情</th><td>重复订单</td><td>重复待处理</td><td>查看解析、处理重复、确认跳过</td><td>已有案件已分配或已流转，不展示订单覆盖按钮；确认跳过后已有案件不变，仅记录日志。</td></tr>
+              <tr><th>导入处理详情</th><td>材料</td><td>未匹配材料</td><td>文件预览/下载、删除、批量补传</td><td>本期不支持人工绑定；需重新上传整理后的订单文件或材料包由系统识别。</td></tr>
+              <tr><th>导入规则配置</th><td>规则</td><td>列表查询</td><td>查询、重置、下载模板、新建规则</td><td>新建规则进入规则编辑页；下载模板不改变规则状态。</td></tr>
+              <tr><th>导入规则配置</th><td>规则</td><td>启用规则</td><td>编辑、复制、停用</td><td>启用规则可被新建导入选择；编辑后只影响新批次。</td></tr>
+              <tr><th>导入规则配置</th><td>规则</td><td>停用规则</td><td>编辑、复制、启用</td><td>停用后新建导入不可选择；历史批次继续按原规则处理。</td></tr>
+              <tr><th>新建导入规则</th><td>字段配置</td><td>字段配置</td><td>调整启用、是否必填、校验说明</td><td>锁定字段不可修改；不提供新增字段、删除字段入口。</td></tr>
+              <tr><th>新建导入规则</th><td>材料配置</td><td>材料配置</td><td>切换首租/续租、配置资产方材料名称</td><td>首租/续租切换只影响材料规则；标准材料类别由数据字典维护。</td></tr>
+              <tr><th>新建导入规则</th><td>规则</td><td>校验通过</td><td>保存并启用</td><td>规则生效后，新建导入批次可选择；只影响新批次。</td></tr>
+              <tr><th>新建导入规则</th><td>规则</td><td>放弃修改</td><td>取消</td><td>放弃未保存内容，返回导入规则配置列表。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">状态流转补充说明 <small>用于研发、测试核对状态口径</small></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th style="width:160px">页面名称</th><th style="width:150px">状态类型</th><th style="width:170px">状态</th><th>进入条件</th><th style="width:220px">下一状态</th></tr></thead>
+            <tbody>
+              <tr><td>案件导入管理</td><td>批次状态</td><td><span class="tag gray">草稿</span></td><td>新建导入批次后点击保存草稿，尚未提交导入。</td><td>导入中 / 已取消</td></tr>
+              <tr><td>案件导入管理</td><td>批次状态</td><td><span class="tag info">导入中</span></td><td>点击“导入”并通过页面必填和文件必传校验。</td><td>导入完成 / 导入失败</td></tr>
+              <tr><td>案件导入管理</td><td>批次状态</td><td><span class="tag ok">导入完成</span></td><td>批次解析结束，存在成功、待补、失败或重复待处理的订单级结果。</td><td>保持导入完成，订单级状态继续更新</td></tr>
+              <tr><td>案件导入管理</td><td>批次状态</td><td><span class="tag bad">导入失败</span></td><td>文件无法解析、模板不匹配、全部订单未通过基础校验或系统异常。</td><td>导入中 / 导入完成 / 导入失败</td></tr>
+              <tr><td>导入处理详情</td><td>订单处理状态</td><td><span class="tag ok">已生效</span></td><td>字段校验通过、主续关系通过、订单状态允许、必填材料齐全。</td><td>进入待委外，后续复用原法诉流程</td></tr>
+              <tr><td>导入处理详情</td><td>订单处理状态</td><td><span class="tag warn">待补材料</span></td><td>案件已生效，但缺少规则中配置为非必填的证据材料。</td><td>补传后刷新材料完整度</td></tr>
+              <tr><td>导入处理详情</td><td>订单处理状态</td><td><span class="tag bad">导入失败</span></td><td>基础必填字段缺失、金额异常、主续关系失败、订单状态不允许、必填材料缺失。</td><td>修正后重新解析</td></tr>
+              <tr><td>导入规则配置</td><td>规则状态</td><td><span class="tag ok">启用</span></td><td>规则配置校验通过并保存启用。</td><td>可停用 / 可编辑后继续启用</td></tr>
+              <tr><td>导入规则配置</td><td>规则状态</td><td><span class="tag gray">停用</span></td><td>规则被运营或管理员停用。</td><td>可重新启用</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -997,6 +1051,20 @@
         <p><b>4.</b>导入后不再新增罚息，逾期天数沿用法诉系统本地计算口径。</p>
       </section>
     </div>
+    <div class="anno-page" data-anno="stateMachine">
+      <section class="anno-block">
+        <h3>页面定位</h3>
+        <p><b>1.</b>集中展示案件导入相关页面的状态和按钮权限，不再在各页面单独弹出状态机说明。</p>
+        <p><b>2.</b>“页面名称”列说明该按钮或状态出现在哪个页面，便于研发、测试和运营按页面核对。</p>
+        <p><b>3.</b>没有在表格中列出的按钮，默认在对应状态下不可操作。</p>
+      </section>
+      <section class="anno-block">
+        <h3>使用说明</h3>
+        <p><b>1.</b>先按页面名称定位页面，再按模块和状态/场景确认可操作按钮。</p>
+        <p><b>2.</b>批次状态用于案件导入管理列表；订单处理状态用于导入处理详情页；规则状态用于导入规则配置页。</p>
+        <p><b>3.</b>若后续新增按钮或状态，应统一补充到本页，不再分散维护在各业务页面。</p>
+      </section>
+    </div>
     <div class="anno-page" data-anno="default">
       <section class="anno-block">
         <h3>兼容原则</h3>
@@ -1007,77 +1075,6 @@
       </section>
     </div>
   </aside>
-</div>
-
-<div id="batchStateModal" class="modal-mask">
-  <div class="modal large">
-    <div class="modal-head">状态机和按钮权限说明 <button onclick="closeModal('batchStateModal')">×</button></div>
-    <div class="modal-body">
-      <div class="notice" style="margin:0 0 14px">状态机分为批次状态、订单处理状态、重复订单状态和规则状态。页面按钮是否可点以当前状态为准；没有列出的按钮默认不可操作。</div>
-      <table class="button-state-table" style="margin:0 0 14px">
-        <thead><tr><th>模块</th><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
-        <tbody>
-          <tr><th>批次</th><td>草稿</td><td>继续编辑、导入、取消</td><td>导入进入导入中；取消后终止草稿。</td></tr>
-          <tr><th>批次</th><td>导入中</td><td>查看进度</td><td>不允许编辑、取消、批量补传。</td></tr>
-          <tr><th>批次</th><td>导入完成/导入失败</td><td>处理详情、编辑、错误明细、批量补传</td><td>编辑只改批次基础信息；批量补传用于修正失败订单或补充非必填材料。</td></tr>
-          <tr><th>订单</th><td>已生效/待补材料</td><td>查看解析、下载、批量补传</td><td>已生效案件进入待委外；待补材料只补非必填材料。</td></tr>
-          <tr><th>订单</th><td>导入失败</td><td>查看解析、失败原因、错误明细、批量补传</td><td>不生成案件；修正后重新解析。</td></tr>
-          <tr><th>重复订单</th><td>未分配未流转</td><td>覆盖记录</td><td>系统自动覆盖字段和同名文件，不需要人工点覆盖。</td></tr>
-          <tr><th>重复订单</th><td>已分配/已流转</td><td>处理重复、确认跳过</td><td>不展示订单覆盖按钮，避免影响已流转案件。</td></tr>
-          <tr><th>规则</th><td>启用/停用</td><td>编辑、复制、启用、停用</td><td>启用后新批次可选；停用后新批次不可选，历史批次不受影响。</td></tr>
-        </tbody>
-      </table>
-      <h4 style="margin:0 0 10px">一、导入批次状态机</h4>
-      <table>
-        <thead><tr><th style="width:110px">批次状态</th><th style="width:220px">进入条件</th><th style="width:260px">可操作按钮</th><th>不可操作/限制</th><th style="width:180px">下一状态</th></tr></thead>
-        <tbody>
-          <tr><td><span class="tag gray">草稿</span></td><td>新建导入批次后点击保存草稿，尚未提交导入。</td><td>继续编辑、上传/删除/替换文件、保存草稿、导入、取消</td><td>不允许查看处理详情、下载结果、批量补传。</td><td>导入中 / 已取消</td></tr>
-          <tr><td><span class="tag info">导入中</span></td><td>点击“导入”并通过页面必填和文件必传校验。</td><td>查看进度</td><td>不允许重复导入、编辑批次、取消、批量补传。</td><td>导入完成 / 导入失败</td></tr>
-          <tr><td><span class="tag ok">导入完成</span></td><td>批次解析结束，存在成功、待补、失败或重复待处理的订单级结果。</td><td>处理详情、下载结果、错误明细、编辑批次基础信息、批量补传</td><td>不可修改外部资产方、业务类型、导入规则、债权接收主体；不可取消批次。</td><td>保持导入完成，订单级状态继续更新</td></tr>
-          <tr><td><span class="tag bad">导入失败</span></td><td>文件无法解析、模板不匹配、全部订单未通过基础校验或系统异常。</td><td>处理详情、错误明细、编辑批次基础信息、批量补传、新建导入批次</td><td>不生成案件；不允许取消；需修正文件后重新提交。</td><td>导入中 / 导入完成 / 导入失败</td></tr>
-          <tr><td><span class="tag gray">已取消</span></td><td>草稿状态下点击取消并确认。</td><td>查看操作日志</td><td>不可继续编辑、不可导入、不可补传、不可恢复。</td><td>终态</td></tr>
-        </tbody>
-      </table>
-
-      <h4 style="margin:18px 0 10px">二、订单处理状态机</h4>
-      <table>
-        <thead><tr><th style="width:120px">处理状态</th><th style="width:250px">进入条件</th><th style="width:260px">可操作按钮</th><th>处理结果</th></tr></thead>
-        <tbody>
-          <tr><td><span class="tag ok">已生效</span></td><td>字段校验通过、主续关系通过、订单状态允许、必填材料齐全。</td><td>查看解析、下载结果</td><td>案件已进入待委外管理；非必填材料可通过批量补传继续补充。</td></tr>
-          <tr><td><span class="tag warn">待补材料</span></td><td>案件已生效，但缺少当前规则中配置为非必填的证据材料。</td><td>查看解析、批量补传、材料规则速查</td><td>补传后刷新材料完整度；不影响案件是否进入待委外。</td></tr>
-          <tr><td><span class="tag bad">导入失败</span></td><td>基础必填字段缺失、金额异常、主续关系失败、订单状态不允许、必填材料缺失。</td><td>查看解析、失败原因、错误明细、批量补传</td><td>不生成案件；修正Excel或完整材料包后重新解析。</td></tr>
-          <tr><td><span class="tag warn">重复待处理</span></td><td>系统已有同外部资产方、同订单编号案件，且已有案件已分配或已流转。</td><td>查看解析、处理重复、确认跳过</td><td>不自动覆盖；确认跳过后已有案件不变，仅记录日志。</td></tr>
-          <tr><td><span class="tag info">自动覆盖</span></td><td>系统已有同订单案件，但案件未分配且未流转。</td><td>查看解析、覆盖记录</td><td>导入时自动更新字段并覆盖同名文件；不同名非必填材料可自动补充。</td></tr>
-          <tr><td><span class="tag gray">未匹配材料</span></td><td>材料文件无法识别订单归属或材料类别。</td><td>文件预览/下载、删除、批量补传</td><td>本期不支持人工绑定；需重新上传整理后的订单文件或材料包由系统识别。</td></tr>
-        </tbody>
-      </table>
-
-      <h4 style="margin:18px 0 10px">三、关键按钮启用规则</h4>
-      <table>
-        <thead><tr><th style="width:160px">按钮</th><th style="width:280px">可点击条件</th><th>点击后处理</th></tr></thead>
-        <tbody>
-          <tr><td>新建导入批次</td><td>任意状态均可点击。</td><td>进入新建导入批次页，创建新的外部资产导入任务。</td></tr>
-          <tr><td>保存草稿</td><td>新建导入批次页，未点击导入前。</td><td>保存批次基础信息和已上传文件记录，不解析、不生成案件。</td></tr>
-          <tr><td>导入</td><td>页面必填项、资产明细Excel、材料包均已上传且格式通过。</td><td>进入导入中，系统校验字段、主续关系、重复订单和必填材料。</td></tr>
-          <tr><td>编辑</td><td>批次状态为导入完成或导入失败。</td><td>只允许修改批次名称、债权总额、债权对价、备注；其它规则口径只读。</td></tr>
-          <tr><td>批量补传</td><td>批次状态为导入完成或导入失败。</td><td>导入失败订单用于上传修正版订单文件和完整材料包；待补材料只允许上传非必填材料；未匹配材料用于重新识别。</td></tr>
-          <tr><td>错误明细</td><td>批次或订单存在导入失败、重复待处理、未匹配材料等问题。</td><td>下载与处理详情页一致的导入结果明细，供运营修正后重新提交。</td></tr>
-          <tr><td>处理重复</td><td>订单状态为重复待处理。</td><td>已分配或已流转案件只允许确认跳过；未分配未流转案件已由系统自动覆盖。</td></tr>
-          <tr><td>删除</td><td>未匹配材料池中的无效材料记录。</td><td>删除当前未匹配记录，不影响已生成案件。</td></tr>
-        </tbody>
-      </table>
-
-      <h4 style="margin:18px 0 10px">四、导入规则状态</h4>
-      <table>
-        <thead><tr><th style="width:120px">规则状态</th><th style="width:250px">可操作按钮</th><th>使用限制</th></tr></thead>
-        <tbody>
-          <tr><td><span class="tag ok">启用</span></td><td>编辑、复制、停用</td><td>新建导入批次可选择；只影响新批次，不回写历史批次。</td></tr>
-          <tr><td><span class="tag gray">停用</span></td><td>编辑、复制、启用</td><td>新建导入批次不可选择；历史批次仍按当时规则展示和处理。</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="modal-foot"><button onclick="closeModal('batchStateModal')">关闭</button></div>
-  </div>
 </div>
 
 <div id="templateModal" class="modal-mask">
@@ -1602,7 +1599,7 @@
     });
   }
   function renderAnno(activeId){
-    var annoKey = ['task','ruleConfig','ruleEdit','newImport','detail'].indexOf(activeId) >= 0 ? activeId : 'default';
+    var annoKey = ['task','ruleConfig','ruleEdit','newImport','detail','stateMachine'].indexOf(activeId) >= 0 ? activeId : 'default';
     document.querySelectorAll('[data-anno]').forEach(function(block){
       block.classList.toggle('active', block.getAttribute('data-anno') === annoKey);
     });
@@ -1619,7 +1616,8 @@
       ruleConfig:'导入规则配置',
       ruleEdit:'新建/编辑导入规则',
       newImport:'新建导入批次',
-      detail:'导入处理详情'
+      detail:'导入处理详情',
+      stateMachine:'状态机说明'
     };
     revealProcess(id);
     document.querySelectorAll('.tab-page').forEach(function(page){page.classList.toggle('active', page.id === id);});
