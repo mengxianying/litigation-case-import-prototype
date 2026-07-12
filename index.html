@@ -631,8 +631,8 @@
           <label><span><em class="req">*</em>批次名称</span><div class="field-box"><div class="input" id="importBatchName">例：转转租赁批次01</div><div class="limit">必填，2-50字符；同一天允许重名但建议避免重复。</div></div></label>
           <label><span><em class="req">*</em>外部资产方</span><div class="field-box"><div class="select" id="importAssetOwner" data-options="全部|创新|转转|人人租">创新<b>⌄</b></div><div class="enum">全部 / 创新 / 转转 / 人人租</div><div class="limit">必填；枚举来源于法诉系统数据字典，由研发配置维护。“全部”仅用于筛选，导入时不能选择全部。</div></div></label>
           <label><span><em class="req">*</em>业务类型</span><div class="field-box"><div class="select" id="importBizType" data-options="租赁">租赁<b>⌄</b></div><div class="enum">枚举：租赁</div><div class="limit">本期仅配置租赁。</div></div></label>
-          <label><span><em class="req">*</em>导入规则</span><div class="field-box"><div class="select" id="importRule" data-options="创新租赁通用规则|转转租赁规则|人人租租赁规则">创新租赁通用规则<b>⌄</b></div><div class="enum">创新租赁通用规则 / 转转租赁规则 / 人人租租赁规则</div><div class="limit">必填；决定模板字段启用范围、合同类别、材料名称和必填规则。</div></div></label>
-          <label><span><em class="req">*</em>债权接收主体</span><div class="field-box"><div class="select" id="importDebtSubject" data-options="襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)|武汉小优企业管理有限公司(91420115MACRLKWJ1A)|聊城小优企业管理有限公司(91371521MADE8H2E0)|天津小优企业管理有限公司(91120116MABU4DAY3Q)|沈阳小优企业管理有限公司(91210104MACDQBF833)|石家庄晓优企业管理有限公司(91130108MADAANMX3XG)|宁波小优企业管理有限公司(91330212MA2CK8RF79)|扬州轩翔电子商务有限公司(91370211MA3QN39G8W)">请选择债权接收主体<b>⌄</b></div><div class="enum">襄阳鸿飞企业管理有限公司(91420600MACTCY0R42) / 武汉小优企业管理有限公司(91420115MACRLKWJ1A) / 聊城小优企业管理有限公司(91371521MADE8H2E0) / 天津小优企业管理有限公司(91120116MABU4DAY3Q) / 沈阳小优企业管理有限公司(91210104MACDQBF833) / 石家庄晓优企业管理有限公司(91130108MADAANMX3XG) / 宁波小优企业管理有限公司(91330212MA2CK8RF79) / 扬州轩翔电子商务有限公司(91370211MA3QN39G8W)</div><div class="limit">必填；沿用待委外管理“债权接收主体”枚举，用于诉讼主体、要素表和报表统计。</div></div></label>
+          <label><span><em class="req">*</em>导入规则</span><div class="field-box"><div class="select" id="importRule" data-options="创新租赁通用规则|转转租赁规则|人人租租赁规则">创新租赁通用规则<b>⌄</b></div><div class="enum">创新租赁通用规则 / 转转租赁规则 / 人人租租赁规则</div><div class="limit">必填；一期决定模板字段启用范围、必填和校验口径；材料规则二期使用。</div></div></label>
+          <label><span><em class="req">*</em>债权接收主体</span><div class="field-box"><div class="select" id="importDebtSubject" data-options="襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)|武汉小优企业管理有限公司(91420115MACRLKWJ1A)|聊城小优企业管理有限公司(91371521MADE8H2E0)|天津小优企业管理有限公司(91120116MABU4DAY3Q)|沈阳小优企业管理有限公司(91210104MACDQBF833)|石家庄晓优企业管理有限公司(91130108MADAANMX3XG)|宁波小优企业管理有限公司(91330212MA2CK8RF79)|扬州轩翔电子商务有限公司(91370211MA3QN39G8W)">请选择债权接收主体<b>⌄</b></div><div class="enum">襄阳鸿飞企业管理有限公司(91420600MACTCY0R42) / 武汉小优企业管理有限公司(91420115MACRLKWJ1A) / 聊城小优企业管理有限公司(91371521MADE8H2E0) / 天津小优企业管理有限公司(91120116MABU4DAY3Q) / 沈阳小优企业管理有限公司(91210104MACDQBF833) / 石家庄晓优企业管理有限公司(91130108MADAANMX3XG) / 宁波小优企业管理有限公司(91330212MA2CK8RF79) / 扬州轩翔电子商务有限公司(91370211MA3QN39G8W)</div><div class="limit">必填；沿用待委外管理“债权接收主体”枚举，用于案件归属和报表统计；一期导入案件不支持导出要素表。</div></div></label>
           <label><span><em class="req">*</em>债权总额</span><div class="field-box"><div class="input" id="importTotalDebt">例：12036800.00</div><div class="limit">必填，金额字段；允许为0；非金额或负数提示“债权总额金额不正确”。</div></div></label>
           <label><span><em class="req">*</em>债权对价</span><div class="field-box"><div class="input" id="importDebtPrice">例：8425760.00</div><div class="limit">必填，金额字段；允许为0；非金额或负数提示“债权对价金额不正确”；不允许大于债权总额。</div></div></label>
           <label><span>备注</span><div class="field-box"><div class="textarea" id="importRemark">记录本批次数据来源、业务口径或特殊说明</div><div class="limit">非必填，最多200字符。</div></div></label>
@@ -654,7 +654,7 @@
         </div>
         <div class="rule-strip">
           <div class="rule-item"><b>字段和金额</b><span>必填字段依据“导入规则”里面配置的必填字段；金额需数字类型，且不可为负值。</span></div>
-          <div class="rule-item"><b>导入结果</b><span>导入完成后自动下载结果明细，成功和失败订单都在Excel中查看；一期不进入导入处理详情页。</span></div>
+          <div class="rule-item"><b>案件生效</b><span>一期字段校验通过即可生成案件并生效，自动进入待委外队列；后续可走法诉流程。</span></div>
           <div class="rule-item"><b>重复和拦截</b><span>重复订单、必填缺失、金额异常、主续关系异常等均写入导入结果明细；不做材料校验。</span></div>
         </div>
         <div class="footer-btns"><button data-action="cancel-edit">取消</button><button class="primary" data-action="submit-import">导入</button></div>
@@ -711,7 +711,7 @@
             <table>
               <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th>订单编号</th><th>客户姓名</th><th>业务类型</th><th>债权金额</th><th>逾期天数</th><th>处理状态</th><th>说明</th><th style="width:190px">操作</th></tr></thead>
               <tbody>
-                <tr><td><input type="checkbox" checked></td><td>26012915050167612327</td><td>张三</td><td>租赁</td><td>12,036.80</td><td>61</td><td><span class="tag ok">已生效</span></td><td>字段和必填材料均通过，已进入待委外</td><td><button class="text-link" onclick="openParseModal('26012915050167612327')">查看解析</button></td></tr>
+                <tr><td><input type="checkbox" checked></td><td>26012915050167612327</td><td>张三</td><td>租赁</td><td>12,036.80</td><td>61</td><td><span class="tag ok">已生效</span></td><td>字段校验通过，案件已生效并进入待委外</td><td><button class="text-link" onclick="openParseModal('26012915050167612327')">查看解析</button></td></tr>
                 <tr><td><input type="checkbox" checked></td><td>26012915050167612328</td><td>黄丽</td><td>租赁</td><td>9,420.00</td><td>54</td><td><span class="tag warn">待补材料</span></td><td>缺少非必填证据材料，案件已生效，可按需补传</td><td><button class="text-link" onclick="openParseModal('26012915050167612328')">查看解析</button></td></tr>
                 <tr><td><input type="checkbox"></td><td>26012915050167612330</td><td>李明</td><td>租赁</td><td>7,290.00</td><td>35</td><td><span class="tag bad">导入失败</span></td><td>字段不合格，需通过批量补传上传修正版订单文件</td><td><button class="text-link" onclick="openParseModal('26012915050167612330')">查看解析</button> <button class="text-link" onclick="openFailureModal('26012915050167612330')">失败原因</button></td></tr>
                 <tr id="duplicateRow1"><td><input type="checkbox" class="duplicate-check" checked></td><td>26012915050167612332</td><td>王磊</td><td>租赁</td><td>8,650.00</td><td>43</td><td id="duplicateResult1"><span class="tag info">自动覆盖</span></td><td id="duplicateNote1">已有案件未分配，已自动覆盖字段和同名文件</td><td id="duplicateAction1"><button class="text-link" onclick="openParseModal('26012915050167612332')">查看解析</button> <button class="text-link" onclick="showToast('已打开自动覆盖记录')">覆盖记录</button></td></tr>
@@ -968,10 +968,11 @@
       </section>
       <section class="anno-block">
         <h3>案件生成规则</h3>
-        <p><b>1.</b>字段校验通过、主续关系通过、金额和订单状态允许的订单，生成案件并进入待委外管理。</p>
+        <p><b>1.</b>一期字段校验通过即可生成案件，案件立即生效并进入待委外队列；后续可进行待委外、调解、诉讼、还款、结清等法诉流程。</p>
         <p><b>2.</b>基础必填缺失、金额异常、主续关系失败、订单状态不允许、历史批次重复等订单，不生成案件，原因写入导入结果明细。</p>
         <p><b>3.</b>一期不校验材料，不生成待补材料清单；材料导入、材料完整度和未匹配材料池放二期。</p>
-        <p><b>4.</b>重复订单：同一外部资产方+订单编号已在历史批次导入时，以首次导入批次为准，本次提示重复并展示已存在批次号。</p>
+        <p><b>4.</b>一期导入案件不支持导出要素表和导出法诉材料；相关入口需识别案件来源并给出不可导出提示。</p>
+        <p><b>5.</b>重复订单：同一外部资产方+订单编号已在历史批次导入时，以首次导入批次为准，本次提示重复并展示已存在批次号。</p>
       </section>
       <section class="anno-block">
         <h3>重复订单闭环</h3>
@@ -984,7 +985,8 @@
         <h3>二期边界</h3>
         <p><b>1.</b>材料包上传、合同识别、非必填材料补传、未匹配材料池均不在一期实现。</p>
         <p><b>2.</b>一期导入结果只反映Excel字段、金额、主续关系、重复、订单状态和系统处理结果。</p>
-        <p><b>3.</b>二期上线材料导入后，再补充材料命名规则、材料必填口径和材料解析状态。</p>
+        <p><b>3.</b>一期导入案件不支持导出要素表和导出法诉材料；二期材料导入后再评估导出能力。</p>
+        <p><b>4.</b>二期上线材料导入后，再补充材料命名规则、材料必填口径和材料解析状态。</p>
       </section>
     </div>
     <div class="anno-page" data-anno="materialImport">
@@ -1011,21 +1013,22 @@
         <h3>筛选区逻辑</h3>
         <p><b>1.</b>订单编号、客户姓名支持模糊查询。</p>
         <p><b>2.</b>处理状态枚举：全部、已生效、待补材料、导入失败、重复待处理、未匹配材料。</p>
-        <p><b>3.</b>处理状态是运营使用口径，由字段校验、材料校验、重复订单判断和案件生效结果合并生成。</p>
+        <p><b>3.</b>处理状态是运营使用口径；一期案件生效取字段校验结果，二期材料状态仅影响材料完整度。</p>
         <p><b>4.</b>待补传材料清单和未匹配材料池作为页内Tab，不再单独拆成补传页面。</p>
       </section>
       <section class="anno-block">
         <h3>重点列取数</h3>
         <p><b>1.</b>债权金额取资产明细Excel中的债权金额字段。</p>
         <p><b>2.</b>逾期天数由系统按违约日期自动计算，资产方不需要在Excel中填写。</p>
-        <p><b>3.</b>处理状态由字段校验、材料校验、重复订单判断和案件生效结果合并生成。</p>
+        <p><b>3.</b>处理状态由字段校验、重复订单判断、案件生效结果和二期材料完整度合并展示。</p>
         <p><b>4.</b>说明列展示下一步处理口径，例如已进入待委外、补传非必填材料、修正Excel后重导。</p>
       </section>
       <section class="anno-block">
         <h3>案件生成规则</h3>
-        <p><b>1.</b>生成待委外案件：字段校验通过、主续关系通过、订单状态允许、必填材料齐全，案件生效状态为已生效。</p>
-        <p><b>2.</b>待补材料：仅指非必填材料缺失，案件仍为已生效，可进入待委外；补传后刷新材料完整度。</p>
-        <p><b>3.</b>不生成案件：基础必填字段缺失、金额异常、主续关系失败、订单状态不允许、必填材料缺失、已分配或已流转的重复订单待处理。</p>
+        <p><b>1.</b>生成待委外案件：一期字段校验通过即生成案件，案件生效状态为已生效。</p>
+        <p><b>2.</b>待补材料：二期材料导入后仅影响证据完整度，不改变一期已生效案件是否进入待委外。</p>
+        <p><b>3.</b>不生成案件：基础必填字段缺失、金额异常、主续关系失败、订单状态不允许、历史批次重复等字段类失败。</p>
+        <p><b>4.</b>导出限制：一期导入案件不支持导出要素表和导出法诉材料。</p>
         <p><b>4.</b>失败订单需修正Excel或完整材料包后，通过“批量补传”上传修正版订单文件和材料包；原失败记录保留。</p>
         <p><b>5.</b>材料待补传不是导入失败，只用于补充当前导入规则中配置为非必填的材料。</p>
       </section>
@@ -1124,7 +1127,7 @@
           <table>
             <thead><tr><th>结果类型</th><th>说明</th><th>处理方式</th></tr></thead>
             <tbody>
-              <tr><td>导入成功</td><td>字段、金额、主续关系、订单状态校验通过</td><td>生成案件并进入待委外</td></tr>
+              <tr><td>导入成功</td><td>字段校验通过</td><td>生成案件并生效，进入待委外队列；不支持导出要素表和法诉材料</td></tr>
               <tr><td>导入失败</td><td>必填缺失、格式错误、金额异常、主续关系异常等</td><td>按失败分类修正Excel后重新导入</td></tr>
               <tr><td>重复跳过</td><td>订单已在历史批次导入</td><td>结果明细提示已存在批次号，本次不覆盖</td></tr>
             </tbody>
@@ -1132,7 +1135,7 @@
           <div class="submit-note" style="margin-top:10px">点击“导入”后自动下载导入结果明细；运营不用进入处理详情页即可核对一期导入结果。</div>
         </div>
       </div>
-      <div class="submit-note">模板只填写资产方能提供的订单明细；页面外部资产方、导入规则、债权接收主体、债权总额、债权对价和批次号由法诉系统维护。一期不支持资产方自定义Excel表头，材料导入放到二期。</div>
+      <div class="submit-note">模板只填写资产方能提供的订单明细；页面外部资产方、导入规则、债权接收主体、债权总额、债权对价和批次号由法诉系统维护。一期字段校验通过即生成并生效进入待委外，但导入案件不支持导出要素表和导出法诉材料。</div>
     </div>
     <div class="modal-foot"><button onclick="closeModal('templateModal')">关闭</button><a class="btn primary" href="./法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx" download>下载模板</a></div>
   </div>
@@ -1176,8 +1179,8 @@
       <div class="parse-pane" data-parse-pane="result">
         <table><thead><tr><th>落库对象</th><th>生成条件</th><th>本单结果</th><th>说明</th></tr></thead><tbody>
           <tr><td>案件记录</td><td>锁定字段通过、主续关系通过、金额合法、订单不重复</td><td><span class="tag ok">已生成</span></td><td>字段通过后生成案件记录。</td></tr>
-          <tr><td>案件生效</td><td>案件记录已生成且必填材料全部通过</td><td><span class="tag ok">已生效</span></td><td>已生效案件进入原待委外管理；非必填材料缺失只影响材料完整度。</td></tr>
-          <tr><td>材料记录</td><td>文件能识别订单编号和标准材料类别</td><td><span class="tag ok">已生成</span></td><td>必填材料缺失时订单不生成案件；非必填材料缺失进入待补传材料清单。</td></tr>
+          <tr><td>案件生效</td><td>案件记录已生成</td><td><span class="tag ok">已生效</span></td><td>一期字段校验通过即生效，进入原待委外管理。</td></tr>
+          <tr><td>材料记录</td><td>文件能识别订单编号和标准材料类别</td><td><span class="tag ok">已生成</span></td><td>二期材料处理只影响材料完整度，不改变一期案件生效结果。</td></tr>
           <tr><td>一期还款计划</td><td>债权金额解析成功</td><td><span class="tag ok">已生成</span></td><td>导入前还款计划合并为一期，入池后按法诉还款流水更新。</td></tr>
           <tr><td>操作日志</td><td>导入、解析、落库、批量补传、删除等操作</td><td><span class="tag ok">已生成</span></td><td>用于后续审计和问题追溯。</td></tr>
         </tbody></table>
