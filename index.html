@@ -899,7 +899,7 @@
         <p><b>1.</b>新建导入批次：进入新建导入批次页，创建新的导入批次。</p>
         <p><b>2.</b>导入规则配置：二期规划入口，一期不实现规则配置维护。</p>
         <p><b>3.</b>下载明细：下载当前批次导入结果明细，明细中包含成功、失败、重复跳过等订单级结果。</p>
-        <p><b>4.</b>编辑：只允许修改批次名称、债权总额、债权对价、备注，并展示历史上传文件下载入口；外部资产方、业务类型、规则、债权接收主体不可改。</p>
+        <p><b>4.</b>编辑：只允许修改批次名称、债权总额、债权对价、备注；外部资产方、业务类型、规则、债权接收主体不可改；一期不展示历史上传文件。</p>
         <p><b>5.</b>导入失败批次同样通过“下载明细”获取失败分类和失败原因，运营修正Excel后重新新建批次导入。</p>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
@@ -923,7 +923,8 @@
         <h3>状态和操作</h3>
         <p><b>1.</b>批次状态恢复：草稿、导入中、导入完成、导入失败、已取消。</p>
         <p><b>2.</b>导入完成后进入处理详情，按订单处理字段失败、材料缺失、重复待处理和未匹配材料。</p>
-        <p><b>3.</b>草稿批次可继续编辑或取消；导入中不可编辑；导入失败可进入处理详情后批量补传。</p>
+        <p><b>3.</b>二期编辑批次信息弹框展示历史上传文件，支持查看资产明细、材料包、失败重传文件的文件名、上传时间和处理结果。</p>
+        <p><b>4.</b>草稿批次可继续编辑或取消；导入中不可编辑；导入失败可进入处理详情后批量补传。</p>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
@@ -1335,7 +1336,7 @@
   <div class="modal wide">
     <div class="modal-head"><span>编辑批次信息</span><button onclick="closeModal('debtAmountModal')">×</button></div>
     <div class="modal-body">
-      <div class="notice" style="margin:0 0 14px">本弹框用于修改批次级信息。批次名称、债权总价、债权对价、备注允许修改；外部资产方、业务类型、导入规则、债权接收主体和已上传文件只读展示，避免导入规则口径被事后改动。</div>
+      <div class="notice" id="debtAmountNotice" style="margin:0 0 14px">本弹框用于修改批次级信息。批次名称、债权总价、债权对价、备注允许修改；外部资产方、业务类型、导入规则、债权接收主体不可修改。</div>
       <div class="form-grid" style="grid-template-columns:1fr 1fr;padding:0 0 14px">
         <label><span>导入批次号</span><div class="field-box"><div class="input" id="batchNoEdit">DR202606100001</div><div class="limit">系统生成，不可修改。</div></div></label>
         <label><span>批次名称</span><div class="field-box"><div class="input" id="batchNameEdit" contenteditable="true">创新租赁通用规则批次01</div><div class="limit">可修改，2-50字符；保存后同步批次列表展示。</div></div></label>
@@ -1347,7 +1348,7 @@
         <label><span>债权对价</span><div class="field-box"><div class="input" id="debtPriceInput" contenteditable="true">8,425,760.00</div><div class="limit">可修改；不允许大于债权总价。</div></div></label>
         <label style="grid-column:1/3"><span>备注</span><div class="field-box"><div class="textarea" id="batchRemarkEdit" contenteditable="true">资产方复核后确认本批次债权口径，已补充合同材料。</div><div class="limit">可修改，最多200字符；保存后写入批次操作日志。</div></div></label>
       </div>
-      <div class="box">
+      <div class="box" id="batchHistoryFilesBox">
         <h4>历史上传文件</h4>
         <table>
           <thead><tr><th>文件类型</th><th>文件名称</th><th>上传时间</th><th>处理结果</th></tr></thead>
@@ -2579,6 +2580,16 @@
       var node = document.getElementById(id);
       if(node){ node.innerText = values[idx] || '-'; }
     });
+    var activePage = document.querySelector('.tab-page.active');
+    var isPhase2Full = activePage && activePage.id === 'taskFull';
+    var historyBox = document.getElementById('batchHistoryFilesBox');
+    if(historyBox){ historyBox.style.display = isPhase2Full ? 'block' : 'none'; }
+    var notice = document.getElementById('debtAmountNotice');
+    if(notice){
+      notice.innerText = isPhase2Full
+        ? '本弹框用于修改批次级信息。批次名称、债权总价、债权对价、备注允许修改；外部资产方、业务类型、导入规则、债权接收主体和历史上传文件只读展示。'
+        : '本弹框用于修改批次级信息。批次名称、债权总价、债权对价、备注允许修改；外部资产方、业务类型、导入规则、债权接收主体不可修改；一期不展示历史上传文件。';
+    }
     openModal('debtAmountModal');
   }
   function saveBatchInfo(){
