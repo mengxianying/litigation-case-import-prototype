@@ -299,7 +299,6 @@
       <li class="menu-label">二期规划</li>
       <li class="sub" data-left-menu="taskFull">案件导入管理完整版</li>
       <li class="sub" data-left-menu="newImportFull">新建导入批次完整版</li>
-      <li class="sub" data-left-menu="materialImport">材料导入</li>
       <li class="sub" data-left-menu="detail">导入处理详情</li>
       <li class="sub" data-left-menu="ruleConfig">导入规则配置</li>
       <li class="sub" data-left-menu="newRule">新建导入规则</li>
@@ -326,7 +325,7 @@
     <div id="processTabs" class="process-tabs">
       <button data-process-tab="newImport">新建导入批次</button>
       <button data-process-tab="detail" hidden>导入处理详情</button>
-      <span class="hint">一期点击导入后自动下载导入结果明细；材料导入和处理详情放在二期</span>
+      <span class="hint">一期点击导入后自动下载导入结果明细；材料补传和处理详情放在二期</span>
     </div>
 
     <section id="task" class="tab-page active">
@@ -662,7 +661,7 @@
 
     <section id="taskFull" class="tab-page">
       <div class="panel">
-        <div class="notice"><span class="phase-badge future">二期完整版目标</span> 二期补齐材料导入、导入处理详情、导入规则配置后，案件导入管理恢复为拆分两期前的最终版效果：支持草稿、处理详情、待处理统计、材料状态和错误明细闭环。</div>
+        <div class="notice"><span class="phase-badge future">二期完整版目标</span> 二期补齐材料包上传、导入处理详情、导入规则配置后，案件导入管理恢复为拆分两期前的最终版效果：支持草稿、处理详情、待处理统计、材料状态和错误明细闭环。</div>
         <div class="panel-title">查询条件 <small>按批次定位完整导入任务</small></div>
         <div class="search compact">
           <label><span>导入批次号</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
@@ -730,24 +729,6 @@
           <div class="rule-item"><b>重复和拦截</b><span>未分配且未流转订单可自动覆盖；资产明细或材料包缺少任一项时阻止导入。</span></div>
         </div>
         <div class="footer-btns"><button onclick="openCancelEditModal()">取消</button><button onclick="showToast('二期完整版：已保存为草稿')">保存草稿</button><button class="primary" onclick="showToast('二期完整版：提交后进入导入处理详情')">导入</button></div>
-      </div>
-    </section>
-
-    <section id="materialImport" class="tab-page">
-      <div class="panel">
-        <div class="notice"><span class="phase-badge future">二期规划</span> 材料导入本期不实现。二期再支持材料包上传、合同/材料自动识别、待补传材料清单和未匹配材料池。</div>
-        <div class="panel-title">材料导入规划 <small>用于后续承接合同和证据材料</small></div>
-        <div class="table-wrap" style="padding-top:16px">
-          <table>
-            <thead><tr><th style="width:150px">能力</th><th>二期设计口径</th><th style="width:220px">与一期关系</th></tr></thead>
-            <tbody>
-              <tr><td>材料包上传</td><td>支持zip/rar/7z材料包，按订单编号和资产方材料名称识别标准材料类别。</td><td>一期不上传材料包</td></tr>
-              <tr><td>材料规则</td><td>按外部资产方、业务类型、首租/续租配置必填材料和非必填材料。</td><td>一期只做Excel字段校验</td></tr>
-              <tr><td>未匹配材料池</td><td>无法识别订单或材料类别的文件进入材料池，后续通过批量补传重新识别。</td><td>一期无材料状态</td></tr>
-              <tr><td>待补传材料清单</td><td>仅展示规则中配置为非必填但缺失的材料，补齐后刷新材料完整度。</td><td>一期列表不展示材料待处理</td></tr>
-            </tbody>
-          </table>
-        </div>
       </div>
     </section>
 
@@ -841,7 +822,6 @@
               <tr><th>新建导入批次</th><td>一期导入</td><td>提交导入</td><td>导入</td><td>页面必填、金额和Excel格式通过后提交解析，并自动下载导入结果明细。</td></tr>
               <tr><th>案件导入管理完整版</th><td>二期目标</td><td>草稿/完成/失败</td><td>继续编辑、处理详情、编辑、错误明细</td><td>恢复拆分前最终版批次管理，承接材料状态和导入处理详情。</td></tr>
               <tr><th>新建导入批次完整版</th><td>二期目标</td><td>新建/草稿</td><td>上传资产明细、上传材料包、下载模板、模板说明、保存草稿、导入、取消</td><td>恢复拆分前最终版新建导入；导入规则和材料包校验放到二期。</td></tr>
-              <tr><th>材料导入</th><td>二期规划</td><td>材料包上传</td><td>批量上传、自动识别、补传</td><td>本期不实现；二期再做材料状态和材料池。</td></tr>
               <tr><th>导入处理详情</th><td>二期规划</td><td>订单/材料处理</td><td>查看解析、批量补传、失败原因</td><td>本期不进入详情页；一期结果在Excel明细中闭环。</td></tr>
               <tr><th>导入规则配置</th><td>二期规划</td><td>规则维护</td><td>查询、新建、编辑、停用</td><td>本期不实现；二期再支持资产方规则配置。</td></tr>
               <tr><th>新建导入规则</th><td>二期规划</td><td>字段/材料配置</td><td>保存并启用、取消</td><td>本期不实现；二期再配置字段启用、必填和材料规则。</td></tr>
@@ -858,7 +838,7 @@
               <tr><td>案件导入管理</td><td>一期批次状态</td><td><span class="tag info">导入中</span></td><td>点击“导入”并通过页面必填和资产明细Excel校验。</td><td>导入完成 / 导入失败</td></tr>
               <tr><td>案件导入管理</td><td>一期批次状态</td><td><span class="tag ok">导入完成</span></td><td>Excel解析结束，至少存在一条导入成功或可落库记录。</td><td>保持导入完成</td></tr>
               <tr><td>案件导入管理</td><td>批次状态</td><td><span class="tag bad">导入失败</span></td><td>文件无法解析、模板不匹配、全部订单未通过基础校验或系统异常。</td><td>导入中 / 导入完成 / 导入失败</td></tr>
-              <tr><td>材料导入/导入处理详情</td><td>二期订单状态</td><td><span class="tag warn">待补材料</span></td><td>二期材料导入后，非必填材料缺失但案件可继续处理。</td><td>补传后刷新材料完整度</td></tr>
+              <tr><td>导入处理详情</td><td>二期订单状态</td><td><span class="tag warn">待补材料</span></td><td>二期材料包解析后，非必填材料缺失但案件可继续处理。</td><td>补传后刷新材料完整度</td></tr>
               <tr><td>导入规则配置</td><td>规则状态</td><td><span class="tag ok">启用</span></td><td>规则配置校验通过并保存启用。</td><td>可停用 / 可编辑后继续启用</td></tr>
               <tr><td>导入规则配置</td><td>规则状态</td><td><span class="tag gray">停用</span></td><td>规则被运营或管理员停用。</td><td>可重新启用</td></tr>
             </tbody>
@@ -916,7 +896,7 @@
       <section class="anno-block">
         <h3>二期页面定位</h3>
         <p><b>1.</b>本页为二期完整目标态，用于恢复拆分两期前的案件导入管理最终版效果。</p>
-        <p><b>2.</b>二期批次管理承接材料导入、导入处理详情、待补材料、未匹配材料和规则配置。</p>
+        <p><b>2.</b>二期批次管理承接材料包上传、导入处理详情、待补材料、未匹配材料和规则配置。</p>
         <p><b>3.</b>一期页面继续保持轻量上线；二期完成后可将本页能力合并回正式案件导入管理。</p>
       </section>
       <section class="anno-block">
@@ -1091,7 +1071,7 @@
         <h3>案件生成规则</h3>
         <p><b>1.</b>一期字段校验通过即可生成案件，案件立即生效并进入待委外队列；后续可进行待委外、调解、诉讼、还款、结清等法诉流程。</p>
         <p><b>2.</b>基础必填缺失、金额异常、主续关系失败、订单状态不允许、历史批次重复等订单，不生成案件，原因写入导入结果明细。</p>
-        <p><b>3.</b>一期不校验材料，不生成待补材料清单；材料导入、材料完整度和未匹配材料池放二期。</p>
+        <p><b>3.</b>一期不校验材料，不生成待补材料清单；材料包解析、材料完整度和未匹配材料池放二期。</p>
         <p><b>4.</b>一期导入案件不支持导出要素表和导出法诉材料；相关入口需识别案件来源并给出不可导出提示。</p>
         <p><b>5.</b>重复订单：同一外部资产方+订单编号已在历史批次导入时，以首次导入批次为准，本次提示重复并展示已存在批次号。</p>
       </section>
@@ -1100,27 +1080,14 @@
         <p><b>1.</b>一期按“外部资产方+订单编号”识别重复订单。</p>
         <p><b>2.</b>同一批Excel内重复时，仅保留第一条可落库记录，其余记录写入导入结果明细。</p>
         <p><b>3.</b>订单已在历史批次导入时，以第一次导入批次为准，本次不覆盖，并在失败原因中提示已存在批次号。</p>
-        <p><b>4.</b>未分配且未流转订单自动覆盖、材料补传等更细处理放到二期结合材料导入一起设计。</p>
+        <p><b>4.</b>未分配且未流转订单自动覆盖、材料补传等更细处理放到二期结合材料包解析一起设计。</p>
       </section>
       <section class="anno-block">
         <h3>二期边界</h3>
         <p><b>1.</b>材料包上传、合同识别、非必填材料补传、未匹配材料池均不在一期实现。</p>
         <p><b>2.</b>一期导入结果只反映Excel字段、金额、主续关系、重复、订单状态和系统处理结果。</p>
-        <p><b>3.</b>一期导入案件不支持导出要素表和导出法诉材料；二期材料导入后再评估导出能力。</p>
-        <p><b>4.</b>二期上线材料导入后，再补充材料命名规则、材料必填口径和材料解析状态。</p>
-      </section>
-    </div>
-    <div class="anno-page" data-anno="materialImport">
-      <section class="anno-block">
-        <h3>页面定位</h3>
-        <p><b>1.</b>材料导入为二期规划页面，一期不实现、不影响Excel导入上线。</p>
-        <p><b>2.</b>二期用于承接材料包上传、标准材料类别识别、资产方材料名称匹配、待补传材料和未匹配材料池。</p>
-      </section>
-      <section class="anno-block">
-        <h3>二期能力边界</h3>
-        <p><b>1.</b>材料包支持zip/rar/7z，按“订单编号+资产方材料名称”自动识别归属订单和标准材料类别。</p>
-        <p><b>2.</b>必填/非必填材料依据导入规则配置；一期导入不做材料校验。</p>
-        <p><b>3.</b>未匹配材料二期统一在导入处理详情内处理，一期不存在材料待处理状态。</p>
+        <p><b>3.</b>一期导入案件不支持导出要素表和导出法诉材料；二期材料包解析后再评估导出能力。</p>
+        <p><b>4.</b>二期上线材料包上传和解析能力后，再补充材料命名规则、材料必填口径和材料解析状态。</p>
       </section>
     </div>
     <div class="anno-page" data-anno="detail">
@@ -1147,7 +1114,7 @@
       <section class="anno-block">
         <h3>案件生成规则</h3>
         <p><b>1.</b>生成待委外案件：一期字段校验通过即生成案件，案件生效状态为已生效。</p>
-        <p><b>2.</b>待补材料：二期材料导入后仅影响证据完整度，不改变一期已生效案件是否进入待委外。</p>
+        <p><b>2.</b>待补材料：二期材料包解析后仅影响证据完整度，不改变一期已生效案件是否进入待委外。</p>
         <p><b>3.</b>不生成案件：基础必填字段缺失、金额异常、主续关系失败、订单状态不允许、历史批次重复等字段类失败。</p>
         <p><b>4.</b>导出限制：一期导入案件不支持导出要素表和导出法诉材料。</p>
         <p><b>4.</b>失败订单需修正Excel或完整材料包后，通过“批量补传”上传修正版订单文件和材料包；原失败记录保留。</p>
@@ -1223,7 +1190,7 @@
         <tbody>
           <tr><td>案件导入模板</td><td>按《法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx》清理后的字段顺序展示，共67列：订单编号、父订单编号、姓名、身份证号、违约日、正常封顶金额、活动后封顶金额、债权金额、快递公司、物流轨迹信息、初始保证金等。</td><td>这是唯一需要资产方填写的导入明细Sheet；不再拆分订单基础信息、用户信息、物流信息等多个Sheet。</td></tr>
           <tr><td>字段映射说明</td><td>中文标题、字段类型、是否必填、填写说明、校验说明、填写示例</td><td>只作查看说明，不填写；用于业务、测试核对错误明细和字段口径</td></tr>
-          <tr><td>文件材料清单</td><td>二期材料导入规划说明</td><td>一期不作为上传要求，不阻断Excel导入</td></tr>
+          <tr><td>文件材料清单</td><td>二期材料包上传和解析规划说明</td><td>一期不作为上传要求，不阻断Excel导入</td></tr>
           <tr><td>导入规则配置说明</td><td>模板字段启用规则、默认值/计算规则、还款计划合并规则</td><td>一期按既定模板和固定校验口径导入；二期再做可配置规则</td></tr>
           <tr><td>导入说明</td><td>模板口径、页面字段、金额口径、日期口径、上传要求</td><td>用于运营和资产方核对导入前准备要求</td></tr>
         </tbody>
@@ -1738,7 +1705,7 @@
     });
   }
   function renderAnno(activeId){
-    var annoKey = ['task','taskFull','ruleConfig','ruleEdit','newImport','newImportFull','materialImport','detail','stateMachine'].indexOf(activeId) >= 0 ? activeId : 'default';
+    var annoKey = ['task','taskFull','ruleConfig','ruleEdit','newImport','newImportFull','detail','stateMachine'].indexOf(activeId) >= 0 ? activeId : 'default';
     document.querySelectorAll('[data-anno]').forEach(function(block){
       block.classList.toggle('active', block.getAttribute('data-anno') === annoKey);
     });
@@ -1757,7 +1724,6 @@
       ruleEdit:'新建/编辑导入规则',
       newImport:'新建导入批次',
       newImportFull:'新建导入批次完整版',
-      materialImport:'材料导入',
       detail:'导入处理详情',
       stateMachine:'状态机说明'
     };
