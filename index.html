@@ -345,7 +345,6 @@
         <div class="toolbar">
           <button class="primary" data-action="start-import">新建导入批次</button>
           <button data-jump="ruleConfig">导入规则配置（二期）</button>
-          <button onclick="openModal('templateModal')">模板说明</button>
           <span class="spacer"></span>
           <span class="tag info">一期仅Excel导入</span>
         </div>
@@ -643,7 +642,6 @@
             <div class="toolbar" style="padding:0 0 10px">
               <button class="primary" onclick="restoreImportFile('assetFileRow','资产明细已上传')">上传资产明细</button>
               <a class="btn primary" href="./法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx" download>下载模板</a>
-              <button class="text-link" onclick="openModal('templateModal')">模板说明</button>
             </div>
             <div class="limit">一期仅支持资产明细Excel导入：支持xlsx/xls，建议不超过50M；材料包、合同识别、待补传材料统一放到二期实现。</div>
             <div class="file-row" id="assetFileRow">
@@ -764,7 +762,7 @@
               <tr><th>案件导入管理</th><td>一期批次</td><td>导入中</td><td>查看列表状态</td><td>解析中不可编辑；结束后变为导入完成或导入失败。</td></tr>
               <tr><th>案件导入管理</th><td>一期批次</td><td>导入完成</td><td>下载明细、编辑</td><td>下载导入结果明细；编辑只改批次名称、债权总额、债权对价、备注。</td></tr>
               <tr><th>案件导入管理</th><td>一期批次</td><td>导入失败</td><td>下载明细、编辑</td><td>下载失败明细供运营修正Excel后新建批次重新导入。</td></tr>
-              <tr><th>新建导入批次</th><td>一期导入</td><td>新建中</td><td>上传资产明细、下载模板、模板说明、导入、取消</td><td>头部字段除备注外均必填；一期只校验资产明细Excel。</td></tr>
+              <tr><th>新建导入批次</th><td>一期导入</td><td>新建中</td><td>上传资产明细、下载模板、导入、取消</td><td>头部字段除备注外均必填；一期只校验资产明细Excel。</td></tr>
               <tr><th>新建导入批次</th><td>一期导入</td><td>缺少资产明细</td><td>去上传、取消</td><td>点击导入时弹提示并阻止导入；不生成批次结果。</td></tr>
               <tr><th>新建导入批次</th><td>一期导入</td><td>提交导入</td><td>导入</td><td>页面必填、金额和Excel格式通过后提交解析，并自动下载导入结果明细。</td></tr>
               <tr><th>材料导入</th><td>二期规划</td><td>材料包上传</td><td>批量上传、自动识别、补传</td><td>本期不实现；二期再做材料状态和材料池。</td></tr>
@@ -833,7 +831,7 @@
             <tr><th>导入中</th><td>查看列表状态</td><td>解析中不可编辑；完成后变为导入完成或导入失败。</td></tr>
             <tr><th>导入完成</th><td>下载明细、编辑</td><td>编辑只改批次名称、债权总额、债权对价、备注；不可改导入规则。</td></tr>
             <tr><th>导入失败</th><td>下载明细、编辑</td><td>下载明细查看失败分类和失败原因，修正Excel后重新导入。</td></tr>
-            <tr><th>任意状态</th><td>新建导入批次、导入规则配置、模板说明</td><td>不依赖当前批次状态，可随时进入。</td></tr>
+            <tr><th>任意状态</th><td>新建导入批次、导入规则配置</td><td>不依赖当前批次状态，可随时进入。</td></tr>
           </tbody>
         </table>
       </section>
@@ -953,13 +951,12 @@
       <section class="anno-block">
         <h3>按钮操作</h3>
         <p><b>1.</b>下载模板：下载当前导入规则对应的Excel模板。</p>
-        <p><b>2.</b>模板说明：弹框展示字段填写、Excel列头和校验口径；材料命名规则放到二期。</p>
-        <p><b>3.</b>导入：提交后解析Excel，生成批次结果并自动下载导入结果明细。</p>
-        <p><b>4.</b>取消：未保存内容直接放弃，返回案件导入管理。</p>
+        <p><b>2.</b>导入：提交后解析Excel，生成批次结果并自动下载导入结果明细。</p>
+        <p><b>3.</b>取消：未保存内容直接放弃，返回案件导入管理。</p>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
-            <tr><th>新建中</th><td>上传资产明细、下载模板、模板说明、导入、取消</td><td>头部字段除备注外均必填；资产明细Excel必须上传后才能导入。</td></tr>
+            <tr><th>新建中</th><td>上传资产明细、下载模板、导入、取消</td><td>头部字段除备注外均必填；资产明细Excel必须上传后才能导入。</td></tr>
             <tr><th>缺少资产明细</th><td>去上传、取消</td><td>点击导入时弹提示并阻止导入；不生成批次结果。</td></tr>
             <tr><th>提交导入</th><td>导入</td><td>页面必填、金额、文件格式通过后进入导入中，并自动下载结果明细。</td></tr>
             <tr><th>放弃编辑</th><td>取消</td><td>未保存的新建内容直接放弃。</td></tr>
