@@ -326,7 +326,7 @@
     <div id="processTabs" class="process-tabs">
       <button data-process-tab="newImport">新建导入批次</button>
       <button data-process-tab="detail" hidden>导入处理详情</button>
-      <span class="hint">一期点击导入后自动下载导入结果明细；材料补传和处理详情放在二期</span>
+      <span class="hint">一期点击导入后异步处理；完成弹窗确认后返回列表，在列表下载明细</span>
     </div>
 
     <section id="task" class="tab-page active">
@@ -335,10 +335,10 @@
         <div class="search compact">
           <label><span>导入批次号</span><div class="field-box"><div class="input">支持模糊查询</div><div class="limit">文本，最多50字符；非必填。</div></div></label>
           <label><span>批次名称</span><div class="field-box"><div class="input">支持模糊查询</div><div class="limit">文本，最多50字符；非必填。</div></div></label>
-          <label><span>外部资产方</span><div class="field-box"><div class="select" data-options="全部|创新|转转|人人租">创新<b>⌄</b></div><div class="enum">枚举：全部 / 创新 / 转转 / 人人租</div><div class="limit">默认选中创新；枚举来源于法诉系统数据字典，由研发配置维护。</div></div></label>
+          <label><span>外部资产方</span><div class="field-box"><div class="select" data-options="全部|创新|转转|人人租">创新<b>⌄</b></div><div class="enum">枚举：全部 / 创新 / 转转 / 人人租</div><div class="limit">一期固定为500-创新、600-转转、700-人人租；后续新增资产方需同步新增来源编码。</div></div></label>
           <label><span>业务类型</span><div class="field-box"><div class="select" data-options="全部|租赁">请选择业务类型<b>⌄</b></div><div class="enum">枚举：全部 / 租赁</div><div class="limit">本期仅配置租赁。</div></div></label>
-          <label><span>批次状态</span><div class="field-box"><div class="select" data-options="全部|导入中|导入完成|导入失败">请选择批次状态<b>⌄</b></div><div class="enum">枚举：全部 / 导入中 / 导入完成 / 导入失败</div><div class="limit">一期仅按Excel导入批次生命周期筛选。</div></div></label>
-          <label><span>导入时间</span><div class="field-box"><div class="input">开始时间 - 结束时间</div><div class="limit">日期范围；精确到秒。</div></div></label>
+          <label><span>批次状态</span><div class="field-box"><div class="select" data-options="全部|导入中|导入完成|导入失败">请选择批次状态<b>⌄</b></div><div class="enum">枚举：全部 / 导入中 / 导入完成 / 导入失败</div><div class="limit">至少1笔成功为导入完成；整批0笔成功或任务级异常为导入失败。</div></div></label>
+          <label><span>首次导入时间</span><div class="field-box"><div class="input">开始时间 - 结束时间</div><div class="limit">按批次首次导入时间查询；精确到秒。</div></div></label>
           <div class="search-actions"><button class="primary">查询</button><button>重置</button></div>
         </div>
       </div>
@@ -351,7 +351,7 @@
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th style="width:130px">外部资产方</th><th style="width:150px">导入批次号</th><th style="width:210px">批次名称</th><th>业务类型</th><th>债权总额</th><th>债权对价</th><th>资产总数</th><th>导入成功</th><th>导入失败</th><th>批次状态</th><th style="width:160px">导入时间</th><th style="width:190px">操作</th></tr>
+              <tr><th style="width:130px">外部资产方</th><th style="width:150px">导入批次号</th><th style="width:210px">批次名称</th><th>业务类型</th><th>债权总额</th><th>债权对价</th><th>资产总数</th><th>导入成功</th><th>导入失败</th><th>批次状态</th><th style="width:160px">首次导入时间</th><th style="width:190px">操作</th></tr>
             </thead>
             <tbody>
               <tr><td>创新</td><td>DR202606100001</td><td id="taskBatchName">创新租赁通用规则批次01</td><td>租赁</td><td id="taskTotalDebt">12,036,800.00</td><td id="taskDebtPrice">8,425,760.00</td><td>1280</td><td>1246</td><td>34</td><td><span class="tag ok">导入完成</span></td><td>2026-06-10 20:15:32</td><td><div class="op-actions two-line"><a class="text-link" href="./法诉案件导入_导入结果明细.xlsx" download>下载明细</a><button class="text-link" onclick="openDebtAmountModal('main','DR202606100001','创新租赁通用规则批次01','创新','租赁','创新租赁通用规则','襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)','12,036,800.00','8,425,760.00')">编辑</button></div></td></tr>
@@ -425,7 +425,7 @@
 <tr><td>案件导入模板</td><td>父订单编号</td><td><div class="model-map"><strong>loanInfo 订单基础信息</strong><span>字段：parentLoanNo</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">条件必填<b>⌄</b></div></td><td><div class="inline-input">文本格式；主订单可为空；续租订单必填；父订单需同批次导入或系统已存在，且客户证件号一致</div></td></tr>
 <tr><td>案件导入模板</td><td>所属商户</td><td><div class="model-map"><strong>loanExtInfo 订单扩展信息</strong><span>字段：merchantName</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">文本，最多100字符</div></td></tr>
 <tr class="locked-row"><td>案件导入模板</td><td>姓名</td><td><div class="model-map"><strong>userInfo 用户信息</strong><span>字段：customerName</span><span>模型必填：是</span></div></td><td><span class="locked-cell">启用</span></td><td><span class="locked-cell">必填</span></td><td><div class="inline-input">基础锁定字段；文本，前后空格自动去除；不脱敏</div></td></tr>
-<tr><td>案件导入模板</td><td>性别</td><td><div class="model-map"><strong>userInfo 用户信息</strong><span>字段：gender</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">枚举：男、女、未知；可为空</div></td></tr>
+<tr><td>案件导入模板</td><td>性别</td><td><div class="model-map"><strong>userInfo 用户信息</strong><span>字段：gender</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">枚举：男、女；可为空</div></td></tr>
 <tr><td>案件导入模板</td><td>民族</td><td><div class="model-map"><strong>userInfo 用户信息</strong><span>字段：nation</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">文本，最多20字符</div></td></tr>
 <tr><td>案件导入模板</td><td>出生日期</td><td><div class="model-map"><strong>userInfo 用户信息</strong><span>字段：birthDate</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">支持yyyy-MM-dd、yyyy/M/d、yyyy年M月d日</div></td></tr>
 <tr><td>案件导入模板</td><td>商品名称</td><td><div class="model-map"><strong>itemInfo 商品信息</strong><span>字段：productName</span><span>模型必填：是</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">是<b>⌄</b></div></td><td><div class="inline-input">文本，最多200字符</div></td></tr>
@@ -463,7 +463,7 @@
 <tr><td>案件导入模板</td><td>租赁期限</td><td><div class="model-map"><strong>loanExtInfo 订单扩展信息</strong><span>字段：leaseTerm</span><span>模型必填：是</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">是<b>⌄</b></div></td><td><div class="inline-input">整数；不允许小数</div></td></tr>
 <tr><td>案件导入模板</td><td>合同账单日</td><td><div class="model-map"><strong>planInfoList 账单信息</strong><span>字段：contractBillDay</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">1-31之间整数；可为空</div></td></tr>
 <tr><td>案件导入模板</td><td>租赁物签收日</td><td><div class="model-map"><strong>logisticsInfo 物流信息</strong><span>字段：goodsSignDate</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">是<b>⌄</b></div></td><td><div class="inline-input">默认必填；日期格式同上；用于物流签收事实核对</div></td></tr>
-<tr class="locked-row"><td>案件导入模板</td><td>违约日</td><td><div class="model-map"><strong>planInfoList 账单信息</strong><span>字段：defaultDate</span><span>模型必填：否</span></div></td><td><span class="locked-cell">启用</span></td><td><span class="locked-cell">必填</span></td><td><div class="inline-input">基础锁定字段；日期格式同上；用于逾期天数核对</div></td></tr>
+<tr class="locked-row"><td>案件导入模板</td><td>违约日</td><td><div class="model-map"><strong>planInfoList 账单信息</strong><span>字段：defaultDate</span><span>模型必填：否</span></div></td><td><span class="locked-cell">启用</span></td><td><span class="locked-cell">条件必填</span></td><td><div class="inline-input">应还日期取违约日；续租订单必填；主订单和续租订单同批导入时，主订单非必填、续租订单必填</div></td></tr>
 <tr><td>案件导入模板</td><td>月付租金金额</td><td><div class="model-map"><strong>planInfoList 账单信息</strong><span>字段：monthlyRentAmount</span><span>模型必填：是</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">是<b>⌄</b></div></td><td><div class="inline-input">金额保留2位小数；不得填写货币符号</div></td></tr>
 <tr><td>案件导入模板</td><td>逾期天数</td><td><div class="model-map"><strong>planInfoList 账单信息</strong><span>字段：overdueDays</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">整数；为空时系统按本地还款计划计算</div></td></tr>
 <tr><td>案件导入模板</td><td>正常封顶金额</td><td><div class="model-map"><strong>loanExtInfo 订单扩展信息</strong><span>字段：normalCapAmount</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">金额字段，保留2位小数，不填写货币符号和千分位；不允许负数</div></td></tr>
@@ -626,7 +626,7 @@
         <div class="scope-tip" id="retryImportTip">当前为失败订单重新导入：已加载原批次的批次名称、外部资产方、业务类型、债权接收主体、债权总额和债权对价；本次只需要上传修正后的失败订单资产明细Excel。</div>
         <div class="form-grid compact">
           <label><span><em class="req">*</em>批次名称</span><div class="field-box"><div class="input" id="importBatchName">例：转转租赁批次01</div><div class="limit">必填，2-50字符；同一天允许重名但建议避免重复。</div></div></label>
-          <label><span><em class="req">*</em>外部资产方</span><div class="field-box"><div class="select" id="importAssetOwner" data-options="全部|创新|转转|人人租">创新<b>⌄</b></div><div class="enum">全部 / 创新 / 转转 / 人人租</div><div class="limit">必填；枚举来源于法诉系统数据字典，由研发配置维护。“全部”仅用于筛选，导入时不能选择全部。</div></div></label>
+          <label><span><em class="req">*</em>外部资产方</span><div class="field-box"><div class="select" id="importAssetOwner" data-options="全部|创新|转转|人人租">创新<b>⌄</b></div><div class="enum">全部 / 创新 / 转转 / 人人租</div><div class="limit">必填；一期固定为500-创新、600-转转、700-人人租；“全部”仅用于筛选，导入时不能选择全部。</div></div></label>
           <label><span><em class="req">*</em>业务类型</span><div class="field-box"><div class="select" id="importBizType" data-options="租赁">租赁<b>⌄</b></div><div class="enum">枚举：租赁</div><div class="limit">本期仅配置租赁。</div></div></label>
           <label><span><em class="req">*</em>债权接收主体</span><div class="field-box"><div class="select" id="importDebtSubject" data-options="襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)|武汉小优企业管理有限公司(91420115MACRLKWJ1A)|聊城小优企业管理有限公司(91371521MADE8H2E0)|天津小优企业管理有限公司(91120116MABU4DAY3Q)|沈阳小优企业管理有限公司(91210104MACDQBF833)|石家庄晓优企业管理有限公司(91130108MADAANMX3XG)|宁波小优企业管理有限公司(91330212MA2CK8RF79)|扬州轩翔电子商务有限公司(91370211MA3QN39G8W)">请选择债权接收主体<b>⌄</b></div><div class="enum">襄阳鸿飞企业管理有限公司(91420600MACTCY0R42) / 武汉小优企业管理有限公司(91420115MACRLKWJ1A) / 聊城小优企业管理有限公司(91371521MADE8H2E0) / 天津小优企业管理有限公司(91120116MABU4DAY3Q) / 沈阳小优企业管理有限公司(91210104MACDQBF833) / 石家庄晓优企业管理有限公司(91130108MADAANMX3XG) / 宁波小优企业管理有限公司(91330212MA2CK8RF79) / 扬州轩翔电子商务有限公司(91370211MA3QN39G8W)</div><div class="limit">必填；沿用待委外管理“债权接收主体”枚举，用于案件归属和报表统计；一期导入案件不支持导出要素表。</div></div></label>
           <label><span><em class="req">*</em>债权总额</span><div class="field-box"><div class="input" id="importTotalDebt">例：12036800.00</div><div class="limit">必填，金额字段；允许为0；非金额或负数提示“债权总额金额不正确”。</div></div></label>
@@ -637,10 +637,10 @@
           <div class="upload-icon">↑</div>
           <div>
             <div class="toolbar" style="padding:0 0 10px">
-              <button class="primary" onclick="restoreImportFile('assetFileRow','资产明细已上传')">上传资产明细</button>
+              <button class="primary" onclick="restoreImportFile('assetFileRow','资产明细已上传，文件级前置校验通过')">上传资产明细</button>
               <a class="btn primary" href="./法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx" download>下载模板</a>
             </div>
-            <div class="limit">一期仅支持资产明细Excel导入：支持xlsx/xls，建议不超过50M；材料包、合同识别、待补传材料统一放到二期实现。</div>
+            <div class="limit">一期仅支持资产明细Excel导入：支持xlsx/xls，最多50MB，单个文件最多500条订单；材料包、合同识别、待补传材料统一放到二期实现。</div>
             <div class="file-row" id="assetFileRow">
               <div class="file-meta"><span class="file-name">法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx</span><span class="tag ok">上传成功</span></div>
               <div class="file-actions"><button class="text-link danger-link" onclick="openDeleteFileModal('assetFileRow','法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx')">删除</button></div>
@@ -648,9 +648,9 @@
           </div>
         </div>
         <div class="rule-strip">
-          <div class="rule-item"><b>字段和金额</b><span>一期按0702最终版模板和系统固定校验口径执行；金额需数字类型，且不可为负值。</span></div>
+          <div class="rule-item"><b>字段和金额</b><span>一期按0702最终版模板和系统固定校验口径执行；应还日期取违约日；金额需数字类型且不可为负值。</span></div>
           <div class="rule-item"><b>案件生效</b><span>一期字段校验通过即可生成案件并生效，自动进入待委外队列；后续可走法诉流程。</span></div>
-          <div class="rule-item"><b>重复和拦截</b><span>重复订单、必填缺失、金额异常、主续关系异常等均写入导入结果明细；不做材料校验。</span></div>
+          <div class="rule-item"><b>失败和重复</b><span>单订单仅记录首个失败原因；同Excel重复在上传阶段拦截，同批次待分配订单可覆盖。</span></div>
         </div>
         <div class="footer-btns"><button data-action="cancel-edit">取消</button><button class="primary" data-action="submit-import">导入</button></div>
       </div>
@@ -731,7 +731,7 @@
 
     <section id="detail" class="tab-page">
       <div class="panel">
-        <div class="notice"><span class="phase-badge future">二期规划</span> 导入处理详情用于一页处理当前批次的订单问题和材料问题。一期不进入本页，点击导入后直接下载导入结果明细；二期再承接材料补传、未匹配材料和解析详情。</div>
+        <div class="notice"><span class="phase-badge future">二期规划</span> 导入处理详情用于一页处理当前批次的订单问题和材料问题。一期不进入本页，异步处理完成后弹窗确认并返回列表；二期再承接材料补传、未匹配材料和解析详情。</div>
         <div class="batch-meta">
           <div class="meta-item"><b>导入批次号</b><span>DR202606100001</span></div>
           <div class="meta-item"><b>批次名称</b><span>创新租赁通用规则批次01</span></div>
@@ -812,11 +812,11 @@
             <thead><tr><th style="width:150px">页面名称</th><th style="width:108px">模块</th><th style="width:150px">状态/场景</th><th style="width:260px">可操作按钮</th><th>操作结果/限制</th></tr></thead>
             <tbody>
               <tr><th>案件导入管理</th><td>一期批次</td><td>导入中</td><td>查看列表状态</td><td>解析中不可编辑；结束后变为导入完成或导入失败。</td></tr>
-              <tr><th>案件导入管理</th><td>一期批次</td><td>导入完成/导入失败</td><td>下载明细、编辑</td><td>下载导入结果明细；编辑可修改批次信息，也可上传修正版Excel在同一批次下重新导入。</td></tr>
-              <tr><th>案件导入管理</th><td>一期批次</td><td>导入失败</td><td>下载明细、编辑</td><td>下载失败明细供运营修正Excel；可通过编辑弹框上传修正版Excel，在同一批次下重新导入。</td></tr>
+              <tr><th>案件导入管理</th><td>一期批次</td><td>导入完成</td><td>下载明细、编辑</td><td>至少1笔订单成功；可下载全量最新结果，或在同一批次下再次导入。</td></tr>
+              <tr><th>案件导入管理</th><td>一期批次</td><td>导入失败</td><td>下载明细、编辑</td><td>整批0笔成功或发生任务级异常；修正Excel后可通过编辑在原批次下重新导入。</td></tr>
               <tr><th>新建导入批次</th><td>一期导入</td><td>新建中</td><td>上传资产明细、下载模板、导入、取消</td><td>头部字段除备注外均必填；一期只校验资产明细Excel。</td></tr>
               <tr><th>新建导入批次</th><td>一期导入</td><td>缺少资产明细</td><td>去上传、取消</td><td>点击导入时弹提示并阻止导入；不生成批次结果。</td></tr>
-              <tr><th>新建导入批次</th><td>一期导入</td><td>提交导入</td><td>导入</td><td>页面必填、金额和Excel格式通过后提交解析，并自动下载导入结果明细。</td></tr>
+              <tr><th>新建导入批次</th><td>一期导入</td><td>提交导入</td><td>导入</td><td>页面必填、金额和Excel文件级前置校验通过后提交异步处理；提交后返回列表并展示导入中。</td></tr>
               <tr><th>案件导入管理完整版</th><td>二期目标</td><td>草稿/完成/失败</td><td>继续编辑、处理详情、编辑、错误明细</td><td>恢复拆分前最终版批次管理，承接材料状态和导入处理详情。</td></tr>
               <tr><th>新建导入批次完整版</th><td>二期目标</td><td>新建/草稿</td><td>上传资产明细、上传材料包、下载模板、模板说明、保存草稿、导入、取消</td><td>恢复拆分前最终版新建导入；导入规则和材料包校验放到二期。</td></tr>
               <tr><th>导入处理详情</th><td>二期规划</td><td>订单/材料处理</td><td>查看解析、批量补传、失败原因</td><td>本期不进入详情页；一期结果在Excel明细中闭环。</td></tr>
@@ -834,7 +834,7 @@
             <tbody>
               <tr><td>案件导入管理</td><td>一期批次状态</td><td><span class="tag info">导入中</span></td><td>点击“导入”并通过页面必填和资产明细Excel校验。</td><td>导入完成 / 导入失败</td></tr>
               <tr><td>案件导入管理</td><td>一期批次状态</td><td><span class="tag ok">导入完成</span></td><td>Excel解析结束，至少存在一条导入成功或可落库记录。</td><td>保持导入完成</td></tr>
-              <tr><td>案件导入管理</td><td>批次状态</td><td><span class="tag bad">导入失败</span></td><td>文件无法解析、模板不匹配、全部订单未通过基础校验或系统异常。</td><td>导入中 / 导入完成 / 导入失败</td></tr>
+              <tr><td>案件导入管理</td><td>一期批次状态</td><td><span class="tag bad">导入失败</span></td><td>本批次0笔订单成功，或文件解析、模板匹配、系统处理发生任务级异常。</td><td>编辑后再次导入：导入中 / 导入完成 / 导入失败</td></tr>
               <tr><td>导入处理详情</td><td>二期订单状态</td><td><span class="tag warn">待补材料</span></td><td>二期材料包解析后，非必填材料缺失但案件可继续处理。</td><td>补传后刷新材料完整度</td></tr>
               <tr><td>导入规则配置</td><td>规则状态</td><td><span class="tag ok">启用</span></td><td>规则配置校验通过并保存启用。</td><td>可停用 / 可编辑后继续启用</td></tr>
               <tr><td>导入规则配置</td><td>规则状态</td><td><span class="tag gray">停用</span></td><td>规则被运营或管理员停用。</td><td>可重新启用</td></tr>
@@ -853,7 +853,7 @@
         <h3>页面定位</h3>
         <p><b>1.</b>一期按导入批次管理外部资产Excel导入任务，用于新建导入、查看批次状态、下载导入结果明细。</p>
         <p><b>2.</b>本页只管理批次，不直接编辑订单核心字段；已生效案件继续复用待委外、调解、诉讼、还款、结清等原流程。</p>
-        <p><b>3.</b>列表默认按导入时间倒序展示，默认每页10条。</p>
+        <p><b>3.</b>列表默认按首次导入时间倒序展示，默认每页10条。</p>
       </section>
       <section class="anno-block">
         <h3>筛选区逻辑</h3>
@@ -861,28 +861,31 @@
         <p><b>2.</b>外部资产方枚举来源于法诉系统数据字典，页面示例为：全部、创新、转转、人人租；默认选中创新。</p>
         <p><b>3.</b>业务类型枚举：全部、租赁；本期只配置租赁。</p>
         <p><b>4.</b>一期批次状态枚举：全部、导入中、导入完成、导入失败；不做草稿和材料待处理状态。</p>
-        <p><b>5.</b>导入时间按批次创建/提交导入时间查询，支持起止时间。</p>
+        <p><b>5.</b>首次导入时间按批次第一次点击“导入”并成功创建导入任务的时间查询，支持起止时间。</p>
       </section>
       <section class="anno-block">
         <h3>重点列取数</h3>
         <p><b>1.</b>批次号由系统在提交导入后生成；一期不做保存草稿，不存在草稿批次。</p>
         <p><b>2.</b>批次名称、外部资产方、业务类型、债权接收主体、债权总额、债权对价取新建导入或编辑弹框保存值。</p>
-        <p><b>3.</b>资产总数、导入成功、导入失败取Excel解析落库统计；一期不展示待补材料、未匹配材料等材料状态。</p>
-        <p><b>4.</b>批次状态按Excel导入生命周期生成：导入中、导入完成、导入失败。</p>
-        <p><b>5.</b>导入时间取点击“导入”成功提交的时间。</p>
+        <p><b>3.</b>资产总数、导入成功、导入失败取当前批次下所有导入记录的订单级最新结果；同一订单多次导入时按订单编号去重，只取最新有效处理结果参与统计。</p>
+        <p><b>4.</b>批次状态：任务处理中为“导入中”；处理结束且至少1笔订单成功为“导入完成”；整批0笔成功，或文件解析、模板匹配、系统处理发生任务级异常时为“导入失败”。</p>
+        <p><b>5.</b>首次导入时间取该批次第一次点击“导入”并成功创建导入任务的时间；后续通过“编辑”再次导入时不覆盖该时间。</p>
+        <p><b>6.</b>统计去重口径：资产总数=当前批次多次导入涉及的订单编号去重数；导入成功=当前批次最终成功的订单编号去重数；导入失败=当前批次最终失败的订单编号去重数。</p>
+        <p><b>7.</b>同一订单在本批次内多次导入时，以订单最新一次有效处理结果归类，避免同一订单同时计入成功和失败。</p>
       </section>
       <section class="anno-block">
         <h3>按钮操作</h3>
         <p><b>1.</b>新建导入批次：进入新建导入批次页，创建新的导入批次。</p>
         <p><b>2.</b>导入规则配置：二期规划入口，一期不实现规则配置维护。</p>
-        <p><b>3.</b>下载明细：下载当前批次导入结果明细，明细中包含成功、失败、重复跳过等订单级结果。</p>
-        <p><b>4.</b>编辑：只允许修改批次名称、债权总额、债权对价、备注；外部资产方、业务类型、规则、债权接收主体不可改；一期不展示历史上传文件。</p>
-        <p><b>5.</b>导入失败批次同样通过“下载明细”获取失败分类和失败原因，运营修正Excel后重新新建批次导入。</p>
+        <p><b>3.</b>下载明细：下载当前批次全量订单的最新导入结果，不是单次上传文件的临时结果；同一订单只保留最新处理结果，失败订单只展示按校验优先级命中的首个失败原因。</p>
+        <p><b>4.</b>编辑：支持修改批次名称、债权总额、债权对价、备注；外部资产方、业务类型、债权接收主体不可改；一期不展示导入规则和历史上传文件。</p>
+        <p><b>5.</b>编辑弹框支持再次导入Excel，可以上传本批次失败订单的修正版，也可以上传本批次下新增的全新订单；重新导入后案件仍归属当前批次。</p>
+        <p><b>6.</b>未上传Excel时，点击“保存并导入”仅保存批次信息修改，不触发解析；上传Excel时，点击“保存并导入”先保存批次信息，再按当前批次提交异步导入并返回列表展示导入中。</p>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
             <tr><th>导入中</th><td>查看列表状态</td><td>解析中不可编辑；完成后变为导入完成或导入失败。</td></tr>
-            <tr><th>导入完成</th><td>下载明细、编辑</td><td>编辑可修改批次名称、债权总额、债权对价、备注；也可上传修正版Excel在同一批次下重新导入失败订单。</td></tr>
+            <tr><th>导入完成</th><td>下载明细、编辑</td><td>编辑可修改批次名称、债权总额、债权对价、备注；也可上传Excel在同一批次下再次导入失败订单或全新订单。</td></tr>
             <tr><th>导入失败</th><td>下载明细、编辑</td><td>下载明细查看失败分类和失败原因，修正Excel后通过编辑弹框重新导入，案件仍归属原批次。</td></tr>
             <tr><th>任意状态</th><td>新建导入批次</td><td>不依赖当前批次状态，可随时新建批次；导入规则配置放在二期菜单。</td></tr>
           </tbody>
@@ -1037,29 +1040,35 @@
       <section class="anno-block">
         <h3>页面字段取数</h3>
         <p><b>1.</b>批次名称由运营录入，点击导入时随批次保存；一期不做保存草稿。</p>
-        <p><b>2.</b>外部资产方、债权接收主体取系统下拉；业务类型本期固定为租赁；外部资产方示例为创新、转转、人人租；债权接收主体枚举来源于“三方管理 → 债权主体管理”中“是否启用对公收款码=是”的债权主体列表。</p>
+        <p><b>2.</b>外部资产方、债权接收主体取系统下拉；业务类型本期固定为租赁；一期外部资产方固定为500-创新、600-转转、700-人人租，后续新增资产方需同步新增来源编码；债权接收主体枚举来源于“三方管理 → 债权主体管理”中“是否启用对公收款码=是”的债权主体列表。</p>
         <p><b>3.</b>一期隐藏导入规则，系统按0702最终版模板和固定校验口径处理；导入规则配置放到二期。</p>
         <p><b>4.</b>债权总额、债权对价由运营录入，保留2位小数；允许输入0；非金额或负数时分别提示“债权总额金额不正确”“债权对价金额不正确”；债权对价不能大于债权总额。</p>
         <p><b>5.</b>资产明细Excel只填写资产方可提供的订单、用户、物流、联系人等业务字段，不填写批次号、导入规则和内部服务商信息。</p>
+        <p><b>6.</b>账单信息中的应还日期由系统取“违约日”生成；若导入续租订单，违约日必填；若主订单和续租订单同批导入，主订单违约日非必填，续租订单违约日必填。</p>
       </section>
       <section class="anno-block">
         <h3>上传校验</h3>
         <p><b>1.</b>点击“导入”时，页面必填项和资产明细Excel必须齐全；一期不上传材料包。</p>
         <p><b>2.</b>缺资产明细提示：请先上传资产明细Excel。</p>
-        <p><b>3.</b>资产明细支持xlsx/xls，建议不超过50M；文件无法解析、列头不匹配或全部订单失败时，批次状态为导入失败。</p>
-        <p><b>4.</b>导入完成后自动下载导入结果明细，运营按明细中的失败分类修正Excel后重新导入。</p>
+        <p><b>3.</b>资产明细支持xlsx/xls，最多50MB，单个文件最多500条订单；超过限制时上传失败并提示“单次导入最多支持500条订单，请拆分后重新上传。”，不创建导入任务。</p>
+        <p><b>4.</b>上传时做文件级前置校验：订单编号不能为空；本Excel内订单编号不能重复；必填列不能缺失；列头名称需与模板一致，列顺序可调整，额外列忽略。</p>
+        <p><b>5.</b>订单编号为空时上传失败，提示“模板中订单编号不能为空，请修正后重新上传。”；存在重复订单时上传失败，提示“模板中有重复订单，请修正后重新上传。”；两类问题均不创建导入任务，不生成导入结果明细。</p>
+        <p><b>6.</b>文件无法解析、列头不匹配、缺少必填列属于上传/任务级错误，页面直接提示失败原因，不写入订单级导入结果明细；订单处理阶段发生技术异常时写入明细，失败原因为“系统异常”。</p>
+        <p><b>7.</b>点击“导入”并通过前置校验后提交异步任务；处理完成弹出“导入完成”或“导入失败”，点击“确定”后返回案件导入管理列表，再通过“下载明细”获取当前批次全量最新结果。</p>
+        <p><b>8.</b>单个订单命中多个校验问题时，只展示首个失败原因。校验优先级：基础必填缺失 → 字段格式错误 → 金额异常 → 主续关系异常 → 重复订单 → 系统异常。</p>
+        <p><b>9.</b>失败文案统一：格式问题为“字段名+字段格式错误”，金额问题为“字段名+金额异常”，系统处理问题为“系统异常”。</p>
       </section>
       <section class="anno-block">
         <h3>按钮操作</h3>
         <p><b>1.</b>下载模板：下载一期固定的0702最终版Excel模板。</p>
-        <p><b>2.</b>导入：提交后解析Excel，生成批次结果并自动下载导入结果明细。</p>
+        <p><b>2.</b>导入：提交后系统异步解析Excel；处理完成弹出结果提示，点击“确定”后返回案件导入管理列表。</p>
         <p><b>3.</b>取消：未保存内容直接放弃，返回案件导入管理。</p>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
             <tr><th>新建中</th><td>上传资产明细、下载模板、导入、取消</td><td>头部字段除备注外均必填；资产明细Excel必须上传后才能导入。</td></tr>
             <tr><th>缺少资产明细</th><td>去上传、取消</td><td>点击导入时弹提示并阻止导入；不生成批次结果。</td></tr>
-            <tr><th>提交导入</th><td>导入</td><td>页面必填、金额、文件格式通过后进入导入中，并自动下载结果明细。</td></tr>
+            <tr><th>提交导入</th><td>导入</td><td>页面必填、金额、文件格式和前置校验通过后异步处理；完成弹窗确认后返回列表，不自动下载明细。</td></tr>
             <tr><th>放弃编辑</th><td>取消</td><td>未保存的新建内容直接放弃。</td></tr>
           </tbody>
         </table>
@@ -1067,32 +1076,36 @@
       <section class="anno-block">
         <h3>案件生成规则</h3>
         <p><b>1.</b>一期字段校验通过即可生成案件，案件立即生效并进入待委外队列；后续可进行待委外、调解、诉讼、还款、结清等法诉流程。</p>
-        <p><b>2.</b>基础必填缺失、金额异常、主续关系失败、订单状态不允许、跨批次重复等订单，不生成案件，原因写入导入结果明细。</p>
+        <p><b>2.</b>基础必填缺失、字段格式错误、金额异常、主续关系失败、跨批次重复等订单不生成案件，原因写入导入结果明细；失败分类以本页“上传校验”列出的六类为准。</p>
         <p><b>3.</b>一期不校验材料，不生成待补材料清单；材料包解析、材料完整度和未匹配材料池放二期。</p>
         <p><b>4.</b>一期导入案件不支持导出要素表和导出法诉材料；相关入口需识别案件来源并给出不可导出提示。</p>
-        <p><b>5.</b>重复订单：同一外部资产方+订单编号已在历史批次导入时，以首次导入批次为准，本次提示重复并展示已存在批次号。</p>
+        <p><b>5.</b>重复订单：同一外部资产方+订单编号已在其他批次导入时，不允许重复导入，本次提示重复并展示已存在批次号；若主订单已在其他批次存在、本次仅新增续租订单，续租订单可正常导入。</p>
+        <p><b>6.</b>主续关系：先按“外部资产方+父订单编号”查询系统已有主订单，未匹配时再查询本批次主订单；两处均不存在时提示主续关系异常。匹配到父订单但证件号不一致时阻断当前订单，提示“父订单客户证件号与当前订单身份证号不一致，请核对父订单编号和身份证号后重新上传。”</p>
+        <p><b>7.</b>续租订单缺少违约日时阻断生成案件，失败原因提示“续租订单违约日不能为空，请补充后重新上传。”</p>
       </section>
       <section class="anno-block">
         <h3>重复订单闭环</h3>
         <p><b>1.</b>一期按“外部资产方+订单编号”识别重复订单。</p>
-        <p><b>2.</b>同一批Excel内重复时，仅保留第一条可落库记录，其余记录写入导入结果明细。</p>
-        <p><b>3.</b>跨批次重复时，以第一次导入批次为准，本次不覆盖，并在失败原因中提示已存在批次号。</p>
-        <p><b>4.</b>同一批次通过“编辑”再次上传Excel时，仍归属原批次；重复订单若还在待分配/未分配队列，可用新Excel字段自动覆盖。</p>
-        <p><b>5.</b>同一批次再次导入时，重复订单若已分配或已流转，不允许覆盖，写入导入结果明细并提示案件当前状态。</p>
+        <p><b>2.</b>同一Excel内重复：上传资产明细时即校验订单编号重复；只要发现任意重复订单，整份文件上传失败，提示“模板中有重复订单，请修正后重新上传。”不创建导入任务，不生成导入结果明细。</p>
+        <p><b>3.</b>同批次再次导入：通过“编辑”上传后传订单时，若已有订单仍在待分配队列，可按新Excel字段覆盖；覆盖后仍归属原批次。</p>
+        <p><b>4.</b>同批次不可覆盖：如果已有订单已流转，不允许再次导入，导入结果明细提示“该订单已流转，无法再次导入”。</p>
+        <p><b>5.</b>不同批次导入：同一外部资产方+订单编号已存在于其他批次时，本次报错，不允许重复导入；但主订单已存在于其他批次、本次新增续租订单时，续租订单可正常导入。</p>
+        <p><b>6.</b>错误明细：不展示行号列；同一订单多次导入产生重复记录时，以订单维度保留最后一次重复记录，导入失败数量也按订单最新处理结果统计。</p>
         <table class="button-state-table">
           <thead><tr><th>重复场景</th><th>处理规则</th><th>结果展示</th></tr></thead>
           <tbody>
-            <tr><th>同一批Excel内重复</th><td>仅保留第一条可落库记录，其余重复记录不落库。</td><td>写入导入结果明细，提示“同批Excel内重复”。</td></tr>
-            <tr><th>同一批次再次导入</th><td>重复订单若仍在待分配/未分配队列，使用新Excel字段自动覆盖。</td><td>写入导入结果明细，标记“同批次覆盖成功”。</td></tr>
-            <tr><th>同一批次已分配或已流转</th><td>不允许覆盖已有案件字段。</td><td>写入导入结果明细，提示“案件已分配/已流转，无法覆盖”。</td></tr>
-            <tr><th>其他批次已导入</th><td>以首次导入批次为准，不允许重复导入。</td><td>写入导入结果明细，并提示已存在批次号。</td></tr>
+            <tr><th>同一Excel内重复</th><td>上传阶段拦截，不进入导入处理。</td><td>上传失败，提示“模板中有重复订单，请修正后重新上传。”</td></tr>
+            <tr><th>同批次再次导入-待分配</th><td>使用后传Excel字段覆盖已有订单。</td><td>写入导入结果明细，标记“同批次覆盖成功”。</td></tr>
+            <tr><th>同批次再次导入-已流转</th><td>不允许覆盖已有案件字段。</td><td>写入导入结果明细，提示“该订单已流转，无法再次导入”。</td></tr>
+            <tr><th>不同批次重复</th><td>不允许重复导入。</td><td>写入导入结果明细，并提示已存在批次号。</td></tr>
+            <tr><th>主订单其他批次存在，续租本次新增</th><td>父订单可匹配系统已存在订单，且证件号一致。</td><td>续租订单正常导入。</td></tr>
           </tbody>
         </table>
       </section>
       <section class="anno-block">
         <h3>二期边界</h3>
         <p><b>1.</b>材料包上传、合同识别、非必填材料补传、未匹配材料池均不在一期实现。</p>
-        <p><b>2.</b>一期导入结果只反映Excel字段、金额、主续关系、重复、订单状态和系统处理结果。</p>
+        <p><b>2.</b>一期导入结果只反映Excel必填、字段格式、金额、主续关系、重复和系统处理结果。</p>
         <p><b>3.</b>一期导入案件不支持导出要素表和导出法诉材料；二期材料包解析后再评估导出能力。</p>
         <p><b>4.</b>二期上线材料包上传和解析能力后，再补充材料命名规则、材料必填口径和材料解析状态。</p>
       </section>
@@ -1122,7 +1135,7 @@
         <h3>案件生成规则</h3>
         <p><b>1.</b>生成待委外案件：一期字段校验通过即生成案件，案件生效状态为已生效。</p>
         <p><b>2.</b>待补材料：二期材料包解析后仅影响证据完整度，不改变一期已生效案件是否进入待委外。</p>
-        <p><b>3.</b>不生成案件：基础必填字段缺失、金额异常、主续关系失败、订单状态不允许、跨批次重复等字段类失败。</p>
+        <p><b>3.</b>不生成案件：基础必填缺失、字段格式错误、金额异常、主续关系失败、跨批次重复等订单级失败。</p>
         <p><b>4.</b>导出限制：一期导入案件不支持导出要素表和导出法诉材料。</p>
         <p><b>4.</b>失败订单需修正Excel或完整材料包后，通过“批量补传”上传修正版订单文件和材料包；原失败记录保留。</p>
         <p><b>5.</b>材料待补传不是导入失败，只用于补充当前导入规则中配置为非必填的材料。</p>
@@ -1224,10 +1237,11 @@
             <tbody>
               <tr><td>导入成功</td><td>字段校验通过</td><td>生成案件并生效，进入待委外队列；不支持导出要素表和法诉材料</td></tr>
               <tr><td>导入失败</td><td>必填缺失、格式错误、金额异常、主续关系异常等</td><td>按失败分类修正Excel后重新导入</td></tr>
-              <tr><td>重复跳过</td><td>订单已在历史批次导入</td><td>结果明细提示已存在批次号，本次不覆盖</td></tr>
+              <tr><td>同批次覆盖</td><td>同批次再次导入且订单仍在待分配</td><td>以后传Excel为准覆盖字段，明细保留订单最新处理结果</td></tr>
+              <tr><td>重复拦截</td><td>订单已在其他批次导入，或同批次订单已流转不可覆盖</td><td>明细提示已存在批次号，或提示“该订单已流转，无法再次导入”</td></tr>
             </tbody>
           </table>
-          <div class="submit-note" style="margin-top:10px">点击“导入”后自动下载导入结果明细；运营不用进入处理详情页即可核对一期导入结果。</div>
+          <div class="submit-note" style="margin-top:10px">点击“导入”后系统异步处理并返回列表展示导入中；处理完成后点击“下载明细”核对当前批次全量最新结果。</div>
         </div>
       </div>
       <div class="submit-note">模板只填写资产方能提供的订单明细；页面外部资产方、导入规则、债权接收主体、债权总额、债权对价和批次号由法诉系统维护。一期字段校验通过即生成并生效进入待委外，但导入案件不支持导出要素表和导出法诉材料。</div>
@@ -1310,23 +1324,23 @@
   <div class="modal wide">
     <div class="modal-head"><span>编辑批次信息</span><button onclick="closeModal('debtAmountModal')">×</button></div>
     <div class="modal-body">
-      <div class="notice" id="debtAmountNotice" style="margin:0 0 14px">本弹框用于修改批次级信息，并支持在同一批次下重新导入修正后的Excel。批次名称、债权总价、债权对价、备注允许修改；外部资产方、业务类型、导入规则、债权接收主体不可修改。</div>
+      <div class="notice" id="debtAmountNotice" style="margin:0 0 14px">本弹框用于修改批次级信息，并支持在同一批次下重新导入修正后的Excel。批次名称、债权总额、债权对价、备注允许修改；外部资产方、业务类型、债权接收主体不可修改。</div>
       <div class="form-grid" style="grid-template-columns:1fr 1fr;padding:0 0 14px">
         <label><span>导入批次号</span><div class="field-box"><div class="input" id="batchNoEdit">DR202606100001</div><div class="limit">系统生成，不可修改。</div></div></label>
         <label><span>批次名称</span><div class="field-box"><div class="input" id="batchNameEdit" contenteditable="true">创新租赁通用规则批次01</div><div class="limit">可修改，2-50字符；保存后同步批次列表展示。</div></div></label>
         <label><span>外部资产方</span><div class="field-box"><div class="input" id="batchOwnerEdit">创新</div><div class="limit">不可修改；同一批次只能对应一个外部资产方。</div></div></label>
         <label><span>业务类型</span><div class="field-box"><div class="input" id="batchBizEdit">租赁</div><div class="limit">不可修改；如需变更需重新建批次。</div></div></label>
-        <label><span>导入规则</span><div class="field-box"><div class="input" id="batchRuleEdit">创新租赁通用规则</div><div class="limit">不可修改；该批次已按此规则解析。</div></div></label>
+        <label id="batchRuleEditField"><span>导入规则</span><div class="field-box"><div class="input" id="batchRuleEdit">创新租赁通用规则</div><div class="limit">二期展示；不可修改，该批次已按此规则解析。</div></div></label>
         <label><span>债权接收主体</span><div class="field-box"><div class="input" id="batchSubjectEdit">襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)</div><div class="limit">不可修改；用于诉讼主体、要素表和报表统计。</div></div></label>
-        <label><span>债权总价</span><div class="field-box"><div class="input" id="debtTotalInput" contenteditable="true">12,036,800.00</div><div class="limit">可修改；金额字段，保留2位小数，保存后记录操作日志。</div></div></label>
-        <label><span>债权对价</span><div class="field-box"><div class="input" id="debtPriceInput" contenteditable="true">8,425,760.00</div><div class="limit">可修改；不允许大于债权总价。</div></div></label>
+        <label><span>债权总额</span><div class="field-box"><div class="input" id="debtTotalInput" contenteditable="true">12,036,800.00</div><div class="limit">可修改；金额字段，保留2位小数，保存后记录操作日志。</div></div></label>
+        <label><span>债权对价</span><div class="field-box"><div class="input" id="debtPriceInput" contenteditable="true">8,425,760.00</div><div class="limit">可修改；不允许大于债权总额。</div></div></label>
         <label style="grid-column:1/3"><span>备注</span><div class="field-box"><div class="textarea" id="batchRemarkEdit" contenteditable="true">资产方复核后确认本批次债权口径，已补充合同材料。</div><div class="limit">可修改，最多200字符；保存后写入批次操作日志。</div></div></label>
       </div>
       <div class="box" id="batchRetryImportBox" style="margin-bottom:14px">
-        <h4>失败数据重新导入</h4>
-        <div class="notice" style="margin:0 0 10px">用于修复本批次导入失败的订单。未上传修正版Excel时，仅保存本次批次信息修改；上传修正版Excel后，点击“保存并导入”会同时保存批次信息并在当前批次下重新导入。</div>
+        <h4>再次导入Excel</h4>
+        <div class="notice" style="margin:0 0 10px">用于在当前批次下再次导入订单，可上传本批次失败订单的修正版，也可上传本批次下新增的全新订单。未上传Excel时，仅保存本次批次信息修改；上传Excel后，点击“保存并导入”会同时保存批次信息并提交异步导入，提交后返回列表展示导入中。</div>
         <div class="file-row" id="batchRetryFileRow">
-          <div class="file-meta"><span class="file-name" id="batchRetryFileName">未上传修正后的Excel</span><span class="tag gray" id="batchRetryFileStatus">待上传</span></div>
+          <div class="file-meta"><span class="file-name" id="batchRetryFileName">未上传再次导入Excel</span><span class="tag gray" id="batchRetryFileStatus">待上传</span></div>
           <div class="file-actions"><button onclick="uploadBatchRetryFile()">上传Excel</button></div>
         </div>
       </div>
@@ -1350,7 +1364,7 @@
   <div class="modal wide">
     <div class="modal-head"><span id="duplicateTitle">重复订单处理</span><button onclick="closeModal('duplicateModal')">×</button></div>
     <div class="modal-body">
-      <div class="notice" style="margin:0 0 14px">系统按“外部资产方 + 订单编号”自动识别重复订单。跨批次重复不允许覆盖；同一批次再次导入时，已有案件仍在待分配/未分配队列可自动覆盖，已分配或已流转不允许覆盖并写入导入结果明细。</div>
+      <div class="notice" style="margin:0 0 14px">系统按“外部资产方 + 订单编号”自动识别重复订单。跨批次重复不允许导入；同一批次再次导入时，已有案件仍在待分配队列可自动覆盖，已流转订单不允许再次导入并写入导入结果明细。</div>
       <div class="kv" style="margin-bottom:14px">
         <b>本次订单编号</b><span id="duplicateLoanNo">26012915050167612333</span><b>系统已有案件</b><span id="duplicateCaseStatus">待委外管理 / 已分配服务商</span>
         <b>本次债权金额</b><span>8,650.00</span><b>系统债权金额</b><span>8,620.00</span>
@@ -1365,7 +1379,7 @@
           <tr><td>订单覆盖</td><td>系统已有案件已分配或已流转时不允许</td><td>不展示覆盖按钮，只能确认跳过；如需补材料走批量补传</td><td>避免影响已进入业务处置流程的数据</td></tr>
         </tbody>
       </table>
-      <div class="submit-note">导入时先自动处理可覆盖重复订单；只有不能自动覆盖的重复订单才进入本弹框。已分配或已流转案件不展示订单覆盖按钮，避免误改已进入后续流程的数据。</div>
+      <div class="submit-note">导入时先自动处理可覆盖重复订单；只有不能自动覆盖的重复订单才进入本弹框。已流转订单不展示订单覆盖按钮，避免误改已进入后续流程的数据。</div>
     </div>
     <div class="modal-foot"><button onclick="handleDuplicateAction('skip')">确认跳过</button><button id="duplicateCoverBtn" class="primary" onclick="handleDuplicateAction('cover')">订单覆盖</button></div>
   </div>
@@ -1429,6 +1443,24 @@
       <div class="submit-note">请补齐缺失文件后重新点击“导入”。系统不会生成导入结果，也不会生成案件记录。</div>
     </div>
     <div class="modal-foot"><button onclick="closeModal('requiredFileModal')">我知道了</button><button class="primary" onclick="closeModal('requiredFileModal'); showToast('请在上传区补齐必传文件')">去上传</button></div>
+  </div>
+</div>
+
+<div id="importAsyncResultModal" class="modal-mask">
+  <div class="modal">
+    <div class="modal-head"><span>导入处理结果</span><button onclick="closeModal('importAsyncResultModal')">×</button></div>
+    <div class="modal-body">
+      <div class="notice" style="margin:0 0 14px">系统异步处理不自动下载明细；处理完成后，可回到案件导入管理列表点击“下载明细”查看当前批次全量最新结果。</div>
+      <table>
+        <thead><tr><th>处理阶段</th><th>页面提示</th><th>后续操作</th></tr></thead>
+        <tbody>
+          <tr><td>异步处理完成</td><td><span class="tag ok" id="importAsyncResultText">导入完成</span></td><td>点击“确定”返回案件导入管理列表</td></tr>
+          <tr><td>明细获取</td><td>不自动下载</td><td>在列表操作列点击“下载明细”</td></tr>
+        </tbody>
+      </table>
+      <div class="submit-note">失败场景页面提示为“导入失败”；同样点击“确定”返回列表后下载明细查看失败原因。</div>
+    </div>
+    <div class="modal-foot"><button class="primary" onclick="confirmImportAsyncResult()">确定</button></div>
   </div>
 </div>
 
@@ -1835,6 +1867,8 @@
     var assetRow = document.getElementById('assetFileRow');
     if(!assetRow || assetRow.style.display === 'none'){
       missing.push({name:'资产明细', requirement:'xlsx/xls，必传', suggestion:'请先上传资产明细Excel后再导入'});
+    }else if(assetRow.getAttribute('data-upload-status') === 'failed'){
+      missing.push({name:'资产明细', requirement:'xlsx/xls，必传', suggestion:'模板中有重复订单，请修正后重新上传。'});
     }
     return missing;
   }
@@ -1853,6 +1887,19 @@
     link.click();
     document.body.removeChild(link);
   }
+  function openImportAsyncResultModal(resultText){
+    var result = resultText || '导入完成';
+    var node = document.getElementById('importAsyncResultText');
+    if(node){
+      node.innerText = result;
+      node.className = result === '导入失败' ? 'tag bad' : 'tag ok';
+    }
+    openModal('importAsyncResultModal');
+  }
+  function confirmImportAsyncResult(){
+    closeModal('importAsyncResultModal');
+    switchTab('task');
+  }
   document.querySelectorAll('[data-action]').forEach(function(btn){
     btn.addEventListener('click', function(){
       var action = btn.getAttribute('data-action');
@@ -1869,9 +1916,8 @@
           return;
         }
         processLevel = Math.max(processLevel, 1);
-        downloadImportResultDetail();
-        switchTab('task');
-        showToast('导入任务已提交，导入结果明细已自动下载');
+        showToast('已提交导入任务，系统正在异步处理');
+        setTimeout(function(){ openImportAsyncResultModal('导入完成'); }, 500);
       }
       if(action === 'start-import'){
         processLevel = 1;
@@ -2531,7 +2577,7 @@
     }
     if(type === 'cover'){
       if(rowNo !== '1'){
-        showToast('已分配或已流转案件不支持订单覆盖');
+        showToast('该订单已流转，无法再次导入');
         return;
       }
       setDuplicateRow(rowNo, '<span class="tag info">自动覆盖</span>', '未分配未流转，已自动覆盖字段和同名文件', "<button class=\"text-link\" onclick=\"openParseModal('" + loanNo + "')\">查看解析</button> <button class=\"text-link\" onclick=\"showToast('已打开自动覆盖记录')\">覆盖记录</button>");
@@ -2563,26 +2609,30 @@
     });
     var activePage = document.querySelector('.tab-page.active');
     var isPhase2Full = activePage && activePage.id === 'taskFull';
+    var ruleField = document.getElementById('batchRuleEditField');
+    if(ruleField){ ruleField.style.display = isPhase2Full ? '' : 'none'; }
     var historyBox = document.getElementById('batchHistoryFilesBox');
     if(historyBox){ historyBox.style.display = isPhase2Full ? 'block' : 'none'; }
+    var retryImportBox = document.getElementById('batchRetryImportBox');
+    if(retryImportBox){ retryImportBox.style.display = isPhase2Full ? 'none' : 'block'; }
     var retryFileName = document.getElementById('batchRetryFileName');
     var retryFileStatus = document.getElementById('batchRetryFileStatus');
     var saveRetryBtn = document.getElementById('saveRetryImportBtn');
-    if(retryFileName){ retryFileName.innerText = '未上传修正后的Excel'; }
+    if(retryFileName){ retryFileName.innerText = '未上传再次导入Excel'; }
     if(retryFileStatus){ retryFileStatus.className = 'tag gray'; retryFileStatus.innerText = '待上传'; }
     if(saveRetryBtn){ saveRetryBtn.disabled = false; }
     var notice = document.getElementById('debtAmountNotice');
     if(notice){
       notice.innerText = isPhase2Full
-        ? '本弹框用于修改批次级信息，也可在同一批次下重新导入修正后的Excel。批次名称、债权总价、债权对价、备注允许修改；外部资产方、业务类型、导入规则、债权接收主体和历史上传文件只读展示。'
-        : '本弹框用于修改批次级信息，也可在同一批次下重新导入修正后的Excel。批次名称、债权总价、债权对价、备注允许修改；外部资产方、业务类型、导入规则、债权接收主体不可修改；一期不展示历史上传文件。';
+        ? '本弹框用于修改批次级信息。批次名称、债权总额、债权对价、备注允许修改；外部资产方、业务类型、导入规则、债权接收主体和历史上传文件只读展示。'
+        : '本弹框用于修改批次级信息，也可在同一批次下重新导入修正后的Excel。批次名称、债权总额、债权对价、备注允许修改；外部资产方、业务类型、债权接收主体不可修改；一期不展示导入规则和历史上传文件。';
     }
     openModal('debtAmountModal');
   }
   function uploadBatchRetryFile(){
     var batchName = document.getElementById('batchNameEdit') ? document.getElementById('batchNameEdit').innerText.trim() : '当前批次';
     var safeName = (batchName || '当前批次').replace(/[\\/:*?"<>|]/g, '_');
-    var fileName = safeName + '_失败订单修正版.xlsx';
+    var fileName = safeName + '_再次导入订单.xlsx';
     var fileNode = document.getElementById('batchRetryFileName');
     var statusNode = document.getElementById('batchRetryFileStatus');
     var saveRetryBtn = document.getElementById('saveRetryImportBtn');
@@ -2610,9 +2660,13 @@
     if(document.getElementById(map[0])){ document.getElementById(map[0]).innerText = batchName; }
     if(document.getElementById(map[1])){ document.getElementById(map[1]).innerText = total; }
     if(document.getElementById(map[2])){ document.getElementById(map[2]).innerText = price; }
-    if(shouldRetryImport){ downloadImportResultDetail(); }
     closeModal('debtAmountModal');
-    showToast(shouldRetryImport ? '批次信息已保存，已在当前批次下重新导入并下载结果明细' : '批次信息已保存，未上传Excel，不触发重新导入');
+    if(shouldRetryImport){
+      switchTab('task');
+      showToast('已提交再次导入任务，批次状态为导入中，完成后可在列表下载明细。');
+    }else{
+      showToast('批次信息已保存，未上传Excel，不触发重新导入');
+    }
   }
   function saveDebtAmount(){
     saveBatchInfo();
@@ -2722,14 +2776,38 @@
   function confirmDeleteFile(){
     if(pendingDeleteFileRowId){
       var row = document.getElementById(pendingDeleteFileRowId);
-      if(row){ row.style.display = 'none'; }
+      if(row){
+        row.style.display = 'none';
+        row.removeAttribute('data-upload-status');
+      }
     }
     closeModal('deleteFileModal');
     showToast('文件已删除，可重新上传');
   }
+  function markFileUploadFailed(rowId, fileName, message){
+    var row = document.getElementById(rowId);
+    if(row){
+      row.style.display = 'flex';
+      row.setAttribute('data-upload-status', 'failed');
+      var name = row.querySelector('.file-name');
+      var tag = row.querySelector('.tag');
+      if(name){ name.innerText = fileName; }
+      if(tag){ tag.className = 'tag bad'; tag.innerText = '上传失败'; }
+    }
+    showToast(message);
+  }
+  function uploadAssetExcelWithDuplicateCheck(){
+    var fileName = '法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx';
+    restoreImportFile('assetFileRow','资产明细已上传，文件级前置校验通过');
+  }
   function restoreImportFile(rowId, text){
     var row = document.getElementById(rowId);
-    if(row){ row.style.display = 'flex'; }
+    if(row){
+      row.style.display = 'flex';
+      row.setAttribute('data-upload-status', 'success');
+      var tag = row.querySelector('.tag');
+      if(tag){ tag.className = 'tag ok'; tag.innerText = '上传成功'; }
+    }
     showToast(text);
   }
   function showToast(text){
