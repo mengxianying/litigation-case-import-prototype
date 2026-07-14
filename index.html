@@ -631,7 +631,7 @@
           <label><span><em class="req">*</em>债权接收主体</span><div class="field-box"><div class="select" id="importDebtSubject" data-options="襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)|武汉小优企业管理有限公司(91420115MACRLKWJ1A)|聊城小优企业管理有限公司(91371521MADE8H2E0)|天津小优企业管理有限公司(91120116MABU4DAY3Q)|沈阳小优企业管理有限公司(91210104MACDQBF833)|石家庄晓优企业管理有限公司(91130108MADAANMX3XG)|宁波小优企业管理有限公司(91330212MA2CK8RF79)|扬州轩翔电子商务有限公司(91370211MA3QN39G8W)">请选择债权接收主体<b>⌄</b></div><div class="enum">襄阳鸿飞企业管理有限公司(91420600MACTCY0R42) / 武汉小优企业管理有限公司(91420115MACRLKWJ1A) / 聊城小优企业管理有限公司(91371521MADE8H2E0) / 天津小优企业管理有限公司(91120116MABU4DAY3Q) / 沈阳小优企业管理有限公司(91210104MACDQBF833) / 石家庄晓优企业管理有限公司(91130108MADAANMX3XG) / 宁波小优企业管理有限公司(91330212MA2CK8RF79) / 扬州轩翔电子商务有限公司(91370211MA3QN39G8W)</div><div class="limit">必填；沿用待委外管理“债权接收主体”枚举，用于案件归属和报表统计；一期导入案件不支持导出要素表。</div></div></label>
           <label><span><em class="req">*</em>债权总额</span><div class="field-box"><div class="input" id="importTotalDebt">例：12036800.00</div><div class="limit">必填，金额字段；允许为0；非金额或负数提示“债权总额金额不正确”。</div></div></label>
           <label><span><em class="req">*</em>债权对价</span><div class="field-box"><div class="input" id="importDebtPrice">例：8425760.00</div><div class="limit">必填，金额字段；允许为0；非金额或负数提示“债权对价金额不正确”；不允许大于债权总额。</div></div></label>
-          <label><span>备注</span><div class="field-box"><div class="textarea" id="importRemark">记录本批次数据来源、业务口径或特殊说明</div><div class="limit">非必填，最多200字符。</div></div></label>
+          <label><span>备注</span><div class="field-box"><div class="textarea" id="importRemark" contenteditable="true">记录本批次数据来源、业务口径或特殊说明</div><div class="limit">非必填，最多200字；超过后不允许继续输入。</div></div></label>
         </div>
         <div class="upload-zone compact">
           <div class="upload-icon">↑</div>
@@ -646,11 +646,6 @@
               <div class="file-actions"><button class="text-link danger-link" onclick="openDeleteFileModal('assetFileRow','法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx')">删除</button></div>
             </div>
           </div>
-        </div>
-        <div class="rule-strip">
-          <div class="rule-item"><b>字段和金额</b><span>一期按0702最终版模板和系统固定校验口径执行；应还日期取违约日；金额需数字类型且不可为负值。</span></div>
-          <div class="rule-item"><b>案件生效</b><span>一期字段校验通过即可生成案件并生效，自动进入待委外队列；后续可走法诉流程。</span></div>
-          <div class="rule-item"><b>上传和失败</b><span>任一订单号为空、同Excel重复或模板错误时整文件拦截；订单明细仅记录具体订单校验失败。</span></div>
         </div>
         <div class="footer-btns"><button data-action="cancel-edit">取消</button><button class="primary" data-action="submit-import">导入</button></div>
       </div>
@@ -1045,6 +1040,7 @@
         <p><b>4.</b>债权总额、债权对价由运营录入，保留2位小数；允许输入0；非金额或负数时分别提示“债权总额金额不正确”“债权对价金额不正确”；债权对价不能大于债权总额。</p>
         <p><b>5.</b>资产明细Excel只填写资产方可提供的订单、用户、物流、联系人等业务字段，不填写批次号、导入规则和内部服务商信息。</p>
         <p><b>6.</b>账单信息中的应还日期由系统取“违约日”生成；若导入续租订单，违约日必填；若主订单和续租订单同批导入，主订单违约日非必填，续租订单违约日必填。</p>
+        <p><b>7.</b>备注非必填，最多输入200字；达到上限后不再接收新增内容。</p>
       </section>
       <section class="anno-block">
         <h3>上传校验</h3>
@@ -1335,7 +1331,7 @@
         <label><span>债权接收主体</span><div class="field-box"><div class="input" id="batchSubjectEdit">襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)</div><div class="limit">不可修改；用于诉讼主体、要素表和报表统计。</div></div></label>
         <label><span>债权总额</span><div class="field-box"><div class="input" id="debtTotalInput" contenteditable="true">12,036,800.00</div><div class="limit">可修改；金额字段，保留2位小数，保存后记录操作日志。</div></div></label>
         <label><span>债权对价</span><div class="field-box"><div class="input" id="debtPriceInput" contenteditable="true">8,425,760.00</div><div class="limit">可修改；不允许大于债权总额。</div></div></label>
-        <label style="grid-column:1/3"><span>备注</span><div class="field-box"><div class="textarea" id="batchRemarkEdit" contenteditable="true">资产方复核后确认本批次债权口径，已补充合同材料。</div><div class="limit">可修改，最多200字符；保存后写入批次操作日志。</div></div></label>
+        <label style="grid-column:1/3"><span>备注</span><div class="field-box"><div class="textarea" id="batchRemarkEdit" contenteditable="true">资产方复核后确认本批次债权口径，已补充合同材料。</div><div class="limit">可修改，最多200字；超过后不允许继续输入，保存后写入批次操作日志。</div></div></label>
       </div>
       <div class="box" id="batchRetryImportBox" style="margin-bottom:14px">
         <h4>再次导入Excel</h4>
@@ -2811,12 +2807,30 @@
     }
     showToast(text);
   }
+  function bindTextLimit(id, maxLength){
+    var node = document.getElementById(id);
+    if(!node){ return; }
+    node.addEventListener('input', function(){
+      var chars = Array.from(node.innerText || '');
+      if(chars.length <= maxLength){ return; }
+      node.innerText = chars.slice(0, maxLength).join('');
+      var selection = window.getSelection();
+      var range = document.createRange();
+      range.selectNodeContents(node);
+      range.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(range);
+      showToast('备注最多支持' + maxLength + '字');
+    });
+  }
   function showToast(text){
     var toast = document.getElementById('toast');
     toast.innerText = text;
     toast.classList.add('show');
     setTimeout(function(){ toast.classList.remove('show'); }, 1800);
   }
+  bindTextLimit('importRemark', 200);
+  bindTextLimit('batchRemarkEdit', 200);
   setupSelectDropdowns();
 </script>
 </body>
