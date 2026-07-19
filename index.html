@@ -367,7 +367,7 @@
 
     <section id="ruleConfig" class="tab-page">
       <div class="panel">
-        <div class="notice"><span class="phase-badge future">二期规划</span> 导入规则配置本期不实现。一期按既定Excel模板和系统固定校验口径导入，二期再支持按外部资产方维护字段和材料规则。</div>
+        <div class="notice"><span class="phase-badge future">二期目标</span> 导入规则配置按外部资产方维护70列模板字段和材料规则。规则保存后只对新批次生效；批次提交时固化规则快照，历史批次不随规则修改回写。</div>
         <div class="panel-title">查询条件 <small>按外部资产方维护导入字段和材料校验规则</small></div>
         <div class="search compact">
           <label><span>外部资产方</span><div class="field-box"><div class="select" data-options="全部|创新|转转|人人租">全部<b>⌄</b></div><div class="enum">全部 / 创新 / 转转 / 人人租</div><div class="limit">枚举来源于法诉系统数据字典，由研发配置维护。</div></div></label>
@@ -387,9 +387,9 @@
           <table>
             <thead><tr><th>规则名称</th><th>外部资产方</th><th>业务类型</th><th>模板字段数</th><th>必填材料名数</th><th>非必填材料名数</th><th>规则状态</th><th>最后更新时间</th><th>操作</th></tr></thead>
             <tbody>
-              <tr><td>创新租赁通用规则</td><td>创新</td><td>租赁</td><td>67</td><td>6</td><td>6</td><td><span class="tag ok">启用</span></td><td>2026-06-28 18:30:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link" data-action="copy-rule">复制</button></td></tr>
-              <tr><td>转转租赁规则</td><td>转转</td><td>租赁</td><td>67</td><td>5</td><td>4</td><td><span class="tag ok">启用</span></td><td>2026-06-28 18:42:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link" data-action="copy-rule">复制</button></td></tr>
-              <tr><td>人人租租赁规则</td><td>人人租</td><td>租赁</td><td>67</td><td>4</td><td>3</td><td><span class="tag gray">停用</span></td><td>2026-06-28 17:20:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link">启用</button></td></tr>
+              <tr><td>创新租赁通用规则</td><td>创新</td><td>租赁</td><td>70</td><td>6</td><td>6</td><td><span class="tag ok">启用</span></td><td>2026-06-28 18:30:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link" data-action="copy-rule">复制</button></td></tr>
+              <tr><td>转转租赁规则</td><td>转转</td><td>租赁</td><td>70</td><td>5</td><td>4</td><td><span class="tag ok">启用</span></td><td>2026-06-28 18:42:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link" data-action="copy-rule">复制</button></td></tr>
+              <tr><td>人人租租赁规则</td><td>人人租</td><td>租赁</td><td>70</td><td>4</td><td>3</td><td><span class="tag gray">停用</span></td><td>2026-06-28 17:20:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link">启用</button></td></tr>
             </tbody>
           </table>
         </div>
@@ -398,7 +398,7 @@
 
     <section id="ruleEdit" class="tab-page">
       <div class="panel">
-        <div class="notice"><span class="phase-badge future">二期规划</span> 新建导入规则本期不实现。页面用于后续配置字段启用/必填、模型映射确认、首租/续租材料规则。</div>
+        <div class="notice"><span class="phase-badge future">二期目标</span> 新建导入规则用于配置字段启用/必填、模型映射确认和首租/续租材料规则。Excel字段首租/续租共用；订单类型切换仅影响材料名称和必填范围。</div>
         <div class="panel-title"><span id="ruleEditTitle">新建导入规则</span><small>配置后供新建导入页面选择使用</small></div>
         <div class="notice">导入规则用于维护不同资产方的模板字段启用范围、必填口径、合同名称和材料名称。一期暂不支持资产方自定义Excel表头，资产方需按系统下载模板填写；启用规则只影响新发起的导入批次，停用规则不可被新建导入选择。</div>
         <div class="form-grid compact">
@@ -512,8 +512,8 @@
               <table>
                 <thead><tr><th>标准材料类别</th><th>配置方式</th><th>导入处理</th></tr></thead>
                 <tbody>
-                  <tr><td>电子签章授权书、主合同、合同附件、补充合同、担保合同</td><td>按资产方实际材料名称配置，可指定必填/非必填和匹配模式。</td><td>必填名称缺失时订单导入失败，不生成案件；非必填名称缺失进入待补传清单。</td></tr>
-                  <tr><td>身份信息</td><td>人像面、国徽面、活体识别照片默认必填。</td><td>缺失时订单导入失败，不生成案件。</td></tr>
+                  <tr><td>电子签章授权书、主合同、合同附件、补充合同、担保合同</td><td>按资产方实际材料名称配置，可指定必填/非必填和匹配模式。</td><td>字段通过但必填名称缺失时创建待材料激活案件；非必填名称缺失进入材料待补。</td></tr>
+                  <tr><td>身份信息</td><td>人像面、国徽面、活体识别照片默认必填。</td><td>字段通过但缺失时创建待材料激活案件，补齐并复核通过后自动生效。</td></tr>
                   <tr><td>物流信息、订单信息、短信记录、其它材料</td><td>可配置为非必填或按资产方需要指定某个名称必填。</td><td>非必填缺失仅提示，不阻断订单生成。</td></tr>
                 </tbody>
               </table>
@@ -524,8 +524,8 @@
               <table>
                 <thead><tr><th>操作阶段</th><th>处理规则</th><th>结果</th></tr></thead>
                 <tbody>
-                  <tr><td>点击导入</td><td>检查页面必填、资产明细、材料包、规则状态、锁定字段和必填材料。</td><td>字段和必填材料均通过的订单生成已生效案件并进入待委外；必填材料缺失按导入失败处理。</td></tr>
-                  <tr><td>材料处理</td><td>在导入处理详情内按批次号和订单编号过滤可补传材料。</td><td>补传入口只处理规则中配置为非必填的材料，用于补充证据完整度，不改变案件生成前置校验。</td></tr>
+                  <tr><td>点击导入</td><td>检查页面必填、资产明细、材料包、规则状态、锁定字段和必填材料。</td><td>字段通过且必填材料齐全的订单生成已生效案件并进入待委外；字段通过但必填材料缺失时创建待材料激活案件，补齐并复核通过后自动生效。</td></tr>
+                  <tr><td>材料处理</td><td>在导入处理详情内按批次号、订单编号和案件状态过滤可补传材料。</td><td>待材料激活订单可补必填和非必填材料，补齐必填材料并复核通过后自动生效；已生效订单仅补非必填材料。</td></tr>
                 </tbody>
               </table>
             </div>
@@ -653,7 +653,7 @@
 
     <section id="taskFull" class="tab-page">
       <div class="panel">
-        <div class="notice"><span class="phase-badge future">二期完整版目标</span> 二期补齐材料包上传、导入处理详情、导入规则配置后，案件导入管理恢复为拆分两期前的最终版效果：支持草稿、处理详情、待处理统计、材料状态和错误明细闭环。</div>
+        <div class="notice"><span class="phase-badge future">二期完整版目标</span> 二期补齐材料包上传、导入处理详情和导入规则配置。字段通过但缺必填材料的订单创建为“待材料激活”，补齐并复核通过后自动生效；一期历史已生效案件保持原状态，不回溯材料校验。</div>
         <div class="panel-title">查询条件 <small>按批次定位完整导入任务</small></div>
         <div class="search compact">
           <label><span>导入批次号</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
@@ -673,15 +673,15 @@
           <span class="spacer"></span>
           <span class="tag info">二期恢复完整最终版</span>
         </div>
-        <div class="summary compact"><div class="card">资产总数<b>2,184</b></div><div class="card">已生效<b>1,632</b></div><div class="card">待处理<b>22</b></div><div class="card">导入失败<b>530</b></div></div>
+        <div class="summary compact"><div class="card">资产总数<b>2,184</b></div><div class="card">已生效<b>1,632</b></div><div class="card">待材料激活<b>18</b></div><div class="card">材料待补<b>4</b></div><div class="card">导入失败<b>12</b></div></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>外部资产方</th><th>导入批次号</th><th>批次名称</th><th>业务类型</th><th>债权总额</th><th>债权对价</th><th>资产总数</th><th>已生效</th><th>待处理</th><th>导入失败</th><th>批次状态</th><th>导入时间</th><th style="width:190px">操作</th></tr></thead>
+            <thead><tr><th>外部资产方</th><th>导入批次号</th><th>批次名称</th><th>业务类型</th><th>债权总额</th><th>债权对价</th><th>资产总数</th><th>已生效</th><th>待材料激活</th><th>材料待补</th><th>导入失败</th><th>批次状态</th><th>导入时间</th><th style="width:190px">操作</th></tr></thead>
             <tbody>
-              <tr><td>创新</td><td><button class="text-link" onclick="switchTab('newImportFull')">DR202606150001</button></td><td>创新租赁草稿批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>-</td><td>-</td><td>-</td><td>-</td><td><span class="tag gray">草稿</span></td><td>2026-06-15 10:20:00</td><td><button class="text-link" onclick="switchTab('newImportFull')">继续编辑</button> <button class="text-link danger-link" onclick="openDraftCancelModal()">取消</button></td></tr>
-              <tr><td>创新</td><td><button class="text-link" data-jump="detail">DR202606100001</button></td><td>创新租赁通用规则批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>1280</td><td>1246</td><td>22</td><td>12</td><td><span class="tag ok">导入完成</span></td><td>2026-06-10 20:15:32</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">处理详情</button><button class="text-link" onclick="openDebtAmountModal('main','DR202606100001','创新租赁通用规则批次01','创新','租赁','创新租赁通用规则','襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)','12,036,800.00','8,425,760.00')">编辑</button><a class="text-link" href="./法诉案件导入_导入结果明细.xlsx" download>错误明细</a></div></td></tr>
-              <tr><td>转转</td><td>DR202606090006</td><td>转转租赁批次02</td><td>租赁</td><td>3,680,500.00</td><td>2,576,350.00</td><td>386</td><td>386</td><td>0</td><td>0</td><td><span class="tag ok">导入完成</span></td><td>2026-06-09 18:42:10</td><td><button class="text-link" data-jump="detail">处理详情</button> <button class="text-link" onclick="openDebtAmountModal('zz','DR202606090006','转转租赁批次02','转转','租赁','转转租赁规则','武汉小优企业管理有限公司(91420115MACRLKWJ1A)','3,680,500.00','2,576,350.00')">编辑</button></td></tr>
-              <tr><td>人人租</td><td>DR202606090005</td><td>人人租租赁批次03</td><td>租赁</td><td>4,982,000.00</td><td>3,487,400.00</td><td>518</td><td>0</td><td>0</td><td>518</td><td><span class="tag bad">导入失败</span></td><td>2026-06-09 11:08:55</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">处理详情</button><button class="text-link" onclick="openDebtAmountModal('rrz','DR202606090005','人人租租赁批次03','人人租','租赁','人人租租赁规则','聊城小优企业管理有限公司(91371521MADE8H2E0)','4,982,000.00','3,487,400.00')">编辑</button><a class="text-link" href="./法诉案件导入_导入结果明细.xlsx" download>错误明细</a></div></td></tr>
+              <tr><td>创新</td><td><button class="text-link" onclick="switchTab('newImportFull')">DR202606150001</button></td><td>创新租赁草稿批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td><span class="tag gray">草稿</span></td><td>2026-06-15 10:20:00</td><td><button class="text-link" onclick="switchTab('newImportFull')">继续编辑</button> <button class="text-link danger-link" onclick="openDraftCancelModal()">取消</button></td></tr>
+              <tr><td>创新</td><td><button class="text-link" data-jump="detail">DR202606100001</button></td><td>创新租赁通用规则批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>1280</td><td>1246</td><td>18</td><td>4</td><td>12</td><td><span class="tag ok">导入完成</span></td><td>2026-06-10 20:15:32</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">导入处理详情</button><button class="text-link" onclick="openDebtAmountModal('main','DR202606100001','创新租赁通用规则批次01','创新','租赁','创新租赁通用规则','襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)','12,036,800.00','8,425,760.00')">编辑</button><a class="text-link" href="./法诉案件导入_导入结果明细.xlsx" download>错误明细</a></div></td></tr>
+              <tr><td>转转</td><td>DR202606090006</td><td>转转租赁批次02</td><td>租赁</td><td>3,680,500.00</td><td>2,576,350.00</td><td>386</td><td>386</td><td>0</td><td>0</td><td>0</td><td><span class="tag ok">导入完成</span></td><td>2026-06-09 18:42:10</td><td><button class="text-link" data-jump="detail">导入处理详情</button> <button class="text-link" onclick="openDebtAmountModal('zz','DR202606090006','转转租赁批次02','转转','租赁','转转租赁规则','武汉小优企业管理有限公司(91420115MACRLKWJ1A)','3,680,500.00','2,576,350.00')">编辑</button></td></tr>
+              <tr><td>人人租</td><td>DR202606090005</td><td>人人租租赁批次03</td><td>租赁</td><td>4,982,000.00</td><td>3,487,400.00</td><td>518</td><td>0</td><td>0</td><td>0</td><td>518</td><td><span class="tag bad">导入失败</span></td><td>2026-06-09 11:08:55</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">导入处理详情</button><button class="text-link" onclick="openDebtAmountModal('rrz','DR202606090005','人人租租赁批次03','人人租','租赁','人人租租赁规则','聊城小优企业管理有限公司(91371521MADE8H2E0)','4,982,000.00','3,487,400.00')">编辑</button><a class="text-link" href="./法诉案件导入_导入结果明细.xlsx" download>错误明细</a></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -690,7 +690,7 @@
 
     <section id="newImportFull" class="tab-page">
       <div class="panel">
-        <div class="notice"><span class="phase-badge future">二期完整版目标</span> 二期新建导入批次恢复拆分前最终版：页面选择导入规则，同时上传资产明细和材料包，支持模板说明、保存草稿、材料必填校验和导入处理详情闭环。</div>
+        <div class="notice"><span class="phase-badge future">二期完整版目标</span> 二期新建导入批次支持规则选择、资产明细和材料包上传。提交时固化规则快照；字段通过但缺必填材料时创建待材料激活案件，补齐并复核通过后自动生效。</div>
         <div class="form-grid compact">
           <label><span><em class="req">*</em>批次名称</span><div class="field-box"><div class="input">例：转转租赁批次01</div><div class="limit">必填，2-50字符。</div></div></label>
           <label><span><em class="req">*</em>外部资产方</span><div class="field-box"><div class="select" data-options="全部|创新|转转|人人租">创新<b>⌄</b></div><div class="enum">全部 / 创新 / 转转 / 人人租</div></div></label>
@@ -717,7 +717,8 @@
         </div>
         <div class="rule-strip">
           <div class="rule-item"><b>字段和金额</b><span>必填字段依据导入规则配置；金额需数字类型且不可为负值。</span></div>
-          <div class="rule-item"><b>材料和合同</b><span>材料按标准类别归类；必填材料缺失按导入失败处理，非必填材料可后续补传。</span></div>
+          <div class="rule-item"><b>材料和合同</b><span>材料按标准类别归类；缺必填材料的订单创建为待材料激活，补齐并复核通过后自动生效；非必填材料缺失仅标记材料待补。</span></div>
+          <div class="rule-item"><b>规则快照</b><span>提交时固化字段启用/必填和材料规则；后续规则修改不影响当前批次的解析、补传和生效判断。</span></div>
           <div class="rule-item"><b>重复和拦截</b><span>未分配且未流转订单可自动覆盖；资产明细或材料包缺少任一项时阻止导入。</span></div>
         </div>
         <div class="footer-btns"><button onclick="openCancelEditModal()">取消</button><button onclick="showToast('二期完整版：已保存为草稿')">保存草稿</button><button class="primary" onclick="showToast('二期完整版：提交后进入导入处理详情')">导入</button></div>
@@ -726,7 +727,7 @@
 
     <section id="detail" class="tab-page">
       <div class="panel">
-        <div class="notice"><span class="phase-badge future">二期规划</span> 导入处理详情用于一页处理当前批次的订单问题和材料问题。一期不进入本页，异步处理完成后弹窗确认并返回列表；二期再承接材料补传、未匹配材料和解析详情。</div>
+        <div class="notice"><span class="phase-badge future">二期调整</span> 导入处理详情统一承接订单失败、待补传材料和未匹配材料。字段通过但缺必填材料的订单为“待材料激活”，不进入待委外；补齐并复核通过后自动生效。一期历史批次只展示“未校验（一期导入）”，不生成材料待补任务。</div>
         <div class="batch-meta">
           <div class="meta-item"><b>导入批次号</b><span>DR202606100001</span></div>
           <div class="meta-item"><b>批次名称</b><span>创新租赁通用规则批次01</span></div>
@@ -737,18 +738,18 @@
           <div class="meta-item"><b>导入规则</b><span>创新租赁通用规则</span></div>
           <div class="meta-item"><b>导入时间</b><span>2026-06-10 20:15:32</span></div>
         </div>
-        <div class="summary compact"><div class="card">已生效<b>1,246</b></div><div class="card">待处理<b>22</b></div><div class="card">导入失败<b>12</b></div><div class="card">未匹配材料<b>9</b></div></div>
+        <div class="summary compact"><div class="card">已生效<b>1,246</b></div><div class="card">待材料激活<b>18</b></div><div class="card">材料待补<b>4</b></div><div class="card">导入失败<b>12</b></div><div class="card">未匹配材料<b>9</b></div></div>
         <div class="search compact">
           <label><span>订单编号</span><div class="field-box"><div class="input">loanNo，支持模糊查询</div><div class="limit">最多50字符。</div></div></label>
           <label><span>客户姓名</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
-          <label><span>处理状态</span><div class="field-box"><div class="select" data-options="全部|已生效|待补材料|导入失败|重复待处理|未匹配材料">全部<b>⌄</b></div><div class="enum">全部 / 已生效 / 待补材料 / 导入失败 / 重复待处理 / 未匹配材料</div><div class="limit">合并字段、材料、案件生效后的运营处理状态。</div></div></label>
+          <label><span>处理状态</span><div class="field-box"><div class="select" data-options="全部|已生效|待材料激活|材料待补|导入失败|重复待处理|未匹配材料">全部<b>⌄</b></div><div class="enum">全部 / 已生效 / 待材料激活 / 材料待补 / 导入失败 / 重复待处理 / 未匹配材料</div><div class="limit">字段失败、案件生效和材料完整度合并展示；“待材料激活”不进入待委外。</div></div></label>
           <div class="search-actions"><button class="primary">查询</button><button>重置</button></div>
         </div>
         <div class="toolbar"><a class="btn primary" href="./法诉案件导入_导入结果明细.xlsx" download onclick="showToast('已下载所选订单明细')">下载</a><button class="primary" onclick="openBatchSupplementModal()">批量补传</button><span class="spacer"></span><button class="text-link" onclick="openModal('supplementHelpModal')">处理说明</button><button class="text-link" onclick="openModal('materialRuleModal')">材料规则速查</button></div>
         <div class="list-tabs">
-          <button class="active" data-supp-tab="orders">订单处理清单</button>
-          <button data-supp-tab="missing">待补传材料清单</button>
-          <button data-supp-tab="unmatched">未匹配材料池</button>
+          <button class="active" data-supp-tab="orders">订单处理</button>
+          <button data-supp-tab="missing">待补传材料</button>
+          <button data-supp-tab="unmatched">未匹配材料</button>
           <span class="hint">字段失败、材料缺失、重复订单、未匹配材料统一在本页闭环处理</span>
         </div>
         <div id="orderProcessingPane" class="supp-pane active">
@@ -757,7 +758,8 @@
               <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th>订单编号</th><th>客户姓名</th><th>业务类型</th><th>债权金额</th><th>逾期天数</th><th>处理状态</th><th>说明</th><th style="width:190px">操作</th></tr></thead>
               <tbody>
                 <tr><td><input type="checkbox" checked></td><td>26012915050167612327</td><td>张三</td><td>租赁</td><td>12,036.80</td><td>61</td><td><span class="tag ok">已生效</span></td><td>字段校验通过，案件已生效并进入待委外</td><td><button class="text-link" onclick="openParseModal('26012915050167612327')">查看解析</button></td></tr>
-                <tr><td><input type="checkbox" checked></td><td>26012915050167612328</td><td>黄丽</td><td>租赁</td><td>9,420.00</td><td>54</td><td><span class="tag warn">待补材料</span></td><td>缺少非必填证据材料，案件已生效，可按需补传</td><td><button class="text-link" onclick="openParseModal('26012915050167612328')">查看解析</button></td></tr>
+                <tr><td><input type="checkbox" checked></td><td>26012915050167612328</td><td>黄丽</td><td>租赁</td><td>9,420.00</td><td>54</td><td><span class="tag warn">待材料激活</span></td><td>字段校验通过，缺少必填主合同；补齐并复核通过后自动生效</td><td><button class="text-link" onclick="openParseModal('26012915050167612328')">查看解析</button></td></tr>
+                <tr><td><input type="checkbox" checked></td><td>26012915050167612331</td><td>周强</td><td>租赁</td><td>8,340.00</td><td>48</td><td><span class="tag gray">材料待补</span></td><td>缺少非必填担保合同，案件已生效并进入待委外</td><td><button class="text-link" onclick="openParseModal('26012915050167612331')">查看解析</button></td></tr>
                 <tr><td><input type="checkbox"></td><td>26012915050167612330</td><td>李明</td><td>租赁</td><td>7,290.00</td><td>35</td><td><span class="tag bad">导入失败</span></td><td>字段不合格，需通过批量补传上传修正版订单文件</td><td><button class="text-link" onclick="openParseModal('26012915050167612330')">查看解析</button> <button class="text-link" onclick="openFailureModal('26012915050167612330')">失败原因</button></td></tr>
                 <tr id="duplicateRow1"><td><input type="checkbox" class="duplicate-check" checked></td><td>26012915050167612332</td><td>王磊</td><td>租赁</td><td>8,650.00</td><td>43</td><td id="duplicateResult1"><span class="tag info">自动覆盖</span></td><td id="duplicateNote1">已有案件未分配，已自动覆盖字段和同名文件</td><td id="duplicateAction1"><button class="text-link" onclick="openParseModal('26012915050167612332')">查看解析</button> <button class="text-link" onclick="showToast('已打开自动覆盖记录')">覆盖记录</button></td></tr>
                 <tr id="duplicateRow2"><td><input type="checkbox"></td><td>26012915050167612333</td><td>赵倩</td><td>租赁</td><td>6,880.00</td><td>39</td><td id="duplicateResult2"><span class="tag warn">重复待处理</span></td><td id="duplicateNote2">已有案件已分配，不允许自动覆盖</td><td id="duplicateAction2"><button class="text-link" onclick="openParseModal('26012915050167612333')">查看解析</button> <button class="text-link" onclick="openDuplicateModal('26012915050167612333')">处理重复</button></td></tr>
@@ -767,13 +769,13 @@
           </div>
         </div>
         <div id="missingPane" class="supp-pane">
-          <div class="scope-tip show" id="supplementScopeTip">当前按批次 DR202606100001 展示待补传材料；运营统一点击“批量补传”上传材料包，系统按订单编号和材料规则自动识别。</div>
+          <div class="scope-tip show" id="supplementScopeTip">当前按批次 DR202606100001 展示待补传材料：待材料激活订单可补当前规则缺失的必填和非必填材料；已生效订单仅补非必填材料。运营统一点击“批量补传”上传材料包，系统自动识别并复核。</div>
           <div class="table-wrap">
             <table>
               <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th style="width:64px">序号</th><th>外部资产方</th><th>订单编号</th><th>客户姓名</th><th>业务类型</th><th>主续订单</th><th>材料项</th><th>材料要求</th></tr></thead>
               <tbody>
-                <tr><td><input type="checkbox"></td><td>1</td><td>创新</td><td>26012915050167612328</td><td>黄丽</td><td>租赁</td><td>续租订单</td><td>续租交付凭证</td><td><span class="tag warn">非必填</span></td></tr>
-                <tr><td><input type="checkbox"></td><td>2</td><td>创新</td><td>26012915050167612331</td><td>周强</td><td>租赁</td><td>主订单</td><td>担保合同</td><td><span class="tag warn">非必填</span></td></tr>
+                <tr><td><input type="checkbox"></td><td>1</td><td>创新</td><td>26012915050167612328</td><td>黄丽</td><td>租赁</td><td>续租订单</td><td>主合同</td><td><span class="tag bad">必填材料缺失</span></td></tr>
+                <tr><td><input type="checkbox"></td><td>2</td><td>创新</td><td>26012915050167612331</td><td>周强</td><td>租赁</td><td>主订单</td><td>担保合同</td><td><span class="tag gray">非必填材料待补</span></td></tr>
                 <tr><td><input type="checkbox"></td><td>3</td><td>创新</td><td>26012915050167612334</td><td>陈晨</td><td>租赁</td><td>主订单</td><td>订单详情</td><td><span class="tag warn">非必填</span></td></tr>
                 <tr><td><input type="checkbox"></td><td>4</td><td>创新</td><td>26012915050167612335</td><td>刘洋</td><td>租赁</td><td>续租订单</td><td>路由详情图</td><td><span class="tag warn">非必填</span></td></tr>
               </tbody>
@@ -784,12 +786,12 @@
         <div id="unmatchedPane" class="supp-pane">
           <div class="table-wrap">
             <table class="unmatched-table">
-              <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th style="width:64px">序号</th><th>外部资产方</th><th>文件名</th><th>识别结果</th><th>所属订单</th><th>客户姓名</th><th>业务类型</th><th>主续订单</th><th>操作</th></tr></thead>
+              <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th style="width:64px">序号</th><th>外部资产方</th><th>文件名</th><th>识别结果</th><th>所属订单</th><th>客户姓名</th><th>业务类型</th><th>主续订单</th><th>处理</th></tr></thead>
               <tbody>
-                <tr id="unmatchedRow1"><td><input type="checkbox"></td><td>1</td><td>创新</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_人像面_01.jpg')">26012915050167612327_人像面_01.jpg</a></td><td>识别到材料类型，未识别订单归属</td><td>-</td><td>-</td><td>租赁</td><td>-</td><td><button class="text-link danger-link" onclick="deleteUnmatchedRow('unmatchedRow1')">删除</button></td></tr>
-                <tr id="unmatchedRow2"><td><input type="checkbox"></td><td>2</td><td>创新</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_租赁服务合同_01.pdf')">26012915050167612327_租赁服务合同_01.pdf</a></td><td>识别到主合同材料名称，未识别订单归属</td><td>-</td><td>-</td><td>租赁</td><td>-</td><td><button class="text-link danger-link" onclick="deleteUnmatchedRow('unmatchedRow2')">删除</button></td></tr>
-                <tr id="unmatchedRow3"><td><input type="checkbox"></td><td>3</td><td>创新</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612338_保证合同_01.pdf')">26012915050167612338_保证合同_01.pdf</a></td><td>识别到担保合同类别，订单归属待系统批量补传后重新识别</td><td>26012915050167612338</td><td>赵敏</td><td>租赁</td><td>主订单</td><td><button class="text-link danger-link" onclick="deleteUnmatchedRow('unmatchedRow3')">删除</button></td></tr>
-                <tr id="unmatchedRow4"><td><input type="checkbox"></td><td>4</td><td>创新</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612339_担保合同(金量-汕尾)_01.pdf')">26012915050167612339_担保合同(金量-汕尾)_01.pdf</a></td><td>订单不存在或已结清</td><td>26012915050167612339</td><td>-</td><td>租赁</td><td>-</td><td><button class="text-link danger-link" onclick="deleteUnmatchedRow('unmatchedRow4')">删除</button></td></tr>
+                <tr id="unmatchedRow1"><td><input type="checkbox"></td><td>1</td><td>创新</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_人像面_01.jpg')">26012915050167612327_人像面_01.jpg</a></td><td>识别到材料类型，未识别订单归属</td><td>-</td><td>-</td><td>租赁</td><td>-</td><td><button class="text-link" onclick="showToast('已提交重新识别，处理完成后刷新本列表')">重新识别</button></td></tr>
+                <tr id="unmatchedRow2"><td><input type="checkbox"></td><td>2</td><td>创新</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_租赁服务合同_01.pdf')">26012915050167612327_租赁服务合同_01.pdf</a></td><td>识别到主合同材料名称，未识别订单归属</td><td>-</td><td>-</td><td>租赁</td><td>-</td><td><button class="text-link" onclick="showToast('已提交重新识别，处理完成后刷新本列表')">重新识别</button></td></tr>
+                <tr id="unmatchedRow3"><td><input type="checkbox"></td><td>3</td><td>创新</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612338_保证合同_01.pdf')">26012915050167612338_保证合同_01.pdf</a></td><td>识别到担保合同类别，订单归属待系统批量补传后重新识别</td><td>26012915050167612338</td><td>赵敏</td><td>租赁</td><td>主订单</td><td><button class="text-link" onclick="showToast('已提交重新识别，处理完成后刷新本列表')">重新识别</button></td></tr>
+                <tr id="unmatchedRow4"><td><input type="checkbox"></td><td>4</td><td>创新</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612339_担保合同(金量-汕尾)_01.pdf')">26012915050167612339_担保合同(金量-汕尾)_01.pdf</a></td><td>订单不存在或已结清</td><td>26012915050167612339</td><td>-</td><td>租赁</td><td>-</td><td><button class="text-link" onclick="showToast('已提交重新识别，处理完成后刷新本列表')">重新识别</button></td></tr>
               </tbody>
             </table>
           </div>
@@ -830,7 +832,9 @@
               <tr><td>案件导入管理</td><td>一期批次状态</td><td><span class="tag info">导入中</span></td><td>点击“导入”并通过页面必填和资产明细Excel校验。</td><td>导入完成 / 导入失败</td></tr>
               <tr><td>案件导入管理</td><td>一期批次状态</td><td><span class="tag ok">导入完成</span></td><td>Excel解析结束，至少存在一条导入成功或可落库记录。</td><td>保持导入完成</td></tr>
               <tr><td>案件导入管理</td><td>一期批次状态</td><td><span class="tag bad">导入失败</span></td><td>任务已创建，但本批次0笔订单成功，或异步处理发生系统异常。</td><td>编辑后再次导入：导入中 / 导入完成 / 导入失败</td></tr>
-              <tr><td>导入处理详情</td><td>二期订单状态</td><td><span class="tag warn">待补材料</span></td><td>二期材料包解析后，非必填材料缺失但案件可继续处理。</td><td>补传后刷新材料完整度</td></tr>
+              <tr><td>导入处理详情</td><td>二期案件状态</td><td><span class="tag warn">待材料激活</span></td><td>字段校验通过但缺必填材料。</td><td>批量补传后自动复核；必填材料齐全时自动变为已生效并进入待委外</td></tr>
+              <tr><td>导入处理详情</td><td>二期材料状态</td><td><span class="tag gray">未校验（一期导入）</span></td><td>一期历史已生效批次。</td><td>保持已生效，不生成材料待补任务</td></tr>
+              <tr><td>导入处理详情</td><td>二期材料状态</td><td><span class="tag gray">材料待补</span></td><td>非必填材料缺失，案件已生效。</td><td>补传后刷新材料完整度，不影响待委外</td></tr>
               <tr><td>导入规则配置</td><td>规则状态</td><td><span class="tag ok">启用</span></td><td>规则配置校验通过并保存启用。</td><td>可停用 / 可编辑后继续启用</td></tr>
               <tr><td>导入规则配置</td><td>规则状态</td><td><span class="tag gray">停用</span></td><td>规则被运营或管理员停用。</td><td>可重新启用</td></tr>
             </tbody>
@@ -891,20 +895,20 @@
       <section class="anno-block">
         <h3>二期页面定位</h3>
         <p><b>1.</b>本页为二期完整目标态，用于恢复拆分两期前的案件导入管理最终版效果。</p>
-        <p><b>2.</b>二期批次管理承接材料包上传、导入处理详情、待补材料、未匹配材料和规则配置。</p>
-        <p><b>3.</b>一期页面继续保持轻量上线；二期完成后可将本页能力合并回正式案件导入管理。</p>
+        <p><b>2.</b><span class="tag info">二期调整</span> 二期批次管理承接材料包上传、导入处理详情、待材料激活、材料待补、未匹配材料和规则配置。</p>
+        <p><b>3.</b>一期页面继续保持轻量上线；一期历史已生效案件在二期仅标记“未校验（一期导入）”，不会因缺少材料回溯失效。</p>
       </section>
       <section class="anno-block">
         <h3>状态和操作</h3>
         <p><b>1.</b>批次状态恢复：草稿、导入中、导入完成、导入失败、已取消。</p>
-        <p><b>2.</b>导入完成后进入处理详情，按订单处理字段失败、材料缺失、重复待处理和未匹配材料。</p>
+        <p><b>2.</b>导入完成后进入导入处理详情：字段失败进入订单处理；缺必填材料为待材料激活；缺非必填材料为材料待补；无法归属的文件进入未匹配材料。</p>
         <p><b>3.</b>二期编辑批次信息弹框展示历史上传文件，支持查看资产明细、材料包、失败重传文件的文件名、上传时间和处理结果。</p>
-        <p><b>4.</b>草稿批次可继续编辑或取消；导入中不可编辑；导入失败可进入处理详情后批量补传。</p>
+        <p><b>4.</b>草稿批次可继续编辑或取消；导入中不可编辑；导入失败上传修正版Excel；待材料激活上传材料包，必填材料补齐且复核通过后自动生效。</p>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
             <tr><th>草稿</th><td>继续编辑、导入、取消</td><td>回显草稿数据；取消后状态为已取消。</td></tr>
-            <tr><th>导入完成</th><td>处理详情、编辑、错误明细</td><td>处理详情查看订单和材料处理结果；编辑仅改批次级金额和备注。</td></tr>
+            <tr><th>导入完成</th><td>导入处理详情、编辑、错误明细</td><td>导入处理详情查看订单生效和材料状态；编辑仅改批次级金额和备注。</td></tr>
             <tr><th>导入失败</th><td>处理详情、错误明细</td><td>进入详情后通过批量补传上传修正版订单文件或材料包。</td></tr>
           </tbody>
         </table>
@@ -920,7 +924,7 @@
       <section class="anno-block">
         <h3>上传和校验</h3>
         <p><b>1.</b>资产明细和材料包均为必传；任一缺失时阻止导入。</p>
-        <p><b>2.</b>材料包按订单编号和资产方材料名称自动识别；必填材料缺失时订单导入失败，非必填材料缺失进入待补传清单。</p>
+        <p><b>2.</b><span class="tag info">二期调整</span> 材料包按订单编号、资产方材料名称和匹配模式自动识别；字段通过但缺必填材料时创建待材料激活案件，补齐并复核通过后自动生效；非必填材料缺失仅进入材料待补。</p>
         <p><b>3.</b>二期支持保存草稿，草稿只保存基础信息和临时文件，不解析、不生成案件。</p>
       </section>
       <section class="anno-block">
@@ -952,7 +956,7 @@
       <section class="anno-block">
         <h3>重点列取数</h3>
         <p><b>1.</b>规则名称、外部资产方、业务类型、状态取规则基础信息。</p>
-        <p><b>2.</b>模板字段数取0702最终版Excel模板的字段列数，当前为67列；字段启用/必填在规则详情中维护。</p>
+        <p><b>2.</b><span class="tag info">二期调整</span> 模板字段数取0702最终版Excel模板的字段列数，当前为70列；字段启用/必填在规则详情中维护，批次提交时固化规则快照。</p>
         <p><b>3.</b>必填材料数、非必填材料数取材料规则中配置的资产方材料名称数量。</p>
         <p><b>4.</b>更新时间、更新人取规则最近一次保存记录。</p>
       </section>
@@ -1000,10 +1004,10 @@
       <section class="anno-block">
         <h3>材料规则配置</h3>
         <p><b>1.</b>标准材料类别来源于系统数据字典，默认包括电子签章授权书、主合同、合同附件、补充合同、担保合同、身份信息、物流信息、订单信息、短信记录、其它材料。</p>
-        <p><b>2.</b>首租订单/续租订单切换只用于材料规则配置，Excel模板字段配置始终共用一套。</p>
+        <p><b>2.</b><span class="tag info">二期调整</span> 首租订单/续租订单切换只用于材料规则配置，Excel模板字段配置始终共用一套；订单编号、姓名、身份证号、债权金额、违约日为锁定启用且必填字段。</p>
         <p><b>3.</b>资产方材料名称可配置多条，并逐条标记必填/非必填、精确/包含匹配。</p>
         <p><b>4.</b>精确匹配指文件名等于配置名称；包含匹配指文件名包含配置名称即可识别。</p>
-        <p><b>5.</b>必填材料缺失时按导入失败处理，不生成案件；非必填材料缺失进入待补传材料清单，不阻断案件生效。</p>
+        <p><b>5.</b><span class="tag info">二期调整</span> 字段通过但必填材料缺失时创建待材料激活案件，不进入待委外；补齐并复核通过后自动生效。非必填材料缺失仅进入材料待补，不阻断案件生效。</p>
         <p><b>6.</b>字段配置和材料规则不在运营页面提供删除入口；如需删除规则项，由技术或配置管理员在后台处理，避免误删已在使用的资产方规则。</p>
       </section>
       <section class="anno-block">
@@ -1028,7 +1032,7 @@
         <h3>材料识别结果</h3>
         <p><b>1.</b>导入材料包时按“订单编号_材料名称_序号”识别订单和材料类别。</p>
         <p><b>2.</b>识别到类别但未识别订单归属的文件进入未匹配材料池。</p>
-        <p><b>3.</b>识别到订单但缺少非必填材料的记录进入待补传材料清单；必填材料缺失按导入失败处理。</p>
+        <p><b>3.</b>识别到订单但缺少非必填材料的记录进入材料待补；字段通过但缺必填材料的记录进入待材料激活，待补齐并复核后自动生效。</p>
       </section>
     </div>
     <div class="anno-page" data-anno="newImport">
@@ -1112,15 +1116,15 @@
     <div class="anno-page" data-anno="detail">
       <section class="anno-block">
         <h3>页面定位</h3>
-        <p><b>1.</b>导入处理详情按批次统一展示订单处理清单、待补传材料清单和未匹配材料池。</p>
+        <p><b>1.</b><span class="tag info">二期调整</span> 导入处理详情按批次统一展示订单处理、待补传材料和未匹配材料三个页签。</p>
         <p><b>2.</b>本页合并订单处理和材料补传能力，运营无需在两个页面之间来回切换。</p>
         <p><b>3.</b>已生效订单自动进入原待委外链路，页面不提供手工推送按钮。</p>
       </section>
       <section class="anno-block">
         <h3>筛选区逻辑</h3>
         <p><b>1.</b>订单编号、客户姓名支持模糊查询。</p>
-        <p><b>2.</b>处理状态枚举：全部、已生效、待补材料、导入失败、重复待处理、未匹配材料。</p>
-        <p><b>3.</b>处理状态是运营使用口径；一期案件生效取字段校验结果，二期材料状态仅影响材料完整度。</p>
+        <p><b>2.</b>处理状态枚举：全部、已生效、待材料激活、材料待补、导入失败、重复待处理、未匹配材料。</p>
+        <p><b>3.</b>状态取数：字段失败取订单校验结果；待材料激活取字段通过且缺必填材料；材料待补取已生效且缺非必填材料；一期历史批次固定标记未校验（一期导入）。</p>
         <p><b>4.</b>待补传材料清单和未匹配材料池作为页内Tab，不再单独拆成补传页面。</p>
       </section>
       <section class="anno-block">
@@ -1133,11 +1137,11 @@
       <section class="anno-block">
         <h3>案件生成规则</h3>
         <p><b>1.</b>生成待委外案件：一期字段校验通过即生成案件，案件生效状态为已生效。</p>
-        <p><b>2.</b>待补材料：二期材料包解析后仅影响证据完整度，不改变一期已生效案件是否进入待委外。</p>
+        <p><b>2.</b><span class="tag info">二期调整</span> 待材料激活：字段已通过但缺必填材料，不进入待委外；补齐并复核通过后自动生效。材料待补仅影响证据完整度，不改变已生效案件是否进入待委外。</p>
         <p><b>3.</b>不生成案件：基础必填缺失、字段格式错误、金额异常、主续关系失败、跨批次重复等订单级失败。</p>
         <p><b>4.</b>导出限制：一期导入案件不支持导出要素表和导出法诉材料。</p>
-        <p><b>4.</b>失败订单需修正Excel或完整材料包后，通过“批量补传”上传修正版订单文件和材料包；原失败记录保留。</p>
-        <p><b>5.</b>材料待补传不是导入失败，只用于补充当前导入规则中配置为非必填的材料。</p>
+        <p><b>4.</b>字段失败订单需修正Excel后通过“批量补传”重新导入；待材料激活订单通过批量补传上传材料包，原失败和补传记录均保留。</p>
+        <p><b>5.</b>材料待补不是导入失败，只用于补充当前导入规则中配置为非必填的材料；一期历史批次不生成材料待补任务。</p>
       </section>
       <section class="anno-block">
         <h3>重复订单处理</h3>
@@ -1150,18 +1154,19 @@
       <section class="anno-block">
         <h3>按钮操作</h3>
         <p><b>1.</b>下载：勾选订单时下载所选订单；未勾选时下载当前筛选结果。</p>
-        <p><b>2.</b>批量补传：统一处理导入失败订单、待补传材料和未匹配材料池。弹框默认加载当前批次号；导入失败订单上传修正版订单文件和完整材料包，待补传材料只允许上传规则中配置为非必填的材料。</p>
-        <p><b>3.</b>补传材料仅允许上传当前导入规则中配置为非必填的材料；非配置材料或必填材料不在补传入口受理。</p>
-        <p><b>4.</b>待补传材料清单只展示非必填缺失材料，不提供单条上传；未匹配材料池只保留删除，不提供人工绑定或重新绑定。</p>
+        <p><b>2.</b>批量补传：统一处理导入失败订单、待补传材料和未匹配材料。弹框默认加载当前批次号；导入失败订单上传修正版Excel，待材料激活订单可上传缺失必填和非必填材料，已生效订单仅受理非必填材料。</p>
+        <p><b>3.</b>补传材料后系统自动解析并复核；待材料激活订单的必填材料齐全时自动生效并进入待委外。</p>
+        <p><b>4.</b>待补传材料不提供单条上传；未匹配材料只支持文件预览/下载和重新识别，不提供人工绑定、重新绑定或删除。</p>
         <p><b>5.</b>查看解析：只读弹框，按字段解析、主续关系、材料解析、落库结果展示；材料解析中的文件名可点击预览或下载。</p>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
             <tr><th>已生效</th><td>查看解析、下载</td><td>案件已进入待委外；非必填材料可后续批量补传。</td></tr>
-            <tr><th>待补材料</th><td>查看解析、批量补传、材料规则速查</td><td>只允许补传规则中配置为非必填的材料。</td></tr>
+            <tr><th>待材料激活</th><td>查看解析、批量补传、材料规则速查</td><td>可补当前规则缺失的必填和非必填材料；必填材料齐全并复核通过后自动生效。</td></tr>
+            <tr><th>材料待补</th><td>查看解析、批量补传、材料规则速查</td><td>案件已生效，仅允许补传规则中配置为非必填的材料。</td></tr>
             <tr><th>导入失败</th><td>查看解析、失败原因、错误明细、批量补传</td><td>不生成案件；上传修正版订单文件和材料包后重新解析。</td></tr>
             <tr><th>重复待处理</th><td>查看解析、处理重复、确认跳过</td><td>已有案件已分配或已流转，不展示订单覆盖按钮。</td></tr>
-            <tr><th>未匹配材料</th><td>文件预览/下载、删除、批量补传</td><td>本期不做人工绑定；需重新上传整理后的文件让系统识别。</td></tr>
+            <tr><th>未匹配材料</th><td>文件预览/下载、重新识别、批量补传</td><td>本期不做人工绑定或删除；可重新识别或上传整理后的文件让系统识别。</td></tr>
           </tbody>
         </table>
       </section>
@@ -1390,7 +1395,7 @@
     <div class="modal-body">
       <div class="form-grid" style="grid-template-columns:1fr 1fr;padding:0">
         <label><span>批次号</span><div class="field-box"><div class="input" id="batchSupplementNo">DR202606100001</div><div class="limit">默认加载当前页面批次号，可按业务需要调整。</div></div></label>
-        <label><span>处理场景</span><div class="field-box"><div class="select" id="batchSupplementScene" data-options="导入失败订单|待补传材料清单|未匹配材料池">待补传材料清单<b>⌄</b></div><div class="enum">导入失败订单 / 待补传材料清单 / 未匹配材料池</div><div class="limit" id="batchSupplementHint">当前页签建议优先上传材料包，上传订单非必填。</div></div></label>
+        <label><span>处理场景</span><div class="field-box"><div class="select" id="batchSupplementScene" data-options="导入失败订单|待补传材料|未匹配材料">待补传材料<b>⌄</b></div><div class="enum">导入失败订单 / 待补传材料 / 未匹配材料</div><div class="limit" id="batchSupplementHint">当前页签决定可上传文件和自动处理结果。</div></div></label>
       </div>
       <div class="batch-upload-grid">
         <div class="upload-card">
@@ -1408,7 +1413,7 @@
           <div class="limit">支持zip/rar/7z/pdf/jpg/png；材料包按“订单编号_姓名/订单编号_材料名称_序号.扩展名”整理。</div>
         </div>
       </div>
-      <div class="submit-note">上传订单和上传材料至少上传一个，也可以两个都上传。提交后系统按当前批次重新解析：导入失败订单用修正版订单文件和完整材料包重新校验；待补传材料只匹配规则中配置为非必填的材料；未匹配材料池只通过批量补传重新识别，不再支持人工绑定。</div>
+      <div class="submit-note">上传订单和上传材料至少上传一个，也可以两个都上传。提交后系统按当前批次重新解析：导入失败订单用修正版订单文件重新校验；待材料激活订单可补当前规则缺失的必填和非必填材料，复核通过后自动生效；已生效订单只匹配非必填材料；未匹配材料只通过批量补传或重新识别处理，不支持人工绑定。</div>
     </div>
     <div class="modal-foot"><button onclick="closeModal('batchSupplementModal')">取消</button><button class="primary" onclick="submitBatchSupplement()">提交</button></div>
   </div>
@@ -1540,13 +1545,13 @@
       <table>
         <thead><tr><th>步骤</th><th>处理方式</th><th>说明</th></tr></thead>
         <tbody>
-          <tr><td>1</td><td>处理订单问题</td><td>字段失败订单通过批量补传上传修正版Excel；重复订单按未分配自动覆盖、已分配不覆盖的规则处理。</td></tr>
-          <tr><td>2</td><td>批量补传</td><td>一级文件夹按订单编号_姓名整理，二级材料文件按订单编号_材料名称_序号整理。</td></tr>
-          <tr><td>3</td><td>系统重新识别</td><td>无法识别归属的文件进入未匹配材料池；本期不做人工绑定，需通过批量补传重新上传订单文件或材料包后由系统识别。</td></tr>
-          <tr><td>4</td><td>状态更新</td><td>批量补传后系统自动刷新材料完整度；非必填材料补齐后从待补传材料清单移除。</td></tr>
+          <tr><td>1</td><td>处理订单问题</td><td>字段失败订单上传修正版Excel；重复订单仍按未分配自动覆盖、已分配不覆盖的规则处理。</td></tr>
+          <tr><td>2</td><td>批量补传</td><td>一级文件夹按订单编号_姓名整理，二级材料文件按订单编号_材料名称_序号整理；不提供单个文件上传或人工绑定。</td></tr>
+          <tr><td>3</td><td>系统重新识别</td><td>无法识别归属或类别的文件进入未匹配材料；点击重新识别或上传整理后的材料包后由系统再次解析。</td></tr>
+          <tr><td>4</td><td>自动生效</td><td>待材料激活订单补齐必填材料后触发复核，复核通过自动变为已生效并进入待委外；非必填材料补齐只刷新材料完整度。</td></tr>
         </tbody>
       </table>
-      <div class="submit-note">未匹配材料不代表材料无效，只是系统未能自动识别所属订单；本期不在列表内人工绑定，统一通过批量补传重新识别。</div>
+      <div class="submit-note">未匹配材料不代表材料无效，只是系统未能自动识别所属订单或材料类别；本期不在列表内人工绑定，统一通过重新识别或批量补传重新解析。</div>
     </div>
     <div class="modal-foot"><button onclick="closeModal('supplementHelpModal')">关闭</button></div>
   </div>
@@ -1559,8 +1564,8 @@
       <table>
         <thead><tr><th>标准材料类别</th><th>资产方材料名称</th><th>必填材料名称</th><th>影响</th><th>处理建议</th></tr></thead>
         <tbody>
-          <tr><td>电子签章授权书</td><td>电子签章授权书、电子签章授权书验签截图</td><td><span class="tag bad">电子签章授权书</span> <span class="tag bad">电子签章授权书验签截图</span></td><td>导入阶段必填；缺失时订单导入失败，不生成案件</td><td>需随初始材料包或失败订单重传材料包补齐</td></tr>
-          <tr><td>主合同</td><td>租赁服务合同、租赁服务合同验签报告</td><td><span class="tag bad">租赁服务合同</span> <span class="tag bad">租赁服务合同验签报告</span></td><td>导入阶段必填；缺失时订单导入失败，不生成案件</td><td>每个资产方至少配置一个主合同必填名称</td></tr>
+          <tr><td>电子签章授权书</td><td>电子签章授权书、电子签章授权书验签截图</td><td><span class="tag bad">电子签章授权书</span> <span class="tag bad">电子签章授权书验签截图</span></td><td>字段通过后创建待材料激活案件；补齐并复核通过后自动生效</td><td>可随初始材料包或批量补传材料包补齐</td></tr>
+          <tr><td>主合同</td><td>租赁服务合同、租赁服务合同验签报告</td><td><span class="tag bad">租赁服务合同</span> <span class="tag bad">租赁服务合同验签报告</span></td><td>字段通过后创建待材料激活案件；补齐并复核通过后自动生效</td><td>每个资产方至少配置一个主合同必填名称</td></tr>
           <tr><td>合同附件</td><td>合同附件-1、合同附件-2、附件协议</td><td><span class="tag bad">合同附件-1</span></td><td>按具体材料名称的必填标记判断是否阻断导入</td><td>在添加材料名称时指定哪一份是必填</td></tr>
           <tr><td>补充合同</td><td>补充合同、补充协议</td><td><span class="tag gray">无</span></td><td>非必填缺失仅提示，不阻断导入和案件生效</td><td>与合同附件分开归类，便于后续要素表和材料导出</td></tr>
           <tr><td>担保合同</td><td>担保合同、保证合同、担保补充约定</td><td><span class="tag gray">无</span></td><td>非必填缺失仅提示</td><td>需要强校验时，将对应资产方材料名称改为必填</td></tr>
@@ -1600,7 +1605,7 @@
   <div class="modal wide">
     <div class="modal-head"><span id="materialNameTitle">配置资产方材料名称</span><button onclick="closeModal('materialNameModal')">×</button></div>
     <div class="modal-body">
-      <div class="notice" style="margin:0 0 14px">标准材料类别由系统固定，资产方材料名称可以按外部资产方自己的文件命名维护。添加名称时可指定是否必填和匹配模式；被标记为必填的名称缺失时订单导入失败，不生成案件；非必填名称缺失时进入补传清单。</div>
+      <div class="notice" style="margin:0 0 14px">标准材料类别由系统固定，资产方材料名称可以按外部资产方自己的文件命名维护。添加名称时可指定是否必填和匹配模式；字段通过但必填名称缺失时创建待材料激活案件，补齐并复核通过后自动生效；非必填名称缺失时进入材料待补。</div>
       <div class="form-grid material-name-form" style="padding:0 0 16px">
         <label><span>标准材料类别</span><div class="field-box"><div class="input" id="materialNameCategory">主合同</div></div></label>
         <label><span>资产方材料名称</span><div class="field-box"><div class="input" id="materialNameInput" contenteditable="true">租赁服务合同验签报告</div><div class="limit">可直接修改后点击“添加名称”；同一名称不能归属多个标准材料类别。</div></div></label>
@@ -2673,7 +2678,7 @@
   function setSupplementScope(batchNo, loanNo){
     var tip = document.getElementById('supplementScopeTip');
     if(tip){
-      tip.innerText = '当前按批次 ' + (batchNo || currentBatchNo) + ' 展示待补传材料；这里只展示规则中配置为非必填的材料，运营统一点击“批量补传”上传。';
+      tip.innerText = '当前按批次 ' + (batchNo || currentBatchNo) + ' 展示待补传材料；待材料激活订单可补必填和非必填材料，已生效订单仅可补非必填材料，运营统一点击“批量补传”上传。';
       tip.classList.add('show');
     }
   }
@@ -2700,7 +2705,7 @@
       if(materialStatus){ materialStatus.innerText = batchUploadState.material ? '已上传' : '非必填'; }
       return;
     }
-    if(scene === '未匹配材料池'){
+    if(scene === '未匹配材料'){
       if(hint){ hint.innerText = '当前场景用于批量重新识别未匹配材料，上传订单或材料至少一个。'; }
       if(orderTip){ orderTip.innerText = '建议上传。用于补充订单编号、姓名等信息，辅助系统重新识别材料归属。'; }
       if(materialTip){ materialTip.innerText = '非必填。也可以重新上传整理后的材料包，由系统按规则再次解析。'; }
@@ -2708,11 +2713,11 @@
       if(materialStatus){ materialStatus.innerText = batchUploadState.material ? '已上传' : '非必填'; }
       return;
     }
-    if(hint){ hint.innerText = '当前场景用于补充非必填材料，建议上传材料包，订单文件非必填。'; }
+    if(hint){ hint.innerText = '当前场景用于补充待材料激活订单的缺失必填材料，或已生效订单的非必填材料；系统按当前订单状态自动限制可补范围。'; }
     if(orderTip){ orderTip.innerText = '非必填。用于辅助订单定位或差异比对，不覆盖系统已有订单字段。'; }
-    if(materialTip){ materialTip.innerText = '建议上传。只受理当前规则中配置为非必填的材料，不提供单条上传或人工绑定。'; }
+    if(materialTip){ materialTip.innerText = '必填。上传材料包后系统自动识别；待材料激活订单补齐必填材料并复核通过后自动生效，不提供单条上传或人工绑定。'; }
     if(orderStatus){ orderStatus.innerText = batchUploadState.order ? '已上传' : '非必填'; }
-    if(materialStatus){ materialStatus.innerText = batchUploadState.material ? '已上传' : '待上传'; }
+    if(materialStatus){ materialStatus.innerText = batchUploadState.material ? '已上传' : '必填'; }
   }
   function openBatchSupplementModal(scene){
     batchUploadState = { order:false, material:false };
@@ -2721,7 +2726,7 @@
     document.getElementById('materialUploadFile').innerText = '未上传';
     document.getElementById('orderUploadStatus').className = 'tag gray';
     document.getElementById('materialUploadStatus').className = 'tag gray';
-    var nextScene = scene === 'failed' ? '导入失败订单' : (currentSupplementTab === 'unmatched' ? '未匹配材料池' : '待补传材料清单');
+    var nextScene = scene === 'failed' ? '导入失败订单' : (currentSupplementTab === 'unmatched' ? '未匹配材料' : '待补传材料');
     setSelectValue(document.getElementById('batchSupplementScene'), nextScene);
     updateBatchSupplementScene(nextScene);
     openModal('batchSupplementModal');
@@ -2747,12 +2752,16 @@
       showToast('导入失败订单需上传修正版订单文件');
       return;
     }
+    if(scene === '待补传材料' && !batchUploadState.material){
+      showToast('待补传材料需上传材料包');
+      return;
+    }
     if(!batchUploadState.order && !batchUploadState.material){
       showToast('请至少上传订单或材料中的一个');
       return;
     }
     closeModal('batchSupplementModal');
-    showToast('已提交批量补传，系统将重新解析并刷新材料状态');
+    showToast(scene === '待补传材料' ? '已提交材料补传，系统将重新解析；必填材料补齐并复核通过后自动生效' : '已提交批量补传，系统将重新解析并刷新材料状态');
   }
   function deleteUnmatchedRow(rowId){
     var row = document.getElementById(rowId);
