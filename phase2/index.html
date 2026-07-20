@@ -121,6 +121,18 @@
     .upload-card{border:1px solid #dfe5ee;background:#fbfdff;border-radius:4px;padding:14px}
     .upload-card h4{margin:0 0 8px;color:#174f89}
     .upload-card p{margin:0 0 12px;color:#6b7280}
+    .batch-option{margin-top:14px;padding:12px 14px;border:1px solid #dfe5ee;background:#fafcff;border-radius:4px;color:#425466}
+    .batch-option label{display:flex;align-items:flex-start;gap:8px;cursor:pointer}
+    .batch-option label>span{min-width:0!important;line-height:normal!important;text-align:left!important}
+    .batch-option input{margin-top:3px;accent-color:#4097f7}
+    .batch-option b{display:inline;color:#425466;font-weight:600}
+    .batch-option small{display:block;margin-top:4px;color:#7b8794;line-height:1.5}
+    .batch-topline{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px;padding:0 0 14px}
+    .batch-top-item{display:grid;grid-template-columns:68px minmax(0,1fr);gap:8px;align-items:start}
+    .batch-top-item>b{line-height:32px;text-align:right;color:#4b5563;font-weight:400}
+    .batch-top-value{min-height:32px;border:1px solid #bfc8d4;background:#fff;border-radius:2px;padding:6px 10px;color:#5f6b7a;line-height:20px}
+    .batch-top-summary .batch-top-value{border-color:#d7e4f5;background:#f7fbff;color:#486685}
+    .batch-top-item small{grid-column:2;color:#777;font-size:12px;line-height:1.45}
     .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:0 20px 18px}
     .step{border:1px solid #dfe5ee;background:#fff;padding:10px;border-radius:4px;position:relative}
     .step b{display:block;color:#174f89}
@@ -167,10 +179,11 @@
     .field-config-table col:nth-child(4){width:78px}
     .field-config-table col:nth-child(5){width:90px}
     .field-config-table col:nth-child(6){width:auto}
-    .material-config-table col:nth-child(1){width:150px}
-    .material-config-table col:nth-child(2){width:86px}
+    .material-config-table col:nth-child(1){width:170px}
+    .material-config-table col:nth-child(2){width:108px}
     .material-config-table col:nth-child(3){width:auto}
-    .material-config-table col:nth-child(4){width:196px}
+    .material-config-table th:nth-child(4),.material-config-table td:nth-child(4){display:none}
+    .material-required-summary{display:block;margin-top:4px;color:#8a5a00;font-size:12px;font-weight:400}
     #task table th:nth-child(1),#task table td:nth-child(1){width:86px!important}
     #task table th:nth-child(2),#task table td:nth-child(2){width:132px!important}
     #task table th:nth-child(3),#task table td:nth-child(3){width:178px!important}
@@ -187,38 +200,28 @@
     #ruleConfig table th:nth-child(8),#ruleConfig table td:nth-child(8){width:136px!important}
     #ruleConfig table th:nth-child(9),#ruleConfig table td:nth-child(9){width:86px!important}
     #orderProcessingPane table th:nth-child(1),#orderProcessingPane table td:nth-child(1){width:42px!important}
-    #orderProcessingPane table th:nth-child(2),#orderProcessingPane table td:nth-child(2){width:166px!important}
-    #orderProcessingPane table th:nth-child(3),#orderProcessingPane table td:nth-child(3){width:64px!important}
-    #orderProcessingPane table th:nth-child(4),#orderProcessingPane table td:nth-child(4){width:58px!important}
-    #orderProcessingPane table th:nth-child(5),#orderProcessingPane table td:nth-child(5),#orderProcessingPane table th:nth-child(6),#orderProcessingPane table td:nth-child(6),#orderProcessingPane table th:nth-child(7),#orderProcessingPane table td:nth-child(7){width:88px!important}
-    #orderProcessingPane table th:nth-child(8),#orderProcessingPane table td:nth-child(8){width:94px!important}
+    #orderProcessingPane table th:nth-child(2),#orderProcessingPane table td:nth-child(2){width:178px!important}
+    #orderProcessingPane table th:nth-child(3),#orderProcessingPane table td:nth-child(3){width:82px!important}
+    #orderProcessingPane table th:nth-child(4),#orderProcessingPane table td:nth-child(4){width:104px!important}
+    #orderProcessingPane table th:nth-child(5),#orderProcessingPane table td:nth-child(5){width:76px!important}
+    #orderProcessingPane table th:nth-child(6),#orderProcessingPane table td:nth-child(6){width:110px!important}
+    #orderProcessingPane table th:nth-child(7),#orderProcessingPane table td:nth-child(7){width:116px!important}
+    #orderProcessingPane table th:nth-child(8),#orderProcessingPane table td:nth-child(8){width:auto!important}
     #orderProcessingPane table th:nth-child(9),#orderProcessingPane table td:nth-child(9){width:104px!important}
-    #orderProcessingPane table th:nth-child(10),#orderProcessingPane table td:nth-child(10){width:104px!important}
-    #orderProcessingPane table th:nth-child(11),#orderProcessingPane table td:nth-child(11){width:138px!important}
-    #orderProcessingPane table th:nth-child(12),#orderProcessingPane table td:nth-child(12){width:128px!important}
-    #orderProcessingPane table th:nth-child(13),#orderProcessingPane table td:nth-child(13){width:168px!important}
     #missingPane table th:nth-child(1),#missingPane table td:nth-child(1){width:42px!important}
-    #missingPane table th:nth-child(2),#missingPane table td:nth-child(2){width:48px!important}
-    #missingPane table th:nth-child(3),#missingPane table td:nth-child(3){width:66px!important}
-    #missingPane table th:nth-child(4),#missingPane table td:nth-child(4){width:166px!important}
-    #missingPane table th:nth-child(5),#missingPane table td:nth-child(5){width:64px!important}
-    #missingPane table th:nth-child(6),#missingPane table td:nth-child(6){width:58px!important}
-    #missingPane table th:nth-child(7),#missingPane table td:nth-child(7){width:76px!important}
+    #missingPane table th:nth-child(2),#missingPane table td:nth-child(2){width:178px!important}
+    #missingPane table th:nth-child(3),#missingPane table td:nth-child(3){width:82px!important}
+    #missingPane table th:nth-child(4),#missingPane table td:nth-child(4){width:132px!important}
+    #missingPane table th:nth-child(5),#missingPane table td:nth-child(5){width:178px!important}
+    #missingPane table th:nth-child(6),#missingPane table td:nth-child(6){width:82px!important}
+    #missingPane table th:nth-child(7),#missingPane table td:nth-child(7){width:110px!important}
     #missingPane table th:nth-child(8),#missingPane table td:nth-child(8){width:auto!important}
-    #missingPane table th:nth-child(9),#missingPane table td:nth-child(9){width:78px!important}
-    #missingPane table th:nth-child(10),#missingPane table td:nth-child(10){width:86px!important}
-    #missingPane table th:nth-child(11),#missingPane table td:nth-child(11){width:72px!important}
     .unmatched-table th:nth-child(1),.unmatched-table td:nth-child(1){width:42px!important}
-    .unmatched-table th:nth-child(2),.unmatched-table td:nth-child(2){width:48px!important}
-    .unmatched-table th:nth-child(3),.unmatched-table td:nth-child(3){width:66px!important}
-    .unmatched-table th:nth-child(4),.unmatched-table td:nth-child(4){width:360px!important}
-    .unmatched-table th:nth-child(5),.unmatched-table td:nth-child(5){width:230px!important}
-    .unmatched-table th:nth-child(6),.unmatched-table td:nth-child(6){width:156px!important}
-    .unmatched-table th:nth-child(7),.unmatched-table td:nth-child(7){width:64px!important}
-    .unmatched-table th:nth-child(8),.unmatched-table td:nth-child(8){width:58px!important}
-    .unmatched-table th:nth-child(9),.unmatched-table td:nth-child(9){width:76px!important}
-    .unmatched-table th:nth-child(10),.unmatched-table td:nth-child(10){width:86px!important}
-    .unmatched-table th:nth-child(11),.unmatched-table td:nth-child(11){width:104px!important}
+    .unmatched-table th:nth-child(2),.unmatched-table td:nth-child(2){width:300px!important}
+    .unmatched-table th:nth-child(3),.unmatched-table td:nth-child(3){width:260px!important}
+    .unmatched-table th:nth-child(4),.unmatched-table td:nth-child(4){width:154px!important}
+    .unmatched-table th:nth-child(5),.unmatched-table td:nth-child(5){width:156px!important}
+    .unmatched-table th:nth-child(6),.unmatched-table td:nth-child(6){width:auto!important}
     .parse-pane[data-parse-pane="field"] table th:nth-child(1),.parse-pane[data-parse-pane="field"] table td:nth-child(1){width:50px!important}
     .parse-pane[data-parse-pane="field"] table th:nth-child(2),.parse-pane[data-parse-pane="field"] table td:nth-child(2){width:146px!important}
     .parse-pane[data-parse-pane="field"] table th:nth-child(3),.parse-pane[data-parse-pane="field"] table td:nth-child(3){width:210px!important}
@@ -367,7 +370,7 @@
 
     <section id="ruleConfig" class="tab-page">
       <div class="panel">
-        <div class="notice"><span class="phase-badge future">二期目标</span> 导入规则配置按外部资产方维护70列模板字段和材料规则。规则保存后只对新批次生效；批次提交时固化规则快照，历史批次不随规则修改回写。</div>
+        <div class="notice"><span class="phase-badge future">二期规划</span> 导入规则配置本期不实现。一期按既定Excel模板和系统固定校验口径导入，二期再支持按外部资产方维护字段和材料规则。</div>
         <div class="panel-title">查询条件 <small>按外部资产方维护导入字段和材料校验规则</small></div>
         <div class="search compact">
           <label><span>外部资产方</span><div class="field-box"><div class="select" data-options="全部|创新|转转|人人租">全部<b>⌄</b></div><div class="enum">全部 / 创新 / 转转 / 人人租</div><div class="limit">枚举来源于法诉系统数据字典，由研发配置维护。</div></div></label>
@@ -387,9 +390,9 @@
           <table>
             <thead><tr><th>规则名称</th><th>外部资产方</th><th>业务类型</th><th>模板字段数</th><th>必填材料名数</th><th>非必填材料名数</th><th>规则状态</th><th>最后更新时间</th><th>操作</th></tr></thead>
             <tbody>
-              <tr><td>创新租赁通用规则</td><td>创新</td><td>租赁</td><td>70</td><td>6</td><td>6</td><td><span class="tag ok">启用</span></td><td>2026-06-28 18:30:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link" data-action="copy-rule">复制</button></td></tr>
-              <tr><td>转转租赁规则</td><td>转转</td><td>租赁</td><td>70</td><td>5</td><td>4</td><td><span class="tag ok">启用</span></td><td>2026-06-28 18:42:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link" data-action="copy-rule">复制</button></td></tr>
-              <tr><td>人人租租赁规则</td><td>人人租</td><td>租赁</td><td>70</td><td>4</td><td>3</td><td><span class="tag gray">停用</span></td><td>2026-06-28 17:20:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link">启用</button></td></tr>
+              <tr><td>创新租赁通用规则</td><td>创新</td><td>租赁</td><td>67</td><td>6</td><td>6</td><td><span class="tag ok">启用</span></td><td>2026-06-28 18:30:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link" data-action="copy-rule">复制</button></td></tr>
+              <tr><td>转转租赁规则</td><td>转转</td><td>租赁</td><td>67</td><td>5</td><td>4</td><td><span class="tag ok">启用</span></td><td>2026-06-28 18:42:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link" data-action="copy-rule">复制</button></td></tr>
+              <tr><td>人人租租赁规则</td><td>人人租</td><td>租赁</td><td>67</td><td>4</td><td>3</td><td><span class="tag gray">停用</span></td><td>2026-06-28 17:20:00</td><td><button class="text-link" data-action="edit-rule">编辑</button> <button class="text-link">启用</button></td></tr>
             </tbody>
           </table>
         </div>
@@ -398,7 +401,7 @@
 
     <section id="ruleEdit" class="tab-page">
       <div class="panel">
-        <div class="notice"><span class="phase-badge future">二期目标</span> 新建导入规则用于配置字段启用/必填、模型映射确认和首租/续租材料规则。Excel字段首租/续租共用；订单类型切换仅影响材料名称和必填范围。</div>
+        <div class="notice"><span class="phase-badge future">二期规划</span> 新建导入规则本期不实现。页面用于后续配置字段启用/必填、模型映射确认、首租/续租材料规则。</div>
         <div class="panel-title"><span id="ruleEditTitle">新建导入规则</span><small>配置后供新建导入页面选择使用</small></div>
         <div class="notice">导入规则用于维护不同资产方的模板字段启用范围、必填口径、合同名称和材料名称。一期暂不支持资产方自定义Excel表头，资产方需按系统下载模板填写；启用规则只影响新发起的导入批次，停用规则不可被新建导入选择。</div>
         <div class="form-grid compact">
@@ -502,7 +505,7 @@
                   <tr><td>必填字段</td><td>必填字段依据“导入规则”中的字段配置，不在页面固定写死字段范围。</td><td>缺失时进入字段失败，修正Excel后重新导入</td></tr>
                   <tr><td>可配置字段</td><td>除锁定字段外，其它字段可按资产方规则配置启用/不启用、必填/非必填/条件必填。</td><td>父订单编号：续租订单条件必填</td></tr>
                   <tr><td>必填口径</td><td>模型必填取技术上报模型；导入必填取本页规则配置。外部资产方无法稳定提供的模型字段，可由系统默认、材料识别或后续流程补齐。</td><td>模型必填：是；导入规则：否</td></tr>
-                  <tr><td>错误明细</td><td>字段缺失、格式错误、枚举错误、主续关系异常等写入错误明细，供运营修正模板后重新导入。</td><td>身份证号格式错误</td></tr>
+                  <tr><td>下载明细</td><td>字段缺失、格式错误、枚举错误、主续关系异常等写入批次处理明细，供运营修正模板后重新导入。</td><td>身份证号格式错误</td></tr>
                 </tbody>
               </table>
             </div>
@@ -512,8 +515,8 @@
               <table>
                 <thead><tr><th>标准材料类别</th><th>配置方式</th><th>导入处理</th></tr></thead>
                 <tbody>
-                  <tr><td>电子签章授权书、主合同、合同附件、补充合同、担保合同</td><td>按资产方实际材料名称配置，可指定必填/非必填和匹配模式。</td><td>字段通过但必填名称缺失时创建待材料激活案件；非必填名称缺失进入材料待补。</td></tr>
-                  <tr><td>身份信息</td><td>人像面、国徽面、活体识别照片默认必填。</td><td>字段通过但缺失时创建待材料激活案件，补齐并复核通过后自动生效。</td></tr>
+                  <tr><td>电子签章授权书、主合同、合同附件、补充合同、担保合同</td><td>按资产方实际材料名称配置，可指定必填/非必填和匹配模式。</td><td>必填名称缺失时订单待材料激活；非必填名称缺失进入材料补充页。</td></tr>
+                  <tr><td>身份信息</td><td>人像面、国徽面、活体识别照片默认必填。</td><td>缺失时订单待材料激活，补齐并复核通过后自动生效。</td></tr>
                   <tr><td>物流信息、订单信息、短信记录、其它材料</td><td>可配置为非必填或按资产方需要指定某个名称必填。</td><td>非必填缺失仅提示，不阻断订单生成。</td></tr>
                 </tbody>
               </table>
@@ -524,8 +527,8 @@
               <table>
                 <thead><tr><th>操作阶段</th><th>处理规则</th><th>结果</th></tr></thead>
                 <tbody>
-                  <tr><td>点击导入</td><td>检查页面必填、资产明细、材料包、规则状态、锁定字段和必填材料。</td><td>字段通过且必填材料齐全的订单生成已生效案件并进入待委外；字段通过但必填材料缺失时创建待材料激活案件，补齐并复核通过后自动生效。</td></tr>
-                  <tr><td>材料处理</td><td>在导入处理详情内按批次号、订单编号和案件状态过滤可补传材料。</td><td>待材料激活订单可补必填和非必填材料，补齐必填材料并复核通过后自动生效；已生效订单仅补非必填材料。</td></tr>
+                  <tr><td>点击导入</td><td>检查页面必填、资产明细、材料包、规则状态、锁定字段和必填材料。</td><td>字段和必填材料均通过的订单生成已生效案件并进入待委外；字段通过但缺必填材料的订单为待材料激活。</td></tr>
+                  <tr><td>材料处理</td><td>在导入处理详情内按批次号和订单编号过滤可补传材料。</td><td>补传入口只处理规则中配置为非必填的材料，用于补充证据完整度，不改变案件生成前置校验。</td></tr>
                 </tbody>
               </table>
             </div>
@@ -549,8 +552,8 @@
           </div>
           <div class="table-wrap" style="padding:0">
             <table id="materialRuleTable" class="config-table material-config-table">
-              <colgroup><col><col><col><col></colgroup>
-              <thead><tr><th>标准材料类别</th><th>证据大类</th><th>资产方材料名称</th><th>必填材料名称</th></tr></thead>
+              <colgroup><col><col><col></colgroup>
+              <thead><tr><th>标准材料类别</th><th>证据大类</th><th>资产方材料规则（名称 / 必填 / 匹配方式）</th></tr></thead>
               <tbody>
                 <tr><td><div class="inline-select">电子签章授权书</div></td><td>合同材料</td><td><div class="chip-box"><span class="chip">电子签章授权书<em>必填</em><i class="include">包含</i></span><span class="chip">电子签章授权书验签截图<em>必填</em><i class="include">包含</i></span><span class="chip-add" onclick="openMaterialNameModal('电子签章授权书', this)">+ 添加名称</span></div></td><td><span class="tag bad">电子签章授权书</span> <span class="tag bad">电子签章授权书验签截图</span></td></tr>
                 <tr><td><div class="inline-select">主合同</div></td><td>合同材料</td><td><div class="chip-box"><span class="chip">租赁服务合同<em>必填</em><i class="include">包含</i></span><span class="chip">租赁服务合同验签报告<em>必填</em><i class="include">包含</i></span><span class="chip-add" onclick="openMaterialNameModal('主合同', this)">+ 添加名称</span></div></td><td><span class="tag bad">租赁服务合同</span> <span class="tag bad">租赁服务合同验签报告</span></td></tr>
@@ -559,7 +562,7 @@
                 <tr><td><div class="inline-select">担保合同</div></td><td>合同材料</td><td><div class="chip-box"><span class="chip">担保合同<em class="optional">非必填</em><i class="include">包含</i></span><span class="chip">保证合同<em class="optional">非必填</em><i class="include">包含</i></span><span class="chip-add" onclick="openMaterialNameModal('担保合同', this)">+ 添加名称</span></div></td><td><span class="tag gray">无</span></td></tr>
                 <tr><td><div class="inline-select">身份信息</div></td><td>身份材料</td><td><div class="chip-box"><span class="chip">人像面<em>必填</em><i class="include">包含</i></span><span class="chip">国徽面<em>必填</em><i class="include">包含</i></span><span class="chip">活体识别照片<em>必填</em><i class="include">包含</i></span><span class="chip-add" onclick="openMaterialNameModal('身份信息', this)">+ 添加名称</span></div></td><td><span class="tag bad">人像面</span> <span class="tag bad">国徽面</span> <span class="tag bad">活体识别照片</span></td></tr>
                 <tr><td><div class="inline-select">物流信息</div></td><td>物流材料</td><td><div class="chip-box"><span class="chip">路由详情图<em class="optional">非必填</em><i class="include">包含</i></span><span class="chip">运单信息图<em class="optional">非必填</em><i class="include">包含</i></span><span class="chip">签收底单图<em class="optional">非必填</em><i class="include">包含</i></span><span class="chip">电子存根图<em class="optional">非必填</em><i class="include">包含</i></span><span class="chip-add" onclick="openMaterialNameModal('物流信息', this)">+ 添加名称</span></div></td><td><span class="tag gray">无</span></td></tr>
-                <tr><td><div class="inline-select">订单信息</div></td><td>订单材料</td><td><div class="chip-box"><span class="chip">订单详情<em class="optional">非必填</em><i class="include">包含</i></span><span class="chip">账单详情<em class="optional">非必填</em><i class="include">包含</i></span><span class="chip-add" onclick="openMaterialNameModal('订单信息', this)">+ 添加名称</span></div></td><td><span class="tag gray">无</span></td></tr>
+                <tr><td><div class="inline-select">订单信息</div></td><td>订单材料</td><td><div class="chip-box"><span class="chip">订单详情-账单<em>必填</em><i class="exact">精确</i></span><span class="chip">订单详情-物流<em class="optional">非必填</em><i class="exact">精确</i></span><span class="chip">账单详情<em>必填</em><i class="exact">精确</i></span><span class="chip-add" onclick="openMaterialNameModal('订单信息', this)">+ 添加名称</span></div></td><td><span class="tag bad">订单详情-账单</span> <span class="tag bad">账单详情</span></td></tr>
                 <tr><td><div class="inline-select">短信记录</div></td><td>催收材料</td><td><div class="chip-box"><span class="chip">短信记录<em class="optional">非必填</em><i class="include">包含</i></span><span class="chip-add" onclick="openMaterialNameModal('短信记录', this)">+ 添加名称</span></div></td><td><span class="tag gray">无</span></td></tr>
                 <tr><td><div class="inline-select">其它材料</div></td><td>其它材料</td><td><div class="chip-box"><span class="chip">其它材料<em class="optional">非必填</em><i class="include">包含</i></span><span class="chip-add" onclick="openMaterialNameModal('其它材料', this)">+ 添加名称</span></div></td><td><span class="tag gray">无</span></td></tr>
               </tbody>
@@ -578,8 +581,8 @@
             <div class="order-rule-summary">续租订单可配置不同材料名称和必填范围，例如续租协议、续租服务合同可设为必填；首租已留存的身份材料可按业务口径设为非必填或继续必填。</div>
             <div class="table-wrap" style="padding:0">
               <table id="materialRuleTableRenewal" class="config-table material-config-table">
-                <colgroup><col><col><col><col></colgroup>
-              <thead><tr><th>标准材料类别</th><th>证据大类</th><th>资产方材料名称</th><th>必填材料名称</th></tr></thead>
+                <colgroup><col><col><col></colgroup>
+              <thead><tr><th>标准材料类别</th><th>证据大类</th><th>资产方材料规则（名称 / 必填 / 匹配方式）</th></tr></thead>
                 <tbody>
                   <tr><td><div class="inline-select">电子签章授权书</div></td><td>合同材料</td><td><div class="chip-box"><span class="chip">电子签章授权书<em>必填</em><i class="include">包含</i></span><span class="chip">电子签章授权书验签截图<em>必填</em><i class="include">包含</i></span><span class="chip-add" onclick="openMaterialNameModal('电子签章授权书', this)">+ 添加名称</span></div></td><td><span class="tag bad">电子签章授权书</span> <span class="tag bad">电子签章授权书验签截图</span></td></tr>
                   <tr><td><div class="inline-select">主合同</div></td><td>合同材料</td><td><div class="chip-box"><span class="chip">续租服务合同<em>必填</em><i class="include">包含</i></span><span class="chip">续租协议<em>必填</em><i class="include">包含</i></span><span class="chip-add" onclick="openMaterialNameModal('主合同', this)">+ 添加名称</span></div></td><td><span class="tag bad">续租服务合同</span> <span class="tag bad">续租协议</span></td></tr>
@@ -653,7 +656,7 @@
 
     <section id="taskFull" class="tab-page">
       <div class="panel">
-        <div class="notice"><span class="phase-badge future">二期完整版目标</span> 二期补齐材料包上传、导入处理详情和导入规则配置。字段通过但缺必填材料的订单创建为“待材料激活”，补齐并复核通过后自动生效；一期历史已生效案件保持原状态，不回溯材料校验。</div>
+        <div class="notice"><span class="phase-badge future">二期完整版目标</span> 二期补齐材料包上传、导入处理详情、导入规则配置后，案件导入管理恢复为最终版效果：支持草稿、处理详情、材料状态和下载明细闭环。法诉材料导出仍在法诉材料模块完成。</div>
         <div class="panel-title">查询条件 <small>按批次定位完整导入任务</small></div>
         <div class="search compact">
           <label><span>导入批次号</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
@@ -673,15 +676,16 @@
           <span class="spacer"></span>
           <span class="tag info">二期恢复完整最终版</span>
         </div>
-        <div class="summary compact"><div class="card">资产总数<b>2,184</b></div><div class="card">已生效<b>1,632</b></div><div class="card">待材料激活<b>18</b></div><div class="card">材料待补<b>4</b></div><div class="card">导入失败<b>12</b></div></div>
+        <div class="summary compact"><div class="card">资产总数<b>2,184</b></div><div class="card">已生效<b>1,632</b></div><div class="card">待处理<b>22</b></div><div class="card">导入失败<b>530</b></div></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>外部资产方</th><th>导入批次号</th><th>批次名称</th><th>业务类型</th><th>债权总额</th><th>债权对价</th><th>资产总数</th><th>已生效</th><th>待材料激活</th><th>材料待补</th><th>导入失败</th><th>批次状态</th><th>导入时间</th><th style="width:190px">操作</th></tr></thead>
+            <thead><tr><th>外部资产方</th><th>导入批次号</th><th>批次名称</th><th>业务类型</th><th>债权总额</th><th>债权对价</th><th>资产总数</th><th>已生效</th><th>待材料激活</th><th>导入失败</th><th>材料状态</th><th>批次状态</th><th>首次导入时间</th><th style="width:210px">操作</th></tr></thead>
             <tbody>
               <tr><td>创新</td><td><button class="text-link" onclick="switchTab('newImportFull')">DR202606150001</button></td><td>创新租赁草稿批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td><span class="tag gray">草稿</span></td><td>2026-06-15 10:20:00</td><td><button class="text-link" onclick="switchTab('newImportFull')">继续编辑</button> <button class="text-link danger-link" onclick="openDraftCancelModal()">取消</button></td></tr>
-              <tr><td>创新</td><td><button class="text-link" data-jump="detail">DR202606100001</button></td><td>创新租赁通用规则批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>1280</td><td>1246</td><td>18</td><td>4</td><td>12</td><td><span class="tag ok">导入完成</span></td><td>2026-06-10 20:15:32</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">导入处理详情</button><button class="text-link" onclick="openDebtAmountModal('main','DR202606100001','创新租赁通用规则批次01','创新','租赁','创新租赁通用规则','襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)','12,036,800.00','8,425,760.00')">编辑</button><a class="text-link" href="./法诉案件导入_导入结果明细.xlsx" download>错误明细</a></div></td></tr>
-              <tr><td>转转</td><td>DR202606090006</td><td>转转租赁批次02</td><td>租赁</td><td>3,680,500.00</td><td>2,576,350.00</td><td>386</td><td>386</td><td>0</td><td>0</td><td>0</td><td><span class="tag ok">导入完成</span></td><td>2026-06-09 18:42:10</td><td><button class="text-link" data-jump="detail">导入处理详情</button> <button class="text-link" onclick="openDebtAmountModal('zz','DR202606090006','转转租赁批次02','转转','租赁','转转租赁规则','武汉小优企业管理有限公司(91420115MACRLKWJ1A)','3,680,500.00','2,576,350.00')">编辑</button></td></tr>
-              <tr><td>人人租</td><td>DR202606090005</td><td>人人租租赁批次03</td><td>租赁</td><td>4,982,000.00</td><td>3,487,400.00</td><td>518</td><td>0</td><td>0</td><td>0</td><td>518</td><td><span class="tag bad">导入失败</span></td><td>2026-06-09 11:08:55</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">导入处理详情</button><button class="text-link" onclick="openDebtAmountModal('rrz','DR202606090005','人人租租赁批次03','人人租','租赁','人人租租赁规则','聊城小优企业管理有限公司(91371521MADE8H2E0)','4,982,000.00','3,487,400.00')">编辑</button><a class="text-link" href="./法诉案件导入_导入结果明细.xlsx" download>错误明细</a></div></td></tr>
+              <tr><td>创新</td><td><button class="text-link" data-jump="detail">DR202606100001</button></td><td>创新租赁通用规则批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>1280</td><td>1246</td><td>22</td><td>12</td><td><span class="tag warn">待补必填材料</span></td><td><span class="tag ok">导入完成</span></td><td>2026-06-10 20:15:32</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">处理详情</button><button class="text-link" onclick="openDebtAmountModal('main','DR202606100001','创新租赁通用规则批次01','创新','租赁','创新租赁通用规则','襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)','12,036,800.00','8,425,760.00')">编辑</button><a class="text-link" href="./法诉案件导入_批次处理明细.xlsx" download>下载明细</a></div></td></tr>
+              <tr><td>转转</td><td>DR202606090006</td><td>转转租赁批次02</td><td>租赁</td><td>3,680,500.00</td><td>2,576,350.00</td><td>386</td><td>386</td><td>0</td><td>0</td><td><span class="tag ok">材料齐全</span></td><td><span class="tag ok">导入完成</span></td><td>2026-06-09 18:42:10</td><td><button class="text-link" data-jump="detail">处理详情</button> <button class="text-link" onclick="openDebtAmountModal('zz','DR202606090006','转转租赁批次02','转转','租赁','转转租赁规则','武汉小优企业管理有限公司(91420115MACRLKWJ1A)','3,680,500.00','2,576,350.00')">编辑</button> <a class="text-link" href="./法诉案件导入_批次处理明细.xlsx" download>下载明细</a></td></tr>
+              <tr><td>人人租</td><td>DR202606090005</td><td>人人租租赁批次03</td><td>租赁</td><td>4,982,000.00</td><td>3,487,400.00</td><td>518</td><td>0</td><td>0</td><td>518</td><td>-</td><td><span class="tag bad">导入失败</span></td><td>2026-06-09 11:08:55</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">处理详情</button><button class="text-link" onclick="openDebtAmountModal('rrz','DR202606090005','人人租租赁批次03','人人租','租赁','人人租租赁规则','聊城小优企业管理有限公司(91371521MADE8H2E0)','4,982,000.00','3,487,400.00')">编辑</button><a class="text-link" href="./法诉案件导入_批次处理明细.xlsx" download>下载明细</a></div></td></tr>
+              <tr><td>创新</td><td>DR202605080001</td><td>创新一期历史批次01</td><td>租赁</td><td>6,280,000.00</td><td>4,396,000.00</td><td>628</td><td>628</td><td>0</td><td>0</td><td><span class="tag gray">待初始化（一期）</span></td><td><span class="tag ok">导入完成</span></td><td>2026-05-08 16:30:21</td><td><button class="text-link" onclick="openHistoryMaterialSupplement()">补充历史材料</button><a class="text-link" href="./法诉案件导入_批次处理明细.xlsx" download>下载明细</a></td></tr>
             </tbody>
           </table>
         </div>
@@ -690,7 +694,7 @@
 
     <section id="newImportFull" class="tab-page">
       <div class="panel">
-        <div class="notice"><span class="phase-badge future">二期完整版目标</span> 二期新建导入批次支持规则选择、资产明细和材料包上传。提交时固化规则快照；字段通过但缺必填材料时创建待材料激活案件，补齐并复核通过后自动生效。</div>
+        <div class="notice"><span class="phase-badge future">二期完整版目标</span> 二期新建导入批次恢复拆分前最终版：页面选择导入规则，同时上传资产明细和材料包，支持模板说明、保存草稿、材料必填校验和导入处理详情闭环。</div>
         <div class="form-grid compact">
           <label><span><em class="req">*</em>批次名称</span><div class="field-box"><div class="input">例：转转租赁批次01</div><div class="limit">必填，2-50字符。</div></div></label>
           <label><span><em class="req">*</em>外部资产方</span><div class="field-box"><div class="select" data-options="全部|创新|转转|人人租">创新<b>⌄</b></div><div class="enum">全部 / 创新 / 转转 / 人人租</div></div></label>
@@ -710,15 +714,14 @@
               <a class="btn primary" href="./法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx" download>下载模板</a>
               <button class="text-link" onclick="openModal('templateModal')">模板说明</button>
             </div>
-            <div class="limit">资产明细和材料包均为必传：资产明细支持xlsx/xls；材料包支持zip/rar/7z。材料包一级文件夹：订单编号_姓名；二级文件：订单编号_材料名称_序号.扩展名。</div>
+            <div class="limit">资产明细和材料包均为必传：资产明细支持xlsx/xls；材料包支持zip/rar/7z。任一文件未上传时整批阻断，不创建导入任务。材料包一级文件夹：订单编号_姓名；二级文件：订单编号_材料名称_序号.扩展名。</div>
             <div class="file-row" id="assetFileRowFull"><div class="file-meta"><span class="file-name">法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx</span><span class="tag ok">上传成功</span></div><div class="file-actions"><button class="text-link danger-link" onclick="openDeleteFileModal('assetFileRowFull','法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx')">删除</button></div></div>
             <div class="file-row" id="materialPackageRowFull"><div class="file-meta"><span class="file-name">转转租赁批次01_材料包.zip</span><span class="tag ok">上传成功</span></div><div class="file-actions"><button class="text-link danger-link" onclick="openDeleteFileModal('materialPackageRowFull','转转租赁批次01_材料包.zip')">删除</button></div></div>
           </div>
         </div>
         <div class="rule-strip">
           <div class="rule-item"><b>字段和金额</b><span>必填字段依据导入规则配置；金额需数字类型且不可为负值。</span></div>
-          <div class="rule-item"><b>材料和合同</b><span>材料按标准类别归类；缺必填材料的订单创建为待材料激活，补齐并复核通过后自动生效；非必填材料缺失仅标记材料待补。</span></div>
-          <div class="rule-item"><b>规则快照</b><span>提交时固化字段启用/必填和材料规则；后续规则修改不影响当前批次的解析、补传和生效判断。</span></div>
+          <div class="rule-item"><b>材料和合同</b><span>材料按标准类别归类；缺必填材料的订单待材料激活，非必填材料可后续补传。</span></div>
           <div class="rule-item"><b>重复和拦截</b><span>未分配且未流转订单可自动覆盖；资产明细或材料包缺少任一项时阻止导入。</span></div>
         </div>
         <div class="footer-btns"><button onclick="openCancelEditModal()">取消</button><button onclick="showToast('二期完整版：已保存为草稿')">保存草稿</button><button class="primary" onclick="showToast('二期完整版：提交后进入导入处理详情')">导入</button></div>
@@ -727,7 +730,7 @@
 
     <section id="detail" class="tab-page">
       <div class="panel">
-        <div class="notice"><span class="phase-badge future">二期调整</span> 导入处理详情统一承接订单失败、待补传材料和未匹配材料。字段通过但缺必填材料的订单为“待材料激活”，不进入待委外；补齐并复核通过后自动生效。一期历史批次只展示“未校验（一期导入）”，不生成材料待补任务。</div>
+        <div class="notice"><span class="phase-badge future">二期规划</span> 导入处理详情按批次集中处理三类对象：订单处理、材料补充和异常文件。一期不进入本页；二期通过页签和批量操作承接失败订单重导、材料补传、异常文件重新识别及解析查看。</div>
         <div class="batch-meta">
           <div class="meta-item"><b>导入批次号</b><span>DR202606100001</span></div>
           <div class="meta-item"><b>批次名称</b><span>创新租赁通用规则批次01</span></div>
@@ -738,46 +741,46 @@
           <div class="meta-item"><b>导入规则</b><span>创新租赁通用规则</span></div>
           <div class="meta-item"><b>导入时间</b><span>2026-06-10 20:15:32</span></div>
         </div>
-        <div class="summary compact"><div class="card">已生效<b>1,246</b></div><div class="card">待材料激活<b>18</b></div><div class="card">材料待补<b>4</b></div><div class="card">导入失败<b>12</b></div><div class="card">未匹配材料<b>9</b></div></div>
+        <div class="summary compact"><div class="card">已生效<b>1,246</b></div><div class="card">待材料激活<b>22</b></div><div class="card">待补材料<b>42</b></div><div class="card">导入失败<b>12</b></div><div class="card">异常文件<b>9</b></div></div>
         <div class="search compact">
           <label><span>订单编号</span><div class="field-box"><div class="input">loanNo，支持模糊查询</div><div class="limit">最多50字符。</div></div></label>
           <label><span>客户姓名</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
-          <label><span>处理状态</span><div class="field-box"><div class="select" data-options="全部|已生效|待材料激活|材料待补|导入失败|重复待处理|未匹配材料">全部<b>⌄</b></div><div class="enum">全部 / 已生效 / 待材料激活 / 材料待补 / 导入失败 / 重复待处理 / 未匹配材料</div><div class="limit">字段失败、案件生效和材料完整度合并展示；“待材料激活”不进入待委外。</div></div></label>
+          <label><span>案件状态</span><div class="field-box"><div class="select" data-options="全部|已生效|待材料激活|导入失败">全部<b>⌄</b></div><div class="enum">全部 / 已生效 / 待材料激活 / 导入失败</div><div class="limit">订单处理页按案件状态查询；材料和异常文件在对应页签中处理。</div></div></label>
           <div class="search-actions"><button class="primary">查询</button><button>重置</button></div>
         </div>
-        <div class="toolbar"><a class="btn primary" href="./法诉案件导入_导入结果明细.xlsx" download onclick="showToast('已下载所选订单明细')">下载</a><button class="primary" onclick="openBatchSupplementModal()">批量补传</button><span class="spacer"></span><button class="text-link" onclick="openModal('supplementHelpModal')">处理说明</button><button class="text-link" onclick="openModal('materialRuleModal')">材料规则速查</button></div>
+        <div class="toolbar"><button id="batchSupplementBtn" class="primary" onclick="openBatchSupplementModal()">批量补传</button><a id="detailDownloadBtn" class="btn" href="./法诉案件导入_订单处理明细.xlsx" data-export-toast="已导出当前筛选订单明细" download onclick="showDetailExportToast()">导出当前筛选订单明细</a><span class="spacer"></span><button class="text-link" onclick="openModal('materialRuleModal')">材料规则速查</button></div>
         <div class="list-tabs">
-          <button class="active" data-supp-tab="orders">订单处理</button>
-          <button data-supp-tab="missing">待补传材料</button>
-          <button data-supp-tab="unmatched">未匹配材料</button>
-          <span class="hint">字段失败、材料缺失、重复订单、未匹配材料统一在本页闭环处理</span>
+          <button class="active" data-supp-tab="orders">订单结果（1,258）</button>
+          <button data-supp-tab="missing">待补材料（42）</button>
+          <button data-supp-tab="unmatched">异常文件（9）</button>
+          <span class="hint">同一批次可分次上传订单和材料，统一通过“批量补传”处理</span>
         </div>
         <div id="orderProcessingPane" class="supp-pane active">
           <div class="table-wrap">
             <table>
-              <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th>订单编号</th><th>客户姓名</th><th>业务类型</th><th>债权金额</th><th>逾期天数</th><th>处理状态</th><th>说明</th><th style="width:190px">操作</th></tr></thead>
+              <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th>订单编号</th><th>客户姓名</th><th>债权金额</th><th>逾期天数</th><th>案件状态</th><th>材料状态</th><th>处理结果</th><th style="width:150px">操作</th></tr></thead>
               <tbody>
-                <tr><td><input type="checkbox" checked></td><td>26012915050167612327</td><td>张三</td><td>租赁</td><td>12,036.80</td><td>61</td><td><span class="tag ok">已生效</span></td><td>字段校验通过，案件已生效并进入待委外</td><td><button class="text-link" onclick="openParseModal('26012915050167612327')">查看解析</button></td></tr>
-                <tr><td><input type="checkbox" checked></td><td>26012915050167612328</td><td>黄丽</td><td>租赁</td><td>9,420.00</td><td>54</td><td><span class="tag warn">待材料激活</span></td><td>字段校验通过，缺少必填主合同；补齐并复核通过后自动生效</td><td><button class="text-link" onclick="openParseModal('26012915050167612328')">查看解析</button></td></tr>
-                <tr><td><input type="checkbox" checked></td><td>26012915050167612331</td><td>周强</td><td>租赁</td><td>8,340.00</td><td>48</td><td><span class="tag gray">材料待补</span></td><td>缺少非必填担保合同，案件已生效并进入待委外</td><td><button class="text-link" onclick="openParseModal('26012915050167612331')">查看解析</button></td></tr>
-                <tr><td><input type="checkbox"></td><td>26012915050167612330</td><td>李明</td><td>租赁</td><td>7,290.00</td><td>35</td><td><span class="tag bad">导入失败</span></td><td>字段不合格，需通过批量补传上传修正版订单文件</td><td><button class="text-link" onclick="openParseModal('26012915050167612330')">查看解析</button> <button class="text-link" onclick="openFailureModal('26012915050167612330')">失败原因</button></td></tr>
-                <tr id="duplicateRow1"><td><input type="checkbox" class="duplicate-check" checked></td><td>26012915050167612332</td><td>王磊</td><td>租赁</td><td>8,650.00</td><td>43</td><td id="duplicateResult1"><span class="tag info">自动覆盖</span></td><td id="duplicateNote1">已有案件未分配，已自动覆盖字段和同名文件</td><td id="duplicateAction1"><button class="text-link" onclick="openParseModal('26012915050167612332')">查看解析</button> <button class="text-link" onclick="showToast('已打开自动覆盖记录')">覆盖记录</button></td></tr>
-                <tr id="duplicateRow2"><td><input type="checkbox"></td><td>26012915050167612333</td><td>赵倩</td><td>租赁</td><td>6,880.00</td><td>39</td><td id="duplicateResult2"><span class="tag warn">重复待处理</span></td><td id="duplicateNote2">已有案件已分配，不允许自动覆盖</td><td id="duplicateAction2"><button class="text-link" onclick="openParseModal('26012915050167612333')">查看解析</button> <button class="text-link" onclick="openDuplicateModal('26012915050167612333')">处理重复</button></td></tr>
+                <tr><td><input type="checkbox"></td><td>26012915050167612327</td><td>张三</td><td>12,036.80</td><td>61</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td>已进入待委外</td><td><button class="text-link" onclick="openParseModal('26012915050167612327')">查看解析</button></td></tr>
+                <tr><td><input type="checkbox"></td><td>26012915050167612328</td><td>黄丽</td><td>9,420.00</td><td>54</td><td><span class="tag warn">待材料激活</span></td><td><span class="tag bad">待补必填</span></td><td>缺少主合同，补齐后自动生效</td><td><button class="text-link" onclick="openParseModal('26012915050167612328')">查看解析</button></td></tr>
+                <tr><td><input type="checkbox"></td><td>26012915050167612331</td><td>周强</td><td>8,030.00</td><td>47</td><td><span class="tag ok">已生效</span></td><td><span class="tag warn">待补非必填</span></td><td>可在材料补充页统一处理</td><td><button class="text-link" onclick="openParseModal('26012915050167612331')">查看解析</button></td></tr>
+                <tr><td><input type="checkbox" class="failed-order-check"></td><td>26012915050167612330</td><td>李明</td><td>7,290.00</td><td>35</td><td><span class="tag bad">导入失败</span></td><td>-</td><td>修正Excel后重新导入</td><td><button class="text-link" onclick="openParseModal('26012915050167612330')">查看解析</button> <button class="text-link" onclick="openFailureModal('26012915050167612330')">失败原因</button></td></tr>
+                <tr id="duplicateRow1"><td><input type="checkbox"></td><td>26012915050167612332</td><td>王磊</td><td>8,650.00</td><td>43</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td><span id="duplicateResult1" class="tag info">自动覆盖</span><div id="duplicateNote1">字段和同名文件已更新</div></td><td id="duplicateAction1"><button class="text-link" onclick="openParseModal('26012915050167612332')">查看解析</button> <button class="text-link" onclick="showToast('已打开自动覆盖记录')">覆盖记录</button></td></tr>
+                <tr id="duplicateRow2"><td><input type="checkbox"></td><td>26012915050167612333</td><td>赵倩</td><td>6,880.00</td><td>39</td><td><span class="tag gray">已分配</span></td><td>-</td><td><span id="duplicateResult2" class="tag warn">重复待处理</span><div id="duplicateNote2">已有案件已分配，不允许自动覆盖</div></td><td id="duplicateAction2"><button class="text-link" onclick="openParseModal('26012915050167612333')">查看解析</button> <button class="text-link" onclick="openDuplicateModal('26012915050167612333')">处理重复</button></td></tr>
               </tbody>
             </table>
             <div class="pagination"><span>共 1,258 条</span><button>‹</button><span class="active">1</span><span>2</span><span>3</span><span>4</span><span>5</span><button>›</button><span>10条/页</span></div>
           </div>
         </div>
         <div id="missingPane" class="supp-pane">
-          <div class="scope-tip show" id="supplementScopeTip">当前按批次 DR202606100001 展示待补传材料：待材料激活订单可补当前规则缺失的必填和非必填材料；已生效订单仅补非必填材料。运营统一点击“批量补传”上传材料包，系统自动识别并复核。</div>
+          <div class="scope-tip show" id="supplementScopeTip">当前展示本批次缺失材料。可勾选后定向补齐，也可不勾选直接上传本批次材料包；系统按订单编号和材料规则自动识别。</div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th style="width:64px">序号</th><th>外部资产方</th><th>订单编号</th><th>客户姓名</th><th>业务类型</th><th>主续订单</th><th>材料项</th><th>材料要求</th></tr></thead>
+              <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th>订单编号</th><th>客户姓名</th><th>标准材料类别</th><th>缺失材料名称</th><th>材料要求</th><th>案件状态</th><th>补传结果</th></tr></thead>
               <tbody>
-                <tr><td><input type="checkbox"></td><td>1</td><td>创新</td><td>26012915050167612328</td><td>黄丽</td><td>租赁</td><td>续租订单</td><td>主合同</td><td><span class="tag bad">必填材料缺失</span></td></tr>
-                <tr><td><input type="checkbox"></td><td>2</td><td>创新</td><td>26012915050167612331</td><td>周强</td><td>租赁</td><td>主订单</td><td>担保合同</td><td><span class="tag gray">非必填材料待补</span></td></tr>
-                <tr><td><input type="checkbox"></td><td>3</td><td>创新</td><td>26012915050167612334</td><td>陈晨</td><td>租赁</td><td>主订单</td><td>订单详情</td><td><span class="tag warn">非必填</span></td></tr>
-                <tr><td><input type="checkbox"></td><td>4</td><td>创新</td><td>26012915050167612335</td><td>刘洋</td><td>租赁</td><td>续租订单</td><td>路由详情图</td><td><span class="tag warn">非必填</span></td></tr>
+                <tr><td><input type="checkbox" class="missing-material-check"></td><td>26012915050167612328</td><td>黄丽</td><td>主合同</td><td>租赁服务合同</td><td><span class="tag bad">必填</span></td><td><span class="tag warn">待材料激活</span></td><td>补齐并复核通过后自动生效</td></tr>
+                <tr><td><input type="checkbox" class="missing-material-check"></td><td>26012915050167612331</td><td>周强</td><td>担保合同</td><td>保证合同</td><td><span class="tag warn">非必填</span></td><td><span class="tag ok">已生效</span></td><td>补充后更新材料状态</td></tr>
+                <tr><td><input type="checkbox" class="missing-material-check"></td><td>26012915050167612334</td><td>陈晨</td><td>订单材料</td><td>订单详情</td><td><span class="tag warn">非必填</span></td><td><span class="tag ok">已生效</span></td><td>补充后更新材料状态</td></tr>
+                <tr><td><input type="checkbox" class="missing-material-check"></td><td>26012915050167612335</td><td>刘洋</td><td>物流信息</td><td>路由详情图</td><td><span class="tag warn">非必填</span></td><td><span class="tag ok">已生效</span></td><td>补充后更新材料状态</td></tr>
               </tbody>
             </table>
           </div>
@@ -786,12 +789,12 @@
         <div id="unmatchedPane" class="supp-pane">
           <div class="table-wrap">
             <table class="unmatched-table">
-              <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th style="width:64px">序号</th><th>外部资产方</th><th>文件名</th><th>识别结果</th><th>所属订单</th><th>客户姓名</th><th>业务类型</th><th>主续订单</th><th>处理</th></tr></thead>
+              <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th>文件名</th><th>识别问题</th><th>候选订单</th><th>上传时间</th><th>处理提示</th></tr></thead>
               <tbody>
-                <tr id="unmatchedRow1"><td><input type="checkbox"></td><td>1</td><td>创新</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_人像面_01.jpg')">26012915050167612327_人像面_01.jpg</a></td><td>识别到材料类型，未识别订单归属</td><td>-</td><td>-</td><td>租赁</td><td>-</td><td><button class="text-link" onclick="showToast('已提交重新识别，处理完成后刷新本列表')">重新识别</button></td></tr>
-                <tr id="unmatchedRow2"><td><input type="checkbox"></td><td>2</td><td>创新</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_租赁服务合同_01.pdf')">26012915050167612327_租赁服务合同_01.pdf</a></td><td>识别到主合同材料名称，未识别订单归属</td><td>-</td><td>-</td><td>租赁</td><td>-</td><td><button class="text-link" onclick="showToast('已提交重新识别，处理完成后刷新本列表')">重新识别</button></td></tr>
-                <tr id="unmatchedRow3"><td><input type="checkbox"></td><td>3</td><td>创新</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612338_保证合同_01.pdf')">26012915050167612338_保证合同_01.pdf</a></td><td>识别到担保合同类别，订单归属待系统批量补传后重新识别</td><td>26012915050167612338</td><td>赵敏</td><td>租赁</td><td>主订单</td><td><button class="text-link" onclick="showToast('已提交重新识别，处理完成后刷新本列表')">重新识别</button></td></tr>
-                <tr id="unmatchedRow4"><td><input type="checkbox"></td><td>4</td><td>创新</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612339_担保合同(金量-汕尾)_01.pdf')">26012915050167612339_担保合同(金量-汕尾)_01.pdf</a></td><td>订单不存在或已结清</td><td>26012915050167612339</td><td>-</td><td>租赁</td><td>-</td><td><button class="text-link" onclick="showToast('已提交重新识别，处理完成后刷新本列表')">重新识别</button></td></tr>
+                <tr><td><input type="checkbox" class="unmatched-file-check"></td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_人像面_01.jpg')">26012915050167612327_人像面_01.jpg</a></td><td>已识别为人像面，未识别订单归属</td><td>-</td><td>2026-06-10 20:18:05</td><td>在批量补传中上传对应订单Excel后，可同步重新识别</td></tr>
+                <tr><td><input type="checkbox" class="unmatched-file-check"></td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_租赁服务合同_01.pdf')">26012915050167612327_租赁服务合同_01.pdf</a></td><td>已识别为主合同，未识别订单归属</td><td>-</td><td>2026-06-10 20:18:09</td><td>需上传规范命名的材料包，或补充对应订单Excel</td></tr>
+                <tr><td><input type="checkbox" class="unmatched-file-check"></td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612338_保证合同_01.pdf')">26012915050167612338_保证合同_01.pdf</a></td><td>已识别为担保合同，需确认订单归属</td><td>26012915050167612338</td><td>2026-06-10 20:19:14</td><td>可在批量补传中上传订单Excel后同步重新识别</td></tr>
+                <tr><td><input type="checkbox" class="unmatched-file-check"></td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612339_担保合同(金量-汕尾)_01.pdf')">26012915050167612339_担保合同(金量-汕尾)_01.pdf</a></td><td>文件对应订单不存在或已结清</td><td>26012915050167612339</td><td>2026-06-10 20:20:41</td><td>不纳入案件材料，不生成待补任务</td></tr>
               </tbody>
             </table>
           </div>
@@ -814,7 +817,7 @@
               <tr><th>新建导入批次</th><td>一期导入</td><td>新建中</td><td>上传资产明细、下载模板、导入、取消</td><td>头部字段除备注外均必填；一期只校验资产明细Excel。</td></tr>
               <tr><th>新建导入批次</th><td>一期导入</td><td>缺少资产明细</td><td>去上传、取消</td><td>点击导入时弹提示并阻止导入；不生成批次结果。</td></tr>
               <tr><th>新建导入批次</th><td>一期导入</td><td>提交导入</td><td>导入</td><td>页面必填、金额和Excel文件级前置校验通过后提交异步处理；提交后返回列表并展示导入中。</td></tr>
-              <tr><th>案件导入管理完整版</th><td>二期目标</td><td>草稿/完成/失败</td><td>继续编辑、处理详情、编辑、错误明细</td><td>恢复拆分前最终版批次管理，承接材料状态和导入处理详情。</td></tr>
+              <tr><th>案件导入管理完整版</th><td>二期目标</td><td>草稿/完成/失败</td><td>继续编辑、处理详情、编辑、下载明细</td><td>恢复拆分前最终版批次管理，承接材料状态和导入处理详情。</td></tr>
               <tr><th>新建导入批次完整版</th><td>二期目标</td><td>新建/草稿</td><td>上传资产明细、上传材料包、下载模板、模板说明、保存草稿、导入、取消</td><td>恢复拆分前最终版新建导入；导入规则和材料包校验放到二期。</td></tr>
               <tr><th>导入处理详情</th><td>二期规划</td><td>订单/材料处理</td><td>查看解析、批量补传、失败原因</td><td>本期不进入详情页；一期结果在Excel明细中闭环。</td></tr>
               <tr><th>导入规则配置</th><td>二期规划</td><td>规则维护</td><td>查询、新建、编辑、停用</td><td>本期不实现；二期再支持资产方规则配置。</td></tr>
@@ -832,9 +835,8 @@
               <tr><td>案件导入管理</td><td>一期批次状态</td><td><span class="tag info">导入中</span></td><td>点击“导入”并通过页面必填和资产明细Excel校验。</td><td>导入完成 / 导入失败</td></tr>
               <tr><td>案件导入管理</td><td>一期批次状态</td><td><span class="tag ok">导入完成</span></td><td>Excel解析结束，至少存在一条导入成功或可落库记录。</td><td>保持导入完成</td></tr>
               <tr><td>案件导入管理</td><td>一期批次状态</td><td><span class="tag bad">导入失败</span></td><td>任务已创建，但本批次0笔订单成功，或异步处理发生系统异常。</td><td>编辑后再次导入：导入中 / 导入完成 / 导入失败</td></tr>
-              <tr><td>导入处理详情</td><td>二期案件状态</td><td><span class="tag warn">待材料激活</span></td><td>字段校验通过但缺必填材料。</td><td>批量补传后自动复核；必填材料齐全时自动变为已生效并进入待委外</td></tr>
-              <tr><td>导入处理详情</td><td>二期材料状态</td><td><span class="tag gray">未校验（一期导入）</span></td><td>一期历史已生效批次。</td><td>保持已生效，不生成材料待补任务</td></tr>
-              <tr><td>导入处理详情</td><td>二期材料状态</td><td><span class="tag gray">材料待补</span></td><td>非必填材料缺失，案件已生效。</td><td>补传后刷新材料完整度，不影响待委外</td></tr>
+              <tr><td>导入处理详情</td><td>二期案件状态</td><td><span class="tag warn">待材料激活</span></td><td>字段通过但缺必填材料，案件暂不进入待委外。</td><td>补齐并复核通过后自动生效</td></tr>
+              <tr><td>导入处理详情</td><td>二期材料状态</td><td><span class="tag warn">待补非必填</span></td><td>非必填材料缺失，案件继续保持已生效。</td><td>批量补传后刷新材料完整度</td></tr>
               <tr><td>导入规则配置</td><td>规则状态</td><td><span class="tag ok">启用</span></td><td>规则配置校验通过并保存启用。</td><td>可停用 / 可编辑后继续启用</td></tr>
               <tr><td>导入规则配置</td><td>规则状态</td><td><span class="tag gray">停用</span></td><td>规则被运营或管理员停用。</td><td>可重新启用</td></tr>
             </tbody>
@@ -895,21 +897,21 @@
       <section class="anno-block">
         <h3>二期页面定位</h3>
         <p><b>1.</b>本页为二期完整目标态，用于恢复拆分两期前的案件导入管理最终版效果。</p>
-        <p><b>2.</b><span class="tag info">二期调整</span> 二期批次管理承接材料包上传、导入处理详情、待材料激活、材料待补、未匹配材料和规则配置。</p>
-        <p><b>3.</b>一期页面继续保持轻量上线；一期历史已生效案件在二期仅标记“未校验（一期导入）”，不会因缺少材料回溯失效。</p>
+        <p><b>2.</b>二期批次管理承接材料包上传、导入处理详情、待材料激活、材料待补、未匹配材料和规则配置。</p>
+        <p><b>3.</b>一期页面继续保持轻量上线；二期完成后可将本页能力合并回正式案件导入管理。</p>
       </section>
       <section class="anno-block">
         <h3>状态和操作</h3>
         <p><b>1.</b>批次状态恢复：草稿、导入中、导入完成、导入失败、已取消。</p>
-        <p><b>2.</b>导入完成后进入导入处理详情：字段失败进入订单处理；缺必填材料为待材料激活；缺非必填材料为材料待补；无法归属的文件进入未匹配材料。</p>
+        <p><b>2.</b>导入完成后进入处理详情，按订单处理字段失败、材料缺失、重复待处理和未匹配材料。</p>
         <p><b>3.</b>二期编辑批次信息弹框展示历史上传文件，支持查看资产明细、材料包、失败重传文件的文件名、上传时间和处理结果。</p>
-        <p><b>4.</b>草稿批次可继续编辑或取消；导入中不可编辑；导入失败上传修正版Excel；待材料激活上传材料包，必填材料补齐且复核通过后自动生效。</p>
+        <p><b>4.</b>草稿批次可继续编辑或取消；导入中不可编辑；导入失败可进入处理详情后批量补传。</p>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
             <tr><th>草稿</th><td>继续编辑、导入、取消</td><td>回显草稿数据；取消后状态为已取消。</td></tr>
-            <tr><th>导入完成</th><td>导入处理详情、编辑、错误明细</td><td>导入处理详情查看订单生效和材料状态；编辑仅改批次级金额和备注。</td></tr>
-            <tr><th>导入失败</th><td>处理详情、错误明细</td><td>进入详情后通过批量补传上传修正版订单文件或材料包。</td></tr>
+            <tr><th>导入完成</th><td>处理详情、编辑、下载明细</td><td>处理详情查看订单和材料处理结果；编辑仅改批次级金额和备注。</td></tr>
+            <tr><th>导入失败</th><td>处理详情、下载明细</td><td>进入详情后通过“批量补传”上传修正版订单Excel，可按需同步上传材料包。</td></tr>
           </tbody>
         </table>
       </section>
@@ -923,8 +925,8 @@
       </section>
       <section class="anno-block">
         <h3>上传和校验</h3>
-        <p><b>1.</b>资产明细和材料包均为必传；任一缺失时阻止导入。</p>
-        <p><b>2.</b><span class="tag info">二期调整</span> 材料包按订单编号、资产方材料名称和匹配模式自动识别；字段通过但缺必填材料时创建待材料激活案件，补齐并复核通过后自动生效；非必填材料缺失仅进入材料待补。</p>
+        <p><b>1.</b>资产明细和材料包均为必传；任一缺失时整批阻断，不创建导入任务、不生成案件。</p>
+        <p><b>2.</b>待材料激活的前提是材料包已上传并完成解析：字段校验通过但包内缺必填材料时，订单进入待材料激活，补齐并复核通过后自动生效；非必填材料缺失仅进入待补传清单。</p>
         <p><b>3.</b>二期支持保存草稿，草稿只保存基础信息和临时文件，不解析、不生成案件。</p>
       </section>
       <section class="anno-block">
@@ -956,7 +958,7 @@
       <section class="anno-block">
         <h3>重点列取数</h3>
         <p><b>1.</b>规则名称、外部资产方、业务类型、状态取规则基础信息。</p>
-        <p><b>2.</b><span class="tag info">二期调整</span> 模板字段数取0702最终版Excel模板的字段列数，当前为70列；字段启用/必填在规则详情中维护，批次提交时固化规则快照。</p>
+        <p><b>2.</b>模板字段数取0702最终版Excel模板的字段列数，当前为67列；字段启用/必填在规则详情中维护。</p>
         <p><b>3.</b>必填材料数、非必填材料数取材料规则中配置的资产方材料名称数量。</p>
         <p><b>4.</b>更新时间、更新人取规则最近一次保存记录。</p>
       </section>
@@ -990,7 +992,7 @@
         <h3>Excel字段配置</h3>
         <p><b>1.</b>字段列表按0702最终版（0707删除线清理后）导入模板70个中文列头加载，首租订单和续租订单共用同一套Excel字段配置。</p><p><b>1.1</b>模型映射确认列取《上报数据模型.docx》，合并展示请求载体、英文模型字段和模型必填口径，用于和技术确认落库映射。</p>
         <p><b>2.</b>订单编号、姓名、身份证号、债权金额、违约日等作为基础字段展示；是否必填以“导入规则”字段配置为准，不再在页面固定写死默认必填字段。</p>
-        <p><b>3.</b>启用=导入时读取、校验、落库；不启用=导入时忽略该列，不生成错误明细。</p>
+        <p><b>3.</b>启用=导入时读取、校验、落库；不启用=导入时忽略该列，不写入下载明细。</p>
         <p><b>4.</b>必填=缺失时阻断订单生成；非必填=缺失只记录提示或为空；模型必填是技术上报模型口径，不等同于本页导入必填配置。</p>
         <p><b>5.</b>已还金额、剩余未还是入池后系统计算字段，不作为资产方导入字段配置。</p>
       </section>
@@ -1004,10 +1006,10 @@
       <section class="anno-block">
         <h3>材料规则配置</h3>
         <p><b>1.</b>标准材料类别来源于系统数据字典，默认包括电子签章授权书、主合同、合同附件、补充合同、担保合同、身份信息、物流信息、订单信息、短信记录、其它材料。</p>
-        <p><b>2.</b><span class="tag info">二期调整</span> 首租订单/续租订单切换只用于材料规则配置，Excel模板字段配置始终共用一套；订单编号、姓名、身份证号、债权金额、违约日为锁定启用且必填字段。</p>
-        <p><b>3.</b>资产方材料名称可配置多条，并逐条标记必填/非必填、精确/包含匹配。</p>
-        <p><b>4.</b>精确匹配指文件名等于配置名称；包含匹配指文件名包含配置名称即可识别。</p>
-        <p><b>5.</b><span class="tag info">二期调整</span> 字段通过但必填材料缺失时创建待材料激活案件，不进入待委外；补齐并复核通过后自动生效。非必填材料缺失仅进入材料待补，不阻断案件生效。</p>
+        <p><b>2.</b>首租订单/续租订单切换只用于材料规则配置，Excel模板字段配置始终共用一套。</p>
+        <p><b>3.</b>材料名称、必填标记和匹配方式只在“资产方材料规则”一处配置；类别下的“X项必填”由系统自动汇总，不再重复维护必填材料名称。</p>
+        <p><b>4.</b>默认精确匹配；包含匹配仅用于兼容固定前缀或后缀差异。保存时如两个包含规则互相包含，系统阻断保存并提示调整为精确匹配或补充更明确名称。</p>
+        <p><b>5.</b>必填材料缺失时，字段通过的订单为待材料激活，不进入待委外；补齐并复核通过后自动生效。非必填材料缺失进入材料补充页，不阻断案件生效。</p>
         <p><b>6.</b>字段配置和材料规则不在运营页面提供删除入口；如需删除规则项，由技术或配置管理员在后台处理，避免误删已在使用的资产方规则。</p>
       </section>
       <section class="anno-block">
@@ -1031,8 +1033,8 @@
       <section class="anno-block">
         <h3>材料识别结果</h3>
         <p><b>1.</b>导入材料包时按“订单编号_材料名称_序号”识别订单和材料类别。</p>
-        <p><b>2.</b>识别到类别但未识别订单归属的文件进入未匹配材料池。</p>
-        <p><b>3.</b>识别到订单但缺少非必填材料的记录进入材料待补；字段通过但缺必填材料的记录进入待材料激活，待补齐并复核后自动生效。</p>
+        <p><b>2.</b>识别到材料类别但未识别订单归属的文件进入异常文件页签。</p>
+        <p><b>3.</b>识别到订单但材料缺失的记录进入材料补充页：缺必填材料为待材料激活，缺非必填材料不影响案件生效。</p>
       </section>
     </div>
     <div class="anno-page" data-anno="newImport">
@@ -1077,9 +1079,9 @@
       <section class="anno-block">
         <h3>案件生成规则</h3>
         <p><b>1.</b>一期字段校验通过即可生成案件，案件立即生效并进入待委外队列；后续可进行待委外、调解、诉讼、还款、结清等法诉流程。</p>
-        <p><b>2.</b>基础必填缺失、字段格式错误、金额异常、主续关系失败、跨批次重复、系统异常等订单不生成案件，原因写入导入结果明细；订单明细保留可定位到具体订单的失败。</p>
-        <p><b>3.</b>一期不校验材料，不生成待补材料清单；材料包解析、材料完整度和未匹配材料池放二期。</p>
-        <p><b>4.</b>一期导入案件不支持导出要素表和导出法诉材料；相关入口需识别案件来源并给出不可导出提示。</p>
+        <p><b>2.</b>基础必填缺失、字段格式错误、金额异常、主续关系失败、跨批次重复、系统异常等订单不生成案件，原因写入下载明细；订单明细保留可定位到具体订单的失败。</p>
+        <p><b>3.</b>一期不校验材料，不生成材料待补清单；材料包解析、材料完整度和未匹配材料池放二期。</p>
+        <p><b>4.</b>一期历史案件未补充材料前，法诉材料模块暂无可导出的完整法诉材料；二期补充历史材料并解析通过后，沿用法诉材料模块现有导出能力。</p>
         <p><b>5.</b>重复订单：同一外部资产方+订单编号已在其他批次导入时，不允许重复导入，本次提示重复并展示已存在批次号。</p>
         <p><b>6.</b>首次导入续租订单：主订单必须与续租订单同批导入、主订单状态为已结清且父子订单证件号一致；主订单仅保留历史订单数据，不展示债权金额、已还金额、剩余未还、违约日、逾期天数。创新以续租订单计算并导出债权金额，续租订单详情展示债权金额、已还金额、剩余未还。</p>
         <p><b>7.</b>首次导入主订单：创新以“主订单剩余未还租金 + 主订单到期买断金”计算并导出债权金额；该主续订单链路后续不允许再导入对应续租订单。</p>
@@ -1093,7 +1095,7 @@
         <p><b>3.</b>同批次再次导入：通过“编辑”上传后传订单时，若已有订单仍在待分配队列，可按新Excel字段覆盖；覆盖后仍归属原批次。</p>
         <p><b>4.</b>同批次不可覆盖：如果已有订单已流转，不允许再次导入，导入结果明细提示“该订单已流转，无法再次导入”。</p>
         <p><b>5.</b>不同批次导入：同一外部资产方+订单编号已存在于其他批次时，本次报错，不允许重复导入；主订单已作为初始订单导入后，再新增对应续租订单属于主续关系异常，不允许导入。</p>
-        <p><b>6.</b>错误明细：不展示行号列；同一订单多次导入产生重复记录时，以订单维度保留最后一次重复记录，导入失败数量也按订单最新处理结果统计。</p>
+        <p><b>6.</b>下载明细：不展示行号列；同一订单多次导入产生重复记录时，以订单维度保留最新处理结果，导入失败数量也按订单最新处理结果统计。二期批次下载订单处理、材料处理和任务级异常三类明细。</p>
         <table class="button-state-table">
           <thead><tr><th>重复场景</th><th>处理规则</th><th>结果展示</th></tr></thead>
           <tbody>
@@ -1109,39 +1111,39 @@
         <h3>二期边界</h3>
         <p><b>1.</b>材料包上传、合同识别、非必填材料补传、未匹配材料池均不在一期实现。</p>
         <p><b>2.</b>一期导入结果只反映Excel必填、字段格式、金额、主续关系、重复和系统处理结果。</p>
-        <p><b>3.</b>一期导入案件不支持导出要素表和导出法诉材料；二期材料包解析后再评估导出能力。</p>
-        <p><b>4.</b>二期上线材料包上传和解析能力后，再补充材料命名规则、材料必填口径和材料解析状态。</p>
+        <p><b>3.</b>一期历史批次在二期可发起“补充历史材料”；首次补充时确认适用规则并固化历史材料规则快照，案件继续保持已生效。</p>
+        <p><b>4.</b>历史材料包解析通过后，可在法诉材料模块沿用现有能力导出法诉材料；案件导入页面不展示导出入口、导出资格或导出文件。</p>
       </section>
     </div>
     <div class="anno-page" data-anno="detail">
       <section class="anno-block">
         <h3>页面定位</h3>
-        <p><b>1.</b><span class="tag info">二期调整</span> 导入处理详情按批次统一展示订单处理、待补传材料和未匹配材料三个页签。</p>
-        <p><b>2.</b>本页合并订单处理和材料补传能力，运营无需在两个页面之间来回切换。</p>
-        <p><b>3.</b>已生效订单自动进入原待委外链路，页面不提供手工推送按钮。</p>
+        <p><b>1.</b>导入处理详情是当前批次的处理工作台，按“订单结果、待补材料、异常文件”展示不同处理结果，不再按底层解析环节拆页。</p>
+        <p><b>2.</b>“批量补传”是批次级统一增量导入入口，可在同一资产采购批次下多次上传订单Excel、材料包或两者；每次订单Excel最多500条。</p>
+        <p><b>3.</b>已生效订单自动进入原待委外链路，本页不提供手工推送、单个文件上传或人工绑定。</p>
       </section>
       <section class="anno-block">
         <h3>筛选区逻辑</h3>
         <p><b>1.</b>订单编号、客户姓名支持模糊查询。</p>
-        <p><b>2.</b>处理状态枚举：全部、已生效、待材料激活、材料待补、导入失败、重复待处理、未匹配材料。</p>
-        <p><b>3.</b>状态取数：字段失败取订单校验结果；待材料激活取字段通过且缺必填材料；材料待补取已生效且缺非必填材料；一期历史批次固定标记未校验（一期导入）。</p>
-        <p><b>4.</b>待补传材料清单和未匹配材料池作为页内Tab，不再单独拆成补传页面。</p>
+        <p><b>2.</b>订单处理页的案件状态枚举为：全部、已生效、待材料激活、导入失败；材料完整度不再混入同一筛选项。</p>
+        <p><b>3.</b>待补材料页只取当前批次缺失的材料项，异常文件页只取自动识别失败的文件；两个页签均可勾选作为本次补传的处理范围，也可不勾选直接补传整个批次。</p>
+        <p><b>4.</b>一期历史批次进入本页后，订单保持已生效；首次补充材料时确认规则并固化历史材料规则快照。</p>
       </section>
       <section class="anno-block">
         <h3>重点列取数</h3>
         <p><b>1.</b>债权金额取资产明细Excel中的债权金额字段。</p>
         <p><b>2.</b>逾期天数由系统按违约日期自动计算，资产方不需要在Excel中填写。</p>
-        <p><b>3.</b>处理状态由字段校验、重复订单判断、案件生效结果和二期材料完整度合并展示。</p>
-        <p><b>4.</b>说明列展示下一步处理口径，例如已进入待委外、补传非必填材料、修正Excel后重导。</p>
+        <p><b>3.</b>订单处理表同时展示案件状态和材料状态：案件状态为已生效、待材料激活、导入失败；材料状态为材料齐全、待补必填、待补非必填或未校验（一期导入）。</p>
+        <p><b>4.</b>处理结果列仅说明当前记录的下一步，例如补齐主合同后自动生效、可在材料补充页统一处理、修正Excel后重新导入。</p>
       </section>
       <section class="anno-block">
         <h3>案件生成规则</h3>
-        <p><b>1.</b>生成待委外案件：一期字段校验通过即生成案件，案件生效状态为已生效。</p>
-        <p><b>2.</b><span class="tag info">二期调整</span> 待材料激活：字段已通过但缺必填材料，不进入待委外；补齐并复核通过后自动生效。材料待补仅影响证据完整度，不改变已生效案件是否进入待委外。</p>
+        <p><b>1.</b>一期生成待委外案件：字段校验通过即生成并生效。二期新批次字段校验通过且必填材料齐全后生效；缺必填材料为待材料激活，补齐复核通过后自动生效。</p>
+        <p><b>2.</b>材料待补：已生效订单仅缺非必填材料时保持已生效，不影响待委外和后续流程。</p>
         <p><b>3.</b>不生成案件：基础必填缺失、字段格式错误、金额异常、主续关系失败、跨批次重复等订单级失败。</p>
-        <p><b>4.</b>导出限制：一期导入案件不支持导出要素表和导出法诉材料。</p>
-        <p><b>4.</b>字段失败订单需修正Excel后通过“批量补传”重新导入；待材料激活订单通过批量补传上传材料包，原失败和补传记录均保留。</p>
-        <p><b>5.</b>材料待补不是导入失败，只用于补充当前导入规则中配置为非必填的材料；一期历史批次不生成材料待补任务。</p>
+        <p><b>4.</b>一期历史批次补充材料不改变案件生效状态；材料解析通过后可在法诉材料模块导出法诉材料，本页不提供导出入口。</p>
+        <p><b>5.</b>失败订单、同批次新增订单和材料问题均通过“批量补传”处理：上传订单Excel可新增或重传订单，上传材料包可补齐材料，两者同时上传时联合解析；原失败记录保留。</p>
+        <p><b>6.</b>待材料激活可补必填和非必填材料；已生效案件仅补当前规则中配置为非必填的材料。</p>
       </section>
       <section class="anno-block">
         <h3>重复订单处理</h3>
@@ -1153,20 +1155,17 @@
       </section>
       <section class="anno-block">
         <h3>按钮操作</h3>
-        <p><b>1.</b>下载：勾选订单时下载所选订单；未勾选时下载当前筛选结果。</p>
-        <p><b>2.</b>批量补传：统一处理导入失败订单、待补传材料和未匹配材料。弹框默认加载当前批次号；导入失败订单上传修正版Excel，待材料激活订单可上传缺失必填和非必填材料，已生效订单仅受理非必填材料。</p>
-        <p><b>3.</b>补传材料后系统自动解析并复核；待材料激活订单的必填材料齐全时自动生效并进入待委外。</p>
-        <p><b>4.</b>待补传材料不提供单条上传；未匹配材料只支持文件预览/下载和重新识别，不提供人工绑定、重新绑定或删除。</p>
+        <p><b>1.</b>导出当前筛选明细：按钮随页签切换。订单结果导出订单处理明细；待补材料导出待补材料明细；异常文件导出异常文件明细。勾选记录时导出所选记录，未勾选时导出当前筛选结果；该文件不是法诉材料导出。</p>
+        <p><b>2.</b>批量补传：订单Excel、材料包可任选其一或同时上传，至少上传一个；订单Excel用于新增本批次订单、重传失败订单或补充异常文件所需订单信息，材料包用于补齐材料或重新上传规范材料。</p>
+        <p><b>3.</b>同步重新识别历史异常文件：在批量补传弹框中按需勾选。系统使用本次上传的订单/材料和当前规则重解析历史异常文件；未上传任何文件时不允许仅重新识别。</p>
+        <p><b>4.</b>待材料激活可补必填和非必填材料；已生效订单只补非必填。文件名支持预览/下载，不提供人工绑定、重新绑定或单个文件上传。</p>
         <p><b>5.</b>查看解析：只读弹框，按字段解析、主续关系、材料解析、落库结果展示；材料解析中的文件名可点击预览或下载。</p>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
-            <tr><th>已生效</th><td>查看解析、下载</td><td>案件已进入待委外；非必填材料可后续批量补传。</td></tr>
-            <tr><th>待材料激活</th><td>查看解析、批量补传、材料规则速查</td><td>可补当前规则缺失的必填和非必填材料；必填材料齐全并复核通过后自动生效。</td></tr>
-            <tr><th>材料待补</th><td>查看解析、批量补传、材料规则速查</td><td>案件已生效，仅允许补传规则中配置为非必填的材料。</td></tr>
-            <tr><th>导入失败</th><td>查看解析、失败原因、错误明细、批量补传</td><td>不生成案件；上传修正版订单文件和材料包后重新解析。</td></tr>
-            <tr><th>重复待处理</th><td>查看解析、处理重复、确认跳过</td><td>已有案件已分配或已流转，不展示订单覆盖按钮。</td></tr>
-            <tr><th>未匹配材料</th><td>文件预览/下载、重新识别、批量补传</td><td>本期不做人工绑定或删除；可重新识别或上传整理后的文件让系统识别。</td></tr>
+            <tr><th>订单结果</th><td>导出当前筛选订单明细、批量补传、查看解析</td><td>上传订单Excel可新增本批次订单或重传失败订单；查看解析为只读。</td></tr>
+            <tr><th>待补材料</th><td>导出当前筛选待补材料明细、勾选材料、批量补传、材料规则速查</td><td>上传材料包补齐材料；必填材料补齐复核通过后自动生效，已生效订单仅补非必填材料。</td></tr>
+            <tr><th>异常文件</th><td>导出当前筛选异常文件明细、文件预览/下载、勾选文件、批量补传</td><td>上传订单Excel或规范材料包后，可勾选同步重新识别历史异常文件；不支持人工绑定、重新绑定或逐条重试。</td></tr>
           </tbody>
         </table>
       </section>
@@ -1213,7 +1212,7 @@
         <thead><tr><th style="width:260px">工作表</th><th>内容</th><th>关键限制</th></tr></thead>
         <tbody>
           <tr><td>案件导入模板</td><td>按《法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx》清理后的字段顺序展示，共70列：订单编号、父订单编号、姓名、身份证号、户籍地（省/市/区）、违约日、正常封顶金额、活动后封顶金额、债权金额、快递公司、物流轨迹信息、初始保证金等。</td><td>这是唯一需要资产方填写的导入明细Sheet；不再拆分订单基础信息、用户信息、物流信息等多个Sheet。</td></tr>
-          <tr><td>字段映射说明</td><td>中文标题、字段类型、是否必填、填写说明、校验说明、填写示例</td><td>只作查看说明，不填写；用于业务、测试核对错误明细和字段口径</td></tr>
+          <tr><td>字段映射说明</td><td>中文标题、字段类型、是否必填、填写说明、校验说明、填写示例</td><td>只作查看说明，不填写；用于业务、测试核对下载明细和字段口径</td></tr>
           <tr><td>文件材料清单</td><td>二期材料包上传和解析规划说明</td><td>一期不作为上传要求，不阻断Excel导入</td></tr>
           <tr><td>导入规则配置说明</td><td>模板字段启用规则、默认值/计算规则、还款计划合并规则</td><td>一期按既定模板和固定校验口径导入；二期再做可配置规则</td></tr>
           <tr><td>导入说明</td><td>模板口径、页面字段、金额口径、日期口径、上传要求</td><td>用于运营和资产方核对导入前准备要求</td></tr>
@@ -1239,7 +1238,7 @@
           <table>
             <thead><tr><th>结果类型</th><th>说明</th><th>处理方式</th></tr></thead>
             <tbody>
-              <tr><td>导入成功</td><td>字段校验通过</td><td>生成案件并生效，进入待委外队列；不支持导出要素表和法诉材料</td></tr>
+              <tr><td>导入成功</td><td>字段校验通过</td><td>生成案件并生效，进入待委外队列；一期历史案件可在二期补充材料包</td></tr>
               <tr><td>导入失败</td><td>必填缺失、格式错误、金额异常、主续关系异常等</td><td>按失败分类修正Excel后重新导入</td></tr>
               <tr><td>同批次覆盖</td><td>同批次再次导入且订单仍在待分配</td><td>以后传Excel为准覆盖字段，明细保留订单最新处理结果</td></tr>
               <tr><td>重复拦截</td><td>订单已在其他批次导入，或同批次订单已流转不可覆盖</td><td>明细提示已存在批次号，或提示“该订单已流转，无法再次导入”</td></tr>
@@ -1248,7 +1247,7 @@
           <div class="submit-note" style="margin-top:10px">点击“导入”后系统异步处理并返回列表展示导入中；处理完成后点击“下载明细”核对当前批次全量最新结果。</div>
         </div>
       </div>
-      <div class="submit-note">模板只填写资产方能提供的订单明细；页面外部资产方、导入规则、债权接收主体、债权总额、债权对价和批次号由法诉系统维护。一期字段校验通过即生成并生效进入待委外，但导入案件不支持导出要素表和导出法诉材料。</div>
+      <div class="submit-note">模板只填写资产方能提供的订单明细；页面外部资产方、导入规则、债权接收主体、债权总额、债权对价和批次号由法诉系统维护。一期字段校验通过即生成并生效进入待委外；历史案件可在二期补充材料包，法诉材料导出仍由法诉材料模块承接。</div>
     </div>
     <div class="modal-foot"><button onclick="closeModal('templateModal')">关闭</button><a class="btn primary" href="./法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx" download>下载模板</a></div>
   </div>
@@ -1286,7 +1285,7 @@
           <tr><td>身份信息</td><td><div class="file-link-list"><div class="file-link-row"><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_人像面_01.jpg')">26012915050167612327_人像面_01.jpg</a></div><div class="file-link-row"><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_国徽面_01.jpg')">26012915050167612327_国徽面_01.jpg</a></div><div class="file-link-row"><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_活体识别照片_01.jpg')">26012915050167612327_活体识别照片_01.jpg</a></div></div></td><td><span class="tag ok">通过</span></td><td>身份信息默认必填，缺失时该订单导入失败。</td></tr>
           <tr><td>补充合同</td><td><div class="file-link-list"><div class="file-link-row"><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_补充合同_01.pdf')">26012915050167612327_补充合同_01.pdf</a></div></div></td><td><span class="tag ok">通过</span></td><td>按当前规则配置校验必填/非必填。</td></tr>
           <tr><td>物流信息</td><td>路由详情图未上传</td><td><span class="tag warn">提示</span></td><td>非必填材料缺失只提示，不阻断订单生成。</td></tr>
-          <tr><td>未匹配材料</td><td>-</td><td><span class="tag ok">无</span></td><td>无法识别订单或材料类别的文件进入未匹配材料池。</td></tr>
+          <tr><td>异常文件</td><td>-</td><td><span class="tag ok">无</span></td><td>无法识别订单或材料类别的文件进入异常文件页签。</td></tr>
         </tbody></table>
       </div>
       <div class="parse-pane" data-parse-pane="result">
@@ -1391,31 +1390,32 @@
 
 <div id="batchSupplementModal" class="modal-mask">
   <div class="modal">
-    <div class="modal-head"><span>批量补传</span><button onclick="closeModal('batchSupplementModal')">×</button></div>
+    <div class="modal-head"><span id="batchSupplementTitle">批量补传</span><button onclick="closeModal('batchSupplementModal')">×</button></div>
     <div class="modal-body">
-      <div class="form-grid" style="grid-template-columns:1fr 1fr;padding:0">
-        <label><span>批次号</span><div class="field-box"><div class="input" id="batchSupplementNo">DR202606100001</div><div class="limit">默认加载当前页面批次号，可按业务需要调整。</div></div></label>
-        <label><span>处理场景</span><div class="field-box"><div class="select" id="batchSupplementScene" data-options="导入失败订单|待补传材料|未匹配材料">待补传材料<b>⌄</b></div><div class="enum">导入失败订单 / 待补传材料 / 未匹配材料</div><div class="limit" id="batchSupplementHint">当前页签决定可上传文件和自动处理结果。</div></div></label>
+      <div class="batch-topline">
+        <div class="batch-top-item"><b>批次号</b><div class="batch-top-value" id="batchSupplementNo">DR202606100001</div><small>自动带入当前处理详情的批次号。</small></div>
+        <div class="batch-top-item batch-top-summary"><b>本次上传</b><div class="batch-top-value" id="batchSupplementScope">订单Excel、材料包可任选其一或同时上传</div><small id="batchSupplementHint">同一批次支持多次补传；至少上传一个文件。</small></div>
       </div>
-      <div class="batch-upload-grid">
-        <div class="upload-card">
-          <h4>上传订单</h4>
-          <p id="orderUploadTip">非必填。用于导入失败订单修正，或辅助系统重新识别未匹配材料归属。</p>
+      <div class="batch-upload-grid" id="batchUploadGrid">
+        <div class="upload-card" id="orderUploadCard">
+          <h4>上传订单Excel <span class="tag gray" id="orderUploadStatus">可选</span></h4>
+          <p id="orderUploadTip">用于新增本批次订单、重新导入失败订单，或补充异常文件重新识别所需的订单信息。</p>
           <button class="primary" onclick="markBatchUpload('order')">选择订单文件</button>
-          <div class="file-row"><span id="orderUploadFile">未上传</span><span class="tag gray" id="orderUploadStatus">非必填</span></div>
-          <div class="limit">支持xlsx/xls；订单编号需与材料文件名中的订单编号一致。</div>
+          <div class="file-row"><span id="orderUploadFile">未上传</span></div>
+          <div class="limit">支持xlsx/xls，单个文件最多500条订单；同一订单按本批次覆盖规则处理。</div>
         </div>
-        <div class="upload-card">
-          <h4>上传材料</h4>
-          <p id="materialUploadTip">建议上传。待补传场景只受理当前规则中配置为非必填的材料，不提供单条上传或人工绑定。</p>
+        <div class="upload-card" id="materialUploadCard">
+          <h4>上传材料包 <span class="tag gray" id="materialUploadStatus">可选</span></h4>
+          <p id="materialUploadTip">用于补齐缺失材料，也可上传整理后的材料包，重新匹配此前异常文件。</p>
           <button class="primary" onclick="markBatchUpload('material')">选择材料包</button>
-          <div class="file-row"><span id="materialUploadFile">未上传</span><span class="tag gray" id="materialUploadStatus">待上传</span></div>
-          <div class="limit">支持zip/rar/7z/pdf/jpg/png；材料包按“订单编号_姓名/订单编号_材料名称_序号.扩展名”整理。</div>
+          <div class="file-row"><span id="materialUploadFile">未上传</span></div>
+          <div class="limit">仅支持zip、rar、7z；不支持单个文件上传或人工绑定。</div>
         </div>
       </div>
-      <div class="submit-note">上传订单和上传材料至少上传一个，也可以两个都上传。提交后系统按当前批次重新解析：导入失败订单用修正版订单文件重新校验；待材料激活订单可补当前规则缺失的必填和非必填材料，复核通过后自动生效；已生效订单只匹配非必填材料；未匹配材料只通过批量补传或重新识别处理，不支持人工绑定。</div>
+      <div class="batch-option"><label><input id="reidentifyHistoryFiles" type="checkbox" checked><span><b>同步重新识别本批次历史异常文件</b><small>仅在本次上传订单Excel、材料包，或规则已更新时才可能产生新的识别结果；原文件不会被修改。</small></span></label></div>
+      <div class="submit-note" id="batchSupplementNote">仅订单Excel：新增或重传订单；仅材料包：补齐材料或重新上传规范材料；两者同时上传：按本次订单和材料一起解析。补齐必填材料并复核通过后，待材料激活案件自动生效。</div>
     </div>
-    <div class="modal-foot"><button onclick="closeModal('batchSupplementModal')">取消</button><button class="primary" onclick="submitBatchSupplement()">提交</button></div>
+    <div class="modal-foot"><button onclick="closeModal('batchSupplementModal')">取消</button><button class="primary" id="batchSupplementSubmitBtn" onclick="submitBatchSupplement()">提交补传</button></div>
   </div>
 </div>
 
@@ -1545,13 +1545,13 @@
       <table>
         <thead><tr><th>步骤</th><th>处理方式</th><th>说明</th></tr></thead>
         <tbody>
-          <tr><td>1</td><td>处理订单问题</td><td>字段失败订单上传修正版Excel；重复订单仍按未分配自动覆盖、已分配不覆盖的规则处理。</td></tr>
-          <tr><td>2</td><td>批量补传</td><td>一级文件夹按订单编号_姓名整理，二级材料文件按订单编号_材料名称_序号整理；不提供单个文件上传或人工绑定。</td></tr>
-          <tr><td>3</td><td>系统重新识别</td><td>无法识别归属或类别的文件进入未匹配材料；点击重新识别或上传整理后的材料包后由系统再次解析。</td></tr>
-          <tr><td>4</td><td>自动生效</td><td>待材料激活订单补齐必填材料后触发复核，复核通过自动变为已生效并进入待委外；非必填材料补齐只刷新材料完整度。</td></tr>
+          <tr><td>1</td><td>处理订单问题</td><td>字段失败订单通过批量补传上传修正版Excel；重复订单按未分配自动覆盖、已分配不覆盖的规则处理。</td></tr>
+          <tr><td>2</td><td>批量补传</td><td>一级文件夹按订单编号_姓名整理，二级材料文件按订单编号_材料名称_序号整理。</td></tr>
+          <tr><td>3</td><td>系统重新识别</td><td>无法识别归属的文件进入未匹配材料池；运营可点击“重新识别”，系统按当前规则和订单信息再次解析，不做人工绑定。</td></tr>
+          <tr><td>4</td><td>状态更新</td><td>批量补传后系统自动刷新材料完整度；非必填材料补齐后从待补传材料清单移除。</td></tr>
         </tbody>
       </table>
-      <div class="submit-note">未匹配材料不代表材料无效，只是系统未能自动识别所属订单或材料类别；本期不在列表内人工绑定，统一通过重新识别或批量补传重新解析。</div>
+      <div class="submit-note">未匹配材料不代表材料无效，只是系统未能自动识别所属订单；本期不做人工绑定，运营可重新识别或上传整理后的材料包后再次解析。</div>
     </div>
     <div class="modal-foot"><button onclick="closeModal('supplementHelpModal')">关闭</button></div>
   </div>
@@ -1564,14 +1564,14 @@
       <table>
         <thead><tr><th>标准材料类别</th><th>资产方材料名称</th><th>必填材料名称</th><th>影响</th><th>处理建议</th></tr></thead>
         <tbody>
-          <tr><td>电子签章授权书</td><td>电子签章授权书、电子签章授权书验签截图</td><td><span class="tag bad">电子签章授权书</span> <span class="tag bad">电子签章授权书验签截图</span></td><td>字段通过后创建待材料激活案件；补齐并复核通过后自动生效</td><td>可随初始材料包或批量补传材料包补齐</td></tr>
-          <tr><td>主合同</td><td>租赁服务合同、租赁服务合同验签报告</td><td><span class="tag bad">租赁服务合同</span> <span class="tag bad">租赁服务合同验签报告</span></td><td>字段通过后创建待材料激活案件；补齐并复核通过后自动生效</td><td>每个资产方至少配置一个主合同必填名称</td></tr>
-          <tr><td>合同附件</td><td>合同附件-1、合同附件-2、附件协议</td><td><span class="tag bad">合同附件-1</span></td><td>按具体材料名称的必填标记判断是否阻断导入</td><td>在添加材料名称时指定哪一份是必填</td></tr>
+          <tr><td>电子签章授权书</td><td>电子签章授权书、电子签章授权书验签截图</td><td><span class="tag bad">电子签章授权书</span> <span class="tag bad">电子签章授权书验签截图</span></td><td>缺失时订单为待材料激活，不进入待委外</td><td>在材料补充页勾选后批量上传材料包补齐</td></tr>
+          <tr><td>主合同</td><td>租赁服务合同、租赁服务合同验签报告</td><td><span class="tag bad">租赁服务合同</span> <span class="tag bad">租赁服务合同验签报告</span></td><td>缺失时订单为待材料激活，不进入待委外</td><td>每个资产方至少配置一个主合同必填名称</td></tr>
+          <tr><td>合同附件</td><td>合同附件-1、合同附件-2、附件协议</td><td><span class="tag bad">合同附件-1</span></td><td>按具体材料名称的必填标记判断是否待材料激活</td><td>在添加材料名称时指定哪一份是必填</td></tr>
           <tr><td>补充合同</td><td>补充合同、补充协议</td><td><span class="tag gray">无</span></td><td>非必填缺失仅提示，不阻断导入和案件生效</td><td>与合同附件分开归类，便于后续要素表和材料导出</td></tr>
           <tr><td>担保合同</td><td>担保合同、保证合同、担保补充约定</td><td><span class="tag gray">无</span></td><td>非必填缺失仅提示</td><td>需要强校验时，将对应资产方材料名称改为必填</td></tr>
           <tr><td>身份信息</td><td>人像面、国徽面、活体识别照片</td><td><span class="tag bad">人像面</span> <span class="tag bad">国徽面</span> <span class="tag bad">活体识别照片</span></td><td>身份信息默认必填</td><td>身份证人像面、国徽面、人脸识别照等别名都归入身份信息</td></tr>
           <tr><td>物流信息</td><td>路由详情图、运单信息图、签收底单图、电子存根图</td><td><span class="tag gray">无</span></td><td>用于完善证据链，不阻断</td><td>有则补传，未识别时进入未匹配材料池</td></tr>
-          <tr><td>订单信息</td><td>订单详情、账单详情</td><td><span class="tag gray">无</span></td><td>用于核对债权金额和订单明细</td><td>不阻断导入；作为订单材料归档</td></tr>
+          <tr><td>订单信息</td><td>订单详情-账单、订单详情-物流、账单详情</td><td><span class="tag bad">订单详情-账单</span> <span class="tag bad">账单详情</span></td><td>缺少订单详情-账单或账单详情时，订单待材料激活；订单详情-物流为非必填</td><td>在材料补充页上传材料包补齐；三项均按精确匹配识别</td></tr>
           <tr><td>短信记录</td><td>短信记录、短信发送明细</td><td><span class="tag gray">无</span></td><td>用于补充催收触达证据</td><td>非必填，按业务需要配置</td></tr>
           <tr><td>其它材料</td><td>其它材料</td><td><span class="tag gray">无</span></td><td>用于承接暂未归类的材料</td><td>后续如形成稳定口径，可再新增标准类别</td></tr>
         </tbody>
@@ -1605,7 +1605,7 @@
   <div class="modal wide">
     <div class="modal-head"><span id="materialNameTitle">配置资产方材料名称</span><button onclick="closeModal('materialNameModal')">×</button></div>
     <div class="modal-body">
-      <div class="notice" style="margin:0 0 14px">标准材料类别由系统固定，资产方材料名称可以按外部资产方自己的文件命名维护。添加名称时可指定是否必填和匹配模式；字段通过但必填名称缺失时创建待材料激活案件，补齐并复核通过后自动生效；非必填名称缺失时进入材料待补。</div>
+      <div class="notice" style="margin:0 0 14px">标准材料类别由系统固定，资产方材料名称可以按外部资产方自己的文件命名维护。添加名称时可指定是否必填和匹配模式；被标记为必填的名称缺失时订单待材料激活，非必填名称缺失时进入材料补充页。</div>
       <div class="form-grid material-name-form" style="padding:0 0 16px">
         <label><span>标准材料类别</span><div class="field-box"><div class="input" id="materialNameCategory">主合同</div></div></label>
         <label><span>资产方材料名称</span><div class="field-box"><div class="input" id="materialNameInput" contenteditable="true">租赁服务合同验签报告</div><div class="limit">可直接修改后点击“添加名称”；同一名称不能归属多个标准材料类别。</div></div></label>
@@ -1619,7 +1619,7 @@
           <tr><td><input type="checkbox" checked></td><td>租赁服务合同验签报告</td><td><div class="select table-select" data-options="必填|非必填">必填<b>⌄</b></div></td><td><div class="select table-select" data-options="精确|包含">包含<b>⌄</b></div></td><td>主合同</td><td>主合同验签材料</td></tr>
         </tbody>
       </table>
-      <div class="submit-note">保存后，材料包中出现这些名称时，会按配置的匹配模式自动归类到当前标准材料类别；被标记为必填的名称缺失时订单导入失败，非必填名称缺失时进入待补传材料清单。</div>
+      <div class="submit-note">保存后，材料包中出现这些名称时，会按配置的匹配模式自动归类到当前标准材料类别；被标记为必填的名称缺失时订单待材料激活，非必填名称缺失时进入材料补充页。</div>
     </div>
     <div class="modal-foot"><button onclick="closeModal('materialNameModal')">取消</button><button onclick="addMaterialNameRow()">添加名称</button><button class="primary" onclick="saveMaterialNames()">保存</button></div>
   </div>
@@ -1728,9 +1728,6 @@
           item.addEventListener('click', function(e){
             e.stopPropagation();
             setSelectValue(select, option);
-            if(select.id === 'batchSupplementScene'){
-              updateBatchSupplementScene(option);
-            }
             closeSelectMenus();
           });
           menu.appendChild(item);
@@ -1818,12 +1815,7 @@
   });
   document.querySelectorAll('[data-supp-tab]').forEach(function(btn){
     btn.addEventListener('click', function(){
-      var target = btn.getAttribute('data-supp-tab');
-      currentSupplementTab = target;
-      document.querySelectorAll('[data-supp-tab]').forEach(function(item){ item.classList.toggle('active', item === btn); });
-      document.getElementById('orderProcessingPane').classList.toggle('active', target === 'orders');
-      document.getElementById('missingPane').classList.toggle('active', target === 'missing');
-      document.getElementById('unmatchedPane').classList.toggle('active', target === 'unmatched');
+      setDetailWorkTab(btn.getAttribute('data-supp-tab'));
     });
   });
   document.querySelectorAll('[data-parse-tab]').forEach(function(btn){
@@ -2331,7 +2323,7 @@
       '担保合同': [['担保合同','非必填','担保类材料'], ['保证合同','非必填','资产方常见名称'], ['担保补充约定','非必填','可作为补充证明']],
       '身份信息': [['人像面','必填','身份信息人像面'], ['国徽面','必填','身份信息国徽面'], ['活体识别照片','必填','活体或人脸识别材料']],
       '物流信息': [['路由详情图','非必填','物流轨迹证明'], ['运单信息图','非必填','物流单据证明'], ['签收底单图','非必填','签收证明'], ['电子存根图','非必填','运单辅助证明']],
-      '订单信息': [['订单详情','非必填','订单明细材料'], ['账单详情','非必填','账单核对材料']],
+      '订单信息': [['订单详情-账单','必填','订单账单明细'], ['订单详情-物流','非必填','订单物流明细'], ['账单详情','必填','账单核对材料']],
       '短信记录': [['短信记录','非必填','催收触达证据'], ['短信发送明细','非必填','资产方常见名称']],
       '其它材料': [['其它材料','非必填','暂未归类材料']]
     };
@@ -2368,7 +2360,7 @@
     document.getElementById('materialNameCategory').innerText = category;
     document.getElementById('materialNameInput').innerText = category === '主合同' ? '租赁服务合同验签报告' : category + '材料';
     setSelectValue(document.getElementById('materialNameRequired'), ['物流信息','订单信息','短信记录','其它材料','担保合同','补充合同'].indexOf(category) >= 0 ? '非必填' : '必填');
-    setSelectValue(document.getElementById('materialNameMatchMode'), '包含');
+    setSelectValue(document.getElementById('materialNameMatchMode'), '精确');
     renderMaterialNameModalRows(category);
     openModal('materialNameModal');
   }
@@ -2376,7 +2368,7 @@
     var chip = document.createElement('span');
     chip.className = 'chip';
     var emClass = required === '必填' ? '' : ' class="optional"';
-    var match = matchMode || '包含';
+    var match = matchMode || '精确';
     var matchClass = match === '精确' ? 'exact' : 'include';
     chip.innerHTML = name + '<em' + emClass + '>' + required + '</em><i class="' + matchClass + '">' + match + '</i>';
     return chip;
@@ -2396,7 +2388,7 @@
       mode = document.createElement('i');
       chip.insertBefore(mode, chip.querySelector('b'));
     }
-    mode.textContent = matchMode || '包含';
+    mode.textContent = matchMode || '精确';
     mode.className = matchMode === '精确' ? 'exact' : 'include';
   }
   function getMaterialChipMatchMode(chip){
@@ -2406,6 +2398,27 @@
   function getMaterialChipName(chip){
     var textNode = Array.from(chip.childNodes).find(function(node){ return node.nodeType === Node.TEXT_NODE; });
     return textNode ? textNode.textContent.trim() : chip.textContent.replace('×','').replace('必填','').replace('非必填','').replace('精确','').replace('包含','').trim();
+  }
+  function refreshMaterialRuleSummaries(){
+    document.querySelectorAll('.material-config-table tbody tr').forEach(function(row){
+      var chipBox = row.querySelector('.chip-box');
+      var category = row.querySelector('.inline-select');
+      if(!chipBox || !category){ return; }
+      chipBox.querySelectorAll('.chip i').forEach(function(mode){
+        mode.textContent = '精确';
+        mode.className = 'exact';
+      });
+      var requiredCount = Array.from(chipBox.querySelectorAll('.chip em')).filter(function(mark){
+        return mark.textContent.trim() === '必填';
+      }).length;
+      var summary = category.querySelector('.material-required-summary');
+      if(!summary){
+        summary = document.createElement('small');
+        summary.className = 'material-required-summary';
+        category.appendChild(summary);
+      }
+      summary.innerText = requiredCount ? requiredCount + '项必填' : '无必填项';
+    });
   }
   function renderRequiredMaterialCell(chipBox){
     var row = chipBox.closest('tr');
@@ -2423,7 +2436,7 @@
     var requiredSelect = document.getElementById('materialNameRequired');
     var required = requiredSelect ? getSelectText(requiredSelect) : '必填';
     var matchSelect = document.getElementById('materialNameMatchMode');
-    var matchMode = matchSelect ? getSelectText(matchSelect) : '包含';
+    var matchMode = matchSelect ? getSelectText(matchSelect) : '精确';
     var table = document.querySelector('#materialNameModal tbody');
     if(table){
       var category = document.getElementById('materialNameCategory').innerText || '-';
@@ -2442,7 +2455,7 @@
         var name = item.closest('tr').children[1].innerText;
         var selects = item.closest('tr').querySelectorAll('.select');
         var required = selects[0] ? getSelectText(selects[0]) : '必填';
-        var matchMode = selects[1] ? getSelectText(selects[1]) : '包含';
+        var matchMode = selects[1] ? getSelectText(selects[1]) : '精确';
         var exists = Array.from(pendingMaterialNameTarget.querySelectorAll('.chip')).find(function(chip){
           return getMaterialChipName(chip) === name;
         });
@@ -2455,6 +2468,7 @@
         }
       });
       renderRequiredMaterialCell(pendingMaterialNameTarget);
+      refreshMaterialRuleSummaries();
     }
     closeModal('materialNameModal');
     showToast('资产方材料名称已保存');
@@ -2678,64 +2692,128 @@
   function setSupplementScope(batchNo, loanNo){
     var tip = document.getElementById('supplementScopeTip');
     if(tip){
-      tip.innerText = '当前按批次 ' + (batchNo || currentBatchNo) + ' 展示待补传材料；待材料激活订单可补必填和非必填材料，已生效订单仅可补非必填材料，运营统一点击“批量补传”上传。';
+      tip.innerText = loanNo
+        ? '当前仅聚焦订单 ' + loanNo + ' 的缺失材料；勾选后批量上传材料包，系统自动识别，不支持单个文件上传或人工绑定。'
+        : '当前展示批次 ' + (batchNo || currentBatchNo) + ' 的缺失材料；勾选后批量上传材料包，系统自动识别，不支持单个文件上传或人工绑定。';
       tip.classList.add('show');
     }
   }
+  function setDetailWorkTab(target){
+    currentSupplementTab = target;
+    document.querySelectorAll('[data-supp-tab]').forEach(function(item){
+      item.classList.toggle('active', item.getAttribute('data-supp-tab') === target);
+    });
+    document.getElementById('orderProcessingPane').classList.toggle('active', target === 'orders');
+    document.getElementById('missingPane').classList.toggle('active', target === 'missing');
+    document.getElementById('unmatchedPane').classList.toggle('active', target === 'unmatched');
+    var download = document.getElementById('detailDownloadBtn');
+    if(download){
+      var exportConfig = {
+        orders: { href:'./法诉案件导入_订单处理明细.xlsx', label:'导出当前筛选订单明细', toast:'已导出当前筛选订单明细' },
+        missing: { href:'./法诉案件导入_待补材料明细.xlsx', label:'导出当前筛选待补材料明细', toast:'已导出当前筛选待补材料明细' },
+        unmatched: { href:'./法诉案件导入_异常文件明细.xlsx', label:'导出当前筛选异常文件明细', toast:'已导出当前筛选异常文件明细' }
+      }[target];
+      download.href = exportConfig.href;
+      download.innerText = exportConfig.label;
+      download.setAttribute('data-export-toast', exportConfig.toast);
+      download.style.display = '';
+    }
+  }
+  function showDetailExportToast(){
+    var button = document.getElementById('detailDownloadBtn');
+    showToast(button ? button.getAttribute('data-export-toast') || '已导出当前筛选明细' : '已导出当前筛选明细');
+  }
   function goSupplementForBatch(){
-    currentSupplementTab = 'missing';
     switchTab('detail');
     setSupplementScope(currentBatchNo, '');
-    document.querySelectorAll('[data-supp-tab]').forEach(function(item){ item.classList.toggle('active', item.getAttribute('data-supp-tab') === 'missing'); });
-    document.getElementById('orderProcessingPane').classList.remove('active');
-    document.getElementById('missingPane').classList.add('active');
-    document.getElementById('unmatchedPane').classList.remove('active');
+    setDetailWorkTab('missing');
   }
-  function updateBatchSupplementScene(scene){
-    var hint = document.getElementById('batchSupplementHint');
-    var orderTip = document.getElementById('orderUploadTip');
-    var materialTip = document.getElementById('materialUploadTip');
-    var orderStatus = document.getElementById('orderUploadStatus');
-    var materialStatus = document.getElementById('materialUploadStatus');
-    if(scene === '导入失败订单'){
-      if(hint){ hint.innerText = '当前场景用于重新处理导入失败订单，订单文件必填，材料包按需同步上传。'; }
-      if(orderTip){ orderTip.innerText = '必填。只放本次需要重新导入的失败订单，字段按最终Excel模板填写。'; }
-      if(materialTip){ materialTip.innerText = '非必填。失败订单涉及必填材料缺失时，建议同步上传完整材料包。'; }
-      if(orderStatus){ orderStatus.innerText = batchUploadState.order ? '已上传' : '必填'; }
-      if(materialStatus){ materialStatus.innerText = batchUploadState.material ? '已上传' : '非必填'; }
-      return;
-    }
-    if(scene === '未匹配材料'){
-      if(hint){ hint.innerText = '当前场景用于批量重新识别未匹配材料，上传订单或材料至少一个。'; }
-      if(orderTip){ orderTip.innerText = '建议上传。用于补充订单编号、姓名等信息，辅助系统重新识别材料归属。'; }
-      if(materialTip){ materialTip.innerText = '非必填。也可以重新上传整理后的材料包，由系统按规则再次解析。'; }
-      if(orderStatus){ orderStatus.innerText = batchUploadState.order ? '已上传' : '待上传'; }
-      if(materialStatus){ materialStatus.innerText = batchUploadState.material ? '已上传' : '非必填'; }
-      return;
-    }
-    if(hint){ hint.innerText = '当前场景用于补充待材料激活订单的缺失必填材料，或已生效订单的非必填材料；系统按当前订单状态自动限制可补范围。'; }
-    if(orderTip){ orderTip.innerText = '非必填。用于辅助订单定位或差异比对，不覆盖系统已有订单字段。'; }
-    if(materialTip){ materialTip.innerText = '必填。上传材料包后系统自动识别；待材料激活订单补齐必填材料并复核通过后自动生效，不提供单条上传或人工绑定。'; }
-    if(orderStatus){ orderStatus.innerText = batchUploadState.order ? '已上传' : '非必填'; }
-    if(materialStatus){ materialStatus.innerText = batchUploadState.material ? '已上传' : '必填'; }
+  function goSupplementForLoan(loanNo){
+    switchTab('detail');
+    setSupplementScope(currentBatchNo, loanNo);
+    setDetailWorkTab('missing');
   }
-  function openBatchSupplementModal(scene){
+  function selectedCount(selector){
+    return document.querySelectorAll(selector + ':checked').length;
+  }
+  function openRetryFailedOrders(){
+    openBatchSupplementModal();
+  }
+  function openSelectedMaterialSupplement(){
+    openBatchSupplementModal();
+  }
+  function reidentifySelectedFiles(){
+    openBatchSupplementModal();
+  }
+  function openBatchSupplementModalLegacy(scene, count){
     batchUploadState = { order:false, material:false };
     document.getElementById('batchSupplementNo').innerText = currentBatchNo;
     document.getElementById('orderUploadFile').innerText = '未上传';
     document.getElementById('materialUploadFile').innerText = '未上传';
     document.getElementById('orderUploadStatus').className = 'tag gray';
     document.getElementById('materialUploadStatus').className = 'tag gray';
-    var nextScene = scene === 'failed' ? '导入失败订单' : (currentSupplementTab === 'unmatched' ? '未匹配材料' : '待补传材料');
-    setSelectValue(document.getElementById('batchSupplementScene'), nextScene);
-    updateBatchSupplementScene(nextScene);
+    var title = document.getElementById('batchSupplementTitle');
+    var scope = document.getElementById('batchSupplementScope');
+    var hint = document.getElementById('batchSupplementHint');
+    var note = document.getElementById('batchSupplementNote');
+    var submit = document.getElementById('batchSupplementSubmitBtn');
+    var orderCard = document.getElementById('orderUploadCard');
+    var materialCard = document.getElementById('materialUploadCard');
+    var grid = document.getElementById('batchUploadGrid');
+    window.currentBatchAction = scene || 'materials';
+    if(scene === 'failed'){
+      title.innerText = '重新导入失败订单';
+      scope.innerText = '当前批次全部导入失败订单（12条）';
+      hint.innerText = '仅重新处理失败订单，已成功订单不受影响。';
+      document.getElementById('orderUploadTip').innerText = '必填。只上传已修正的失败订单，按最新模板填写。';
+      document.getElementById('materialUploadTip').innerText = '选填。仅当本次同时需要补充材料时上传。';
+      document.getElementById('orderUploadStatus').innerText = '必填';
+      document.getElementById('materialUploadStatus').innerText = '选填';
+      note.innerText = '重新导入只更新本批次失败订单的处理结果；订单字段校验仍不通过时保留失败原因。';
+      submit.innerText = '提交重新导入';
+      orderCard.style.display = '';
+      materialCard.style.display = '';
+      grid.style.gridTemplateColumns = '';
+    }else if(scene === 'unmatched'){
+      title.innerText = '批量重新识别';
+      scope.innerText = '当前选中异常文件（' + (count || 0) + '个）';
+      hint.innerText = '按当前规则和订单信息再次识别已上传文件。';
+      note.innerText = '不提供人工绑定或单个文件上传；无法识别的文件保留在异常文件页签，不影响已生效案件。';
+      submit.innerText = '确认重新识别';
+      orderCard.style.display = 'none';
+      materialCard.style.display = 'none';
+      grid.style.display = 'none';
+    }else if(scene === 'history'){
+      title.innerText = '补充历史材料';
+      scope.innerText = '一期历史批次 DR202605080001';
+      hint.innerText = '首次提交将确认当前适用规则并固化历史材料规则快照。';
+      document.getElementById('materialUploadTip').innerText = '必填。上传历史材料包，系统按当前确认规则解析。';
+      document.getElementById('materialUploadStatus').innerText = '必填';
+      note.innerText = '历史案件继续保持已生效；材料解析完成后，可在法诉材料模块沿用现有能力导出法诉材料。';
+      submit.innerText = '提交材料包';
+      orderCard.style.display = 'none';
+      materialCard.style.display = '';
+      grid.style.display = '';
+      grid.style.gridTemplateColumns = '1fr';
+    }else{
+      title.innerText = '批量补传材料';
+      scope.innerText = '当前选中的待补材料（' + (count || 0) + '项）';
+      hint.innerText = '按勾选材料补传；系统只识别当前规则允许补充的材料。';
+      document.getElementById('materialUploadTip').innerText = '必填。上传一个材料包，系统自动匹配选中的缺失材料。';
+      document.getElementById('materialUploadStatus').innerText = '必填';
+      note.innerText = '补齐必填材料并复核通过后，待材料激活案件自动生效；已生效案件只补非必填材料，不影响后续法诉流程。';
+      submit.innerText = '提交补传';
+      orderCard.style.display = 'none';
+      materialCard.style.display = '';
+      grid.style.display = '';
+      grid.style.gridTemplateColumns = '1fr';
+    }
     openModal('batchSupplementModal');
   }
-  function markBatchUpload(type){
-    var scene = getSelectText(document.getElementById('batchSupplementScene'));
+  function markBatchUploadLegacy(type){
     if(type === 'order'){
       batchUploadState.order = true;
-      document.getElementById('orderUploadFile').innerText = currentBatchNo + '_补传订单.xlsx';
+      document.getElementById('orderUploadFile').innerText = currentBatchNo + '_修正订单.xlsx';
       document.getElementById('orderUploadStatus').className = 'tag ok';
       document.getElementById('orderUploadStatus').innerText = '已上传';
     }else{
@@ -2744,29 +2822,113 @@
       document.getElementById('materialUploadStatus').className = 'tag ok';
       document.getElementById('materialUploadStatus').innerText = '已上传';
     }
-    updateBatchSupplementScene(scene);
   }
-  function submitBatchSupplement(){
-    var scene = getSelectText(document.getElementById('batchSupplementScene'));
-    if(scene === '导入失败订单' && !batchUploadState.order){
-      showToast('导入失败订单需上传修正版订单文件');
+  function submitBatchSupplementLegacy(){
+    var scene = window.currentBatchAction || 'materials';
+    if(scene === 'failed' && !batchUploadState.order){
+      showToast('重新导入失败订单需上传修正版订单文件');
       return;
     }
-    if(scene === '待补传材料' && !batchUploadState.material){
-      showToast('待补传材料需上传材料包');
-      return;
-    }
-    if(!batchUploadState.order && !batchUploadState.material){
-      showToast('请至少上传订单或材料中的一个');
+    if((scene === 'materials' || scene === 'history') && !batchUploadState.material){
+      showToast(scene === 'history' ? '补充历史材料需上传材料包' : '批量补传需上传材料包');
       return;
     }
     closeModal('batchSupplementModal');
-    showToast(scene === '待补传材料' ? '已提交材料补传，系统将重新解析；必填材料补齐并复核通过后自动生效' : '已提交批量补传，系统将重新解析并刷新材料状态');
+    if(scene === 'failed'){
+      showToast('已提交失败订单重新导入，处理完成后刷新订单结果');
+    }else if(scene === 'unmatched'){
+      showToast('已提交异常文件重新识别，处理完成后刷新异常文件列表');
+    }else{
+      showToast('已提交材料包，系统将自动解析并刷新材料状态');
+    }
+  }
+  function getBatchSupplementScope(){
+    if(currentSupplementTab === 'missing'){
+      var materialCount = selectedCount('.missing-material-check');
+      return materialCount ? '当前勾选待补材料（' + materialCount + '项）' : '当前批次待补材料，也可直接上传整包材料';
+    }
+    if(currentSupplementTab === 'unmatched'){
+      var fileCount = selectedCount('.unmatched-file-check');
+      return fileCount ? '当前勾选异常文件（' + fileCount + '个）' : '当前批次异常文件，可在上传后同步重新识别';
+    }
+    var orderCount = selectedCount('#orderProcessingPane tbody input[type="checkbox"]');
+    return orderCount ? '当前勾选订单（' + orderCount + '笔）' : '当前批次新增订单、失败订单和历史异常文件';
+  }
+  function openBatchSupplementModal(scene){
+    batchUploadState = { order:false, material:false };
+    document.getElementById('batchSupplementNo').innerText = currentBatchNo;
+    document.getElementById('orderUploadFile').innerText = '未上传';
+    document.getElementById('materialUploadFile').innerText = '未上传';
+    document.getElementById('orderUploadStatus').className = 'tag gray';
+    document.getElementById('materialUploadStatus').className = 'tag gray';
+    var historyMode = scene === 'history';
+    document.getElementById('batchSupplementTitle').innerText = historyMode ? '补充历史材料' : '批量补传';
+    document.getElementById('batchSupplementScope').innerText = historyMode ? '一期历史批次 DR202605080001' : getBatchSupplementScope();
+    document.getElementById('batchSupplementHint').innerText = historyMode
+      ? '首次提交将确认当前适用规则并固化历史材料规则快照。'
+      : '订单Excel、材料包可任选其一或同时上传；每次订单Excel最多500条。';
+    document.getElementById('batchSupplementNote').innerText = historyMode
+      ? '历史案件继续保持已生效；材料解析完成后，可在法诉材料模块沿用现有能力导出法诉材料。'
+      : '仅订单Excel：新增或重传订单；仅材料包：补齐材料或重新上传规范材料；两者同时上传：按本次订单和材料一起解析。';
+    document.getElementById('batchSupplementSubmitBtn').innerText = historyMode ? '提交材料包' : '提交补传';
+    document.getElementById('orderUploadCard').style.display = historyMode ? 'none' : '';
+    document.getElementById('materialUploadCard').style.display = '';
+    document.getElementById('batchUploadGrid').style.display = '';
+    document.getElementById('batchUploadGrid').style.gridTemplateColumns = historyMode ? '1fr' : '1fr 1fr';
+    document.getElementById('orderUploadTip').innerText = '用于新增本批次订单、重新导入失败订单，或补充异常文件重新识别所需的订单信息。';
+    document.getElementById('materialUploadTip').innerText = historyMode
+      ? '必填。上传历史材料包，系统按当前确认规则解析。'
+      : '用于补齐缺失材料，也可上传整理后的材料包，重新匹配此前异常文件。';
+    document.getElementById('orderUploadStatus').innerText = '可选';
+    document.getElementById('materialUploadStatus').innerText = historyMode ? '必填' : '可选';
+    document.getElementById('reidentifyHistoryFiles').checked = currentSupplementTab === 'unmatched';
+    window.currentBatchAction = historyMode ? 'history' : 'supplement';
+    openModal('batchSupplementModal');
+  }
+  function markBatchUpload(type){
+    if(type === 'order'){
+      batchUploadState.order = true;
+      document.getElementById('orderUploadFile').innerText = currentBatchNo + '_第' + (batchUploadState.material ? '2' : '1') + '次订单.xlsx';
+      document.getElementById('orderUploadStatus').className = 'tag ok';
+      document.getElementById('orderUploadStatus').innerText = '已上传';
+    }else{
+      batchUploadState.material = true;
+      document.getElementById('materialUploadFile').innerText = currentBatchNo + '_第' + (batchUploadState.order ? '2' : '1') + '次材料包.zip';
+      document.getElementById('materialUploadStatus').className = 'tag ok';
+      document.getElementById('materialUploadStatus').innerText = '已上传';
+    }
+  }
+  function submitBatchSupplement(){
+    var isHistory = window.currentBatchAction === 'history';
+    if(!batchUploadState.order && !batchUploadState.material){
+      showToast(isHistory ? '补充历史材料需上传材料包' : '请至少上传订单Excel或材料包');
+      return;
+    }
+    if(isHistory && !batchUploadState.material){
+      showToast('补充历史材料需上传材料包');
+      return;
+    }
+    var syncHistory = document.getElementById('reidentifyHistoryFiles').checked;
+    closeModal('batchSupplementModal');
+    var result = batchUploadState.order && batchUploadState.material
+      ? '已提交订单和材料，系统将按本次文件联合解析'
+      : (batchUploadState.order ? '已提交订单Excel，系统将处理新增和失败订单' : '已提交材料包，系统将匹配并刷新材料状态');
+    if(syncHistory && !isHistory){ result += '，并同步重新识别本批次历史异常文件'; }
+    showToast(result);
   }
   function deleteUnmatchedRow(rowId){
     var row = document.getElementById(rowId);
     if(row){ row.style.display = 'none'; }
     showToast('未匹配材料已删除');
+  }
+  function reidentifyUnmatchedRow(resultId){
+    var result = document.getElementById(resultId);
+    if(result){ result.innerText = '已提交重新识别，系统将按当前规则和订单信息重新解析'; }
+    showToast('已提交重新识别，不提供人工绑定');
+  }
+  function openHistoryMaterialSupplement(){
+    currentBatchNo = 'DR202605080001';
+    openBatchSupplementModal('history');
   }
   function toggleTableChecks(source){
     var table = source.closest('table');
@@ -2843,6 +3005,7 @@
   bindTextLimit('importRemark', 200);
   bindTextLimit('batchRemarkEdit', 200);
   setupSelectDropdowns();
+  refreshMaterialRuleSummaries();
 </script>
 </body>
 </html>
