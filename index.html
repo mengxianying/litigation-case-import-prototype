@@ -681,10 +681,10 @@
           <span class="spacer"></span>
           <span class="tag info">二期恢复完整最终版</span>
         </div>
-        <div class="summary compact"><div class="card">资产总数<b>2,184</b></div><div class="card">案件已生效<b>1,632</b></div><div class="card">待补必填<b>22</b></div><div class="card">导入失败<b>530</b></div></div>
+        <div class="summary compact"><div class="card">资产总数<b>2,184</b></div><div class="card">案件已生效<b>1,632</b></div><div class="card">待材料激活<b>22</b></div><div class="card">导入失败<b>530</b></div></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th rowspan="2" style="width:110px">外部资产方</th><th rowspan="2" style="width:130px">导入批次号</th><th rowspan="2" style="width:165px">批次名称</th><th rowspan="2" style="width:68px">业务类型</th><th rowspan="2" style="width:105px">债权总额</th><th rowspan="2" style="width:105px">债权对价</th><th rowspan="2" style="width:75px">资产总数</th><th colspan="3">案件结果</th><th rowspan="2" style="width:100px">材料处理</th><th rowspan="2" style="width:90px">导入状态</th><th rowspan="2" style="width:130px">首次导入时间</th><th rowspan="2" style="width:180px">操作</th></tr><tr><th style="width:72px">已生效</th><th style="width:82px">待补必填</th><th style="width:72px">导入失败</th></tr></thead>
+            <thead><tr><th rowspan="2" style="width:110px">外部资产方</th><th rowspan="2" style="width:130px">导入批次号</th><th rowspan="2" style="width:165px">批次名称</th><th rowspan="2" style="width:68px">业务类型</th><th rowspan="2" style="width:105px">债权总额</th><th rowspan="2" style="width:105px">债权对价</th><th rowspan="2" style="width:75px">资产总数</th><th colspan="3">案件结果</th><th rowspan="2" style="width:100px">材料处理</th><th rowspan="2" style="width:90px">导入状态</th><th rowspan="2" style="width:130px">首次导入时间</th><th rowspan="2" style="width:180px">操作</th></tr><tr><th style="width:72px">已生效</th><th style="width:94px">待材料激活</th><th style="width:72px">导入失败</th></tr></thead>
             <tbody>
               <tr><td>创新</td><td><button class="text-link" onclick="switchTab('newImportFull')">DR202606150001</button></td><td>创新租赁草稿批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>-</td><td class="result-count result-empty">-</td><td class="result-count result-empty">-</td><td class="result-count result-empty">-</td><td><span class="tag gray">未处理</span></td><td><span class="tag gray">草稿</span></td><td>2026-06-15 10:20:00</td><td><button class="text-link" onclick="switchTab('newImportFull')">继续编辑</button> <button class="text-link danger-link" onclick="openDraftCancelModal()">取消</button></td></tr>
               <tr><td>创新</td><td><button class="text-link" data-jump="detail">DR202606100001</button></td><td>创新租赁通用规则批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>1280</td><td class="result-count result-success">1,246</td><td class="result-count result-pending">22</td><td class="result-count result-failure">12</td><td><span class="tag warn">待补必填</span></td><td><span class="tag ok">导入完成</span></td><td>2026-06-10 20:15:32</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">处理详情</button><button class="text-link" onclick="openDebtAmountModal('main','DR202606100001','创新租赁通用规则批次01','创新','租赁','创新租赁通用规则','襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)','12,036,800.00','8,425,760.00')">编辑</button><a class="text-link" href="./法诉案件导入_批次处理明细.xlsx" download>下载明细</a></div></td></tr>
@@ -746,7 +746,7 @@
           <div class="meta-item"><b>导入规则</b><span>创新租赁通用规则</span></div>
           <div class="meta-item"><b>导入时间</b><span>2026-06-10 20:15:32</span></div>
         </div>
-        <div class="summary compact"><div class="card">已生效<b>1,246</b></div><div class="card">待材料激活<b>22</b></div><div class="card">待补材料项<b>42</b></div><div class="card">导入失败<b>12</b></div><div class="card">异常文件<b>9</b></div></div>
+        <div class="summary compact"><div class="card">案件已生效<b>1,246</b></div><div class="card">待材料激活<b>22</b></div><div class="card">待补材料项<b>42</b></div><div class="card">导入失败<b>12</b></div><div class="card">异常文件<b>9</b></div></div>
         <div class="notice"><b>任务异常 1 条：</b>材料包内存在损坏文件，其他文件已继续解析。请在“批量补传”重新上传修复后的材料包；完整的订单、材料和任务异常记录可在 <a class="text-link" href="./法诉案件导入_批次处理明细.xlsx" download>下载明细</a> 查看。</div>
         <div class="search compact">
           <label><span id="detailFilterOneLabel">订单编号</span><div class="field-box"><div id="detailFilterOneValue" class="input">loanNo，支持模糊查询</div><div class="limit">最多50字符。</div></div></label>
@@ -769,9 +769,9 @@
                 <tr><td><input type="checkbox"></td><td>26012915050167612327</td><td>张三</td><td>12,036.80</td><td>61</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td>已进入待委外</td><td><button class="text-link" onclick="openParseModal('26012915050167612327')">查看解析</button></td></tr>
                 <tr><td><input type="checkbox"></td><td>26012915050167612328</td><td>黄丽</td><td>9,420.00</td><td>54</td><td><span class="tag warn">待材料激活</span></td><td><span class="tag bad">待补必填</span></td><td>缺少主合同，补齐后自动生效</td><td><button class="text-link" onclick="openParseModal('26012915050167612328')">查看解析</button></td></tr>
                 <tr><td><input type="checkbox"></td><td>26012915050167612331</td><td>周强</td><td>8,030.00</td><td>47</td><td><span class="tag ok">已生效</span></td><td><span class="tag warn">待补非必填</span></td><td>可在材料补充页统一处理</td><td><button class="text-link" onclick="openParseModal('26012915050167612331')">查看解析</button></td></tr>
-                <tr><td><input type="checkbox" class="failed-order-check"></td><td>26012915050167612330</td><td>李明</td><td>7,290.00</td><td>35</td><td><span class="tag bad">导入失败</span></td><td>-</td><td>修正Excel后重新导入</td><td><button class="text-link" onclick="openParseModal('26012915050167612330')">查看解析</button> <button class="text-link" onclick="openFailureModal('26012915050167612330')">失败原因</button></td></tr>
+                <tr><td><input type="checkbox" class="failed-order-check"></td><td>26012915050167612330</td><td>李明</td><td>7,290.00</td><td>35</td><td><span class="tag bad">导入失败</span></td><td><span class="tag gray">未生成</span></td><td>修正Excel后重新导入</td><td><button class="text-link" onclick="openParseModal('26012915050167612330')">查看解析</button> <button class="text-link" onclick="openFailureModal('26012915050167612330')">失败原因</button></td></tr>
                 <tr id="duplicateRow1"><td><input type="checkbox"></td><td>26012915050167612332</td><td>王磊</td><td>8,650.00</td><td>43</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td><span id="duplicateResult1" class="tag info">自动覆盖</span><div id="duplicateNote1">字段和同名文件已更新</div></td><td id="duplicateAction1"><button class="text-link" onclick="openParseModal('26012915050167612332')">查看解析</button> <button class="text-link" onclick="showToast('已打开自动覆盖记录')">覆盖记录</button></td></tr>
-                <tr id="duplicateRow2"><td><input type="checkbox"></td><td>26012915050167612333</td><td>赵倩</td><td>6,880.00</td><td>39</td><td><span class="tag ok">已生效</span></td><td>-</td><td><span id="duplicateResult2" class="tag warn">重复待处理</span><div id="duplicateNote2">原案件已分配，属于同批次不可覆盖</div></td><td id="duplicateAction2"><button class="text-link" onclick="openParseModal('26012915050167612333')">查看解析</button> <button class="text-link" onclick="openDuplicateModal('26012915050167612333')">处理重复</button></td></tr>
+                <tr id="duplicateRow2"><td><input type="checkbox"></td><td>26012915050167612333</td><td>赵倩</td><td>6,880.00</td><td>39</td><td><span class="tag ok">已生效</span></td><td><span class="tag gray">未生成</span></td><td><span id="duplicateResult2" class="tag warn">重复待处理</span><div id="duplicateNote2">原案件已分配，属于同批次不可覆盖</div></td><td id="duplicateAction2"><button class="text-link" onclick="openParseModal('26012915050167612333')">查看解析</button> <button class="text-link" onclick="openDuplicateModal('26012915050167612333')">处理重复</button></td></tr>
               </tbody>
             </table>
             <div class="pagination"><span>共 1,258 条</span><button>‹</button><span class="active">1</span><span>2</span><span>3</span><span>4</span><span>5</span><button>›</button><span>10条/页</span></div>
@@ -914,11 +914,22 @@
       <section class="anno-block">
         <h3>状态和操作</h3>
         <p><b>1.</b>导入状态表示批次任务进度：草稿、导入中、导入完成、导入失败、已取消。</p>
-        <p><b>2.</b>案件结果按订单编号去重展示，并以分组表头列明已生效、待补必填、导入失败三个数量；“待补必填”对应详情中的案件状态“待材料激活”。</p>
+        <p><b>2.</b>案件结果按订单编号去重展示，并以分组表头列明已生效、待材料激活、导入失败三个数量；与导入处理详情的“案件状态”完全一致。</p>
         <p><b>3.</b>材料处理只提示下一步：材料齐全、待补必填、待补非必填、待初始化（一期）；未生成表示该批次尚未产生可处理材料。</p>
         <p><b>4.</b>导入完成后进入处理详情，按订单结果、待补材料和异常文件处理；任务级异常在详情顶部提示，并在批次处理明细中完整导出。</p>
         <p><b>5.</b>二期编辑批次信息弹框展示历史上传文件，支持查看资产明细、材料包、失败重传文件的文件名、上传时间和处理结果。</p>
         <p><b>6.</b>草稿批次可继续编辑或取消；导入中不可编辑；导入失败可进入处理详情后通过批量补传重传订单Excel。</p>
+        <h3>字段状态枚举</h3>
+        <table class="button-state-table">
+          <thead><tr><th style="width:130px">列表字段</th><th style="width:230px">枚举值</th><th>取数与处理说明</th></tr></thead>
+          <tbody>
+            <tr><th>案件结果<br>案件状态</th><td>已生效 / 待材料激活 / 导入失败</td><td>主列表按订单编号去重汇总，详情按订单展示。待材料激活表示字段校验通过但缺少必填材料；导入失败表示该订单未生成案件。</td></tr>
+            <tr><th>材料处理<br>材料状态</th><td>未处理 / 未生成 / 材料齐全 / 待补必填 / 待补非必填 / 待初始化（一期）</td><td>未处理仅用于草稿；未生成表示未产出材料处理结果；待补必填阻断案件生效，待补非必填不影响已生效案件；待初始化（一期）需首次补充材料后固化规则快照。</td></tr>
+            <tr><th>导入状态</th><td>草稿 / 导入中 / 导入完成 / 导入失败 / 已取消</td><td>表示批次任务进度，不等同于订单案件状态。导入完成允许存在部分订单导入失败或待材料激活。</td></tr>
+            <tr><th>材料要求</th><td>必填 / 非必填</td><td>必填材料缺失时案件状态为待材料激活；非必填材料缺失仅产生待补材料项。</td></tr>
+            <tr><th>异常文件<br>识别问题</th><td>未识别订单归属 / 未识别材料类别 / 订单不存在或已结清</td><td>异常文件是文件维度，不写入案件状态；通过批量补传订单Excel或规范材料包后重新识别。</td></tr>
+          </tbody>
+        </table>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
@@ -1146,7 +1157,7 @@
         <h3>重点列取数</h3>
         <p><b>1.</b>债权金额取资产明细Excel中的债权金额字段。</p>
         <p><b>2.</b>逾期天数由系统按违约日期自动计算，资产方不需要在Excel中填写。</p>
-        <p><b>3.</b>订单结果同时展示案件状态和材料状态：案件状态为已生效、待材料激活、导入失败；材料状态为材料齐全、待补必填、待补非必填或待初始化（一期）。异常文件是文件维度，不混入订单状态。</p>
+        <p><b>3.</b>订单结果同时展示案件状态和材料状态：案件状态与主列表案件结果一致，为已生效、待材料激活、导入失败；材料状态为未生成、材料齐全、待补必填、待补非必填或待初始化（一期）。异常文件是文件维度，不混入订单状态。</p>
         <p><b>4.</b>处理结果列仅说明当前记录的下一步，例如补齐主合同后自动生效、可在材料补充页统一处理、修正Excel后重新导入。</p>
       </section>
       <section class="anno-block">
