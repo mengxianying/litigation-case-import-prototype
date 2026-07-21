@@ -24,6 +24,15 @@ assert.ok(batchHtml.includes('>导入状态</th>'), '批次任务状态应统一
 assert.ok(/<th[^>]*>已生效<\/th><th[^>]*>待材料激活<\/th><th[^>]*>导入失败<\/th>/.test(batchHtml), '案件结果应与详情案件状态统一为已生效、待材料激活和导入失败');
 assert.ok(!batchHtml.includes('class="case-result compact"'), '案件结果不应使用混合语义的单行摘要');
 assert.ok(html.includes('字段状态枚举'), '主列表右侧备注应列出状态枚举');
+const taskAnnotation = html.match(/<div class="anno-page active" data-anno="taskFull">[\s\S]*?<div class="anno-page" data-anno="newImportFull">/);
+assert.ok(taskAnnotation, '缺少二期案件导入管理备注');
+const taskAnnotationHtml = taskAnnotation[0];
+assert.ok(!taskAnnotationHtml.includes('<tr><th>材料要求</th>'), '状态枚举不应保留材料要求行');
+assert.ok(!taskAnnotationHtml.includes('<tr><th>异常文件<br>识别问题</th>'), '状态枚举不应保留异常文件识别问题行');
+assert.ok(taskAnnotationHtml.includes('<tr><th>导入失败</th><td>处理详情、编辑、下载明细</td>'), '导入失败批次应支持编辑');
+assert.ok(taskAnnotationHtml.includes('一期历史批次<br>待初始化（一期）'), '状态机应说明一期历史批次的操作');
+assert.ok(/DR202606090006[\s\S]*?class="op-actions"[\s\S]*?下载明细/.test(batchHtml), '导入完成行的下载明细应位于固定操作容器内');
+assert.ok(/openDebtAmountModal\('history'/.test(batchHtml), '一期历史批次应提供编辑功能');
 
 const importDetail = html.match(/<section id="detail"[\s\S]*?<section id="stateMachine"/);
 assert.ok(importDetail, '缺少导入处理详情页面');
