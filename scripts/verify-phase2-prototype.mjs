@@ -22,5 +22,8 @@ assert.ok(batchHtml.includes('>案件结果</th>'), '案件结果应合并展示
 assert.ok(batchHtml.includes('>材料处理</th>'), '材料状态应明确为材料处理结果');
 assert.ok(batchHtml.includes('>导入状态</th>'), '批次任务状态应统一命名为导入状态');
 assert.ok(!batchHtml.includes('<th>已生效</th><th>待材料激活</th><th>导入失败</th>'), '不应保留三列并列的案件状态');
+assert.ok(batchHtml.includes('class="case-result compact"'), '案件结果应使用紧凑单行摘要');
+assert.ok(batchHtml.includes('<b>1,246</b><em>已生效</em>'), '案件结果应按“数量 + 标签”展示');
+assert.ok(!batchHtml.includes('<span class="ok"><b>已生效</b><em>1,246</em>'), '案件结果不应继续展示为三块彩色卡片');
 
 console.log('phase2 prototype checks passed');
