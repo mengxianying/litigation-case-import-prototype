@@ -774,6 +774,7 @@
           <div class="meta-item"><b>批次名称</b><span>创新租赁通用规则批次01</span></div>
           <div class="meta-item"><b>外部资产方 / 业务类型</b><span>创新 / 租赁</span></div>
           <div class="meta-item"><b>债权接收主体</b><span>襄阳鸿飞企业管理有限公司</span></div>
+          <div class="meta-item"><b>债权出让主体</b><span>湖北创新融资租赁有限公司</span></div>
           <div class="meta-item"><b>债权总额</b><span>12,036,800.00</span></div>
           <div class="meta-item"><b>债权对价</b><span>8,425,760.00</span></div>
           <div class="meta-item"><b>导入规则</b><span>创新租赁通用规则</span></div>
@@ -943,9 +944,9 @@
               <tr><th>案件导入管理</th><td>二期批次</td><td>草稿/导入完成/导入失败</td><td>继续编辑、处理详情、编辑、下载明细</td><td>导入状态、案件结果和材料处理分开展示；下载明细包含订单、材料和任务级异常。</td></tr>
               <tr><th>新建导入批次</th><td>二期新建</td><td>新建/草稿</td><td>上传资产明细、上传材料包、下载模板、模板说明、保存草稿、导入、取消</td><td>首次导入时资产明细和材料包均必传；材料包未上传整批阻断。</td></tr>
               <tr><th>导入处理详情</th><td>批量补传</td><td>订单结果</td><td>上传订单Excel、上传材料包、同步重新识别、导出订单明细</td><td>同一批次可多次上传，订单Excel单次最多500条；跨批次重复始终阻断。</td></tr>
-              <tr><th>导入处理详情</th><td>材料补传</td><td>待材料激活</td><td>上传材料包、导出待补材料明细</td><td>可补缺失必填和非必填材料；必填补齐并复核通过后自动生效。</td></tr>
-              <tr><th>导入处理详情</th><td>材料补传</td><td>已生效且待补非必填</td><td>上传材料包、导出待补材料明细</td><td>仅允许补非必填材料，不改变案件生效状态。</td></tr>
-              <tr><th>导入处理详情</th><td>异常文件</td><td>存在历史异常文件</td><td>上传订单Excel或材料包、同步重新识别、导出异常文件明细</td><td>不支持人工绑定、重新绑定、单文件上传或空文件重新识别。</td></tr>
+              <tr><th>导入处理详情</th><td>材料补传</td><td>待材料激活</td><td>上传材料包</td><td>可补缺失必填和非必填材料；必填补齐并复核通过后自动生效。</td></tr>
+              <tr><th>导入处理详情</th><td>材料补传</td><td>已生效且待补非必填</td><td>上传材料包</td><td>仅允许补非必填材料，不改变案件生效状态。</td></tr>
+              <tr><th>导入处理详情</th><td>异常文件</td><td>存在历史异常文件</td><td>上传订单Excel或材料包、同步重新识别</td><td>不支持人工绑定、重新绑定、单文件上传或空文件重新识别。</td></tr>
               <tr><th>案件导入管理</th><td>一期历史批次</td><td>待初始化（一期）</td><td>补充历史材料、下载明细</td><td>仅上传材料包；首次提交确认并固化规则快照，不改变案件已生效状态。</td></tr>
               <tr><th>导入规则配置</th><td>二期规则</td><td>规则维护</td><td>查询、新建、编辑、停用</td><td>材料包含规则重叠或材料名称跨类别重复时，保存并启用必须阻断。</td></tr>
             </tbody>
@@ -1307,7 +1308,7 @@
       </section>
       <section class="anno-block">
         <h3>按钮操作</h3>
-        <p><b>1.</b>导出当前筛选明细：按钮随页签切换。订单结果导出订单处理明细；待补材料导出待补材料明细；异常文件导出异常文件明细。勾选记录时导出所选记录，未勾选时导出当前页签筛选结果；该文件不是法诉材料导出。</p>
+        <p><b>1.</b>导出当前筛选订单明细：仅在“订单结果”页签展示。勾选订单时导出所选订单；未勾选时导出当前筛选结果。导出文件固定包含“订单结果、待补材料、异常文件”三个Sheet，其中后两个Sheet展示当前批次的最新材料和异常文件结果；该文件不是法诉材料导出。</p>
         <p><b>2.</b>批量补传：订单Excel、材料包可任选其一或同时上传，至少上传一个；订单Excel用于新增本批次订单、重传失败订单或补充异常文件所需订单信息，材料包用于补齐材料或重新上传规范材料。</p>
         <p><b>3.</b>同步重新识别历史异常文件：在批量补传弹框中按需勾选。系统使用本次上传的订单/材料和当前规则重解析历史异常文件；未上传任何文件时不允许仅重新识别。</p>
         <p><b>4.</b>待材料激活可补必填和非必填材料；已生效订单只补非必填；一期历史批次按固化快照补材料且保持已生效。文件名支持预览/下载，不提供人工绑定、重新绑定或单个文件上传。</p>
@@ -1315,9 +1316,9 @@
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
-            <tr><th>订单结果</th><td>导出当前筛选订单明细、批量补传、查看解析</td><td>上传订单Excel可新增本批次订单或重传失败订单；查看解析为只读。</td></tr>
-            <tr><th>待补材料</th><td>导出当前筛选待补材料明细、勾选材料、批量补传、材料规则速查</td><td>上传材料包补齐材料；必填材料补齐复核通过后自动生效，已生效订单仅补非必填材料。</td></tr>
-            <tr><th>异常文件</th><td>导出当前筛选异常文件明细、文件预览/下载、勾选文件、批量补传</td><td>上传订单Excel或规范材料包后，可勾选同步重新识别历史异常文件；不支持人工绑定、重新绑定或逐条重试。</td></tr>
+            <tr><th>订单结果</th><td>导出当前筛选订单明细、批量补传、查看解析</td><td>导出文件包含订单结果、待补材料、异常文件三个Sheet；上传订单Excel可新增本批次订单或重传失败订单；查看解析为只读。</td></tr>
+            <tr><th>待补材料</th><td>勾选材料、批量补传、材料规则速查</td><td>上传材料包补齐材料；必填材料补齐复核通过后自动生效，已生效订单仅补非必填材料。</td></tr>
+            <tr><th>异常文件</th><td>文件预览/下载、勾选文件、批量补传</td><td>上传订单Excel或规范材料包后，可勾选同步重新识别历史异常文件；不支持人工绑定、重新绑定或逐条重试。</td></tr>
           </tbody>
         </table>
       </section>
@@ -3066,15 +3067,14 @@
     document.getElementById('unmatchedPane').classList.toggle('active', target === 'unmatched');
     var download = document.getElementById('detailDownloadBtn');
     if(download){
-      var exportConfig = {
-        orders: { href:'./法诉案件导入_订单处理明细.xlsx', label:'导出当前筛选订单明细', toast:'已导出当前筛选订单明细' },
-        missing: { href:'./法诉案件导入_待补材料明细.xlsx', label:'导出当前筛选待补材料明细', toast:'已导出当前筛选待补材料明细' },
-        unmatched: { href:'./法诉案件导入_异常文件明细.xlsx', label:'导出当前筛选异常文件明细', toast:'已导出当前筛选异常文件明细' }
-      }[target];
-      download.href = exportConfig.href;
-      download.innerText = exportConfig.label;
-      download.setAttribute('data-export-toast', exportConfig.toast);
-      download.style.display = '';
+      if(target === 'orders'){
+        download.href = './法诉案件导入_订单处理明细.xlsx';
+        download.innerText = '导出当前筛选订单明细';
+        download.setAttribute('data-export-toast', '已导出当前筛选订单明细');
+        download.style.display = '';
+      }else{
+        download.style.display = 'none';
+      }
     }
     var filters = {
       orders: {
