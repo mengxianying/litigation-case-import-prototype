@@ -2783,7 +2783,9 @@
   }
   function confirmCancelEdit(){
     closeModal('cancelEditModal');
-    switchTab('task');
+    var activePage = document.querySelector('.tab-page.active');
+    var returnTab = activePage && activePage.id === 'newImportFull' ? 'taskFull' : 'task';
+    switchTab(returnTab);
     showToast('已取消本次新建导入');
     editingDraft = false;
   }
