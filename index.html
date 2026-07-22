@@ -805,7 +805,7 @@
                 <tr><td><input type="checkbox"></td><td>26012915050167612331</td><td>周强</td><td>8,030.00</td><td>47</td><td><span class="tag ok">已生效</span></td><td><span class="tag warn">待补非必填</span></td><td>可在材料补充页统一处理</td><td><button class="text-link" onclick="openParseModal('26012915050167612331')">查看解析</button></td></tr>
                 <tr><td><input type="checkbox" class="failed-order-check"></td><td>26012915050167612330</td><td>李明</td><td>7,290.00</td><td>35</td><td><span class="tag bad">导入失败</span></td><td><span class="tag gray">未生成</span></td><td>修正Excel后重新导入</td><td><button class="text-link" onclick="openParseModal('26012915050167612330')">查看解析</button> <button class="text-link" onclick="openFailureModal('26012915050167612330')">失败原因</button></td></tr>
                 <tr id="duplicateRow1"><td><input type="checkbox"></td><td>26012915050167612332</td><td>王磊</td><td>8,650.00</td><td>43</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td><span id="duplicateResult1" class="tag info">自动覆盖</span><div id="duplicateNote1">字段和同名文件已更新</div></td><td id="duplicateAction1"><button class="text-link" onclick="openParseModal('26012915050167612332')">查看解析</button> <button class="text-link" onclick="openCoverageRecord('26012915050167612332')">查看覆盖记录</button></td></tr>
-                <tr id="duplicateRow2"><td><input type="checkbox"></td><td>26012915050167612333</td><td>赵倩</td><td>6,880.00</td><td>39</td><td><span class="tag ok">已生效</span></td><td><span class="tag gray">未生成</span></td><td><span id="duplicateResult2" class="tag warn">重复待处理</span><div id="duplicateNote2">原案件已分配，属于同批次不可覆盖</div></td><td id="duplicateAction2"><button class="text-link" onclick="openParseModal('26012915050167612333')">查看解析</button> <button class="text-link" onclick="openDuplicateModal('26012915050167612333')">处理重复</button></td></tr>
+                <tr id="duplicateRow2"><td><input type="checkbox"></td><td>26012915050167612333</td><td>赵倩</td><td>6,880.00</td><td>39</td><td><span class="tag ok">已生效</span></td><td><span class="tag gray">未生成</span></td><td><span id="duplicateResult2" class="tag gray">重复跳过</span><div id="duplicateNote2">原案件已分配或已流转，系统自动跳过，不可覆盖</div></td><td id="duplicateAction2"><button class="text-link" onclick="openParseModal('26012915050167612333')">查看解析</button></td></tr>
               </tbody>
             </table>
             <div class="pagination"><span>共 1,258 条</span><button>‹</button><span class="active">1</span><span>2</span><span>3</span><span>4</span><span>5</span><button>›</button><span>10条/页</span></div>
@@ -1247,7 +1247,7 @@
         <p><b>3.</b>同批次再次导入：通过“编辑”上传后传订单时，若已有订单仍在待分配队列，可按新Excel字段覆盖；覆盖后仍归属原批次。</p>
         <p><b>4.</b>同批次不可覆盖：如果已有订单已流转，不允许再次导入，导入结果明细提示“该订单已流转，无法再次导入”。</p>
         <p><b>5.</b>不同批次导入：同一外部资产方+订单编号已存在于其他批次时，本次报错，不允许重复导入；主订单已作为初始订单导入后，再新增对应续租订单属于主续关系异常，不允许导入。</p>
-        <p><b>6.</b>下载明细：不展示行号列；同一订单多次导入产生重复记录时，以订单维度保留最新处理结果，导入失败数量也按订单最新处理结果统计。二期批次下载订单处理、材料处理和任务级异常三类明细。</p>
+        <p><b>6.</b>下载明细：不展示行号列；同一订单多次导入产生重复记录时，以订单维度保留最新处理结果，导入失败数量也按订单最新处理结果统计。二期文件先展示“订单处理明细”，可按“是否需补传”筛选待处理订单，“建议补传内容、待补材料”置于首次导入时间前；后续为材料处理、任务级异常，最后以“错误分类说明”统一列明一期与二期的分类、场景、提示文案和处理方式。</p>
         <table class="button-state-table">
           <thead><tr><th>重复场景</th><th>处理规则</th><th>结果展示</th></tr></thead>
           <tbody>
@@ -1302,9 +1302,8 @@
         <p><b>1.</b>重复订单先判断是否为同一批次：不同批次同一外部资产方+订单编号直接阻断并展示原批次号；仅同批次再判断案件是否未分配且未流转。</p>
         <p><b>2.</b>自动覆盖：更新已有案件字段，并覆盖同名文件；不同名材料自动补充，保留操作日志。</p>
         <p><b>3.</b>查看覆盖记录仅展示本次覆盖的字段和同名文件变更，不会再次执行覆盖。</p>
-        <p><b>4.</b>重复待处理：同批次已有案件已分配或已流转，不展示订单覆盖按钮；案件状态仍为已生效，分配/流转信息写在处理结果。</p>
-        <p><b>5.</b>确认跳过：已有案件不变化，仅记录处理日志。</p>
-        <p><b>6.</b>补充材料统一通过“批量补传”上传，由系统按批次、订单编号和材料规则重新识别。</p>
+        <p><b>4.</b>重复跳过：同批次已有案件已分配或已流转时，系统自动跳过，不展示人工处理或覆盖按钮；案件状态仍为已生效，分配/流转限制写在处理结果和导出明细。</p>
+        <p><b>5.</b>补充材料统一通过“批量补传”上传，由系统按批次、订单编号和材料规则重新识别。</p>
       </section>
       <section class="anno-block">
         <h3>按钮操作</h3>
@@ -1460,13 +1459,13 @@
   <div class="modal">
     <div class="modal-head"><span id="failureTitle">失败原因</span><button onclick="closeModal('failureModal')">×</button></div>
     <div class="modal-body">
-      <div class="notice" style="margin:0 0 14px">该弹框用于运营排查单条订单导入失败或差异原因。字段类问题通常需修正Excel后重新导入；必填材料缺失需重新提交完整材料包；非必填材料可在导入处理详情页补充；重复订单按自动覆盖规则处理，已分配或已流转订单进入“重复待处理”。</div>
+      <div class="notice" style="margin:0 0 14px">该弹框用于运营排查单条订单导入失败或差异原因。字段类问题通常需修正Excel后重新导入；必填材料缺失需重新提交完整材料包；非必填材料可在导入处理详情页补充；重复订单按自动覆盖规则处理，已分配或已流转订单自动标记为“重复跳过”。</div>
       <table>
         <thead><tr><th>问题项</th><th>失败原因</th><th>影响</th></tr></thead>
         <tbody>
           <tr><td>主续关系</td><td>续租订单关联的主订单【父订单编号】已在法诉系统形成案件，不符合续租订单导入条件。</td><td>导入失败，不生成案件</td></tr>
           <tr><td>字段格式</td><td>基础必填字段缺失、金额异常或字段格式错误</td><td>导入失败，不生成案件</td></tr>
-          <tr><td>重复订单</td><td>系统已存在同外部资产方、同订单编号</td><td>未分配且未流转订单自动覆盖；已分配或已流转订单进入重复待处理</td></tr>
+          <tr><td>重复订单</td><td>系统已存在同外部资产方、同订单编号</td><td>未分配且未流转订单自动覆盖；已分配或已流转订单自动重复跳过</td></tr>
           <tr><td>非必填材料待补</td><td>路由详情图未上传</td><td>提示补充证据材料，不影响案件生效和进入待委外</td></tr>
         </tbody>
       </table>
@@ -1531,31 +1530,6 @@
       </div>
     </div>
     <div class="modal-foot"><button onclick="closeModal('debtAmountModal')">取消</button><button class="primary" id="saveRetryImportBtn" onclick="saveAndRetryImport()">保存并导入</button></div>
-  </div>
-</div>
-
-<div id="duplicateModal" class="modal-mask">
-  <div class="modal wide">
-    <div class="modal-head"><span id="duplicateTitle">重复订单处理</span><button onclick="closeModal('duplicateModal')">×</button></div>
-    <div class="modal-body">
-      <div class="notice" style="margin:0 0 14px">系统按“外部资产方 + 订单编号”自动识别重复订单。跨批次重复不允许导入；同一批次再次导入时，已有案件仍在待分配队列可自动覆盖，已流转订单不允许再次导入并写入导入结果明细。</div>
-      <div class="kv" style="margin-bottom:14px">
-        <b>本次订单编号</b><span id="duplicateLoanNo">26012915050167612333</span><b>系统已有案件</b><span id="duplicateCaseStatus">待委外管理 / 已分配服务商</span>
-        <b>本次债权金额</b><span>8,650.00</span><b>系统债权金额</b><span>8,620.00</span>
-        <b>本次材料</b><span>新增主合同1份、身份证正反面2份</span><b>系统材料</b><span>已有身份证正反面，缺主合同</span>
-        <b>是否可覆盖</b><span id="duplicateCoverStatus"><span class="tag bad">不可覆盖</span> 已分配或已流转订单不能覆盖</span><b>覆盖限制</b><span>已分配、已委外、已调解、已诉讼、有还款、已结清不展示覆盖按钮</span>
-      </div>
-      <table>
-        <thead><tr><th>处理动作</th><th>适用场景</th><th>系统处理</th><th>后续结果</th></tr></thead>
-        <tbody>
-          <tr><td>确认跳过</td><td>重复导入或本次数据不需要处理</td><td>不更新字段、不处理材料，仅记录操作日志</td><td>重复记录关闭</td></tr>
-          <tr><td>自动覆盖</td><td>系统已有案件未分配且未流转</td><td>导入时自动更新订单字段，并覆盖已有案件中的同名文件</td><td>覆盖完成后刷新字段、材料状态并记录操作日志</td></tr>
-          <tr><td>订单覆盖</td><td>系统已有案件已分配或已流转时不允许</td><td>不展示覆盖按钮，只能确认跳过；如需补材料走批量补传</td><td>避免影响已进入业务处置流程的数据</td></tr>
-        </tbody>
-      </table>
-      <div class="submit-note">导入时先自动处理可覆盖重复订单；只有不能自动覆盖的重复订单才进入本弹框。已流转订单不展示订单覆盖按钮，避免误改已进入后续流程的数据。</div>
-    </div>
-    <div class="modal-foot"><button onclick="handleDuplicateAction('skip')">确认跳过</button><button id="duplicateCoverBtn" class="primary" onclick="handleDuplicateAction('cover')">订单覆盖</button></div>
   </div>
 </div>
 
@@ -1887,8 +1861,6 @@
   var batchUploadState = { order:false, material:false };
   var editingDraft = false;
   var pendingMaterialNameTarget = null;
-  var currentDuplicateRowNo = '2';
-  var currentDuplicateLoanNo = '26012915050167612333';
   var currentOrderRuleType = 'first';
   var currentPreviewFile = '';
   var currentEditingBatchKey = 'main';
@@ -2811,53 +2783,6 @@
   function openFailureModal(loanNo){
     document.getElementById('failureTitle').innerText = ['26012915050167612332','26012915050167612335'].indexOf(loanNo) > -1 ? ('订单' + loanNo + '差异明细') : ('订单' + loanNo + '失败原因');
     openModal('failureModal');
-  }
-  function openDuplicateModal(loanNo){
-    currentDuplicateLoanNo = loanNo || '26012915050167612333';
-    currentDuplicateRowNo = currentDuplicateLoanNo === '26012915050167612332' ? '1' : '2';
-    document.getElementById('duplicateTitle').innerText = '订单' + loanNo + '重复处理';
-    document.getElementById('duplicateLoanNo').innerText = loanNo;
-    var statusNode = document.getElementById('duplicateCaseStatus');
-    var coverStatus = document.getElementById('duplicateCoverStatus');
-    var canCover = currentDuplicateRowNo === '1';
-    if(statusNode){ statusNode.innerText = canCover ? '待委外管理 / 未分配 / 未流转' : '待委外管理 / 已分配服务商'; }
-    if(coverStatus){
-      coverStatus.innerHTML = canCover
-        ? '<span class="tag ok">可覆盖</span> 未分配且未流转，导入时已自动覆盖'
-        : '<span class="tag bad">不可覆盖</span> 已分配或已流转订单不能覆盖';
-    }
-    var coverBtn = document.getElementById('duplicateCoverBtn');
-    if(coverBtn){
-      coverBtn.style.display = canCover ? '' : 'none';
-    }
-    openModal('duplicateModal');
-  }
-  function setDuplicateRow(rowNo, resultHtml, noteText, actionHtml){
-    var result = document.getElementById('duplicateResult' + rowNo);
-    var note = document.getElementById('duplicateNote' + rowNo);
-    var action = document.getElementById('duplicateAction' + rowNo);
-    if(result){ result.innerHTML = resultHtml; }
-    if(note){ note.innerText = noteText; }
-    if(action){ action.innerHTML = actionHtml; }
-  }
-  function handleDuplicateAction(type){
-    var rowNo = currentDuplicateRowNo || '1';
-    var loanNo = currentDuplicateLoanNo || '26012915050167612333';
-    if(type === 'skip'){
-      setDuplicateRow(rowNo, '<span class="tag gray">已确认跳过</span>', '已有案件不变化，仅记录处理日志', "<button class=\"text-link\" onclick=\"openParseModal('" + loanNo + "')\">查看解析</button> <button class=\"text-link\" onclick=\"openDuplicateModal('" + loanNo + "')\">重新处理</button>");
-      closeModal('duplicateModal');
-      showToast('已确认跳过，已有案件不变化');
-      return;
-    }
-    if(type === 'cover'){
-      if(rowNo !== '1'){
-        showToast('该订单已流转，无法再次导入');
-        return;
-      }
-      setDuplicateRow(rowNo, '<span class="tag info">自动覆盖</span>', '未分配未流转，已自动覆盖字段和同名文件', "<button class=\"text-link\" onclick=\"openParseModal('" + loanNo + "')\">查看解析</button> <button class=\"text-link\" onclick=\"openCoverageRecord('" + loanNo + "')\">查看覆盖记录</button>");
-      closeModal('duplicateModal');
-      showToast('未分配重复订单已自动覆盖，订单字段已更新，重名文件已覆盖');
-    }
   }
   function openCoverageRecord(loanNo){
     var loanNode = document.getElementById('coverageRecordLoanNo');
