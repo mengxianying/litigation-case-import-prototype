@@ -699,8 +699,6 @@
       <div class="panel">
         <div class="toolbar">
           <button class="primary" data-jump="newImportFull">新建导入批次</button>
-          <button data-jump="ruleConfig">导入规则配置</button>
-          <button onclick="openModal('templateModal')">模板说明</button>
           <span class="spacer"></span>
         </div>
         <div class="summary compact"><div class="card">资产总数<b>2,184</b></div><div class="card">案件已生效<b>1,632</b></div><div class="card">待材料激活<b>22</b></div><div class="card">导入失败<b>530</b></div></div>
@@ -782,12 +780,12 @@
             <table>
               <thead><tr><th style="width:46px"><input type="checkbox" onclick="toggleTableChecks(this)"></th><th>订单编号</th><th>客户姓名</th><th>债权金额</th><th>逾期天数</th><th>案件状态</th><th>材料状态</th><th>处理结果</th><th style="width:150px">操作</th></tr></thead>
               <tbody>
-                <tr><td><input type="checkbox"></td><td>26012915050167612327</td><td>张三</td><td>12,036.80</td><td>61</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td>已进入待委外</td><td><button class="text-link" onclick="openParseModal('26012915050167612327')">查看解析</button></td></tr>
-                <tr><td><input type="checkbox"></td><td>26012915050167612328</td><td>黄丽</td><td>9,420.00</td><td>54</td><td><span class="tag warn">待材料激活</span></td><td><span class="tag bad">待补必填</span></td><td>缺少主合同，补齐后自动生效</td><td><button class="text-link" onclick="openParseModal('26012915050167612328')">查看解析</button></td></tr>
-                <tr><td><input type="checkbox"></td><td>26012915050167612331</td><td>周强</td><td>8,030.00</td><td>47</td><td><span class="tag ok">已生效</span></td><td><span class="tag warn">待补非必填</span></td><td>可在材料补充页统一处理</td><td><button class="text-link" onclick="openParseModal('26012915050167612331')">查看解析</button></td></tr>
-                <tr><td><input type="checkbox" class="failed-order-check"></td><td>26012915050167612330</td><td>李明</td><td>7,290.00</td><td>35</td><td><span class="tag bad">导入失败</span></td><td><span class="tag gray">未生成</span></td><td>修正Excel后重新导入</td><td><button class="text-link" onclick="openParseModal('26012915050167612330')">查看解析</button> <button class="text-link" onclick="openFailureModal('26012915050167612330')">失败原因</button></td></tr>
-                <tr id="duplicateRow1"><td><input type="checkbox"></td><td>26012915050167612332</td><td>王磊</td><td>8,650.00</td><td>43</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td><span id="duplicateResult1" class="tag info">自动覆盖</span><div id="duplicateNote1">字段和同名文件已更新</div></td><td id="duplicateAction1"><button class="text-link" onclick="openParseModal('26012915050167612332')">查看解析</button> <button class="text-link" onclick="openCoverageRecord('26012915050167612332')">查看覆盖记录</button></td></tr>
-                <tr id="duplicateRow2"><td><input type="checkbox"></td><td>26012915050167612333</td><td>赵倩</td><td>6,880.00</td><td>39</td><td><span class="tag ok">已生效</span></td><td><span class="tag gray">未生成</span></td><td><span id="duplicateResult2" class="tag gray">重复跳过</span><div id="duplicateNote2">原案件已分配或已流转，系统自动跳过，不可覆盖</div></td><td id="duplicateAction2"><button class="text-link" onclick="openParseModal('26012915050167612333')">查看解析</button></td></tr>
+                <tr><td><input type="checkbox"></td><td>26012915050167612327</td><td>张三</td><td>12,036.80</td><td>61</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td>已进入待委外</td><td><button class="text-link" onclick="openParseModal('26012915050167612327')">查看材料解析</button></td></tr>
+                <tr><td><input type="checkbox"></td><td>26012915050167612328</td><td>黄丽</td><td>9,420.00</td><td>54</td><td><span class="tag warn">待材料激活</span></td><td><span class="tag bad">待补必填</span></td><td>缺少主合同，补齐后自动生效</td><td><button class="text-link" onclick="openParseModal('26012915050167612328')">查看材料解析</button></td></tr>
+                <tr><td><input type="checkbox"></td><td>26012915050167612331</td><td>周强</td><td>8,030.00</td><td>47</td><td><span class="tag ok">已生效</span></td><td><span class="tag warn">待补非必填</span></td><td>可在材料补充页统一处理</td><td><button class="text-link" onclick="openParseModal('26012915050167612331')">查看材料解析</button></td></tr>
+                <tr><td><input type="checkbox" class="failed-order-check"></td><td>26012915050167612330</td><td>李明</td><td>7,290.00</td><td>35</td><td><span class="tag bad">导入失败</span></td><td><span class="tag gray">未生成</span></td><td>修正Excel后重新导入</td><td><button class="text-link" onclick="openParseModal('26012915050167612330')">查看材料解析</button> <button class="text-link" onclick="openFailureModal('26012915050167612330')">失败原因</button></td></tr>
+                <tr id="duplicateRow1"><td><input type="checkbox"></td><td>26012915050167612332</td><td>王磊</td><td>8,650.00</td><td>43</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td><span id="duplicateResult1" class="tag info">自动覆盖</span><div id="duplicateNote1">字段和同名文件已更新</div></td><td id="duplicateAction1"><button class="text-link" onclick="openParseModal('26012915050167612332')">查看材料解析</button> <button class="text-link" onclick="openCoverageRecord('26012915050167612332')">查看覆盖记录</button></td></tr>
+                <tr id="duplicateRow2"><td><input type="checkbox"></td><td>26012915050167612333</td><td>赵倩</td><td>6,880.00</td><td>39</td><td><span class="tag ok">已生效</span></td><td><span class="tag gray">未生成</span></td><td><span id="duplicateResult2" class="tag gray">重复跳过</span><div id="duplicateNote2">原案件已分配或已流转，系统自动跳过，不可覆盖</div></td><td id="duplicateAction2"><button class="text-link" onclick="openParseModal('26012915050167612333')">查看材料解析</button></td></tr>
               </tbody>
             </table>
             <div class="pagination"><span>共 1,258 条</span><button>‹</button><span class="active">1</span><span>2</span><span>3</span><span>4</span><span>5</span><button>›</button><span>10条/页</span></div>
@@ -858,7 +856,7 @@
             <div class="flow-lane-cell case-lane"><div class="flow-node case-node"><b>8. 案件生效 / 材料待办</b><span>已生效、待材料激活或导入失败；材料状态更新为材料齐全、待补必填、待补非必填或未生成。</span></div></div>
           </div>
           <div class="overall-flow-row">
-            <div class="flow-lane-cell"><div class="flow-node"><b>9. 导入处理详情</b><span>按订单结果、待补材料、异常文件查看问题；查看解析、失败原因或查看覆盖记录。</span></div></div>
+            <div class="flow-lane-cell"><div class="flow-node"><b>9. 导入处理详情</b><span>按订单结果、待补材料、异常文件查看问题；查看材料解析、失败原因或查看覆盖记录。</span></div></div>
             <div class="flow-route">&rarr;</div>
             <div class="flow-lane-cell"><div class="flow-node service-node"><b>10. 批量补传</b><span>可补订单 Excel、材料包或两者；异常文件可按需同步重新识别。未分配且未流转的同批订单自动覆盖。</span></div></div>
             <div class="flow-route">&rarr;</div>
@@ -1289,11 +1287,11 @@
         <p><b>2.</b>批量补传：订单Excel、材料包可任选其一或同时上传，至少上传一个；订单Excel用于新增本批次订单、重传失败订单或补充异常文件所需订单信息，材料包用于补齐材料或重新上传规范材料。</p>
         <p><b>3.</b>同步重新识别历史异常文件：在批量补传弹框中按需勾选。系统使用本次上传的订单/材料和当前规则重解析历史异常文件；未上传任何文件时不允许仅重新识别。</p>
         <p><b>4.</b>待材料激活可补必填和非必填材料；已生效订单只补非必填；一期历史批次按固化快照补材料且保持已生效。文件名支持预览/下载，不提供人工绑定、重新绑定或单个文件上传。</p>
-        <p><b>5.</b>查看解析：只读弹框，仅展示材料解析结果；材料文件名可点击预览或下载。</p>
+        <p><b>5.</b>查看材料解析：只读弹框，仅展示材料解析结果；材料文件名可点击预览或下载。</p>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
-            <tr><th>订单结果</th><td>导出当前筛选处理明细、批量补传、查看解析</td><td>导出文件与批次下载明细使用相同四个Sheet；订单和材料仅导出当前范围关联数据。上传订单Excel可新增本批次订单或重传失败订单；查看解析为只读。</td></tr>
+            <tr><th>订单结果</th><td>导出当前筛选处理明细、批量补传、查看材料解析</td><td>导出文件与批次下载明细使用相同四个Sheet；订单和材料仅导出当前范围关联数据。上传订单Excel可新增本批次订单或重传失败订单；查看材料解析为只读。</td></tr>
             <tr><th>待补材料</th><td>勾选材料、批量补传</td><td>上传材料包补齐材料；必填材料补齐复核通过后自动生效，已生效订单仅补非必填材料。</td></tr>
             <tr><th>异常文件</th><td>文件预览/下载、勾选文件、批量补传</td><td>上传订单Excel或规范材料包后，可勾选同步重新识别历史异常文件；不支持人工绑定、重新绑定或逐条重试。</td></tr>
           </tbody>
