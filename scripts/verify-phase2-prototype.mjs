@@ -104,7 +104,7 @@ assert.ok(html.includes('id="batchReidentifyOption"'), '批量补传弹框应标
 assert.ok(html.includes("reidentifyOption.style.display = historyMode ? 'none' : ''"), '首次补充历史材料时应隐藏重新识别历史异常文件选项');
 assert.ok(stateMachine[0].includes('二期案件导入全流程状态机'), '状态机页面应提供二期端到端流程示例');
 assert.ok(stateMachine[0].includes('运营人员') && stateMachine[0].includes('导入服务') && stateMachine[0].includes('案件与材料'), '全流程状态机应按操作与系统职责分泳道展示');
-['新建导入批次', '上传资产明细和材料包', '文件级前置校验', '异步处理', '订单与材料解析', '导入处理详情', '批量补传', '案件生效 / 材料待办'].forEach(function(term){
+['新建导入批次', '上传资产明细和材料包', '上传前置校验', '异步处理', '订单与材料解析', '导入处理详情', '批量补传', '案件生效 / 材料待办'].forEach(function(term){
   assert.ok(stateMachine[0].includes(term), '全流程状态机缺少关键步骤：' + term);
 });
 
