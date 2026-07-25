@@ -311,6 +311,28 @@
     .modal-head button{margin-left:auto;width:30px;height:30px;padding:0;border:0;background:white;font-size:20px}
     .modal-body{padding:18px;overflow:auto}
     .modal-foot{border-top:1px solid #edf0f5;padding:12px 18px;display:flex;justify-content:flex-end;gap:10px}
+    .rule-detail-link{margin-top:4px;padding-left:0;height:24px;font-size:12px}
+    .rule-detail-modal{width:1080px!important}
+    .rule-detail-modal .modal-head{align-items:flex-start;padding-top:11px;height:62px}
+    .rule-detail-layout{display:block}
+    .rule-detail-section{margin-bottom:18px}
+    .rule-detail-section h4{margin:0 0 10px;font-size:14px;color:#334155}
+    .rule-summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid #e1e8f0;border-bottom:0}
+    .rule-summary-grid div{min-height:56px;padding:8px 10px;border-right:1px solid #e1e8f0;border-bottom:1px solid #e1e8f0}
+    .rule-summary-grid div:nth-child(2n){border-right:0}
+    .rule-summary-grid b{display:block;margin-bottom:3px;font-size:12px;font-weight:400;color:#7b8794}
+    .rule-summary-grid span{color:#334155;word-break:break-word}
+    .rule-detail-table th,.rule-detail-table td{padding:8px 6px;font-size:12px}
+    .rule-field-table th:nth-child(1){width:132px}
+    .rule-field-table th:nth-child(2){width:72px}
+    .rule-field-table th:nth-child(3){width:128px}
+    .rule-material-table th:nth-child(1){width:118px}
+    .rule-material-table th:nth-child(2){width:96px}
+    .rule-material-table th:nth-child(4){width:72px}
+    .rule-material-table th:nth-child(5){width:84px}
+    .rule-detail-tabs{display:flex;gap:8px;margin-bottom:10px}
+    .rule-detail-tabs button{height:28px;padding:0 10px;background:#fff;border-color:#cfd9e5;color:#4b5563}
+    .rule-detail-tabs button.active{background:#eaf2ff;border-color:#8db5df;color:#1d65ad}
     .material-name-form{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:16px 28px!important;align-items:start}
     .material-name-form label>span{min-width:112px}
     .material-name-form .select{min-width:100px}
@@ -465,6 +487,9 @@
 <tr class="locked-row"><td>案件导入模板</td><td>身份证号</td><td><div class="model-map"><strong>userInfo 用户信息</strong><span>字段：idNo</span><span>模型必填：是</span></div></td><td><span class="locked-cell">启用</span></td><td><span class="locked-cell">必填</span></td><td><div class="inline-input">基础锁定字段；文本格式；18位身份证；不得脱敏</div></td></tr>
 <tr><td>案件导入模板</td><td>下单手机号</td><td><div class="model-map"><strong>userInfo 用户信息</strong><span>字段：orderMobile</span><span>模型必填：是</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">是<b>⌄</b></div></td><td><div class="inline-input">文本格式；11位手机号；不得脱敏</div></td></tr>
 <tr><td>案件导入模板</td><td>收货人手机号</td><td><div class="model-map"><strong>receiverInfo 收货信息</strong><span>字段：receiverMobile</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">文本格式；11位手机号；有物流信息时建议填写</div></td></tr>
+<tr><td>案件导入模板</td><td>户籍地(省)</td><td><div class="model-map"><strong>userInfo 用户信息</strong><span>字段：registeredAddress</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">文本，最多50字符；与户籍地(市)、户籍地(区)拼接为户籍地址</div></td></tr>
+<tr><td>案件导入模板</td><td>户籍地(市)</td><td><div class="model-map"><strong>userInfo 用户信息</strong><span>字段：registeredAddress</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">文本，最多50字符；与户籍地(省)、户籍地(区)拼接为户籍地址</div></td></tr>
+<tr><td>案件导入模板</td><td>户籍地(区)</td><td><div class="model-map"><strong>userInfo 用户信息</strong><span>字段：registeredAddress</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">文本，最多50字符；与户籍地(省)、户籍地(市)拼接为户籍地址</div></td></tr>
 <tr><td>案件导入模板</td><td>户籍地</td><td><div class="model-map"><strong>userInfo 用户信息</strong><span>字段：registeredAddress</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">文本，最多200字符</div></td></tr>
 <tr><td>案件导入模板</td><td>收货地址</td><td><div class="model-map"><strong>receiverInfo 收货信息</strong><span>字段：receiverAddress</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">文本，最多300字符；有物流信息时建议填写</div></td></tr>
 <tr><td>案件导入模板</td><td>邮箱</td><td><div class="model-map"><strong>userInfo 用户信息</strong><span>字段：email</span><span>模型必填：否</span></div></td><td><div class="select table-select" data-options="启用|不启用">启用<b>⌄</b></div></td><td><div class="select table-select" data-options="是|否|条件必填">否<b>⌄</b></div></td><td><div class="inline-input">邮箱格式；可为空</div></td></tr>
@@ -723,7 +748,7 @@
           <label><span><em class="req">*</em>批次名称</span><div class="field-box"><div class="input">例：转转租赁批次01</div><div class="limit">必填，2-50字符。</div></div></label>
           <label><span><em class="req">*</em>外部资产方</span><div class="field-box"><div class="select" data-options="全部|创新|转转|人人租">创新<b>⌄</b></div><div class="enum">全部 / 创新 / 转转 / 人人租</div></div></label>
           <label><span><em class="req">*</em>业务类型</span><div class="field-box"><div class="select" data-options="租赁">租赁<b>⌄</b></div><div class="enum">租赁</div></div></label>
-          <label><span><em class="req">*</em>导入规则</span><div class="field-box"><div class="select" data-options="创新租赁通用规则|转转租赁规则|人人租租赁规则">创新租赁通用规则<b>⌄</b></div><div class="enum">创新租赁通用规则 / 转转租赁规则 / 人人租租赁规则</div><div class="limit">决定模板字段启用范围、合同类别、材料名称和必填规则。</div></div></label>
+          <label><span><em class="req">*</em>导入规则</span><div class="field-box"><div id="importRuleFull" class="select" data-options="创新租赁通用规则|转转租赁规则|人人租租赁规则">创新租赁通用规则<b>⌄</b></div><div class="enum">创新租赁通用规则 / 转转租赁规则 / 人人租租赁规则</div><div class="limit">决定模板字段启用范围、合同类别、材料名称和必填规则。</div><button id="viewRuleDetailBtn" class="text-link rule-detail-link" type="button" onclick="openRuleDetailModal()">查看规则详情</button></div></label>
           <label><span><em class="req">*</em>债权接收主体</span><div class="field-box"><div class="select" data-options="襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)|武汉小优企业管理有限公司(91420115MACRLKWJ1A)|聊城小优企业管理有限公司(91371521MADE8H2E0)">请选择债权接收主体<b>⌄</b></div><div class="enum">襄阳鸿飞企业管理有限公司 / 武汉小优企业管理有限公司 / 聊城小优企业管理有限公司</div></div></label>
           <label><span><em class="req">*</em>债权出让主体</span><div class="field-box"><input class="input text-input" id="importTransferorFull" type="text" maxlength="50" placeholder="请输入债权出让主体"><div class="limit">必填，最多50字符。</div></div></label>
           <label><span><em class="req">*</em>债权总额</span><div class="field-box"><div class="input">例：12036800.00</div><div class="limit">允许为0；非金额或负数提示金额不正确。</div></div></label>
@@ -1049,6 +1074,7 @@
         <p><b>2.</b>二期新建批次需要选择导入规则，同时上传资产明细Excel和材料包。</p>
         <p><b>3.</b>导入规则决定字段启用、字段必填、材料类别、资产方材料名称、匹配模式和必填材料范围。</p>
         <p><b>4.</b>债权出让主体由运营以文本方式录入，必填且最多50字符；用于标识本批次债权的出让方，不受债权接收主体下拉枚举限制。</p>
+        <p><b>5.</b>选择导入规则后可查看只读规则详情并下载对应模板；详情展示规则版本、字段要求和首租/续租材料要求。本期不提供规则的新建、编辑、删除或启停页面。</p>
       </section>
       <section class="anno-block">
         <h3>上传和校验</h3>
@@ -1774,6 +1800,17 @@
   </div>
 </div>
 
+<div id="ruleDetailModal" class="modal-mask">
+  <div class="modal wide rule-detail-modal">
+    <div class="modal-head"><div><b id="ruleDetailTitle">导入规则详情</b></div><button onclick="closeRuleDetailModal()">×</button></div>
+    <div id="ruleDetailContent" class="modal-body"></div>
+    <div class="modal-foot">
+      <button onclick="closeRuleDetailModal()">关闭</button>
+      <a id="ruleTemplateDownload" class="btn primary" href="./法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx" download>下载对应模板</a>
+    </div>
+  </div>
+</div>
+
 <div id="toast" class="toast">操作提示</div>
 
 <script>
@@ -1788,14 +1825,159 @@
   var currentPreviewFile = '';
   var currentEditingBatchKey = 'main';
   var batchTransferorOverrides = {};
+  var currentRuleDetailName = '创新租赁通用规则';
+  var ruleDetailMaterialTab = 'first';
+  var ruleDetailRules = {
+    '创新租赁通用规则': {
+      assetOwner:'创新', businessType:'租赁', templateVersion:'0702最终版', updatedAt:'2026-07-25 10:00:00', templateFile:'法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx',
+      fields:[
+        {name:'订单编号',required:'必填',rule:'不可为空',example:'26012915050167612327',key:true},
+        {name:'姓名',required:'必填',rule:'不可为空',example:'张三',key:true},
+        {name:'身份证号',required:'必填',rule:'18位证件号',example:'420106199001011234',key:true},
+        {name:'债权金额',required:'必填',rule:'数字且不可为负',example:'5999.00',key:true},
+        {name:'违约日',required:'必填',rule:'支持yyyy-MM-dd',example:'2026-05-06',key:true},
+        {name:'商品名称',required:'必填',rule:'不可为空',example:'iPhone 16',key:true},
+        {name:'下单手机号',required:'必填',rule:'11位手机号',example:'13800138000',key:true},
+        {name:'主合同签署日期',required:'必填',rule:'支持yyyy-MM-dd',example:'2025-12-06',key:true},
+        {name:'租赁物签收日',required:'必填',rule:'支持yyyy-MM-dd',example:'2025-12-08',key:true},
+        {name:'户籍地(省)',required:'非必填',rule:'文本，最多50字符；与市、区拼接为户籍地址',example:'湖北省',key:false},
+        {name:'户籍地(市)',required:'非必填',rule:'文本，最多50字符；与省、区拼接为户籍地址',example:'武汉市',key:false},
+        {name:'户籍地(区)',required:'非必填',rule:'文本，最多50字符；与省、市拼接为户籍地址',example:'洪山区',key:false},
+        {name:'快递公司',required:'非必填',rule:'文本',example:'顺丰',key:false}
+      ],
+      materials:{
+        first:[
+          {category:'电子签章授权书',sourceName:'电子签章授权书',required:'必传',match:'精确'},{category:'电子签章授权书',sourceName:'电子签章授权书验签截图',required:'必传',match:'精确'},
+          {category:'主合同',sourceName:'租赁服务合同',required:'必传',match:'精确'},{category:'主合同',sourceName:'租赁服务合同验签报告',required:'必传',match:'精确'},
+          {category:'合同附件',sourceName:'合同附件-1',required:'必传',match:'精确'},{category:'合同附件',sourceName:'合同附件-2',required:'非必传',match:'精确'},
+          {category:'补充合同',sourceName:'补充合同',required:'非必传',match:'精确'},{category:'补充合同',sourceName:'补充协议',required:'非必传',match:'精确'},
+          {category:'担保合同',sourceName:'担保合同',required:'非必传',match:'精确'},{category:'担保合同',sourceName:'保证合同',required:'非必传',match:'精确'},
+          {category:'身份信息',sourceName:'人像面',required:'必传',match:'精确'},{category:'身份信息',sourceName:'国徽面',required:'必传',match:'精确'},{category:'身份信息',sourceName:'活体识别照片',required:'必传',match:'精确'},
+          {category:'物流信息',sourceName:'路由详情图',required:'非必传',match:'精确'},{category:'物流信息',sourceName:'运单信息图',required:'非必传',match:'精确'},{category:'物流信息',sourceName:'签收底单图',required:'非必传',match:'精确'},{category:'物流信息',sourceName:'电子存根图',required:'非必传',match:'精确'},
+          {category:'订单信息',sourceName:'订单详情-账单',required:'必传',match:'精确'},{category:'订单信息',sourceName:'订单详情-物流',required:'非必传',match:'精确'},{category:'订单信息',sourceName:'账单详情',required:'必传',match:'精确'},
+          {category:'短信记录',sourceName:'短信记录',required:'非必传',match:'精确'},
+          {category:'其它材料',sourceName:'其它材料',required:'非必传',match:'精确'}
+        ],
+        renewal:[
+          {category:'电子签章授权书',sourceName:'电子签章授权书',required:'必传',match:'精确'},{category:'电子签章授权书',sourceName:'电子签章授权书验签截图',required:'必传',match:'精确'},
+          {category:'主合同',sourceName:'续租服务合同',required:'必传',match:'精确'},{category:'主合同',sourceName:'续租协议',required:'必传',match:'精确'},
+          {category:'合同附件',sourceName:'续租合同附件',required:'必传',match:'精确'},
+          {category:'身份信息',sourceName:'人像面',required:'非必传',match:'精确'},{category:'身份信息',sourceName:'国徽面',required:'非必传',match:'精确'},{category:'身份信息',sourceName:'活体识别照片',required:'非必传',match:'精确'},
+          {category:'物流信息',sourceName:'续租交付凭证',required:'非必传',match:'精确'},{category:'物流信息',sourceName:'路由详情图',required:'非必传',match:'精确'}
+        ]
+      }
+    },
+    '转转租赁规则': {
+      assetOwner:'转转', businessType:'租赁', templateVersion:'0702最终版', updatedAt:'2026-07-22 16:30:00', templateFile:'法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx',
+      fields:[
+        {name:'订单编号',required:'必填',rule:'不可为空',example:'ZZ202607250001',key:true},
+        {name:'姓名',required:'必填',rule:'不可为空',example:'李四',key:true},
+        {name:'身份证号',required:'必填',rule:'18位证件号',example:'110101199203021234',key:true},
+        {name:'债权金额',required:'必填',rule:'数字且不可为负',example:'4200.00',key:true},
+        {name:'违约日',required:'必填',rule:'支持yyyy-MM-dd',example:'2026-05-18',key:true},
+        {name:'商品名称',required:'必填',rule:'不可为空',example:'平板电脑',key:true},
+        {name:'下单手机号',required:'必填',rule:'11位手机号',example:'13900139000',key:true},
+        {name:'主合同签署日期',required:'必填',rule:'支持yyyy-MM-dd',example:'2025-11-12',key:true},
+        {name:'租赁物签收日',required:'必填',rule:'支持yyyy-MM-dd',example:'2025-11-15',key:true},
+        {name:'物流轨迹信息',required:'非必填',rule:'文本',example:'已签收',key:false}
+      ],
+      materials:{
+        first:[{category:'订单信息',sourceName:'订单详情',required:'必传',match:'精确'},{category:'账单详情',sourceName:'账单详情',required:'必传',match:'精确'},{category:'主合同',sourceName:'租赁服务合同',required:'必传',match:'包含'}],
+        renewal:[{category:'订单信息',sourceName:'订单详情',required:'必传',match:'精确'},{category:'主合同',sourceName:'续租协议',required:'必传',match:'包含'}]
+      }
+    },
+    '人人租赁规则': {
+      assetOwner:'人人租', businessType:'租赁', templateVersion:'0702最终版', updatedAt:'2026-07-20 11:15:00', templateFile:'法诉案件导入_Excel模板及文件格式说明0702_最终版.xlsx',
+      fields:[
+        {name:'订单编号',required:'必填',rule:'不可为空',example:'RRZ202607250001',key:true},
+        {name:'姓名',required:'必填',rule:'不可为空',example:'王五',key:true},
+        {name:'身份证号',required:'必填',rule:'18位证件号',example:'310101199405061234',key:true},
+        {name:'债权金额',required:'必填',rule:'数字且不可为负',example:'3560.00',key:true},
+        {name:'违约日',required:'必填',rule:'支持yyyy-MM-dd',example:'2026-06-02',key:true},
+        {name:'商品名称',required:'必填',rule:'不可为空',example:'笔记本电脑',key:true},
+        {name:'下单手机号',required:'必填',rule:'11位手机号',example:'13700137000',key:true},
+        {name:'主合同签署日期',required:'必填',rule:'支持yyyy-MM-dd',example:'2025-10-08',key:true},
+        {name:'租赁物签收日',required:'必填',rule:'支持yyyy-MM-dd',example:'2025-10-10',key:true},
+        {name:'初始保证金',required:'非必填',rule:'数字且不可为负',example:'500.00',key:false}
+      ],
+      materials:{
+        first:[{category:'订单信息',sourceName:'订单详情',required:'必传',match:'精确'},{category:'账单详情',sourceName:'账单详情',required:'必传',match:'精确'},{category:'主合同',sourceName:'租赁服务合同',required:'必传',match:'包含'}],
+        renewal:[{category:'订单信息',sourceName:'订单详情',required:'必传',match:'精确'},{category:'主合同',sourceName:'续租服务合同',required:'必传',match:'包含'}]
+      }
+    }
+  };
   function getSelectText(select){
     var clone = select.cloneNode(true);
     clone.querySelectorAll('b,.select-menu').forEach(function(node){ node.remove(); });
     return clone.textContent.trim();
   }
   function setSelectValue(select, value){
-    if(select){ select.innerHTML = value + '<b>⌄</b>'; }
+    if(select){
+      select.innerHTML = value + '<b>⌄</b>';
+      if(select.id === 'importRuleFull'){
+        currentRuleDetailName = value;
+        if(document.getElementById('ruleDetailModal').classList.contains('show')){ renderRuleDetail(value); }
+      }
+    }
   }
+  function getConfiguredRuleFields(rule){
+    var fieldConfigTable = document.getElementById('fieldRuleTable');
+    if(!fieldConfigTable){ return rule.fields; }
+    var overrides = {};
+    rule.fields.forEach(function(field){ overrides[field.name] = field; });
+    return Array.from(fieldConfigTable.querySelectorAll('tbody tr')).map(function(row){
+      var cells = row.cells;
+      var name = (cells[1] && cells[1].textContent || '').trim();
+      var override = overrides[name] || {};
+      var configuredRequired = (cells[4] && cells[4].textContent || '').replace('⌄','').trim();
+      return {
+        name:name,
+        required:override.required || (configuredRequired === '是' ? '必填' : configuredRequired || '非必填'),
+        rule:override.rule || (cells[5] && cells[5].textContent || '').trim(),
+        example:override.example || '—'
+      };
+    }).filter(function(field){ return field.name; });
+  }
+  function getRuleDetailRows(rows){
+    return rows.map(function(row){
+      var requiredClass = row.required === '必填' ? 'bad' : (row.required === '条件必填' ? 'warn' : 'gray');
+      return '<tr><td>' + row.name + '</td><td><span class="tag ' + requiredClass + '">' + row.required + '</span></td><td>' + row.example + '</td></tr>';
+    }).join('');
+  }
+  function getMaterialGroup(category){
+    var groups = {
+      '电子签章授权书':'合同材料', '主合同':'合同材料', '合同附件':'合同材料', '补充合同':'合同材料', '担保合同':'合同材料',
+      '身份信息':'身份材料', '物流信息':'物流材料', '订单信息':'订单材料', '账单详情':'订单材料',
+      '短信记录':'催收材料', '其它材料':'其它材料'
+    };
+    return groups[category] || '其它材料';
+  }
+  function getRuleMaterialRows(rows){
+    return rows.map(function(item){
+      return '<tr><td>' + item.category + '</td><td>' + getMaterialGroup(item.category) + '</td><td>' + item.sourceName + '</td><td><span class="tag ' + (item.required === '必传' ? 'bad' : 'gray') + '">' + item.required + '</span></td><td>' + item.match + '</td></tr>';
+    }).join('');
+  }
+  function renderRuleDetail(ruleName){
+    var rule = ruleDetailRules[ruleName] || ruleDetailRules['创新租赁通用规则'];
+    var title = document.getElementById('ruleDetailTitle');
+    var content = document.getElementById('ruleDetailContent');
+    var download = document.getElementById('ruleTemplateDownload');
+    var fields = getConfiguredRuleFields(rule);
+    var materials = rule.materials[ruleDetailMaterialTab];
+    title.innerText = ruleName;
+    download.href = './' + rule.templateFile;
+    download.download = rule.templateFile;
+    content.innerHTML = '<section class="rule-detail-section"><h4>规则摘要</h4><div class="rule-summary-grid"><div><b>外部资产方</b><span>' + rule.assetOwner + '</span></div><div><b>业务类型</b><span>' + rule.businessType + '</span></div></div></section>' +
+      '<div class="rule-detail-layout"><section class="rule-detail-section"><h4>Excel字段要求</h4><table class="rule-detail-table rule-field-table"><thead><tr><th>中文列名</th><th>是否必填</th><th>示例</th></tr></thead><tbody>' + getRuleDetailRows(fields) + '</tbody></table></section>' +
+      '<section class="rule-detail-section"><h4>材料要求</h4><div class="rule-detail-tabs"><button type="button" class="' + (ruleDetailMaterialTab === 'first' ? 'active' : '') + '" onclick="setRuleMaterialTab(\'first\')">首租订单</button><button type="button" class="' + (ruleDetailMaterialTab === 'renewal' ? 'active' : '') + '" onclick="setRuleMaterialTab(\'renewal\')">续租订单</button></div><table class="rule-detail-table rule-material-table"><thead><tr><th>标准材料类别</th><th>材料大类</th><th>资产方材料名称</th><th>是否必传</th><th>匹配方式</th></tr></thead><tbody>' + getRuleMaterialRows(materials) + '</tbody></table></section></div>';
+  }
+  function openRuleDetailModal(){
+    ruleDetailMaterialTab = 'first';
+    renderRuleDetail(currentRuleDetailName);
+    openModal('ruleDetailModal');
+  }
+  function closeRuleDetailModal(){ closeModal('ruleDetailModal'); }
+  function setRuleMaterialTab(type){ ruleDetailMaterialTab = type; renderRuleDetail(currentRuleDetailName); }
   function getFileTypeText(fileName){
     var ext = (fileName.split('.').pop() || '').toLowerCase();
     if(['jpg','jpeg','png','gif','bmp','webp'].indexOf(ext) >= 0){ return '图片材料，可查看原图并下载'; }
@@ -2176,6 +2358,21 @@
     "收货人手机号": [
         "receiverInfo 收货信息",
         "receiverMobile",
+        "否"
+    ],
+    "户籍地(省)": [
+        "userInfo 用户信息",
+        "registeredAddress",
+        "否"
+    ],
+    "户籍地(市)": [
+        "userInfo 用户信息",
+        "registeredAddress",
+        "否"
+    ],
+    "户籍地(区)": [
+        "userInfo 用户信息",
+        "registeredAddress",
         "否"
     ],
     "户籍地": [
