@@ -74,6 +74,8 @@ const detailHtml = importDetail[0];
 assert.ok(detailHtml.includes('待材料激活'), '详情页案件状态应使用待材料激活');
 assert.ok(detailHtml.includes('<b>债权出让主体</b><span>湖北创新融资租赁有限公司</span>'), '导入处理详情头部应展示债权出让主体');
 assert.ok(detailHtml.includes('<span class="tag ok">材料齐全</span></td><td>成功</td>'), '普通已生效且材料齐全订单的处理结果应为成功');
+assert.ok(detailHtml.includes('26012915050167612001') && detailHtml.includes('待初始化（一期）</span></td><td>成功</td><td class="muted">-</td>'), '一期字段通过订单应展示已生效、待初始化（一期）和成功，且不展示材料解析');
+assert.ok(detailHtml.includes('26012915050167612002') && detailHtml.includes('身份证号字段格式错误</td><td><button class="text-link" onclick="openFailureModal(\'26012915050167612002\')">失败原因</button>'), '一期导入失败订单应展示未生成材料状态和具体失败结果');
 assert.ok(detailHtml.includes('字段校验通过，缺少必填材料：租赁服务合同。'), '待补必填订单的处理结果应与下载明细一致');
 assert.ok(detailHtml.includes('字段校验通过，缺少非必填材料：订单详情-物流。'), '待补非必填订单的处理结果应与下载明细一致');
 assert.ok(detailHtml.includes('同批次覆盖成功</span><div id="duplicateNote1">使用后传Excel字段覆盖已有订单。'), '自动覆盖订单的处理结果应与下载明细一致');
@@ -89,6 +91,10 @@ assert.ok(html.includes('查看覆盖记录展示自动/强制覆盖方式、字
 assert.ok(html.includes('<span class="tag info">同批次覆盖成功</span> 使用后传Excel字段覆盖已有订单。'), '查看覆盖记录应展示与下载明细一致的自动覆盖结果');
 assert.ok(html.includes('<span class="tag info">强制覆盖成功</span> “是否强制覆盖”=是，已更新可覆盖字段。'), '查看覆盖记录应展示与下载明细一致的强制覆盖结果');
 assert.ok(html.includes('普通已生效且材料齐全的订单处理结果为“成功”'), '详情页备注应明确普通成功订单的处理结果');
+assert.ok(html.includes('<h3>材料解析规则</h3>') && html.includes('首次导入：创建批次时选择导入规则') && html.includes('后续补传或重传：已存在订单始终按首次导入时固化的规则快照重新解析') && html.includes('同批次新增订单：沿用该批次创建时选定的导入规则'), '详情页备注应明确首次导入、后续补传和同批次新增订单的材料解析口径');
+assert.ok(html.includes('id="historyMaterialRuleBox"') && html.includes('创新旧合同模式&创新新合同模式规则'), '补充历史材料弹框应展示创新历史批次固定的材料解析规则');
+assert.ok(html.includes("document.getElementById('historyMaterialRuleBox').style.display = historyMode ? '' : 'none';"), '材料解析规则仅在补充历史材料时展示');
+assert.ok(html.includes('一期历史订单仅完成Excel导入：字段校验通过的订单展示“已生效 / 待初始化（一期）/ 成功”'), '详情页备注应说明一期历史订单的展示口径');
 assert.ok(detailHtml.includes('>重复跳过</span>'), '不可覆盖重复订单应直接标记为重复跳过');
 assert.ok(detailHtml.includes('该订单已分配或已流转，不可覆盖。'), '重复跳过应说明不可覆盖原因');
 assert.ok(!detailHtml.includes('>处理重复</button>'), '不可覆盖重复订单不应提供人工处理重复按钮');
@@ -99,7 +105,13 @@ assert.ok(html.includes("if(target === 'orders')"), '导出按钮应仅在订单
 assert.ok(html.includes("download.style.display = 'none';"), '待补材料和异常文件页签应隐藏导出按钮');
 assert.ok(!html.includes('导出当前筛选待补材料明细'), '待补材料页签不应保留单独导出按钮');
 assert.ok(!html.includes('导出当前筛选异常文件明细'), '异常文件页签不应保留单独导出按钮');
-assert.ok(html.includes('导入结果明细、失败分类说明、口径说明'), '订单结果导出应与批次下载明细使用相同三张Sheet');
+assert.ok(html.includes('导入结果明细、待补材料明细、失败分类说明、口径说明'), '订单结果导出应与批次下载明细使用相同四张Sheet');
+assert.ok(!detailHtml.includes('<th>来源</th>'), '待补材料列表不展示来源列');
+assert.ok(detailHtml.includes('26012915050167612001') && detailHtml.includes('<td>吴静</td><td>主合同</td><td>租赁服务合同</td><td><span class="tag bad">必填</span></td><td><span class="tag ok">已生效</span>'), '一期历史订单解析出缺失材料后应进入待补材料列表，案件保持已生效');
+assert.ok(html.includes('未上传材料包的订单仅在订单结果展示“待初始化（一期）”，不进入待补材料'), '备注应说明一期历史订单未解析时不进入待补材料');
+assert.ok(detailHtml.includes('26012915050167612348</td><td>丁磊</td><td>6,990.00</td><td><span class="tag warn">待材料激活</span></td><td><span class="tag bad">待补必填</span>'), '同一订单缺少多项材料时，订单结果应只展示一条汇总记录');
+assert.ok(detailHtml.includes('26012915050167612348</td><td>丁磊</td><td>主合同</td><td>租赁服务合同</td><td><span class="tag bad">必填</span>') && detailHtml.includes('26012915050167612348</td><td>丁磊</td><td>订单信息</td><td>订单详情-物流</td><td><span class="tag warn">非必填</span>'), '同一订单缺少两项材料时，待补材料应按材料展示两条记录');
+assert.ok(html.includes('同一订单缺少多项材料时展示多条记录'), '备注应说明待补材料按材料多行展示');
 
 assert.ok(newImportFull[0].includes('id="importAssetOwnerFull"'), '二期新建批次应提供外部资产方联动选择');
 assert.ok(newImportFull[0].includes('class="select multi-rule-select"'), '创新导入规则应支持多选');

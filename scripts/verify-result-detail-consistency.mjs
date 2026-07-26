@@ -4,9 +4,9 @@ import { FileBlob, SpreadsheetFile } from '@oai/artifact-tool';
 const workbook = await SpreadsheetFile.importXlsx(await FileBlob.load('法诉案件导入_导入结果明细.xlsx'));
 const resultDetail = await workbook.inspect({
   kind: 'table',
-  range: "'导入结果明细'!A1:Q18",
+  range: "'导入结果明细'!A1:Q19",
   include: 'values',
-  tableMaxRows: 18,
+  tableMaxRows: 19,
   tableMaxCols: 17
 });
 const rows = JSON.parse(resultDetail.ndjson).values;
@@ -25,6 +25,9 @@ assert.equal(rows[12][11], '缺少必填材料');
 assert.equal(rows[13][11], '缺少非必填材料');
 assert.equal(rows[12][14], '字段校验通过，缺少必填材料：租赁服务合同。');
 assert.equal(rows[13][14], '字段校验通过，缺少非必填材料：订单详情-物流。');
+assert.equal(rows[18][4], '26012915050167612348', '同一订单多材料场景在导入结果明细中仍只保留一行订单记录');
+assert.equal(rows[18][10], '租赁服务合同；订单详情-物流');
+assert.equal(rows[18][14], '字段校验通过，缺少必填材料：租赁服务合同；缺少非必填材料：订单详情-物流。');
 
 for (const row of rows.slice(1)) {
   if (row[7] === '导入成功' && row[8] === '已生效' && row[9] === '材料齐全') {
@@ -45,5 +48,17 @@ assert.match(failureText, /同批次重复跳过/);
 assert.match(failureText, /覆盖成功口径/);
 assert.match(failureText, /主子订单更新成功/);
 assert.match(failureText, /导入结果=导入成功/);
+
+const missingMaterialDetail = await workbook.inspect({
+  kind: 'table',
+  range: "'待补材料明细'!A1:H6",
+  include: 'values',
+  tableMaxRows: 6,
+  tableMaxCols: 8
+});
+const missingRows = JSON.parse(missingMaterialDetail.ndjson).values;
+assert.deepEqual(missingRows[0], ['订单编号', '客户姓名', '标准材料类别', '缺失材料名称', '材料要求', '案件状态', '处理结果', '导入时间']);
+assert.equal(missingRows.filter((row) => row[0] === '26012915050167612348').length, 2, '同一订单缺少多项材料时，待补材料明细应按材料展示多行');
+assert.deepEqual(missingRows.filter((row) => row[0] === '26012915050167612348').map((row) => row[3]), ['租赁服务合同', '订单详情-物流']);
 
 console.log('result detail consistency check passed');
