@@ -4,6 +4,9 @@ import fs from 'node:fs';
 const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const fieldConfigTable = html.match(/<table id="fieldRuleTable"[\s\S]*?<\/table>/)?.[0] || '';
 const configuredFieldCount = (fieldConfigTable.match(/<tr(?:\s|>)/g) || []).length - 1;
+const configuredFieldNames = [...fieldConfigTable.matchAll(/<tr[^>]*>\s*<td[^>]*>案件导入模板<\/td>\s*<td[^>]*>([^<]+)<\/td>/g)].map((match) => match[1]);
+const exampleMapSource = html.match(/var templateExampleByField = (\{[\s\S]*?\n  \});/)?.[1];
+const templateExampleByField = Function(`return (${exampleMapSource})`)();
 
 assert.match(html, /id="viewRuleDetailBtn"/, '二期导入规则字段应提供“查看规则详情”入口');
 assert.match(html, /id="ruleDetailModal" class="modal-mask"/, '页面应包含规则详情弹框');
@@ -22,7 +25,12 @@ assert.match(html, /<th>材料大类<\/th>/, '材料要求应展示材料大类'
 assert.match(html, /function getMaterialGroup\(category\)/, '材料大类应按标准材料类别统一映射');
 assert.match(html, /function getConfiguredRuleFields\(rule\)/, '规则详情应读取完整Excel模板字段配置');
 assert.match(html, /document\.getElementById\('fieldRuleTable'\)/, '规则详情字段应与字段配置表保持一致');
-assert.equal(configuredFieldCount, 70, 'Excel字段配置应与70列模板一致');
+assert.equal(configuredFieldCount, 71, '字段配置应包含70个业务字段和1个强制覆盖控制列');
+assert.equal(Object.keys(templateExampleByField).length, 70, '模板示例应覆盖70个业务字段');
+configuredFieldNames
+  .filter((fieldName) => fieldName !== '是否强制覆盖')
+  .forEach((fieldName) => assert.ok(templateExampleByField[fieldName], `字段“${fieldName}”应展示模板示例`));
+assert.ok(configuredFieldNames.includes('是否强制覆盖'), '字段配置应包含隐藏的强制覆盖控制列');
 assert.match(html, /<td>户籍地\(省\)<\/td>/, '字段配置应包含户籍地(省)');
 assert.match(html, /<td>户籍地\(市\)<\/td>/, '字段配置应包含户籍地(市)');
 assert.match(html, /<td>户籍地\(区\)<\/td>/, '字段配置应包含户籍地(区)');
