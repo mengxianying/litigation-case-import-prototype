@@ -104,6 +104,9 @@ assert.ok(detailHtml.includes('>重复跳过</span>'), '不可覆盖重复订单
 assert.ok(detailHtml.includes('该订单已分配或已流转，不可覆盖。'), '重复跳过应说明不可覆盖原因');
 assert.ok(!detailHtml.includes('>处理重复</button>'), '不可覆盖重复订单不应提供人工处理重复按钮');
 assert.ok(!detailHtml.includes('>失败原因</button>'), '订单结果列表不应提供失败原因按钮');
+assert.ok(html.includes('订单结果统一为“成功XX笔；失败XX笔”') && html.includes('材料结果统一为“待补必填XX项；待补非必填XX项”'), '详情页备注应明确批次处理记录的订单和材料结果口径');
+assert.ok(html.includes('首次导入（Excel+材料包）') && html.includes('成功1,250笔；失败12笔') && html.includes('批量补传（仅Excel）') && html.includes('成功8笔；失败4笔'), '批次处理记录应按本次Excel字段校验展示订单结果');
+assert.ok(html.includes('批量补传（仅材料包）</td><td>补传材料包.zip</td><td></td><td>待补必填10项；待补非必填20项'), '仅上传材料包时订单结果应为空，材料结果按本次匹配订单统计');
 assert.ok(!html.includes('id="duplicateModal"'), '重复跳过不应保留确认跳过弹框');
 assert.ok(!html.includes('确认跳过'), '重复跳过不应要求人工确认');
 assert.ok(detailHtml.includes('导出当前筛选订单明细'), '订单结果页签应保留当前筛选订单明细导出');

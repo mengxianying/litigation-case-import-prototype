@@ -1306,6 +1306,12 @@
         <p><b>3.</b>已生效订单自动进入原待委外链路，本页不提供手工推送、单个文件上传或人工绑定。</p>
       </section>
       <section class="anno-block">
+        <h3>批次处理记录</h3>
+        <p><b>1.</b>一条记录对应一次提交，仅反映本次提交的处理结果，不改变批次主列表的累计统计口径。</p>
+        <p><b>2.</b>订单结果统一为“成功XX笔；失败XX笔”：本次上传Excel时，按本次Excel字段校验通过和失败的订单数量统计；同时上传材料包不改变该口径。仅上传材料包时订单结果为空。</p>
+        <p><b>3.</b>材料结果统一为“待补必填XX项；待补非必填XX项”：本次同时上传Excel和材料包时，仅统计本次Excel字段校验通过订单的材料解析结果；仅上传Excel时材料结果为空；仅上传材料包时，统计当前批次已生效订单中匹配到本次材料包的订单解析结果。</p>
+      </section>
+      <section class="anno-block">
         <h3>筛选区逻辑</h3>
         <p><b>1.</b>订单编号、客户姓名支持模糊查询。</p>
         <p><b>2.</b>订单结果按订单编号、客户姓名、案件状态筛选；待补材料按订单编号、标准材料类别、材料要求筛选；异常文件按文件名、识别问题筛选。</p>
@@ -1716,13 +1722,13 @@
   <div class="modal large">
     <div class="modal-head">批次处理记录 <button onclick="closeModal('batchProcessLogModal')">×</button></div>
     <div class="modal-body">
-      <div class="notice" style="margin:0 0 14px">同一资产采购批次可分次提交。资产总数、已生效、待材料激活和导入失败均按订单编号去重后的当前结果统计；本表用于追溯每次上传，不改变列表汇总口径。</div>
+      <div class="notice" style="margin:0 0 14px">同一资产采购批次可分次提交。本表仅追溯每次提交的处理结果，不改变主列表按订单编号去重后的累计统计口径；订单结果仅统计本次Excel字段校验，材料结果仅统计本次材料解析范围。</div>
       <table>
         <thead><tr><th>处理批次</th><th>提交时间</th><th>提交内容</th><th>上传文件</th><th>订单结果</th><th>材料结果</th><th>处理状态</th></tr></thead>
         <tbody>
-          <tr><td>第1次</td><td>2026-06-10 20:15:32</td><td>首次导入</td><td>资产明细.xlsx / 材料包.zip</td><td>新增1,250笔；失败12笔</td><td>待补必填22项；待补非必填20项</td><td><span class="tag ok">完成</span></td></tr>
-          <tr><td>第2次</td><td>2026-06-11 09:30:22</td><td>批量补传</td><td>失败订单重传.xlsx</td><td>成功补入8笔；仍失败4笔</td><td>-</td><td><span class="tag ok">完成</span></td></tr>
-          <tr><td>第3次</td><td>2026-06-11 10:08:16</td><td>批量补传</td><td>补传材料包.zip</td><td>-</td><td>补齐12项；异常文件保留9个</td><td><span class="tag ok">完成</span></td></tr>
+          <tr><td>第1次</td><td>2026-06-10 20:15:32</td><td>首次导入（Excel+材料包）</td><td>资产明细.xlsx / 材料包.zip</td><td>成功1,250笔；失败12笔</td><td>待补必填22项；待补非必填20项</td><td><span class="tag ok">完成</span></td></tr>
+          <tr><td>第2次</td><td>2026-06-11 09:30:22</td><td>批量补传（仅Excel）</td><td>失败订单重传.xlsx</td><td>成功8笔；失败4笔</td><td></td><td><span class="tag ok">完成</span></td></tr>
+          <tr><td>第3次</td><td>2026-06-11 10:08:16</td><td>批量补传（仅材料包）</td><td>补传材料包.zip</td><td></td><td>待补必填10项；待补非必填20项</td><td><span class="tag ok">完成</span></td></tr>
         </tbody>
       </table>
       <div class="submit-note">如发生模板校验失败，整份文件不会创建处理记录；订单级失败会在“导入结果明细”中展示失败分类、处理结果及案件/材料状态，具体分类和提示文案见“失败分类说明”。</div>
