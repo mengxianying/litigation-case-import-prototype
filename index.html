@@ -55,6 +55,7 @@
     .field-box{flex:1;min-width:0}
     .input,.select{height:32px;border:1px solid #bfc8d4;background:white;border-radius:2px;padding:6px 10px;color:#5f6b7a;display:flex;justify-content:space-between;align-items:center}
     .text-input{width:100%;display:block;font:inherit;outline:none}
+    .native-select{width:100%;height:32px;border:1px solid #bfc8d4;background:#fff;color:#5f6b7a;padding:0 10px;border-radius:2px;font:inherit;outline:none}
     .select{position:relative;cursor:pointer;overflow:visible}
     .select b{margin-left:8px;color:#909399}
     .select-menu{position:absolute;top:34px;left:0;min-width:100%;width:max-content;max-width:460px;max-height:260px;overflow:auto;background:white;border:1px solid #bfc8d4;box-shadow:0 8px 18px rgba(15,23,42,.14);border-radius:3px;padding:4px 0;z-index:5000}
@@ -241,8 +242,8 @@
     #orderProcessingPane table th:nth-child(1),#orderProcessingPane table td:nth-child(1){width:42px!important}
     .order-result-table{min-width:1422px}
     .row-actions{display:flex;flex-direction:column;align-items:center;gap:6px;white-space:nowrap}
-    #orderProcessingPane table th:nth-child(2),#orderProcessingPane table td:nth-child(2){width:260px!important}
-    #orderProcessingPane table th:nth-child(3),#orderProcessingPane table td:nth-child(3){width:190px!important;white-space:nowrap}
+    #orderProcessingPane table th:nth-child(2),#orderProcessingPane table td:nth-child(2){width:190px!important;white-space:nowrap}
+    #orderProcessingPane table th:nth-child(3),#orderProcessingPane table td:nth-child(3){width:260px!important}
     #orderProcessingPane table th:nth-child(4),#orderProcessingPane table td:nth-child(4){width:80px!important}
     #orderProcessingPane table th:nth-child(5),#orderProcessingPane table td:nth-child(5){width:105px!important}
     #orderProcessingPane table th:nth-child(6),#orderProcessingPane table td:nth-child(6){width:110px!important;white-space:nowrap}
@@ -250,16 +251,16 @@
     #orderProcessingPane table th:nth-child(8),#orderProcessingPane table td:nth-child(8){width:350px!important}
     #orderProcessingPane table th:nth-child(9),#orderProcessingPane table td:nth-child(9){width:180px!important;white-space:nowrap}
     #missingPane table th:nth-child(1),#missingPane table td:nth-child(1){width:42px!important}
-    #missingPane table th:nth-child(2),#missingPane table td:nth-child(2){width:236px!important}
-    #missingPane table th:nth-child(3),#missingPane table td:nth-child(3){width:190px!important;white-space:nowrap}
+    #missingPane table th:nth-child(2),#missingPane table td:nth-child(2){width:190px!important;white-space:nowrap}
+    #missingPane table th:nth-child(3),#missingPane table td:nth-child(3){width:236px!important}
     #missingPane table th:nth-child(4),#missingPane table td:nth-child(4){width:76px!important}
     #missingPane table th:nth-child(5),#missingPane table td:nth-child(5){width:132px!important}
     #missingPane table th:nth-child(6),#missingPane table td:nth-child(6){width:178px!important}
     #missingPane table th:nth-child(7),#missingPane table td:nth-child(7){width:82px!important}
     #missingPane table th:nth-child(8),#missingPane table td:nth-child(8){width:110px!important}
     .unmatched-table th:nth-child(1),.unmatched-table td:nth-child(1){width:42px!important}
-    .unmatched-table th:nth-child(2),.unmatched-table td:nth-child(2){width:236px!important}
-    .unmatched-table th:nth-child(3),.unmatched-table td:nth-child(3){width:210px!important;white-space:nowrap}
+    .unmatched-table th:nth-child(2),.unmatched-table td:nth-child(2){width:210px!important;white-space:nowrap}
+    .unmatched-table th:nth-child(3),.unmatched-table td:nth-child(3){width:236px!important}
     .unmatched-table th:nth-child(4),.unmatched-table td:nth-child(4){width:320px!important}
     .unmatched-table th:nth-child(5),.unmatched-table td:nth-child(5){width:180px!important}
     .parse-pane[data-parse-pane="field"] table th:nth-child(1),.parse-pane[data-parse-pane="field"] table td:nth-child(1){width:50px!important}
@@ -762,7 +763,7 @@
           <label><span><em class="req">*</em>批次名称</span><div class="field-box"><div class="input">例：转转租赁批次01</div><div class="limit">必填，2-50字符。</div></div></label>
           <label><span><em class="req">*</em>外部资产方</span><div class="field-box"><div id="importAssetOwnerFull" class="select" data-options="创新|转转">创新<b>⌄</b></div><div class="enum">创新 / 转转</div><div class="limit">切换资产方后，导入规则和下载模板同步刷新。</div></div></label>
           <label><span><em class="req">*</em>业务类型</span><div class="field-box"><div class="select" data-options="租赁">租赁<b>⌄</b></div><div class="enum">租赁</div></div></label>
-          <label><span><em class="req">*</em>导入规则</span><div class="field-box"><div id="importRuleFull" class="select multi-rule-select" role="button" aria-label="导入规则多选"><span class="rule-select-value rule-select-placeholder">请选择导入规则</span><b>⌄</b></div><div id="importRuleFullEnum" class="enum">创新：可多选创新旧合同模式、创新新合同模式</div><div class="limit">决定模板字段、规则模式和材料规则；创新可多选，转转按资产方加载对应规则。</div><button id="viewRuleDetailBtn" class="text-link rule-detail-link" type="button" onclick="openRuleDetailModal()">查看规则详情</button></div></label>
+          <label><span><em class="req">*</em>导入规则</span><div class="field-box"><select id="importRuleFull" class="native-select" aria-label="导入规则单选" onchange="selectPhase2Rule(this.value)"><option value="">请选择导入规则</option><option value="创新旧合同模式">创新旧合同模式</option><option value="创新新合同模式">创新新合同模式</option></select><div id="importRuleFullEnum" class="enum">创新：创新旧合同模式 / 创新新合同模式</div><div class="limit">根据外部资产方加载可用规则，一次只能选择一个规则。</div><button id="viewRuleDetailBtn" class="text-link rule-detail-link" type="button" onclick="openRuleDetailModal()">查看规则详情</button></div></label>
           <label><span><em class="req">*</em>债权接收主体</span><div class="field-box"><div class="select" data-options="襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)|武汉小优企业管理有限公司(91420115MACRLKWJ1A)|聊城小优企业管理有限公司(91371521MADE8H2E0)">请选择债权接收主体<b>⌄</b></div><div class="enum">襄阳鸿飞企业管理有限公司 / 武汉小优企业管理有限公司 / 聊城小优企业管理有限公司</div></div></label>
           <label><span><em class="req">*</em>债权出让主体</span><div class="field-box"><input class="input text-input" id="importTransferorFull" type="text" maxlength="50" placeholder="请输入债权出让主体"><div class="limit">必填，最多50字符。</div></div></label>
           <label><span><em class="req">*</em>债权总额</span><div class="field-box"><div class="input">例：12036800.00</div><div class="limit">允许为0；非金额或负数提示金额不正确。</div></div></label>
@@ -817,7 +818,7 @@
         <div id="orderProcessingPane" class="supp-pane active">
           <div class="table-wrap">
             <table class="order-result-table">
-              <colgroup><col style="width:42px"><col style="width:260px"><col style="width:190px"><col style="width:80px"><col style="width:105px"><col style="width:110px"><col style="width:105px"><col style="width:350px"><col style="width:180px"></colgroup>
+              <colgroup><col style="width:42px"><col style="width:190px"><col style="width:260px"><col style="width:80px"><col style="width:105px"><col style="width:110px"><col style="width:105px"><col style="width:350px"><col style="width:180px"></colgroup>
               <thead><tr><th><input type="checkbox" onclick="toggleTableChecks(this)"></th><th>订单编号</th><th>客户姓名</th><th>债权金额</th><th>案件状态</th><th>材料状态</th><th>处理结果</th><th>操作</th></tr></thead>
               <tbody>
                 <tr><td><input type="checkbox"></td><td>26012915050167612327</td><td>张三</td><td>12,036.80</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td>成功</td><td><button class="text-link" onclick="openParseModal('26012915050167612327')">查看材料解析</button></td></tr>
@@ -1097,9 +1098,9 @@
         <p><b>3.</b>导入规则决定字段启用、字段必填、材料类别、资产方材料名称、匹配模式和必填材料范围。</p>
         <p><b>4.</b>债权出让主体由运营以文本方式录入，必填且最多50字符；用于标识本批次债权的出让方，不受债权接收主体下拉枚举限制。</p>
         <p><b>5.</b>本期不提供规则的新建、编辑、删除或启停页面；选择规则后可查看详情并下载对应模板。</p>
-        <p><b>6.</b>规则联动：创新可多选“创新旧合同模式、创新新合同模式”；转转加载“转转租赁通用规则”。切换资产方时清空已选规则。</p>
-        <p><b>7.</b>规则详情：至少选择一项规则后可查看字段和材料要求；多选时按页签切换。未选择规则时提示“请选择导入规则”。</p>
-        <p><b>8.</b>下载模板：文件名为“外部资产方_导入规则名称.xlsx”。创新同时选择多个规则时，模板增加“规则模式”列，枚举值取该资产方已选择的导入规则名称（如创新旧合同模式、创新新合同模式），并附对应材料规则Sheet。</p>
+        <p><b>6.</b>规则联动：导入规则为单选。创新可选择“创新旧合同模式”或“创新新合同模式”；转转加载“转转租赁通用规则”。切换资产方时清空已选规则。</p>
+        <p><b>7.</b>规则详情：选择规则后可查看该规则的字段和材料要求；未选择时提示“请选择导入规则”。</p>
+        <p><b>8.</b>下载模板：文件名为“外部资产方_导入规则名称.xlsx”，模板仅包含当前所选规则对应的字段和材料规则Sheet。</p>
       </section>
       <section class="anno-block">
         <h3>上传和校验</h3>
@@ -1115,7 +1116,6 @@
           <tbody>
             <tr><th>未选择导入规则</th><td>查看规则详情、下载模板</td><td>两个操作均提示“请选择导入规则”；不下载默认模板，避免使用错误规则。</td></tr>
             <tr><th>已选择单个规则</th><td>查看规则详情、下载模板</td><td>查看字段和材料要求；下载“外部资产方_规则名称.xlsx”。</td></tr>
-            <tr><th>已选择多个创新规则</th><td>查看规则详情、下载模板</td><td>详情按页签切换；模板增加“规则模式”列，并附每项规则的材料规则Sheet。</td></tr>
             <tr><th>新建中</th><td>上传资产明细、上传材料包、下载模板、保存草稿、导入、取消</td><td>头部字段除备注外均必填；两个文件都上传后才能导入。</td></tr>
             <tr><th>草稿</th><td>继续编辑、保存草稿、导入、取消</td><td>继续编辑回显上次保存内容；取消后状态变为已取消。</td></tr>
             <tr><th>提交导入</th><td>导入</td><td>页面必填、金额、规则状态、Excel和材料包格式通过后提交异步任务，弹出“导入处理中”。</td></tr>
@@ -1344,7 +1344,7 @@
         <h3>材料解析规则</h3>
         <p><b>1.</b>首次导入：创建批次时选择导入规则，系统按订单所属规则解析材料类别、必填性和匹配方式，并为订单固化材料规则快照。</p>
         <p><b>2.</b>后续补传或重传：已存在订单始终按首次导入时固化的规则快照重新解析；补传仅更新材料解析结果、材料状态和待补材料，不因规则配置调整改变历史订单口径。</p>
-        <p><b>3.</b>同批次新增订单：沿用该批次创建时选定的导入规则；多规则批次按订单中的规则模式匹配具体规则。后续规则配置变更不影响本批次已导入订单。</p>
+        <p><b>3.</b>同批次新增订单：沿用该批次创建时选定的单一导入规则。后续规则配置变更不影响本批次已导入订单。</p>
         <p><b>4.</b>主订单和续租订单分别按各自材料规则校验；成对导入时，主、续订单的必填材料均通过后才生成并生效。任一订单缺少必填材料时，主、续订单均不生成案件，案件状态统一为待材料激活、材料状态统一为待补必填。</p>
       </section>
       <section class="anno-block">
@@ -1968,16 +1968,14 @@
   }
   function renderPhase2RuleSelector(){
     var selector = document.getElementById('importRuleFull');
-    var value = selector && selector.querySelector('.rule-select-value');
     var templateName = document.getElementById('phase2TemplateName');
     var templateLink = document.getElementById('phase2TemplateDownload');
     var optionsHint = document.getElementById('importRuleFullEnum');
     var owner = getSelectText(document.getElementById('importAssetOwnerFull')) || '创新';
-    if(value){
-      value.textContent = selectedPhase2Rules.length ? selectedPhase2Rules.join('、') : '请选择导入规则';
-      value.classList.toggle('rule-select-placeholder', !selectedPhase2Rules.length);
+    if(selector){
+      selector.value = selectedPhase2Rules[0] || '';
     }
-    if(optionsHint){ optionsHint.textContent = owner === '创新' ? '创新：可多选创新旧合同模式、创新新合同模式' : '转转：转转租赁通用规则'; }
+    if(optionsHint){ optionsHint.textContent = owner === '创新' ? '创新：创新旧合同模式 / 创新新合同模式' : '转转：转转租赁通用规则'; }
     var fileName = getPhase2TemplateFileName();
     if(templateName){ templateName.textContent = fileName || '请选择导入规则后下载模板'; }
     if(templateLink){ templateLink.href = fileName ? './' + fileName : '#'; templateLink.setAttribute('download', fileName); }
@@ -1985,43 +1983,21 @@
   function syncPhase2RuleOptions(assetOwner){
     selectedPhase2Rules = [];
     currentRuleDetailName = '';
+    var selector = document.getElementById('importRuleFull');
+    var options = phase2RuleOptionsByOwner[assetOwner] || [];
+    if(selector){
+      selector.innerHTML = '<option value="">请选择导入规则</option>' + options.map(function(option){ return '<option value="' + option + '">' + option + '</option>'; }).join('');
+    }
+    renderPhase2RuleSelector();
+  }
+  function selectPhase2Rule(value){
+    selectedPhase2Rules = value ? [value] : [];
+    currentRuleDetailName = value || '';
     renderPhase2RuleSelector();
   }
   function initPhase2RuleSelector(){
-    var selector = document.getElementById('importRuleFull');
-    if(!selector || selector.getAttribute('data-select-ready') === '1'){ return; }
-    selector.setAttribute('data-select-ready','1');
-    selector.setAttribute('tabindex','0');
-    selector.addEventListener('click', function(event){
-      event.stopPropagation();
-      var existing = selector.querySelector('.select-menu');
-      closeSelectMenus(selector);
-      if(existing){ existing.remove(); return; }
-      var owner = getSelectText(document.getElementById('importAssetOwnerFull')) || '创新';
-      var options = phase2RuleOptionsByOwner[owner] || [];
-      var menu = document.createElement('div');
-      menu.className = 'select-menu';
-      options.forEach(function(option){
-        var item = document.createElement('label');
-        item.className = 'multi-rule-option';
-        var input = document.createElement('input');
-        input.type = 'checkbox';
-        input.checked = selectedPhase2Rules.indexOf(option) >= 0;
-        input.addEventListener('click', function(evt){ evt.stopPropagation(); });
-        input.addEventListener('change', function(){
-          if(input.checked){ selectedPhase2Rules.push(option); }
-          else { selectedPhase2Rules = selectedPhase2Rules.filter(function(name){ return name !== option; }); }
-          selectedPhase2Rules = options.filter(function(name){ return selectedPhase2Rules.indexOf(name) >= 0; });
-          currentRuleDetailName = selectedPhase2Rules[0] || '';
-          renderPhase2RuleSelector();
-        });
-        item.appendChild(input);
-        item.appendChild(document.createTextNode(option));
-        menu.appendChild(item);
-      });
-      selector.appendChild(menu);
-    });
-    renderPhase2RuleSelector();
+    var owner = getSelectText(document.getElementById('importAssetOwnerFull')) || '创新';
+    syncPhase2RuleOptions(owner);
   }
   function downloadSelectedPhase2Template(event){
     if(!selectedPhase2Rules.length){
@@ -2089,19 +2065,12 @@
     var content = document.getElementById('ruleDetailContent');
     var download = document.getElementById('ruleTemplateDownload');
     var fields = getConfiguredRuleFields(rule);
-    var selectedRules = selectedPhase2Rules.length ? selectedPhase2Rules : [ruleName];
-    if(selectedRules.length > 1 && rule.assetOwner === '创新' && !fields.some(function(field){ return field.name === '规则模式'; })){
-      fields = fields.concat([{name:'规则模式',required:'必填',rule:'枚举：创新旧合同模式、创新新合同模式',example:ruleName,key:true}]);
-    }
     var materials = rule.materials[ruleDetailMaterialTab];
-    title.innerText = selectedRules.length > 1 ? '导入规则详情' : ruleName;
+    title.innerText = ruleName;
     var templateFile = getPhase2TemplateFileName() || rule.templateFile;
     download.href = './' + templateFile;
     download.download = templateFile;
-    var tabs = selectedRules.length > 1
-      ? '<div class="rule-detail-rule-tabs">' + selectedRules.map(function(name){ return '<button type="button" class="' + (name === ruleName ? 'active' : '') + '" onclick="setPhase2RuleDetailTab(\'' + name + '\')">' + name + '</button>'; }).join('') + '</div>'
-      : '';
-    content.innerHTML = tabs + '<section class="rule-detail-section"><h4>规则摘要</h4><div class="rule-summary-grid"><div><b>外部资产方</b><span>' + rule.assetOwner + '</span></div><div><b>业务类型</b><span>' + rule.businessType + '</span></div><div><b>模板名称</b><span>' + templateFile + '</span></div></div></section>' +
+    content.innerHTML = '<section class="rule-detail-section"><h4>规则摘要</h4><div class="rule-summary-grid"><div><b>外部资产方</b><span>' + rule.assetOwner + '</span></div><div><b>业务类型</b><span>' + rule.businessType + '</span></div><div><b>模板名称</b><span>' + templateFile + '</span></div></div></section>' +
       '<div class="rule-detail-layout"><section class="rule-detail-section"><h4>Excel字段要求</h4><table class="rule-detail-table rule-field-table"><thead><tr><th>中文列名</th><th>是否必填</th><th>示例</th></tr></thead><tbody>' + getRuleDetailRows(fields) + '</tbody></table></section>' +
       '<section class="rule-detail-section"><h4>材料要求</h4><div class="rule-detail-tabs"><button type="button" class="' + (ruleDetailMaterialTab === 'first' ? 'active' : '') + '" onclick="setRuleMaterialTab(\'first\')">首租订单</button><button type="button" class="' + (ruleDetailMaterialTab === 'renewal' ? 'active' : '') + '" onclick="setRuleMaterialTab(\'renewal\')">续租订单</button></div><table class="rule-detail-table rule-material-table"><thead><tr><th>标准材料类别</th><th>材料大类</th><th>资产方材料名称</th><th>是否必传</th><th>匹配方式</th></tr></thead><tbody>' + getRuleMaterialRows(materials) + '</tbody></table></section></div>';
   }
@@ -2117,7 +2086,6 @@
   }
   function closeRuleDetailModal(){ closeModal('ruleDetailModal'); }
   function setRuleMaterialTab(type){ ruleDetailMaterialTab = type; renderRuleDetail(currentRuleDetailName); }
-  function setPhase2RuleDetailTab(ruleName){ currentRuleDetailName = ruleName; ruleDetailMaterialTab = 'first'; renderRuleDetail(ruleName); }
   function getFileTypeText(fileName){
     var ext = (fileName.split('.').pop() || '').toLowerCase();
     if(['jpg','jpeg','png','gif','bmp','webp'].indexOf(ext) >= 0){ return '图片材料，可查看原图并下载'; }
@@ -3231,15 +3199,15 @@
       var table = document.querySelector('#' + id + ' table');
       if(!table || table.getAttribute('data-business-subject-ready')) return;
       var header = table.querySelector('thead tr');
-      if(header && header.children[1]){
+      if(header && header.children[2]){
         var th = document.createElement('th');
         th.innerText = '业务主体1';
-        header.insertBefore(th, header.children[1]);
+        header.insertBefore(th, header.children[2]);
       }
       table.querySelectorAll('tbody tr').forEach(function(row, index){
         var td = document.createElement('td');
         td.innerText = subjects[index % subjects.length];
-        row.insertBefore(td, row.children[1]);
+        row.insertBefore(td, row.children[2]);
       });
       table.setAttribute('data-business-subject-ready', 'true');
     });

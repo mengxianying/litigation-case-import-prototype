@@ -82,6 +82,7 @@ assert.ok(html.includes('#detail .search.compact .search-actions{justify-content
 assert.ok(html.includes("twoLabel:'标准材料类别', twoValue:'全部', twoType:'select', twoOptions:'全部|主合同|身份信息|订单信息|担保合同|订单材料|物流信息'"), '待补材料页的标准材料类别应使用下拉列表展示全部材料类别');
 assert.ok(html.includes("second.className = filters.twoType === 'select' ? 'select' : 'input'"), '切换页签时应按筛选字段语义切换输入框或下拉框');
 assert.ok(html.includes("function addBusinessSubjectColumns()"), '三个页签列表应添加业务主体1列');
+assert.ok(html.includes('header.insertBefore(th, header.children[2])') && html.includes('row.insertBefore(td, row.children[2])'), '三个页签应将订单号放在业务主体1之前');
 assert.ok(html.includes('width:190px!important;white-space:nowrap'), '订单编号列应加宽并保持单行展示');
 assert.ok(html.includes('width:105px!important;white-space:nowrap'), '材料状态列应按状态标签内容保持紧凑');
 assert.ok(html.includes('width:350px!important'), '处理结果列应加宽展示完整处理结论');
@@ -106,7 +107,7 @@ assert.ok(html.includes('处理结果与下载明细Excel的处理结果列保�
 assert.ok(!parseModal[0].includes('处理说明'), '材料解析弹框不应展示处理说明列');
 assert.ok(parseModal[0].includes('>异常文件</span>') && !parseModal[0].includes('>提示</span>'), '材料解析弹框检查结果仅展示通过或异常文件');
 assert.ok(parseModal[0].includes('26012915050167612327_人像面_01.jpg</a></td><td><span class="tag ok">通过</span>') && parseModal[0].includes('26012915050167612327_国徽面_01.jpg</a></td><td><span class="tag ok">通过</span>'), '材料解析弹框应按文件一行展示');
-assert.ok(html.includes('<h3>材料解析规则</h3>') && html.includes('首次导入：创建批次时选择导入规则') && html.includes('后续补传或重传：已存在订单始终按首次导入时固化的规则快照重新解析') && html.includes('同批次新增订单：沿用该批次创建时选定的导入规则'), '详情页备注应明确首次导入、后续补传和同批次新增订单的材料解析口径');
+assert.ok(html.includes('<h3>材料解析规则</h3>') && html.includes('首次导入：创建批次时选择导入规则') && html.includes('后续补传或重传：已存在订单始终按首次导入时固化的规则快照重新解析') && html.includes('同批次新增订单：沿用该批次创建时选定的单一导入规则'), '详情页备注应明确首次导入、后续补传和同批次新增订单的材料解析口径');
 assert.ok(html.includes('id="historyMaterialRuleBox"') && html.includes('创新旧合同模式&创新新合同模式规则'), '补充历史材料弹框应展示创新历史批次固定的材料解析规则');
 assert.ok(html.includes("document.getElementById('historyMaterialRuleBox').style.display = historyMode ? '' : 'none';"), '材料解析规则仅在补充历史材料时展示');
 assert.ok(html.includes('一期历史订单仅完成Excel导入：字段校验通过的订单展示“已生效 / 未生成 / 成功”'), '详情页备注应说明一期历史订单的展示口径');
@@ -138,12 +139,15 @@ assert.ok(detailHtml.includes('26012915050167612348</td><td>丁磊</td><td>主�
 assert.ok(html.includes('同一订单缺少多项材料时展示多条记录'), '备注应说明待补材料按材料多行展示');
 
 assert.ok(newImportFull[0].includes('id="importAssetOwnerFull"'), '二期新建批次应提供外部资产方联动选择');
-assert.ok(newImportFull[0].includes('class="select multi-rule-select"'), '创新导入规则应支持多选');
+assert.ok(newImportFull[0].includes('<select id="importRuleFull" class="native-select" aria-label="导入规则单选"') && newImportFull[0].includes('<option value="创新旧合同模式">创新旧合同模式</option>'), '二期导入规则应使用原生单选下拉并展示规则选项');
+assert.ok(!newImportFull[0].includes('class="select multi-rule-select"') && !newImportFull[0].includes('导入规则多选'), '二期新建批次不应保留多选规则控件');
 assert.ok(html.includes("'创新':['创新旧合同模式','创新新合同模式']"), '创新应加载旧合同和新合同两项规则');
 assert.ok(html.includes("'转转':['转转租赁通用规则']"), '转转应仅加载自身导入规则');
 assert.ok(html.includes('function downloadSelectedPhase2Template'), '二期下载模板应按已选规则动态生成文件名');
-assert.ok(html.includes('规则模式') && html.includes('枚举：创新旧合同模式、创新新合同模式'), '多选创新规则时模板应增加规则模式字段说明');
-assert.ok(html.includes('function setPhase2RuleDetailTab'), '多选规则详情应支持Sheet页签切换');
+assert.ok(html.includes('function selectPhase2Rule(value)') && html.includes('selectedPhase2Rules = value ? [value] : []'), '选择新规则时应替换原规则，确保一次只有一个选中项');
+assert.ok(html.includes("selector.innerHTML = '<option value=\"\">请选择导入规则</option>' + options.map"), '切换资产方时应重建导入规则下拉选项');
+assert.ok(!html.includes('function setPhase2RuleDetailTab'), '单选规则详情不应保留多规则页签切换');
+assert.ok(html.includes('导入规则为单选') && html.includes('模板仅包含当前所选规则对应的字段和材料规则Sheet'), '新建批次备注应同步单选规则与模板口径');
 assert.ok(!html.includes('是否强制覆盖') && !html.includes('强制覆盖'), '原型不应保留强制覆盖逻辑、字段或文案');
 
 const stateMachine = html.match(/<section id="stateMachine"[\s\S]*?<\/section>\s*<\/main>/);
