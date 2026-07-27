@@ -32,9 +32,9 @@ const rows = [
 ];
 
 resultSheet.getRange('A1:Q18').values = rows;
-resultSheet.getRange('R1:R18').values = Array.from({ length: 18 }, () => ['']);
-const resultAll = resultSheet.getRange('A1:Q18');
-const resultBodyAll = resultSheet.getRange('A2:Q18');
+resultSheet.getRange('R1:R18').values = rows.map((row, index) => [index === 0 ? '业务主体1' : (index % 2 ? '雅安欣天下办公设备租赁有限公司' : '雅安青年优品电子商务有限公司')]);
+const resultAll = resultSheet.getRange('A1:R18');
+const resultBodyAll = resultSheet.getRange('A2:R18');
 resultAll.format.borders = { preset: 'all', style: 'thin', color: '#D9E2EC' };
 resultBodyAll.format.font = { color: '#202B38' };
 resultBodyAll.format.verticalAlignment = 'center';
@@ -45,10 +45,11 @@ resultSheet.getRange('K1:K1001').format.columnWidth = 22;
 resultSheet.getRange('L1:L1001').format.columnWidth = 16;
 resultSheet.getRange('M1:M1001').format.columnWidth = 16;
 resultSheet.getRange('O1:O1001').format.columnWidth = 48;
+resultSheet.getRange('R1:R1001').format.columnWidth = 28;
 
 // Keep the final four columns visually consistent with the existing result-detail table.
-const resultHeader = resultSheet.getRange('N1:Q1');
-const resultBody = resultSheet.getRange('N2:Q18');
+const resultHeader = resultSheet.getRange('N1:R1');
+const resultBody = resultSheet.getRange('N2:R18');
 resultHeader.format.borders = { preset: 'all', style: 'thin', color: '#D9E2EC' };
 resultHeader.format.fill = '#F2F4F7';
 resultHeader.format.font = { bold: true, color: '#202B38' };
@@ -64,7 +65,7 @@ resultBody.format.rowHeight = 32;
 
 // Extend the Excel table to the appended overwrite and update examples.
 resultSheet.tables.deleteAll();
-const resultTable = resultSheet.tables.add('A1:Q18', true);
+const resultTable = resultSheet.tables.add('A1:R18', true);
 resultTable.style = 'TableStyleLight1';
 
 const missingMaterialRows = [
@@ -77,9 +78,10 @@ const missingMaterialRows = [
   ['26012915050167612001', '吴静', '主合同', '租赁服务合同', '必填', '已生效', '缺少必填材料', '2026-06-12 10:15:26']
 ];
 missingMaterialSheet.getRange('A1:H7').values = missingMaterialRows;
-const missingAll = missingMaterialSheet.getRange('A1:H7');
-const missingHeader = missingMaterialSheet.getRange('A1:H1');
-const missingBody = missingMaterialSheet.getRange('A2:H7');
+missingMaterialSheet.getRange('I1:I7').values = missingMaterialRows.map((row, index) => [index === 0 ? '业务主体1' : (index % 2 ? '雅安欣天下办公设备租赁有限公司' : '雅安青年优品电子商务有限公司')]);
+const missingAll = missingMaterialSheet.getRange('A1:I7');
+const missingHeader = missingMaterialSheet.getRange('A1:I1');
+const missingBody = missingMaterialSheet.getRange('A2:I7');
 missingAll.format.borders = { preset: 'all', style: 'thin', color: '#D9E2EC' };
 missingHeader.format.fill = '#F2F4F7';
 missingHeader.format.font = { bold: true, color: '#202B38' };
@@ -95,9 +97,10 @@ missingBody.format.rowHeight = 32;
   const column = String.fromCharCode(65 + index);
   missingMaterialSheet.getRange(`${column}:${column}`).format.columnWidth = Number(width);
 });
+missingMaterialSheet.getRange('I1:I1001').format.columnWidth = 28;
 missingMaterialSheet.freezePanes.freezeRows(1);
 missingMaterialSheet.tables.deleteAll();
-const missingMaterialTable = missingMaterialSheet.tables.add('A1:H7', true);
+const missingMaterialTable = missingMaterialSheet.tables.add('A1:I7', true);
 missingMaterialTable.style = 'TableStyleLight1';
 
 failureSheet.getRange('A9:E9').values = [[
@@ -126,6 +129,6 @@ failureSheet.getRange('A15:E16').values = [
 
 const output = await SpreadsheetFile.exportXlsx(workbook);
 await output.save(file);
-const preview = await workbook.render({ sheetName: '导入结果明细', range: 'A1:Q18', format: 'png', scale: 1 });
+const preview = await workbook.render({ sheetName: '导入结果明细', range: 'A1:R18', format: 'png', scale: 1 });
 await writeFile('/private/tmp/法诉案件导入_导入结果明细_预览.png', new Uint8Array(await preview.arrayBuffer()));
 console.log('已将处理结果合并至原失败原因列，并统一两张Sheet口径');

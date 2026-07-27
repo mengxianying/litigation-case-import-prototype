@@ -4,15 +4,17 @@ import { FileBlob, SpreadsheetFile } from '@oai/artifact-tool';
 const workbook = await SpreadsheetFile.importXlsx(await FileBlob.load('法诉案件导入_导入结果明细.xlsx'));
 const resultDetail = await workbook.inspect({
   kind: 'table',
-  range: "'导入结果明细'!A1:Q18",
+  range: "'导入结果明细'!A1:R18",
   include: 'values',
   tableMaxRows: 18,
-  tableMaxCols: 17
+  tableMaxCols: 18
 });
 const rows = JSON.parse(resultDetail.ndjson).values;
 
 assert.equal(rows[0][7], '导入结果');
 assert.equal(rows[0][14], '处理结果');
+assert.equal(rows[0][17], '业务主体1');
+assert.ok(rows.slice(1).every(row => ['雅安欣天下办公设备租赁有限公司', '雅安青年优品电子商务有限公司'].includes(row[17])), '导入结果明细应展示订单所属业务主体1');
 assert.ok(rows.slice(1).every(row => ['导入成功', '导入失败'].includes(row[7])), '导入结果只能为成功或失败');
 assert.equal(rows[1][14], '成功');
 assert.equal(rows[14][14], '同批次覆盖成功：使用后传Excel字段覆盖已有订单。');
@@ -56,13 +58,14 @@ assert.match(failureText, /导入结果=导入成功/);
 
 const missingMaterialDetail = await workbook.inspect({
   kind: 'table',
-  range: "'待补材料明细'!A1:H7",
+  range: "'待补材料明细'!A1:I7",
   include: 'values',
   tableMaxRows: 7,
-  tableMaxCols: 8
+  tableMaxCols: 9
 });
 const missingRows = JSON.parse(missingMaterialDetail.ndjson).values;
-assert.deepEqual(missingRows[0], ['订单编号', '客户姓名', '标准材料类别', '缺失材料名称', '材料要求', '案件状态', '处理结果', '导入时间']);
+assert.deepEqual(missingRows[0], ['订单编号', '客户姓名', '标准材料类别', '缺失材料名称', '材料要求', '案件状态', '处理结果', '导入时间', '业务主体1']);
+assert.ok(missingRows.slice(1).every(row => ['雅安欣天下办公设备租赁有限公司', '雅安青年优品电子商务有限公司'].includes(row[8])), '待补材料明细应展示订单所属业务主体1');
 assert.equal(missingRows.filter((row) => row[0] === '26012915050167612348').length, 3, '同一订单缺少多项材料时，待补材料明细应按材料展示多行');
 assert.deepEqual(missingRows.filter((row) => row[0] === '26012915050167612348').map((row) => row[3]), ['租赁服务合同', '租赁服务合同验签报告', '订单详情-物流']);
 

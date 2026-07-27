@@ -43,6 +43,9 @@
     .form-grid{padding:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px 22px}
     .search.compact{padding:16px 20px;grid-template-columns:repeat(4,1fr);gap:14px 16px;align-items:center}
     .search-actions{display:flex;gap:8px;justify-content:flex-end;align-items:center}
+    #detail .search.compact{grid-template-columns:300px 250px 230px 340px max-content;gap:12px;justify-content:start}
+    #detail .search.compact label>span{min-width:64px}
+    #detail .search.compact .search-actions{justify-content:flex-start;white-space:nowrap}
     .form-grid.compact{padding:18px 20px;grid-template-columns:repeat(3,1fr);gap:16px 24px}
     label{display:flex;align-items:flex-start;gap:10px}
     label>span{min-width:96px;line-height:32px;text-align:right;color:#4b5563}
@@ -236,28 +239,29 @@
     #ruleConfig table th:nth-child(8),#ruleConfig table td:nth-child(8){width:136px!important}
     #ruleConfig table th:nth-child(9),#ruleConfig table td:nth-child(9){width:86px!important}
     #orderProcessingPane table th:nth-child(1),#orderProcessingPane table td:nth-child(1){width:42px!important}
-    #orderProcessingPane table th:nth-child(2),#orderProcessingPane table td:nth-child(2){width:178px!important}
-    #orderProcessingPane table th:nth-child(3),#orderProcessingPane table td:nth-child(3){width:82px!important}
-    #orderProcessingPane table th:nth-child(4),#orderProcessingPane table td:nth-child(4){width:104px!important}
-    #orderProcessingPane table th:nth-child(5),#orderProcessingPane table td:nth-child(5){width:76px!important}
-    #orderProcessingPane table th:nth-child(6),#orderProcessingPane table td:nth-child(6){width:110px!important}
-    #orderProcessingPane table th:nth-child(7),#orderProcessingPane table td:nth-child(7){width:116px!important}
-    #orderProcessingPane table th:nth-child(8),#orderProcessingPane table td:nth-child(8){width:auto!important}
-    #orderProcessingPane table th:nth-child(9),#orderProcessingPane table td:nth-child(9){width:104px!important}
+    .order-result-table{min-width:1422px}
+    .row-actions{display:flex;flex-direction:column;align-items:center;gap:6px;white-space:nowrap}
+    #orderProcessingPane table th:nth-child(2),#orderProcessingPane table td:nth-child(2){width:260px!important}
+    #orderProcessingPane table th:nth-child(3),#orderProcessingPane table td:nth-child(3){width:190px!important;white-space:nowrap}
+    #orderProcessingPane table th:nth-child(4),#orderProcessingPane table td:nth-child(4){width:80px!important}
+    #orderProcessingPane table th:nth-child(5),#orderProcessingPane table td:nth-child(5){width:105px!important}
+    #orderProcessingPane table th:nth-child(6),#orderProcessingPane table td:nth-child(6){width:110px!important;white-space:nowrap}
+    #orderProcessingPane table th:nth-child(7),#orderProcessingPane table td:nth-child(7){width:105px!important;white-space:nowrap}
+    #orderProcessingPane table th:nth-child(8),#orderProcessingPane table td:nth-child(8){width:350px!important}
+    #orderProcessingPane table th:nth-child(9),#orderProcessingPane table td:nth-child(9){width:180px!important;white-space:nowrap}
     #missingPane table th:nth-child(1),#missingPane table td:nth-child(1){width:42px!important}
-    #missingPane table th:nth-child(2),#missingPane table td:nth-child(2){width:178px!important}
-    #missingPane table th:nth-child(3),#missingPane table td:nth-child(3){width:82px!important}
-    #missingPane table th:nth-child(4),#missingPane table td:nth-child(4){width:132px!important}
-    #missingPane table th:nth-child(5),#missingPane table td:nth-child(5){width:178px!important}
-    #missingPane table th:nth-child(6),#missingPane table td:nth-child(6){width:82px!important}
-    #missingPane table th:nth-child(7),#missingPane table td:nth-child(7){width:110px!important}
-    #missingPane table th:nth-child(8),#missingPane table td:nth-child(8){width:auto!important}
+    #missingPane table th:nth-child(2),#missingPane table td:nth-child(2){width:236px!important}
+    #missingPane table th:nth-child(3),#missingPane table td:nth-child(3){width:190px!important;white-space:nowrap}
+    #missingPane table th:nth-child(4),#missingPane table td:nth-child(4){width:76px!important}
+    #missingPane table th:nth-child(5),#missingPane table td:nth-child(5){width:132px!important}
+    #missingPane table th:nth-child(6),#missingPane table td:nth-child(6){width:178px!important}
+    #missingPane table th:nth-child(7),#missingPane table td:nth-child(7){width:82px!important}
+    #missingPane table th:nth-child(8),#missingPane table td:nth-child(8){width:110px!important}
     .unmatched-table th:nth-child(1),.unmatched-table td:nth-child(1){width:42px!important}
-    .unmatched-table th:nth-child(2),.unmatched-table td:nth-child(2){width:300px!important}
-    .unmatched-table th:nth-child(3),.unmatched-table td:nth-child(3){width:260px!important}
-    .unmatched-table th:nth-child(4),.unmatched-table td:nth-child(4){width:154px!important}
-    .unmatched-table th:nth-child(5),.unmatched-table td:nth-child(5){width:156px!important}
-    .unmatched-table th:nth-child(6),.unmatched-table td:nth-child(6){width:auto!important}
+    .unmatched-table th:nth-child(2),.unmatched-table td:nth-child(2){width:236px!important}
+    .unmatched-table th:nth-child(3),.unmatched-table td:nth-child(3){width:210px!important;white-space:nowrap}
+    .unmatched-table th:nth-child(4),.unmatched-table td:nth-child(4){width:320px!important}
+    .unmatched-table th:nth-child(5),.unmatched-table td:nth-child(5){width:180px!important}
     .parse-pane[data-parse-pane="field"] table th:nth-child(1),.parse-pane[data-parse-pane="field"] table td:nth-child(1){width:50px!important}
     .parse-pane[data-parse-pane="field"] table th:nth-child(2),.parse-pane[data-parse-pane="field"] table td:nth-child(2){width:146px!important}
     .parse-pane[data-parse-pane="field"] table th:nth-child(3),.parse-pane[data-parse-pane="field"] table td:nth-child(3){width:210px!important}
@@ -800,6 +804,7 @@
           <label><span id="detailFilterOneLabel">订单编号</span><div class="field-box"><div id="detailFilterOneValue" class="input">loanNo，支持模糊查询</div><div class="limit">最多50字符。</div></div></label>
           <label id="detailFilterTwoField"><span id="detailFilterTwoLabel">客户姓名</span><div class="field-box"><div id="detailFilterTwoValue" class="input">支持模糊查询</div></div></label>
           <label id="detailFilterThreeField"><span id="detailFilterThreeLabel">案件状态</span><div class="field-box"><div id="detailFilterThreeValue" class="select" data-options="全部|已生效|待材料激活|导入失败">全部<b>⌄</b></div><div id="detailFilterThreeEnum" class="enum">全部 / 已生效 / 待材料激活 / 导入失败</div><div id="detailFilterThreeLimit" class="limit">订单结果按案件状态查询。</div></div></label>
+          <label><span>业务主体1</span><div class="field-box"><input id="detailBusinessSubjectFilter" class="input text-input" type="text" maxlength="100" placeholder="支持模糊查询"><div class="limit">三个页签均按订单所属业务主体模糊查询，最多100字符。</div></div></label>
           <div class="search-actions"><button class="primary">查询</button><button>重置</button></div>
         </div>
         <div class="toolbar"><button id="batchSupplementBtn" class="primary" onclick="openBatchSupplementModal()">批量补传</button><a id="detailDownloadBtn" class="btn" href="./法诉案件导入_导入结果明细.xlsx" download="法诉案件导入_导入结果明细.xlsx" data-export-toast="已导出当前筛选订单明细" onclick="showDetailExportToast()">导出当前筛选订单明细</a><span class="spacer"></span><button class="text-link" onclick="openModal('batchProcessLogModal')">批次处理记录</button></div>
@@ -812,7 +817,7 @@
         <div id="orderProcessingPane" class="supp-pane active">
           <div class="table-wrap">
             <table class="order-result-table">
-              <colgroup><col style="width:3%"><col style="width:16%"><col style="width:7%"><col style="width:8%"><col style="width:9%"><col style="width:9%"><col style="width:31%"><col style="width:17%"></colgroup>
+              <colgroup><col style="width:42px"><col style="width:260px"><col style="width:190px"><col style="width:80px"><col style="width:105px"><col style="width:110px"><col style="width:105px"><col style="width:350px"><col style="width:180px"></colgroup>
               <thead><tr><th><input type="checkbox" onclick="toggleTableChecks(this)"></th><th>订单编号</th><th>客户姓名</th><th>债权金额</th><th>案件状态</th><th>材料状态</th><th>处理结果</th><th>操作</th></tr></thead>
               <tbody>
                 <tr><td><input type="checkbox"></td><td>26012915050167612327</td><td>张三</td><td>12,036.80</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td>成功</td><td><button class="text-link" onclick="openParseModal('26012915050167612327')">查看材料解析</button></td></tr>
@@ -822,9 +827,9 @@
                 <tr><td><input type="checkbox"></td><td>26012915050167612348</td><td>丁磊</td><td>6,990.00</td><td><span class="tag warn">待材料激活</span></td><td><span class="tag bad">待补必填</span></td><td>字段校验通过，缺少必填材料：租赁服务合同。</td><td><button class="text-link" onclick="openParseModal('26012915050167612348')">查看材料解析</button></td></tr>
                 <tr><td><input type="checkbox"></td><td>26012915050167612331</td><td>周强</td><td>8,030.00</td><td><span class="tag ok">已生效</span></td><td><span class="tag warn">待补非必填</span></td><td>字段校验通过，缺少非必填材料：订单详情-物流。</td><td><button class="text-link" onclick="openParseModal('26012915050167612331')">查看材料解析</button></td></tr>
                 <tr><td><input type="checkbox" class="failed-order-check"></td><td>26012915050167612330</td><td>李明</td><td>7,290.00</td><td><span class="tag bad">导入失败</span></td><td><span class="tag gray">未生成</span></td><td>债权金额异常</td><td class="muted">-</td></tr>
-                <tr id="duplicateRow1"><td><input type="checkbox"></td><td>26012915050167612332</td><td>王磊</td><td>8,650.00</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td><span id="duplicateResult1" class="tag info">同批次覆盖成功</span><div id="duplicateNote1">使用后传Excel字段覆盖已有订单。</div></td><td id="duplicateAction1"><button class="text-link" onclick="openParseModal('26012915050167612332')">查看材料解析</button> <button class="text-link" onclick="openCoverageRecord('26012915050167612332')">查看覆盖记录</button></td></tr>
+                <tr id="duplicateRow1"><td><input type="checkbox"></td><td>26012915050167612332</td><td>王磊</td><td>8,650.00</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td><span id="duplicateResult1" class="tag info">同批次覆盖成功</span><div id="duplicateNote1">使用后传Excel字段覆盖已有订单。</div></td><td id="duplicateAction1"><div class="row-actions"><button class="text-link" onclick="openParseModal('26012915050167612332')">查看材料解析</button><button class="text-link" onclick="openCoverageRecord('26012915050167612332')">查看覆盖记录</button></div></td></tr>
                 <tr id="duplicateRow2"><td><input type="checkbox"></td><td>26012915050167612333</td><td>赵倩</td><td>6,880.00</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td><span id="duplicateResult2" class="tag gray">重复跳过</span><div id="duplicateNote2">该订单已分配或已流转，不可覆盖。</div></td><td id="duplicateAction2"><button class="text-link" onclick="openParseModal('26012915050167612333')">查看材料解析</button></td></tr>
-                <tr><td><input type="checkbox"></td><td>26012915050167612337</td><td>郑楠</td><td>7,980.00</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td><span class="tag info">主子订单更新成功</span><div>主订单和续租订单均已存在且未流转，已按本次Excel更新。</div></td><td><button class="text-link" onclick="openParseModal('26012915050167612337')">查看材料解析</button> <button class="text-link" onclick="openCoverageRecord('26012915050167612337')">查看覆盖记录</button></td></tr>
+                <tr><td><input type="checkbox"></td><td>26012915050167612337</td><td>郑楠</td><td>7,980.00</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td><span class="tag info">主子订单更新成功</span><div>主订单和续租订单均已存在且未流转，已按本次Excel更新。</div></td><td><div class="row-actions"><button class="text-link" onclick="openParseModal('26012915050167612337')">查看材料解析</button><button class="text-link" onclick="openCoverageRecord('26012915050167612337')">查看覆盖记录</button></div></td></tr>
               </tbody>
             </table>
             <div class="pagination"><span>共 1,258 条</span><button>‹</button><span class="active">1</span><span>2</span><span>3</span><span>4</span><span>5</span><button>›</button><span>10条/页</span></div>
@@ -1313,7 +1318,7 @@
       <section class="anno-block">
         <h3>筛选区逻辑</h3>
         <p><b>1.</b>订单编号、客户姓名支持模糊查询。</p>
-        <p><b>2.</b>订单结果按订单编号、客户姓名、案件状态筛选；待补材料按订单编号、标准材料类别、材料要求筛选；异常文件按订单号、文件名筛选。</p>
+        <p><b>2.</b>订单结果按订单编号、客户姓名、案件状态筛选；待补材料按订单编号、标准材料类别、材料要求筛选；异常文件按订单号、文件名筛选。三个页签均支持按业务主体1模糊查询。</p>
         <p><b>3.</b>待补材料和异常文件仅取字段校验通过订单的材料。待补材料按“订单编号+缺失材料名称”一项一行展示；同一订单缺少多项材料时展示多条记录。异常文件按文件一行展示，表示已关联订单但材料规则校验不通过的文件；两个页签均可勾选作为本次补传范围，也可不勾选直接补传整个批次。</p>
         <p><b>4.</b>一期历史批次进入本页后，订单保持已生效，订单结果的材料状态展示为未生成且不展示查看材料解析；批次主列表的材料处理仍展示待初始化（一期）。创新历史批次首次补充材料时固定使用“创新旧合同模式&创新新合同模式规则”并固化历史材料规则快照。未上传材料包的订单不进入待补材料；材料包解析后确认存在缺失材料时，才在待补材料展示。</p>
       </section>
@@ -1352,8 +1357,8 @@
       <section class="anno-block">
         <h3>重复订单处理</h3>
         <p><b>1.</b>重复订单先判断是否为同一批次：不同批次同一外部资产方+订单编号直接阻断并展示原批次号；仅同批次再判断案件是否未分配且未流转。</p>
-        <p><b>2.</b>自动覆盖：同批次、未分配且未流转的重复订单自动更新可覆盖字段；同名文件覆盖，不同名材料自动补充，保留操作日志。</p>
-        <p><b>3.</b>查看覆盖记录展示系统自动覆盖的字段和同名文件变更，不会再次执行覆盖。</p>
+        <p><b>2.</b>自动覆盖：同批次、未分配且未流转的重复订单自动更新可覆盖字段。待补材料页重复上传文件时，按“订单编号+匹配到的材料类型”覆盖；异常文件页重复上传时，按“订单编号+文件名”覆盖；未命中覆盖键的材料自动补充，保留操作日志。</p>
+        <p><b>3.</b>查看覆盖记录展示系统自动覆盖的字段及文件变更，不会再次执行覆盖；文件处理结果包括“同名文件已替换”“同类型文件已覆盖”“不同名文件已自动补充”。</p>
         <p><b>4.</b>重复跳过：同批次已有案件已分配或已流转时，系统自动跳过；案件状态仍为已生效，分配/流转限制写在处理结果和导出明细。</p>
         <p><b>5.</b>补充材料统一通过“批量补传”上传，由系统按批次、订单编号和材料规则重新识别。</p>
       </section>
@@ -1363,11 +1368,12 @@
         <p><b>2.</b>批量补传：订单Excel、材料包可任选其一或同时上传，至少上传一个；订单Excel用于新增本批次订单、重传失败订单或补充异常文件所需订单信息，材料包用于补齐材料或重新上传规范材料。</p>
         <p><b>3.</b>同步重新识别历史异常文件：在批量补传弹框中按需勾选。系统使用本次上传的订单/材料和当前规则重解析历史异常文件；未上传任何文件时不允许仅重新识别。</p>
         <p><b>4.</b>待材料激活可补必填和非必填材料；已生效订单只补其固化规则快照中配置为非必填的材料；一期历史批次按固化快照补材料且保持已生效。文件名支持预览/下载，不提供人工绑定、重新绑定或单个文件上传。</p>
-        <p><b>5.</b>查看材料解析：只读弹框按文件一行展示，材料文件名可点击预览或下载；材料规则校验通过时检查结果为“通过”，不通过时为“异常文件”。未上传的材料不在此弹框展示，统一在待补材料页处理。</p>
+        <p><b>5.</b>查看材料解析：仅当订单已通过Excel字段校验且本次或历史已上传材料包并产生材料解析结果时展示；字段校验失败订单、一期历史订单未补传材料包前均不展示。弹框只读、按文件一行展示，材料文件名可点击预览或下载；材料规则校验通过时检查结果为“通过”，不通过时为“异常文件”。未上传的材料不在此弹框展示，统一在待补材料页处理。</p>
+        <p><b>6.</b>查看覆盖记录：仅当同批次重复订单满足未分配、未流转条件并被系统自动覆盖后展示；未发生覆盖、字段校验失败、跨批次重复或已分配/已流转而重复跳过的订单均不展示。弹框仅用于追溯覆盖字段、同名文件变更和处理时间，不可再次执行覆盖。</p>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
-            <tr><th>订单结果</th><td>导出当前筛选订单明细、批量补传、查看材料解析</td><td>导出文件与批次下载明细使用相同四张Sheet；订单结果可按案件状态、材料状态和待补材料筛选后导出，并同步导出关联的待补材料明细。上传订单Excel可新增本批次订单或重传失败订单；查看材料解析为只读。</td></tr>
+            <tr><th>订单结果</th><td>导出当前筛选订单明细、批量补传、查看材料解析、查看覆盖记录</td><td>导出文件与批次下载明细使用相同四张Sheet；订单结果可按案件状态、材料状态和待补材料筛选后导出，并同步导出关联的待补材料明细。查看材料解析仅在已产生材料解析结果时展示；查看覆盖记录仅在同批次自动覆盖成功后展示，两个弹框均为只读。</td></tr>
             <tr><th>待补材料</th><td>勾选材料、批量补传</td><td>上传材料包补齐材料；必填材料补齐复核通过后自动生效，已生效订单仅补非必填材料。</td></tr>
             <tr><th>异常文件</th><td>文件预览/下载、勾选文件、批量补传</td><td>上传订单Excel或规范材料包后，可勾选同步重新识别历史异常文件；不支持人工绑定、重新绑定或逐条重试。</td></tr>
           </tbody>
@@ -1525,12 +1531,13 @@
           <tr><td>联系人手机号</td><td>138****2866</td><td>138****9271</td><td>本次上传订单Excel</td></tr>
         </tbody>
       </table>
-      <h4 style="margin-top:14px">同名文件更新</h4>
+      <h4 style="margin-top:14px">材料文件更新</h4>
       <table>
-        <thead><tr><th>文件名称</th><th>覆盖前</th><th>覆盖后</th><th>处理结果</th></tr></thead>
+        <thead><tr><th>文件名称</th><th>覆盖方式</th><th>覆盖前</th><th>覆盖后</th><th>处理结果</th></tr></thead>
         <tbody>
-          <tr><td>26012915050167612332_主合同_01.pdf</td><td>2026-05-28 上传</td><td>2026-06-10 上传</td><td>同名文件已替换</td></tr>
-          <tr><td>26012915050167612332_身份证人像面_01.jpg</td><td>-</td><td>2026-06-10 上传</td><td>不同名文件已自动补充</td></tr>
+          <tr><td>26012915050167612332_主合同_01.pdf</td><td>异常文件：订单号+文件名</td><td>2026-05-28 上传</td><td>2026-06-10 上传</td><td>同名文件已替换</td></tr>
+          <tr><td>26012915050167612332_租赁服务合同_02.pdf</td><td>待补材料：订单号+材料类型</td><td>26012915050167612332_租赁服务合同_01.pdf</td><td>2026-06-10 上传</td><td>同类型文件已覆盖</td></tr>
+          <tr><td>26012915050167612332_身份证人像面_01.jpg</td><td>待补材料：未命中材料类型</td><td>-</td><td>2026-06-10 上传</td><td>不同名文件已自动补充</td></tr>
         </tbody>
       </table>
     </div>
@@ -3218,6 +3225,26 @@
       tip.classList.add('show');
     }
   }
+  function addBusinessSubjectColumns(){
+    var subjects = ['雅安欣天下办公设备租赁有限公司','雅安青年优品电子商务有限公司'];
+    ['orderProcessingPane','missingPane','unmatchedPane'].forEach(function(id){
+      var table = document.querySelector('#' + id + ' table');
+      if(!table || table.getAttribute('data-business-subject-ready')) return;
+      var header = table.querySelector('thead tr');
+      if(header && header.children[1]){
+        var th = document.createElement('th');
+        th.innerText = '业务主体1';
+        header.insertBefore(th, header.children[1]);
+      }
+      table.querySelectorAll('tbody tr').forEach(function(row, index){
+        var td = document.createElement('td');
+        td.innerText = subjects[index % subjects.length];
+        row.insertBefore(td, row.children[1]);
+      });
+      table.setAttribute('data-business-subject-ready', 'true');
+    });
+  }
+  addBusinessSubjectColumns();
   function setDetailWorkTab(target){
     currentSupplementTab = target;
     document.querySelectorAll('[data-supp-tab]').forEach(function(item){
@@ -3241,19 +3268,19 @@
     var filters = {
       orders: {
         oneLabel:'订单编号', oneValue:'loanNo，支持模糊查询',
-        twoLabel:'客户姓名', twoValue:'支持模糊查询',
+        twoLabel:'客户姓名', twoValue:'支持模糊查询', twoType:'input',
         threeLabel:'案件状态', threeOptions:'全部|已生效|待材料激活|导入失败',
         threeEnum:'全部 / 已生效 / 待材料激活 / 导入失败', threeLimit:'订单结果按案件状态查询。'
       },
       missing: {
         oneLabel:'订单编号', oneValue:'loanNo，支持模糊查询',
-        twoLabel:'标准材料类别', twoValue:'主合同、身份信息、订单信息等',
+        twoLabel:'标准材料类别', twoValue:'全部', twoType:'select', twoOptions:'全部|主合同|身份信息|订单信息|担保合同|订单材料|物流信息',
         threeLabel:'材料要求', threeOptions:'全部|必填|非必填',
         threeEnum:'全部 / 必填 / 非必填', threeLimit:'待补材料按材料要求筛选。'
       },
       unmatched: {
         oneLabel:'订单号', oneValue:'支持模糊查询',
-        twoLabel:'文件名', twoValue:'支持模糊查询',
+        twoLabel:'文件名', twoValue:'支持模糊查询', twoType:'input',
         threeLabel:'', threeOptions:'全部',
         threeEnum:'', threeLimit:''
       }
@@ -3262,7 +3289,17 @@
       document.getElementById('detailFilterOneLabel').innerText = filters.oneLabel;
       document.getElementById('detailFilterOneValue').innerText = filters.oneValue;
       document.getElementById('detailFilterTwoLabel').innerText = filters.twoLabel;
-      document.getElementById('detailFilterTwoValue').innerText = filters.twoValue;
+      var second = document.getElementById('detailFilterTwoValue');
+      second.className = filters.twoType === 'select' ? 'select' : 'input';
+      second.removeAttribute('data-select-ready');
+      second.removeAttribute('tabindex');
+      if(filters.twoType === 'select'){
+        second.setAttribute('data-options', filters.twoOptions);
+        second.innerHTML = filters.twoValue + '<b>⌄</b>';
+      }else{
+        second.removeAttribute('data-options');
+        second.innerText = filters.twoValue;
+      }
       document.getElementById('detailFilterTwoField').style.display = filters.twoLabel ? '' : 'none';
       document.getElementById('detailFilterThreeLabel').innerText = filters.threeLabel;
       document.getElementById('detailFilterThreeField').style.display = filters.threeLabel ? '' : 'none';
