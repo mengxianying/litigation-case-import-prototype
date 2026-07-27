@@ -23,19 +23,18 @@ const rows = [
   ['DR202606120003', '创新租赁一期Excel导入批次04', '创新', '租赁', '26012915050167612333', '陈晨', '420106199201014444', '导入失败', '导入失败', '未生成', '-', '重复订单', '订单编号', '26012915050167612333', '该订单已在批次DR202606100001导入，本次不允许重复导入', '是', '2026-06-12 09:20:16'],
   ['DR202606120003', '创新租赁一期Excel导入批次04', '创新', '租赁', '26012915050167612340', '刘洋', '420106199201010003', '导入失败', '导入失败', '未生成', '-', '主续关系异常', '父订单编号', '26012915050167612327', '续租订单关联的主订单【26012915050167612327】已在法诉系统形成案件，不符合续租订单导入条件。', '是', '2026-06-12 09:20:16'],
   ['DR202606120003', '创新租赁一期Excel导入批次04', '创新', '租赁', '26012915050167612341', '林浩', '420106199201010004', '导入失败', '导入失败', '未生成', '-', '系统异常', '-', '-', '系统异常', '是', '2026-06-12 09:20:16'],
-  ['DR202606120003', '创新租赁一期Excel导入批次04', '创新', '租赁', '26012915050167612342', '孙悦', '420106199201010005', '导入成功', '待材料激活', '待补必填', '租赁服务合同', '缺少必填材料', '主合同', '租赁服务合同', '字段校验通过，缺少必填材料：租赁服务合同。', '否', '2026-06-12 09:20:16'],
-  ['DR202606120003', '创新租赁一期Excel导入批次04', '创新', '租赁', '26012915050167612343', '林浩', '420106199201010006', '导入成功', '已生效', '待补非必填', '订单详情-物流', '缺少非必填材料', '订单信息', '订单详情-物流', '字段校验通过，缺少非必填材料：订单详情-物流。', '否', '2026-06-12 09:20:16'],
+  ['DR202606120003', '创新租赁一期Excel导入批次04', '创新', '租赁', '26012915050167612342', '孙悦', '420106199201010005', '导入成功', '待材料激活', '待补必填', '租赁服务合同', '缺少必填材料', '', '', '字段校验通过，缺少必填材料：租赁服务合同。', '否', '2026-06-12 09:20:16'],
+  ['DR202606120003', '创新租赁一期Excel导入批次04', '创新', '租赁', '26012915050167612343', '林浩', '420106199201010006', '导入成功', '已生效', '待补非必填', '订单详情-物流', '缺少非必填材料', '', '', '字段校验通过，缺少非必填材料：订单详情-物流。', '否', '2026-06-12 09:20:16'],
   ['DR202606120003', '创新租赁一期Excel导入批次04', '创新', '租赁', '26012915050167612344', '许诺', '420106199201010007', '导入成功', '已生效', '材料齐全', '-', '', '', '', '同批次覆盖成功：使用后传Excel字段覆盖已有订单。', '否', '2026-06-12 10:05:18'],
   ['DR202606120003', '创新租赁一期Excel导入批次04', '创新', '租赁', '26012915050167612345', '周薇', '420106199201010008', '导入失败', '已生效', '材料齐全', '-', '重复订单', '订单编号', '26012915050167612345', '重复跳过：该订单已分配或已流转，不可覆盖。', '否', '2026-06-12 10:06:42'],
-  ['DR202606120003', '创新租赁一期Excel导入批次04', '创新', '租赁', '26012915050167612346', '陈敏', '420106199201010009', '导入成功', '已生效', '材料齐全', '-', '', '', '', '强制覆盖成功：“是否强制覆盖”=是，已更新可覆盖字段。', '否', '2026-06-12 10:08:16'],
   ['DR202606120003', '创新租赁一期Excel导入批次04', '创新', '租赁', '26012915050167612347', '郑楠', '420106199201010010', '导入成功', '已生效', '材料齐全', '-', '', '', '', '主子订单更新成功：主订单和续租订单均已存在且未流转，已按本次Excel更新。', '否', '2026-06-12 10:10:34'],
-  ['DR202606120003', '创新租赁一期Excel导入批次04', '创新', '租赁', '26012915050167612348', '丁磊', '420106199201010011', '导入成功', '待材料激活', '待补必填', '租赁服务合同；订单详情-物流', '缺少必填材料', '-', '-', '字段校验通过，缺少必填材料：租赁服务合同；缺少非必填材料：订单详情-物流。', '否', '2026-06-12 10:12:08']
+  ['DR202606120003', '创新租赁一期Excel导入批次04', '创新', '租赁', '26012915050167612348', '丁磊', '420106199201010011', '导入成功', '待材料激活', '待补必填', '租赁服务合同；租赁服务合同验签报告', '缺少必填材料', '', '', '字段校验通过，缺少必填材料：租赁服务合同；租赁服务合同验签报告。', '否', '2026-06-12 10:12:08']
 ];
 
-resultSheet.getRange('A1:Q19').values = rows;
-resultSheet.getRange('R1:R19').values = Array.from({ length: 19 }, () => ['']);
-const resultAll = resultSheet.getRange('A1:Q19');
-const resultBodyAll = resultSheet.getRange('A2:Q19');
+resultSheet.getRange('A1:Q18').values = rows;
+resultSheet.getRange('R1:R18').values = Array.from({ length: 18 }, () => ['']);
+const resultAll = resultSheet.getRange('A1:Q18');
+const resultBodyAll = resultSheet.getRange('A2:Q18');
 resultAll.format.borders = { preset: 'all', style: 'thin', color: '#D9E2EC' };
 resultBodyAll.format.font = { color: '#202B38' };
 resultBodyAll.format.verticalAlignment = 'center';
@@ -49,7 +48,7 @@ resultSheet.getRange('O1:O1001').format.columnWidth = 48;
 
 // Keep the final four columns visually consistent with the existing result-detail table.
 const resultHeader = resultSheet.getRange('N1:Q1');
-const resultBody = resultSheet.getRange('N2:Q19');
+const resultBody = resultSheet.getRange('N2:Q18');
 resultHeader.format.borders = { preset: 'all', style: 'thin', color: '#D9E2EC' };
 resultHeader.format.fill = '#F2F4F7';
 resultHeader.format.font = { bold: true, color: '#202B38' };
@@ -65,7 +64,7 @@ resultBody.format.rowHeight = 32;
 
 // Extend the Excel table to the appended overwrite and update examples.
 resultSheet.tables.deleteAll();
-const resultTable = resultSheet.tables.add('A1:Q19', true);
+const resultTable = resultSheet.tables.add('A1:Q18', true);
 resultTable.style = 'TableStyleLight1';
 
 const missingMaterialRows = [
@@ -73,13 +72,14 @@ const missingMaterialRows = [
   ['26012915050167612342', '孙悦', '主合同', '租赁服务合同', '必填', '待材料激活', '缺少必填材料', '2026-06-12 09:20:16'],
   ['26012915050167612343', '林浩', '订单信息', '订单详情-物流', '非必填', '已生效', '缺少非必填材料', '2026-06-12 09:20:16'],
   ['26012915050167612348', '丁磊', '主合同', '租赁服务合同', '必填', '待材料激活', '缺少必填材料', '2026-06-12 10:12:08'],
+  ['26012915050167612348', '丁磊', '主合同', '租赁服务合同验签报告', '必填', '待材料激活', '缺少必填材料', '2026-06-12 10:12:08'],
   ['26012915050167612348', '丁磊', '订单信息', '订单详情-物流', '非必填', '待材料激活', '缺少非必填材料', '2026-06-12 10:12:08'],
   ['26012915050167612001', '吴静', '主合同', '租赁服务合同', '必填', '已生效', '缺少必填材料', '2026-06-12 10:15:26']
 ];
-missingMaterialSheet.getRange('A1:H6').values = missingMaterialRows;
-const missingAll = missingMaterialSheet.getRange('A1:H6');
+missingMaterialSheet.getRange('A1:H7').values = missingMaterialRows;
+const missingAll = missingMaterialSheet.getRange('A1:H7');
 const missingHeader = missingMaterialSheet.getRange('A1:H1');
-const missingBody = missingMaterialSheet.getRange('A2:H6');
+const missingBody = missingMaterialSheet.getRange('A2:H7');
 missingAll.format.borders = { preset: 'all', style: 'thin', color: '#D9E2EC' };
 missingHeader.format.fill = '#F2F4F7';
 missingHeader.format.font = { bold: true, color: '#202B38' };
@@ -97,7 +97,7 @@ missingBody.format.rowHeight = 32;
 });
 missingMaterialSheet.freezePanes.freezeRows(1);
 missingMaterialSheet.tables.deleteAll();
-const missingMaterialTable = missingMaterialSheet.tables.add('A1:H6', true);
+const missingMaterialTable = missingMaterialSheet.tables.add('A1:H7', true);
 missingMaterialTable.style = 'TableStyleLight1';
 
 failureSheet.getRange('A9:E9').values = [[
@@ -110,10 +110,10 @@ failureSheet.getRange('A9:E9').values = [[
 failureSheet.getRange('A15:E16').values = [
   [
     '覆盖成功口径',
-    '同批次订单未分配且未流转时自动覆盖；填写“是否强制覆盖=是”时强制覆盖。',
+    '同批次订单未分配且未流转时自动覆盖。',
     '否',
-    '同批次覆盖成功 / 强制覆盖成功',
-    '导入结果=导入成功；案件状态=已生效、材料状态=材料齐全时，失败分类、失败字段和字段值为空；普通导入的处理结果为“成功”。同批次覆盖或强制覆盖时，处理结果分别为“同批次覆盖成功：使用后传Excel字段覆盖已有订单”或“强制覆盖成功：是否强制覆盖=是，已更新可覆盖字段”。'
+    '同批次覆盖成功',
+    '导入结果=导入成功；案件状态=已生效、材料状态=材料齐全时，失败分类、失败字段和字段值为空；普通导入的处理结果为“成功”。同批次覆盖时，处理结果为“同批次覆盖成功：使用后传Excel字段覆盖已有订单”。'
   ],
   [
     '主子订单更新成功',
@@ -126,6 +126,6 @@ failureSheet.getRange('A15:E16').values = [
 
 const output = await SpreadsheetFile.exportXlsx(workbook);
 await output.save(file);
-const preview = await workbook.render({ sheetName: '导入结果明细', range: 'A1:Q19', format: 'png', scale: 1 });
+const preview = await workbook.render({ sheetName: '导入结果明细', range: 'A1:Q18', format: 'png', scale: 1 });
 await writeFile('/private/tmp/法诉案件导入_导入结果明细_预览.png', new Uint8Array(await preview.arrayBuffer()));
 console.log('已将处理结果合并至原失败原因列，并统一两张Sheet口径');
