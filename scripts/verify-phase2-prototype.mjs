@@ -71,11 +71,13 @@ assert.ok(html.includes('债权出让主体支持模糊查询；订单号精确�
 const importDetail = html.match(/<section id="detail"[\s\S]*?<section id="stateMachine"/);
 assert.ok(importDetail, '缺少导入处理详情页面');
 const detailHtml = importDetail[0];
+const parseModal = html.match(/<div id="parseModal"[\s\S]*?<div id="failureModal"/);
+assert.ok(parseModal, '缺少查看材料解析弹框');
 assert.ok(detailHtml.includes('待材料激活'), '详情页案件状态应使用待材料激活');
 assert.ok(detailHtml.includes('<b>债权出让主体</b><span>湖北创新融资租赁有限公司</span>'), '导入处理详情头部应展示债权出让主体');
 assert.ok(detailHtml.includes('<span class="tag ok">材料齐全</span></td><td>成功</td>'), '普通已生效且材料齐全订单的处理结果应为成功');
 assert.ok(detailHtml.includes('26012915050167612001') && detailHtml.includes('待初始化（一期）</span></td><td>成功</td><td class="muted">-</td>'), '一期字段通过订单应展示已生效、待初始化（一期）和成功，且不展示材料解析');
-assert.ok(detailHtml.includes('26012915050167612002') && detailHtml.includes('身份证号字段格式错误</td><td><button class="text-link" onclick="openFailureModal(\'26012915050167612002\')">失败原因</button>'), '一期导入失败订单应展示未生成材料状态和具体失败结果');
+assert.ok(detailHtml.includes('26012915050167612002') && detailHtml.includes('身份证号字段格式错误</td><td class="muted">-</td>'), '一期导入失败订单应展示未生成材料状态和具体失败结果，不提供失败原因按钮');
 assert.ok(detailHtml.includes('字段校验通过，缺少必填材料：租赁服务合同。'), '待补必填订单的处理结果应与下载明细一致');
 assert.ok(detailHtml.includes('字段校验通过，缺少非必填材料：订单详情-物流。'), '待补非必填订单的处理结果应与下载明细一致');
 assert.ok(detailHtml.includes('同批次覆盖成功</span><div id="duplicateNote1">使用后传Excel字段覆盖已有订单。'), '自动覆盖订单的处理结果应与下载明细一致');
@@ -91,6 +93,9 @@ assert.ok(html.includes('查看覆盖记录展示自动/强制覆盖方式、字
 assert.ok(html.includes('<span class="tag info">同批次覆盖成功</span> 使用后传Excel字段覆盖已有订单。'), '查看覆盖记录应展示与下载明细一致的自动覆盖结果');
 assert.ok(html.includes('<span class="tag info">强制覆盖成功</span> “是否强制覆盖”=是，已更新可覆盖字段。'), '查看覆盖记录应展示与下载明细一致的强制覆盖结果');
 assert.ok(html.includes('普通已生效且材料齐全的订单处理结果为“成功”'), '详情页备注应明确普通成功订单的处理结果');
+assert.ok(!parseModal[0].includes('处理说明'), '材料解析弹框不应展示处理说明列');
+assert.ok(parseModal[0].includes('>异常文件</span>') && !parseModal[0].includes('>提示</span>'), '材料解析弹框检查结果仅展示通过或异常文件');
+assert.ok(parseModal[0].includes('26012915050167612327_人像面_01.jpg</a></td><td><span class="tag ok">通过</span>') && parseModal[0].includes('26012915050167612327_国徽面_01.jpg</a></td><td><span class="tag ok">通过</span>'), '材料解析弹框应按文件一行展示');
 assert.ok(html.includes('<h3>材料解析规则</h3>') && html.includes('首次导入：创建批次时选择导入规则') && html.includes('后续补传或重传：已存在订单始终按首次导入时固化的规则快照重新解析') && html.includes('同批次新增订单：沿用该批次创建时选定的导入规则'), '详情页备注应明确首次导入、后续补传和同批次新增订单的材料解析口径');
 assert.ok(html.includes('id="historyMaterialRuleBox"') && html.includes('创新旧合同模式&创新新合同模式规则'), '补充历史材料弹框应展示创新历史批次固定的材料解析规则');
 assert.ok(html.includes("document.getElementById('historyMaterialRuleBox').style.display = historyMode ? '' : 'none';"), '材料解析规则仅在补充历史材料时展示');
@@ -98,6 +103,7 @@ assert.ok(html.includes('一期历史订单仅完成Excel导入：字段校验�
 assert.ok(detailHtml.includes('>重复跳过</span>'), '不可覆盖重复订单应直接标记为重复跳过');
 assert.ok(detailHtml.includes('该订单已分配或已流转，不可覆盖。'), '重复跳过应说明不可覆盖原因');
 assert.ok(!detailHtml.includes('>处理重复</button>'), '不可覆盖重复订单不应提供人工处理重复按钮');
+assert.ok(!detailHtml.includes('>失败原因</button>'), '订单结果列表不应提供失败原因按钮');
 assert.ok(!html.includes('id="duplicateModal"'), '重复跳过不应保留确认跳过弹框');
 assert.ok(!html.includes('确认跳过'), '重复跳过不应要求人工确认');
 assert.ok(detailHtml.includes('导出当前筛选订单明细'), '订单结果页签应保留当前筛选订单明细导出');

@@ -817,11 +817,11 @@
               <tbody>
                 <tr><td><input type="checkbox"></td><td>26012915050167612327</td><td>张三</td><td>12,036.80</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td>成功</td><td><button class="text-link" onclick="openParseModal('26012915050167612327')">查看材料解析</button></td></tr>
                 <tr class="history-order-row"><td><input type="checkbox"></td><td>26012915050167612001</td><td>吴静</td><td>6,520.00</td><td><span class="tag ok">已生效</span></td><td><span class="tag gray">待初始化（一期）</span></td><td>成功</td><td class="muted">-</td></tr>
-                <tr class="history-order-row"><td><input type="checkbox"></td><td>26012915050167612002</td><td>何伟</td><td>5,860.00</td><td><span class="tag bad">导入失败</span></td><td><span class="tag gray">未生成</span></td><td>身份证号字段格式错误</td><td><button class="text-link" onclick="openFailureModal('26012915050167612002')">失败原因</button></td></tr>
+                <tr class="history-order-row"><td><input type="checkbox"></td><td>26012915050167612002</td><td>何伟</td><td>5,860.00</td><td><span class="tag bad">导入失败</span></td><td><span class="tag gray">未生成</span></td><td>身份证号字段格式错误</td><td class="muted">-</td></tr>
                 <tr><td><input type="checkbox"></td><td>26012915050167612328</td><td>黄丽</td><td>9,420.00</td><td><span class="tag warn">待材料激活</span></td><td><span class="tag bad">待补必填</span></td><td>字段校验通过，缺少必填材料：租赁服务合同。</td><td><button class="text-link" onclick="openParseModal('26012915050167612328')">查看材料解析</button></td></tr>
                 <tr><td><input type="checkbox"></td><td>26012915050167612348</td><td>丁磊</td><td>6,990.00</td><td><span class="tag warn">待材料激活</span></td><td><span class="tag bad">待补必填</span></td><td>字段校验通过，缺少必填材料：租赁服务合同；缺少非必填材料：订单详情-物流。</td><td><button class="text-link" onclick="openParseModal('26012915050167612348')">查看材料解析</button></td></tr>
                 <tr><td><input type="checkbox"></td><td>26012915050167612331</td><td>周强</td><td>8,030.00</td><td><span class="tag ok">已生效</span></td><td><span class="tag warn">待补非必填</span></td><td>字段校验通过，缺少非必填材料：订单详情-物流。</td><td><button class="text-link" onclick="openParseModal('26012915050167612331')">查看材料解析</button></td></tr>
-                <tr><td><input type="checkbox" class="failed-order-check"></td><td>26012915050167612330</td><td>李明</td><td>7,290.00</td><td><span class="tag bad">导入失败</span></td><td><span class="tag gray">未生成</span></td><td>债权金额异常</td><td><button class="text-link" onclick="openParseModal('26012915050167612330')">查看材料解析</button> <button class="text-link" onclick="openFailureModal('26012915050167612330')">失败原因</button></td></tr>
+                <tr><td><input type="checkbox" class="failed-order-check"></td><td>26012915050167612330</td><td>李明</td><td>7,290.00</td><td><span class="tag bad">导入失败</span></td><td><span class="tag gray">未生成</span></td><td>债权金额异常</td><td><button class="text-link" onclick="openParseModal('26012915050167612330')">查看材料解析</button></td></tr>
                 <tr id="duplicateRow1"><td><input type="checkbox"></td><td>26012915050167612332</td><td>王磊</td><td>8,650.00</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td><span id="duplicateResult1" class="tag info">同批次覆盖成功</span><div id="duplicateNote1">使用后传Excel字段覆盖已有订单。</div></td><td id="duplicateAction1"><button class="text-link" onclick="openParseModal('26012915050167612332')">查看材料解析</button> <button class="text-link" onclick="openCoverageRecord('26012915050167612332')">查看覆盖记录</button></td></tr>
                 <tr id="duplicateRow2"><td><input type="checkbox"></td><td>26012915050167612333</td><td>赵倩</td><td>6,880.00</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td><span id="duplicateResult2" class="tag gray">重复跳过</span><div id="duplicateNote2">该订单已分配或已流转，不可覆盖。</div></td><td id="duplicateAction2"><button class="text-link" onclick="openParseModal('26012915050167612333')">查看材料解析</button></td></tr>
                 <tr><td><input type="checkbox"></td><td>26012915050167612336</td><td>陈敏</td><td>7,460.00</td><td><span class="tag ok">已生效</span></td><td><span class="tag ok">材料齐全</span></td><td><span class="tag info">强制覆盖成功</span><div>“是否强制覆盖”=是，已更新可覆盖字段。</div></td><td><button class="text-link" onclick="openParseModal('26012915050167612336')">查看材料解析</button> <button class="text-link" onclick="openCoverageRecord('26012915050167612336')">查看覆盖记录</button></td></tr>
@@ -899,7 +899,7 @@
             <div class="flow-lane-cell case-lane"><div class="flow-node case-node"><b>8. 案件生效 / 材料待办</b><span>已生效、待材料激活或导入失败；材料状态更新为材料齐全、待补必填、待补非必填或未生成。</span></div></div>
           </div>
           <div class="overall-flow-row">
-            <div class="flow-lane-cell"><div class="flow-node"><b>9. 导入处理详情</b><span>按订单结果、待补材料、异常文件查看问题；查看材料解析、失败原因或查看覆盖记录。</span></div></div>
+            <div class="flow-lane-cell"><div class="flow-node"><b>9. 导入处理详情</b><span>按订单结果、待补材料、异常文件查看问题；查看材料解析或查看覆盖记录。</span></div></div>
             <div class="flow-route">&rarr;</div>
             <div class="flow-lane-cell"><div class="flow-node service-node"><b>10. 批量补传</b><span>可补订单 Excel、材料包或两者；异常文件可按需同步重新识别。同批次重复订单未分配且未流转时自动覆盖；填“是否强制覆盖=是”可强制覆盖。</span></div></div>
             <div class="flow-route">&rarr;</div>
@@ -1318,7 +1318,7 @@
         <p><b>2.</b>逾期天数由系统按违约日期自动计算，资产方不需要在Excel中填写。</p>
         <p><b>3.</b>订单结果同时展示案件状态和材料状态：案件状态与主列表案件结果一致，为已生效、待材料激活、导入失败；材料状态为未生成、材料齐全、待补必填、待补非必填或待初始化（一期）。异常文件是文件维度，不混入订单状态。</p>
         <p><b>4.</b>处理结果列展示订单的最新处理说明：普通已生效且材料齐全的订单处理结果为“成功”；待补材料说明待补内容及影响；覆盖、强制覆盖、主子订单更新和重复跳过保留具体说明，便于追溯。</p>
-        <p><b>5.</b>一期历史订单仅完成Excel导入：字段校验通过的订单展示“已生效 / 待初始化（一期）/ 成功”，不展示材料解析；导入失败订单展示“导入失败 / 未生成 / 具体失败结果”，可查看失败原因。</p>
+        <p><b>5.</b>一期历史订单仅完成Excel导入：字段校验通过的订单展示“已生效 / 待初始化（一期）/ 成功”，不展示材料解析；导入失败订单展示“导入失败 / 未生成 / 具体失败结果”，失败信息直接在处理结果列展示。</p>
         <p><b>6.</b>一期历史订单首次补传材料并解析后，如存在缺失材料，才进入待补材料列表；案件状态保持“已生效”，材料要求仍按固化的规则快照展示必填或非必填。</p>
       </section>
       <section class="anno-block">
@@ -1351,7 +1351,7 @@
         <p><b>2.</b>批量补传：订单Excel、材料包可任选其一或同时上传，至少上传一个；订单Excel用于新增本批次订单、重传失败订单或补充异常文件所需订单信息，材料包用于补齐材料或重新上传规范材料。</p>
         <p><b>3.</b>同步重新识别历史异常文件：在批量补传弹框中按需勾选。系统使用本次上传的订单/材料和当前规则重解析历史异常文件；未上传任何文件时不允许仅重新识别。</p>
         <p><b>4.</b>待材料激活可补必填和非必填材料；已生效订单只补其固化规则快照中配置为非必填的材料；一期历史批次按固化快照补材料且保持已生效。文件名支持预览/下载，不提供人工绑定、重新绑定或单个文件上传。</p>
-        <p><b>5.</b>查看材料解析：只读弹框，仅展示材料解析结果；材料文件名可点击预览或下载。</p>
+        <p><b>5.</b>查看材料解析：只读弹框按文件一行展示，材料文件名可点击预览或下载；材料规则校验通过时检查结果为“通过”，不通过时为“异常文件”。未上传的材料不在此弹框展示，统一在待补材料页处理。</p>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
@@ -1401,12 +1401,14 @@
     <div class="modal-head"><span id="parseTitle">订单材料解析</span><button onclick="closeModal('parseModal')">×</button></div>
     <div class="modal-body">
       <div class="parse-pane active" data-parse-pane="material">
-        <table><thead><tr><th>标准材料类别</th><th>解析文件</th><th>检查结果</th><th>处理说明</th></tr></thead><tbody>
-          <tr><td>主合同</td><td><div class="file-link-list"><div class="file-link-row"><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_租赁服务合同_01.pdf')">26012915050167612327_租赁服务合同_01.pdf</a></div></div></td><td><span class="tag ok">通过</span></td><td>按资产方材料名称识别为主合同，必填已满足。</td></tr>
-          <tr><td>身份信息</td><td><div class="file-link-list"><div class="file-link-row"><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_人像面_01.jpg')">26012915050167612327_人像面_01.jpg</a></div><div class="file-link-row"><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_国徽面_01.jpg')">26012915050167612327_国徽面_01.jpg</a></div><div class="file-link-row"><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_活体识别照片_01.jpg')">26012915050167612327_活体识别照片_01.jpg</a></div></div></td><td><span class="tag ok">通过</span></td><td>身份信息默认必填，缺失时该订单导入失败。</td></tr>
-          <tr><td>补充合同</td><td><div class="file-link-list"><div class="file-link-row"><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_补充合同_01.pdf')">26012915050167612327_补充合同_01.pdf</a></div></div></td><td><span class="tag ok">通过</span></td><td>按当前规则配置校验必填/非必填。</td></tr>
-          <tr><td>物流信息</td><td>路由详情图未上传</td><td><span class="tag warn">提示</span></td><td>非必填材料缺失只提示，不阻断订单生成。</td></tr>
-          <tr><td>订单信息</td><td><div class="file-link-list"><div class="file-link-row"><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_订单详情-账单_01.pdf')">26012915050167612327_订单详情-账单_01.pdf</a></div></div></td><td><span class="tag ok">通过</span></td><td>按当前规则识别为订单信息，必填已满足。</td></tr>
+        <table><colgroup><col style="width:24%"><col style="width:60%"><col style="width:16%"></colgroup><thead><tr><th>标准材料类别</th><th>解析文件</th><th>检查结果</th></tr></thead><tbody>
+          <tr><td>主合同</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_租赁服务合同_01.pdf')">26012915050167612327_租赁服务合同_01.pdf</a></td><td><span class="tag ok">通过</span></td></tr>
+          <tr><td>身份信息</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_人像面_01.jpg')">26012915050167612327_人像面_01.jpg</a></td><td><span class="tag ok">通过</span></td></tr>
+          <tr><td>身份信息</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_国徽面_01.jpg')">26012915050167612327_国徽面_01.jpg</a></td><td><span class="tag ok">通过</span></td></tr>
+          <tr><td>身份信息</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_活体识别照片_01.jpg')">26012915050167612327_活体识别照片_01.jpg</a></td><td><span class="tag ok">通过</span></td></tr>
+          <tr><td>补充合同</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_补充合同_01.pdf')">26012915050167612327_补充合同_01.pdf</a></td><td><span class="tag ok">通过</span></td></tr>
+          <tr><td>订单信息</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_订单详情-账单_01.pdf')">26012915050167612327_订单详情-账单_01.pdf</a></td><td><span class="tag ok">通过</span></td></tr>
+          <tr><td>未识别</td><td><a class="text-link file-name-link" href="javascript:void(0)" onclick="openFilePreview('26012915050167612327_附件截图_01.jpg')">26012915050167612327_附件截图_01.jpg</a></td><td><span class="tag bad">异常文件</span></td></tr>
         </tbody></table>
       </div>
     </div>
