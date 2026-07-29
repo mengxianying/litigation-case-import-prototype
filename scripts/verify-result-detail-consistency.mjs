@@ -44,9 +44,9 @@ for (const row of rows.slice(1)) {
 
 const failureDetail = await workbook.inspect({
   kind: 'table',
-  range: "'失败分类说明'!A1:E16",
+  range: "'失败分类说明'!A1:E17",
   include: 'values',
-  tableMaxRows: 16,
+  tableMaxRows: 17,
   tableMaxCols: 5
 });
 const failureRows = JSON.parse(failureDetail.ndjson).values;
@@ -55,6 +55,23 @@ assert.match(failureText, /同批次重复跳过/);
 assert.match(failureText, /覆盖成功口径/);
 assert.match(failureText, /主子订单更新成功/);
 assert.match(failureText, /导入结果=导入成功/);
+assert.match(failureText, /最终结果保留口径/);
+assert.match(failureText, /本次Excel失败写入批次处理记录/);
+
+const scopeDetail = await workbook.inspect({
+  kind: 'table',
+  range: "'口径说明'!A1:F20",
+  include: 'values',
+  tableMaxRows: 20,
+  tableMaxCols: 6
+});
+const scopeRows = JSON.parse(scopeDetail.ndjson).values;
+const scopeText = scopeRows.flat().filter(Boolean).join('\n');
+assert.match(scopeText, /材料包仅支持zip/i, '口径说明应明确材料包仅支持ZIP');
+assert.doesNotMatch(scopeText, /rar|7z/i, '口径说明不应继续支持RAR或7Z');
+assert.match(scopeText, /按订单当前最终结果导出/, '口径说明应明确下载明细按订单最终结果导出');
+assert.match(scopeText, /待材料激活/, '口径说明应覆盖待材料激活订单的后续Excel失败场景');
+assert.match(scopeText, /批次处理记录/, '口径说明应说明本次失败保留在批次处理记录中');
 
 const missingMaterialDetail = await workbook.inspect({
   kind: 'table',

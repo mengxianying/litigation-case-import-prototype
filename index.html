@@ -731,7 +731,7 @@
           <label><span>债权出让主体</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
           <label><span>外部资产方</span><div class="field-box"><div class="select" data-options="全部|创新|转转|人人租">创新<b>⌄</b></div><div class="enum">全部 / 创新 / 转转 / 人人租</div></div></label>
           <label><span>业务类型</span><div class="field-box"><div class="select" data-options="全部|租赁">请选择业务类型<b>⌄</b></div><div class="enum">全部 / 租赁</div></div></label>
-          <label><span>导入状态</span><div class="field-box"><div class="select" data-options="全部|草稿|导入中|导入完成|导入失败|已取消">请选择导入状态<b>⌄</b></div><div class="enum">全部 / 草稿 / 导入中 / 导入完成 / 导入失败 / 已取消</div></div></label>
+          <label><span>导入状态</span><div class="field-box"><div class="select" data-options="全部|导入中|导入完成|导入失败">请选择导入状态<b>⌄</b></div><div class="enum">全部 / 导入中 / 导入完成 / 导入失败</div></div></label>
           <label><span>导入时间</span><div class="field-box"><div class="input">开始时间 - 结束时间</div></div></label>
           <div class="search-actions"><button class="primary">查询</button><button>重置</button></div>
         </div>
@@ -746,7 +746,6 @@
           <table>
             <thead><tr><th rowspan="2" style="width:110px">外部资产方</th><th rowspan="2" style="width:130px">导入批次号</th><th rowspan="2" style="width:165px">批次名称</th><th rowspan="2" style="width:68px">业务类型</th><th rowspan="2" style="width:105px">债权总额</th><th rowspan="2" style="width:105px">债权对价</th><th rowspan="2" style="width:75px">资产总数</th><th colspan="3">案件结果</th><th rowspan="2" style="width:100px">材料处理</th><th rowspan="2" style="width:90px">导入状态</th><th rowspan="2" style="width:130px">首次导入时间</th><th rowspan="2" style="width:200px">操作</th></tr><tr><th style="width:72px">已生效</th><th style="width:94px">待材料激活</th><th style="width:72px">导入失败</th></tr></thead>
             <tbody>
-              <tr><td>创新</td><td><button class="text-link" onclick="switchTab('newImportFull')">DR202606150001</button></td><td>创新租赁草稿批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>-</td><td class="result-count result-empty">-</td><td class="result-count result-empty">-</td><td class="result-count result-empty">-</td><td><span class="tag gray">未处理</span></td><td><span class="tag gray">草稿</span></td><td>2026-06-15 10:20:00</td><td><button class="text-link" onclick="switchTab('newImportFull')">继续编辑</button> <button class="text-link danger-link" onclick="openDraftCancelModal()">取消</button></td></tr>
               <tr><td>创新</td><td><button class="text-link" data-jump="detail">DR202606100001</button></td><td>创新租赁通用规则批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>1280</td><td class="result-count result-success">1,246</td><td class="result-count result-pending">22</td><td class="result-count result-failure">12</td><td><span class="tag warn">待补必填</span></td><td><span class="tag ok">导入完成</span></td><td>2026-06-10 20:15:32</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">处理详情</button><button class="text-link" onclick="openDebtAmountModal('main','DR202606100001','创新租赁通用规则批次01','创新','租赁','创新租赁通用规则','襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)','12,036,800.00','8,425,760.00')">编辑</button><a class="text-link download-detail" href="./法诉案件导入_导入结果明细.xlsx" download>下载明细</a></div></td></tr>
               <tr><td>转转</td><td>DR202606090006</td><td>转转租赁批次02</td><td>租赁</td><td>3,680,500.00</td><td>2,576,350.00</td><td>386</td><td class="result-count result-success">386</td><td class="result-count result-zero">0</td><td class="result-count result-zero">0</td><td><span class="tag ok">材料齐全</span></td><td><span class="tag ok">导入完成</span></td><td>2026-06-09 18:42:10</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">处理详情</button><button class="text-link" onclick="openDebtAmountModal('zz','DR202606090006','转转租赁批次02','转转','租赁','转转租赁规则','武汉小优企业管理有限公司(91420115MACRLKWJ1A)','3,680,500.00','2,576,350.00')">编辑</button><a class="text-link download-detail" href="./法诉案件导入_导入结果明细.xlsx" download>下载明细</a></div></td></tr>
               <tr><td>人人租</td><td>DR202606090005</td><td>人人租租赁批次03</td><td>租赁</td><td>4,982,000.00</td><td>3,487,400.00</td><td>518</td><td class="result-count result-zero">0</td><td class="result-count result-zero">0</td><td class="result-count result-failure">518</td><td><span class="tag gray">未生成</span></td><td><span class="tag bad">导入失败</span></td><td>2026-06-09 11:08:55</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">处理详情</button><button class="text-link" onclick="openDebtAmountModal('rrz','DR202606090005','人人租租赁批次03','人人租','租赁','人人租租赁规则','聊城小优企业管理有限公司(91371521MADE8H2E0)','4,982,000.00','3,487,400.00')">编辑</button><a class="text-link download-detail" href="./法诉案件导入_导入结果明细.xlsx" download>下载明细</a></div></td></tr>
@@ -778,12 +777,12 @@
               <button onclick="restoreImportFile('materialPackageRowFull','材料包已上传')">上传材料包</button>
               <a id="phase2TemplateDownload" class="btn primary" href="#" onclick="downloadSelectedPhase2Template(event)">下载模板</a>
             </div>
-            <div class="limit">资产明细和材料包均为必传：资产明细支持xlsx/xls；材料包支持zip/rar/7z。任一文件未上传时整批阻断，不创建导入任务。材料包一级文件夹：订单编号_姓名；二级文件：订单编号_材料名称_序号.扩展名。</div>
+            <div class="limit">资产明细和材料包均为必传：资产明细支持xlsx/xls；材料包仅支持zip。任一文件未上传时整批阻断，不创建导入任务。材料包一级文件夹：订单编号_姓名；二级文件：订单编号_材料名称_序号.扩展名。</div>
             <div class="file-row" id="assetFileRowFull"><div class="file-meta"><span id="phase2TemplateName" class="file-name">请选择导入规则后下载模板</span><span class="tag ok">上传成功</span></div><div class="file-actions"><button class="text-link danger-link" onclick="openDeleteFileModal('assetFileRowFull','资产明细模板.xlsx')">删除</button></div></div>
             <div class="file-row" id="materialPackageRowFull"><div class="file-meta"><span class="file-name">转转租赁批次01_材料包.zip</span><span class="tag ok">上传成功</span></div><div class="file-actions"><button class="text-link danger-link" onclick="openDeleteFileModal('materialPackageRowFull','转转租赁批次01_材料包.zip')">删除</button></div></div>
           </div>
         </div>
-        <div class="footer-btns"><button onclick="openCancelEditModal()">取消</button><button onclick="showToast('二期完整版：已保存为草稿')">保存草稿</button><button class="primary" onclick="submitPhase2Import()">导入</button></div>
+        <div class="footer-btns"><button onclick="openCancelEditModal()">取消</button><button class="primary" onclick="submitPhase2Import()">导入</button></div>
       </div>
     </section>
 
@@ -876,14 +875,14 @@
         <div class="overall-flow-board">
           <div class="overall-flow-head"><div>运营人员</div><div>导入服务</div><div>案件与材料</div></div>
           <div class="overall-flow-row">
-            <div class="flow-lane-cell"><div class="flow-node"><b>1. 新建导入批次</b><span>填写批次基础信息、导入规则、债权接收主体和债权出让主体；可先保存草稿。</span></div></div>
+            <div class="flow-lane-cell"><div class="flow-node"><b>1. 新建导入批次</b><span>填写批次基础信息、导入规则、债权接收主体和债权出让主体。</span></div></div>
             <div class="flow-route">&rarr;</div>
             <div class="flow-lane-cell"><div class="flow-node service-node"><b>加载规则与模板</b><span>读取可用导入规则；后续按提交时的规则快照执行字段和材料校验。</span></div></div>
             <div class="flow-route">&rarr;</div>
-            <div class="flow-lane-cell case-lane"><div class="flow-node case-node"><b>草稿或待提交</b><span>草稿只保存基础信息和临时文件，不生成案件、不解析材料。</span></div></div>
+            <div class="flow-lane-cell case-lane"><div class="flow-node case-node"><b>待提交</b><span>未点击导入前不创建批次、不生成案件、不解析材料。</span></div></div>
           </div>
           <div class="overall-flow-row">
-            <div class="flow-lane-cell"><div class="flow-node"><b>2. 上传资产明细和材料包</b><span>资产明细为 xlsx/xls，单次最多 500 条；材料包为 zip/rar/7z。</span></div></div>
+            <div class="flow-lane-cell"><div class="flow-node"><b>2. 上传资产明细和材料包</b><span>资产明细为 xlsx/xls，单次最多 500 条；材料包仅支持 zip。</span></div></div>
             <div class="flow-route">&rarr;</div>
             <div class="flow-lane-cell"><div class="flow-node service-node"><b>3. 上传前置校验</b><span>校验列头名称和本Excel内订单编号是否重复；列顺序可调整，额外列忽略。</span><div class="flow-return">列头校验不通过或单文件内有重复订单：整份文件阻断，不创建任务，返回上传区修正。</div></div></div>
             <div class="flow-route">&rarr;</div>
@@ -925,7 +924,7 @@
           <div class="history-flow-step">
             <h4>2. 上传并提交材料包</h4>
             <p>仅可上传材料包；创新历史批次固定使用“创新旧合同模式&创新新合同模式规则”，首次提交后固化历史规则快照。</p>
-            <p>材料包格式：zip、rar、7z。</p>
+            <p>材料包格式：仅支持 zip。</p>
           </div>
           <div class="history-flow-arrow">&rarr;</div>
           <div class="history-flow-step">
@@ -965,8 +964,8 @@
               <tr><th>新建导入批次</th><td>一期导入</td><td>新建中</td><td>上传资产明细、下载模板、导入、取消</td><td>头部字段除备注外均必填；一期只校验资产明细Excel。</td></tr>
               <tr><th>新建导入批次</th><td>一期导入</td><td>缺少资产明细</td><td>去上传、取消</td><td>点击导入时弹提示并阻止导入；不生成批次结果。</td></tr>
               <tr><th>新建导入批次</th><td>一期导入</td><td>提交导入</td><td>导入</td><td>页面必填、金额和Excel上传前置校验通过后提交异步处理；订单级校验失败写入下载明细，不影响其它订单导入。</td></tr>
-              <tr><th>案件导入管理</th><td>二期批次</td><td>草稿/导入完成/导入失败</td><td>继续编辑、处理详情、编辑、下载明细</td><td>下载明细包含导入结果明细、失败分类说明、口径说明；导入结果仅分成功/失败，覆盖和跳过通过处理结果说明。</td></tr>
-              <tr><th>新建导入批次</th><td>二期新建</td><td>新建/草稿</td><td>上传资产明细、上传材料包、下载模板、保存草稿、导入、取消</td><td>首次导入时资产明细和材料包均必传；材料包未上传整批阻断。</td></tr>
+              <tr><th>案件导入管理</th><td>二期批次</td><td>导入中/导入完成/导入失败</td><td>处理详情、编辑、下载明细</td><td>下载明细包含导入结果明细、失败分类说明、口径说明，并按订单最终结果导出。</td></tr>
+              <tr><th>新建导入批次</th><td>二期新建</td><td>新建中</td><td>上传资产明细、上传材料包、下载模板、导入、取消</td><td>首次导入时资产明细和ZIP材料包均必传；材料包未上传整批阻断。</td></tr>
               <tr><th>导入处理详情</th><td>批量补传</td><td>订单结果</td><td>上传订单Excel、上传材料包、同步重新识别、导出订单明细</td><td>同一批次可多次上传，订单Excel单次最多500条；跨批次重复始终阻断。</td></tr>
               <tr><th>导入处理详情</th><td>材料补传</td><td>待材料激活</td><td>上传材料包</td><td>可补缺失必填和非必填材料；必填补齐并复核通过后自动生效。</td></tr>
               <tr><th>导入处理详情</th><td>材料补传</td><td>已生效且待补非必填</td><td>上传材料包</td><td>仅允许补非必填材料，不改变案件生效状态。</td></tr>
@@ -1061,27 +1060,26 @@
       </section>
       <section class="anno-block">
         <h3>状态和操作</h3>
-        <p><b>1.</b>导入状态表示批次任务进度：草稿、导入中、导入完成、导入失败、已取消。</p>
+        <p><b>1.</b>导入状态表示批次任务进度：导入中、导入完成、导入失败。本期不保存草稿，取消未提交的新建页面不会创建批次。</p>
         <p><b>2.</b>案件结果按订单编号去重展示，并以分组表头列明已生效、待材料激活、导入失败三个数量；与导入处理详情的“案件状态”完全一致。</p>
         <p><b>3.</b>材料处理只提示下一步：材料齐全、待补必填、待补非必填、材料处理中、待初始化（一期）；未生成表示该批次尚未产生可处理材料。</p>
         <p><b>4.</b>导入完成后进入处理详情，按订单结果、待补材料和异常文件处理；下载明细统一导出“导入结果明细、待补材料明细、失败分类说明、口径说明”四张Sheet。</p>
         <p><b>5.</b>二期编辑批次信息弹框展示历史上传文件，支持查看资产明细、材料包、失败重传文件的文件名、上传时间和处理结果。</p>
-        <p><b>6.</b>草稿批次显示“继续编辑”；导入中显示“解析中”且不可编辑；导入完成、导入失败和一期历史批次均可编辑批次信息。导入失败可进入处理详情后通过批量补传重传订单Excel。</p>
+        <p><b>6.</b>导入中显示“解析中”且不可编辑；导入完成、导入失败和一期历史批次均可编辑批次信息。导入失败可进入处理详情后通过批量补传重传订单Excel。</p>
         <p><b>7.</b>债权出让主体为批次级文本字段，最多50字符；新建时必填，编辑保存后用于批次查询和后续债权关系追溯。</p>
-        <p><b>8.</b>编辑批次信息可维护批次附件，用于债权转让协议、转账回单、补充协议等凭证。每批次最多10个文件，支持pdf、图片、xlsx、xls、zip、7z、rar；可下载、删除。需要替换附件时，先删除旧文件后通过“上传附件”重新上传。批次附件不参与订单材料解析和材料完整度校验。</p>
+        <p><b>8.</b>编辑批次信息可维护批次附件，用于债权转让协议、转账回单、补充协议等凭证。每批次最多10个文件，支持pdf、图片、xlsx、xls、zip；可下载、删除。需要替换附件时，先删除旧文件后通过“上传附件”重新上传。批次附件不参与订单材料解析和材料完整度校验。</p>
         <h3>字段状态枚举</h3>
         <table class="button-state-table">
           <thead><tr><th style="width:130px">列表字段</th><th style="width:230px">枚举值</th><th>取数与处理说明</th></tr></thead>
           <tbody>
             <tr><th>案件结果<br>案件状态</th><td>已生效 / 待材料激活 / 导入失败</td><td>主列表按订单编号去重汇总，详情按订单展示。待材料激活表示字段校验通过但缺少必填材料；导入失败表示该订单未生成案件。</td></tr>
-            <tr><th>材料处理<br>材料状态</th><td>未处理 / 未生成 / 材料处理中 / 材料齐全 / 待补必填 / 待补非必填 / 待初始化（一期）</td><td>未处理仅用于草稿；未生成表示未产出材料处理结果；材料处理中表示历史材料包已提交、等待异步解析；待补必填阻断二期新案件生效，但一期历史案件保持已生效；待初始化（一期）需首次补充材料后固化规则快照。</td></tr>
-            <tr><th>导入状态</th><td>草稿 / 导入中 / 导入完成 / 导入失败 / 已取消</td><td>表示批次任务进度，不等同于订单案件状态。导入完成允许存在部分订单导入失败或待材料激活。</td></tr>
+            <tr><th>材料处理<br>材料状态</th><td>未生成 / 材料处理中 / 材料齐全 / 待补必填 / 待补非必填 / 待初始化（一期）</td><td>未生成表示未产出材料处理结果；材料处理中表示历史材料包已提交、等待异步解析；待补必填阻断二期新案件生效，但一期历史案件保持已生效；待初始化（一期）需首次补充材料后固化规则快照。</td></tr>
+            <tr><th>导入状态</th><td>导入中 / 导入完成 / 导入失败</td><td>表示批次任务进度，不等同于订单案件状态。导入完成允许存在部分订单导入失败或待材料激活。</td></tr>
           </tbody>
         </table>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
-            <tr><th>草稿</th><td>继续编辑、导入、取消</td><td>回显草稿数据；取消后状态为已取消。</td></tr>
             <tr><th>导入中</th><td>解析中</td><td>任务处理期间不允许编辑或补传，完成后进入导入完成或导入失败。</td></tr>
             <tr><th>导入完成</th><td>处理详情、编辑、下载明细</td><td>处理详情查看订单和材料处理结果；编辑仅改批次级金额和备注。</td></tr>
             <tr><th>导入失败</th><td>处理详情、编辑、下载明细</td><td>编辑可修改批次信息；进入详情后通过“批量补传”上传修正版订单Excel，可按需同步上传材料包。</td></tr>
@@ -1106,7 +1104,8 @@
         <h3>上传和校验</h3>
         <p><b>1.</b>资产明细和材料包均为必传；任一缺失时整批阻断，不创建导入任务、不生成案件。</p>
         <p><b>2.</b>待材料激活的前提是材料包已上传并完成解析：字段校验通过但包内缺必填材料时，订单进入待材料激活，补齐并复核通过后自动生效；非必填材料缺失仅进入待补传清单。</p>
-        <p><b>3.</b>二期支持保存草稿，草稿只保存基础信息和临时文件，不解析、不生成案件。</p>
+        <p><b>3.</b>二期不提供保存草稿。点击取消仅放弃当前未提交内容并返回列表，不创建批次；点击导入并通过前置校验后才创建批次和异步任务。</p>
+        <p><b>4.</b>材料包仅支持zip；rar、7z等格式在上传时直接拦截，不进入解压和解析流程。</p>
       </section>
       <section class="anno-block">
         <h3>按钮操作</h3>
@@ -1116,8 +1115,7 @@
           <tbody>
             <tr><th>未选择导入规则</th><td>查看规则详情、下载模板</td><td>两个操作均提示“请选择导入规则”；不下载默认模板，避免使用错误规则。</td></tr>
             <tr><th>已选择单个规则</th><td>查看规则详情、下载模板</td><td>查看字段和材料要求；下载“外部资产方_规则名称.xlsx”。</td></tr>
-            <tr><th>新建中</th><td>上传资产明细、上传材料包、下载模板、保存草稿、导入、取消</td><td>头部字段除备注外均必填；两个文件都上传后才能导入。</td></tr>
-            <tr><th>草稿</th><td>继续编辑、保存草稿、导入、取消</td><td>继续编辑回显上次保存内容；取消后状态变为已取消。</td></tr>
+            <tr><th>新建中</th><td>上传资产明细、上传材料包、下载模板、导入、取消</td><td>头部字段除备注外均必填；两个文件都上传后才能导入，取消不创建批次。</td></tr>
             <tr><th>提交导入</th><td>导入</td><td>页面必填、金额、规则状态、Excel和材料包格式通过后提交异步任务，弹出“导入处理中”。</td></tr>
           </tbody>
         </table>
@@ -1279,6 +1277,7 @@
         <p><b>4.</b>同批次不可覆盖：如果已有订单已流转，不允许再次导入，导入结果明细提示“该订单已流转，无法再次导入”。</p>
         <p><b>5.</b>不同批次导入：同一外部资产方+订单编号已存在于其他批次时，本次报错，不允许重复导入；主订单已作为初始订单导入后，再新增对应续租订单属于主子订单校验异常，不允许导入。</p>
         <p><b>6.</b>下载明细：共“导入结果明细、待补材料明细、失败分类说明、口径说明”四张Sheet。导入结果仅为“导入成功、导入失败”，按订单编号一单一行；原“失败原因”列更名为“处理结果”，展示失败、待补、覆盖、更新或重复跳过的具体说明。待补材料列在同一类型缺失多项时用中文分号分隔；待补必填、待补非必填两类记录的失败字段和字段值均为空。待补材料明细按“订单编号+缺失材料名称”一项一行，同一订单缺少多项材料时展示多条记录。普通“已生效 + 材料齐全”订单的处理结果为“成功”；同批次覆盖和主子订单更新保留具体结果，便于追溯。字段失败、材料待补和重复跳过均按失败分类说明填写处理结果；运营可直接筛选待材料激活、待补必填或待补非必填订单后批量补传。</p>
+        <p><b>7.</b>下载明细按订单当前最终结果导出，不按最后一次上传动作覆盖已成立的结果。订单已为“导入成功 + 待材料激活”时，后续再次上传Excel即使字段校验失败，批次处理记录仍记录该次失败，但下载明细继续展示“导入成功 + 待材料激活 + 待补必填”，处理结果保留当前缺失材料说明。</p>
         <table class="button-state-table">
           <thead><tr><th>重复场景</th><th>处理规则</th><th>结果展示</th></tr></thead>
           <tbody>
@@ -1364,7 +1363,7 @@
       </section>
       <section class="anno-block">
         <h3>按钮操作</h3>
-        <p><b>1.</b>导出当前筛选订单明细：仅在“订单结果”页签展示。勾选订单时导出所选订单；未勾选时导出当前筛选结果。导出文件与案件导入管理的下载明细使用同一模板，包含“导入结果明细、待补材料明细、失败分类说明、口径说明”四张Sheet；导入结果仅为成功/失败，“处理结果”展示失败、待补、覆盖、更新或重复跳过的具体说明，普通成功订单显示“成功”；待补材料明细同步导出当前订单关联的全部缺失材料。该文件不是法诉材料导出。</p>
+        <p><b>1.</b>导出当前筛选订单明细：仅在“订单结果”页签展示。勾选订单时导出所选订单；未勾选时导出当前筛选结果。导出文件与案件导入管理的下载明细使用同一模板，包含“导入结果明细、待补材料明细、失败分类说明、口径说明”四张Sheet；导入结果仅为成功/失败，“处理结果”展示失败、待补、覆盖、更新或重复跳过的具体说明，普通成功订单显示“成功”；待补材料明细同步导出当前订单关联的全部缺失材料。导出按订单当前最终结果生成；待材料激活订单后续Excel校验失败只进入该次批次处理记录，不覆盖导出中的既有最终结果。该文件不是法诉材料导出。</p>
         <p><b>2.</b>批量补传：订单Excel、材料包可任选其一或同时上传，至少上传一个；订单Excel用于新增本批次订单、重传失败订单或补充异常文件所需订单信息，材料包用于补齐材料或重新上传规范材料。</p>
         <p><b>3.</b>同步重新识别历史异常文件：在批量补传弹框中按需勾选。系统使用本次上传的订单/材料和当前规则重解析历史异常文件；未上传任何文件时不允许仅重新识别。</p>
         <p><b>4.</b>待材料激活可补必填和非必填材料；已生效订单只补其固化规则快照中配置为非必填的材料；一期历史批次按固化快照补材料且保持已生效。文件名支持预览/下载，不提供人工绑定、重新绑定或单个文件上传。</p>
@@ -1483,10 +1482,10 @@
         <div class="toolbar" style="padding:0 0 10px">
           <h4 style="margin:0">批次附件</h4>
           <span class="spacer"></span>
-          <input id="batchAttachmentInput" type="file" multiple accept=".pdf,image/*,.xlsx,.xls,.zip,.7z,.rar" hidden onchange="handleBatchAttachmentInput(this)">
+          <input id="batchAttachmentInput" type="file" multiple accept=".pdf,image/*,.xlsx,.xls,.zip" hidden onchange="handleBatchAttachmentInput(this)">
           <button onclick="uploadBatchAttachment()">上传附件</button>
         </div>
-        <div class="limit" style="margin:0 0 10px">用于上传债权转让协议、转账回单、补充协议等批次凭证。最多上传10个文件，支持pdf、图片、xlsx、xls、zip、7z、rar。</div>
+        <div class="limit" style="margin:0 0 10px">用于上传债权转让协议、转账回单、补充协议等批次凭证。最多上传10个文件，支持pdf、图片、xlsx、xls、zip。</div>
         <table>
           <thead><tr><th>文件名称</th><th style="width:145px">上传时间</th><th style="width:180px">操作</th></tr></thead>
           <tbody id="batchAttachmentBody">
@@ -1566,7 +1565,7 @@
           <p id="materialUploadTip">用于补齐缺失材料，也可上传整理后的材料包，重新匹配此前异常文件。</p>
           <button class="primary" onclick="markBatchUpload('material')">选择材料包</button>
           <div class="file-row"><span id="materialUploadFile">未上传</span></div>
-          <div class="limit">仅支持zip、rar、7z；不支持单个文件上传或人工绑定。</div>
+          <div class="limit">仅支持zip；不支持rar、7z、单个文件上传或人工绑定。</div>
         </div>
       </div>
       <div class="batch-option" id="batchReidentifyOption"><label><input id="reidentifyHistoryFiles" type="checkbox" checked><span><b>同步重新识别本批次历史异常文件</b><small>仅在本次上传订单Excel、材料包，或规则已更新时才可能产生新的识别结果；原文件不会被修改。</small></span></label></div>
@@ -1642,25 +1641,6 @@
   </div>
 </div>
 
-<div id="draftSavedModal" class="modal-mask">
-  <div class="modal">
-    <div class="modal-head"><span>保存草稿成功</span><button onclick="closeModal('draftSavedModal')">×</button></div>
-    <div class="modal-body">
-      <div class="notice" style="margin:0 0 14px">当前导入批次已保存为草稿，批次状态为“草稿”。保存草稿不会触发导入处理，也不会生成案件、导入处理详情或材料记录。</div>
-      <table>
-        <thead><tr><th>保存内容</th><th>保存说明</th><th>后续可操作</th></tr></thead>
-        <tbody>
-          <tr><td>批次基础信息</td><td>保存批次名称、外部资产方、业务类型、导入规则、债权接收主体、债权总额、债权对价、备注</td><td>继续编辑、修改后再次保存或导入</td></tr>
-          <tr><td>已上传文件记录</td><td>保存资产明细、材料包的文件名、上传人、上传时间、文件状态；若未上传则保持空</td><td>继续上传、删除或替换文件</td></tr>
-          <tr><td>批次状态</td><td>保存后状态为草稿，列表展示导入批次号和草稿批次名称</td><td>返回列表后可继续编辑、导入或取消草稿</td></tr>
-        </tbody>
-      </table>
-      <div class="submit-note">点击“导入”时才检查资产明细和材料包是否齐全；缺少任一必传文件时仍会弹出导入前提示并阻止导入。</div>
-    </div>
-    <div class="modal-foot"><button onclick="closeModal('draftSavedModal')">继续编辑</button><button class="primary" onclick="returnDraftList()">返回列表</button></div>
-  </div>
-</div>
-
 <div id="cancelEditModal" class="modal-mask">
   <div class="modal">
     <div class="modal-head"><span>取消当前编辑确认</span><button onclick="closeModal('cancelEditModal')">×</button></div>
@@ -1673,42 +1653,9 @@
           <tr><td>一期新建导入</td><td>放弃当前页面内容</td><td>如需导入，需要重新点击新建导入批次</td></tr>
         </tbody>
       </table>
-      <div class="submit-note">一期不提供保存草稿；如需提交导入，请点击“导入”。</div>
+      <div class="submit-note">本期不提供保存草稿；如需提交导入，请点击“导入”。</div>
     </div>
     <div class="modal-foot"><button onclick="closeModal('cancelEditModal')">继续编辑</button><button class="danger" onclick="confirmCancelEdit()">确认取消</button></div>
-  </div>
-</div>
-
-<div id="draftCancelModal" class="modal-mask">
-  <div class="modal">
-    <div class="modal-head"><span>取消草稿确认</span><button onclick="closeModal('draftCancelModal')">×</button></div>
-    <div class="modal-body">
-      <div class="notice" style="margin:0 0 14px">确认取消后，该草稿批次状态变为“已取消”，不可继续编辑、不可导入，也不会生成案件和材料记录。</div>
-      <table>
-        <thead><tr><th>批次号</th><th>当前状态</th><th>取消后状态</th><th>保留内容</th></tr></thead>
-        <tbody>
-          <tr><td>DR202606150001</td><td><span class="tag gray">草稿</span></td><td><span class="tag gray">已取消</span></td><td>保留基础操作日志、取消人、取消时间和取消原因</td></tr>
-        </tbody>
-      </table>
-      <div class="submit-note">取消草稿不会删除已生成案件，因为草稿批次尚未生成案件；临时上传文件不再作为导入依据，仅保留日志记录。</div>
-    </div>
-    <div class="modal-foot"><button onclick="closeModal('draftCancelModal')">暂不取消</button><button class="danger" onclick="confirmCancelDraft()">确认取消</button></div>
-  </div>
-</div>
-
-<div id="operationLogModal" class="modal-mask">
-  <div class="modal">
-    <div class="modal-head"><span>操作日志</span><button onclick="closeModal('operationLogModal')">×</button></div>
-    <div class="modal-body">
-      <table>
-        <thead><tr><th>操作时间</th><th>操作人</th><th>操作类型</th><th>操作说明</th></tr></thead>
-        <tbody>
-          <tr><td>2026-06-15 10:20:00</td><td>孟宪迎</td><td>保存草稿</td><td>保存批次基础信息、债权总额、债权对价和已上传文件记录，状态为草稿</td></tr>
-          <tr><td>2026-06-15 10:28:16</td><td>孟宪迎</td><td>取消草稿</td><td>草稿批次置为已取消，不生成案件和材料记录</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="modal-foot"><button onclick="closeModal('operationLogModal')">关闭</button></div>
   </div>
 </div>
 
@@ -1828,7 +1775,6 @@
   var currentSupplementTab = 'orders';
   var currentBatchNo = 'DR202606100001';
   var batchUploadState = { order:false, material:false };
-  var editingDraft = false;
   var pendingMaterialNameTarget = null;
   var currentOrderRuleType = 'first';
   var currentPreviewFile = '';
@@ -2090,7 +2036,7 @@
     var ext = (fileName.split('.').pop() || '').toLowerCase();
     if(['jpg','jpeg','png','gif','bmp','webp'].indexOf(ext) >= 0){ return '图片材料，可查看原图并下载'; }
     if(ext === 'pdf'){ return 'PDF材料，可查看并下载'; }
-    if(['zip','rar','7z'].indexOf(ext) >= 0){ return '压缩包材料，可下载后查看'; }
+    if(ext === 'zip'){ return 'ZIP压缩包材料，可下载后查看'; }
     return '材料文件，可查看并下载';
   }
   function openFilePreview(fileName){
@@ -2107,7 +2053,7 @@
     var url = URL.createObjectURL(blob);
     var link = document.createElement('a');
     link.href = url;
-    link.download = fileName.replace(/\.(pdf|jpg|jpeg|png|gif|bmp|webp|zip|rar|7z)$/i, '') + '.txt';
+    link.download = fileName.replace(/\.(pdf|jpg|jpeg|png|gif|bmp|webp|zip)$/i, '') + '.txt';
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -2226,7 +2172,6 @@
       var target = item.getAttribute('data-left-menu');
       if(target === 'newImport'){
         processLevel = Math.max(processLevel, 1);
-        editingDraft = false;
         var retryTip = document.getElementById('retryImportTip');
         if(retryTip){ retryTip.classList.remove('show'); }
         switchTab('newImport');
@@ -2332,9 +2277,6 @@
       if(action === 'cancel-edit'){
         openCancelEditModal();
       }
-      if(action === 'save-draft'){
-        saveDraft();
-      }
       if(action === 'submit-import'){
         var missing = getMissingImportFiles();
         if(missing.length){
@@ -2347,7 +2289,6 @@
       }
       if(action === 'start-import'){
         processLevel = 1;
-        editingDraft = false;
         switchTab('newImport');
         var retryTip = document.getElementById('retryImportTip');
         if(retryTip){ retryTip.classList.remove('show'); }
@@ -2923,48 +2864,6 @@
     switchTab('ruleConfig');
     showToast('规则已保存并启用，新建导入可选择该规则');
   }
-  function saveDraft(){
-    var row = document.getElementById('draftBatchRow');
-    if(row){ row.style.display = 'table-row'; }
-    openModal('draftSavedModal');
-  }
-  function returnDraftList(){
-    closeModal('draftSavedModal');
-    switchTab('task');
-    showToast('草稿已保存，可在列表继续编辑');
-  }
-  function continueDraft(){
-    editingDraft = true;
-    processLevel = Math.max(processLevel, 1);
-    loadDraftImportData();
-    switchTab('newImport');
-    showToast('已打开草稿批次，并加载上次保存的数据');
-  }
-  function loadDraftImportData(){
-    var retryTip = document.getElementById('retryImportTip');
-    if(retryTip){
-      retryTip.innerText = '当前打开草稿批次 DR202606150001：已加载上次保存的批次名称、外部资产方、业务类型、导入规则、债权接收主体、债权总额、债权对价、备注和临时上传文件。';
-      retryTip.classList.add('show');
-    }
-    var batchName = document.getElementById('importBatchName');
-    if(batchName){ batchName.innerText = '创新租赁草稿批次01'; }
-    setSelectValue(document.getElementById('importAssetOwner'), '创新');
-    setSelectValue(document.getElementById('importBizType'), '租赁');
-    setSelectValue(document.getElementById('importRule'), '创新租赁通用规则');
-    setSelectValue(document.getElementById('importDebtSubject'), '襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)');
-    var total = document.getElementById('importTotalDebt');
-    if(total){ total.innerText = '12036800.00'; }
-    var price = document.getElementById('importDebtPrice');
-    if(price){ price.innerText = '8425760.00'; }
-    var remark = document.getElementById('importRemark');
-    if(remark){ remark.innerText = '草稿保存：创新租赁首批外部导入，待运营复核材料包后点击导入。'; }
-    var assetName = document.querySelector('#assetFileRow .file-name');
-    if(assetName){ assetName.innerText = '创新租赁草稿批次01_资产明细.xlsx'; }
-    var materialName = document.querySelector('#materialPackageRow .file-name');
-    if(materialName){ materialName.innerText = '创新租赁草稿批次01_材料包.zip'; }
-    restoreImportFile('assetFileRow', '草稿资产明细已加载');
-    restoreImportFile('materialPackageRow', '草稿材料包已加载');
-  }
   function openCancelEditModal(){
     var notice = document.getElementById('cancelEditNotice');
     if(notice){
@@ -2978,20 +2877,6 @@
     var returnTab = activePage && activePage.id === 'newImportFull' ? 'taskFull' : 'task';
     switchTab(returnTab);
     showToast('已取消本次新建导入');
-    editingDraft = false;
-  }
-  function openDraftCancelModal(){
-    openModal('draftCancelModal');
-  }
-  function confirmCancelDraft(){
-    closeModal('draftCancelModal');
-    var statusCell = document.getElementById('draftStatusCell');
-    var actionCell = document.getElementById('draftActionCell');
-    var timeCell = document.getElementById('draftTimeCell');
-    if(statusCell){ statusCell.innerHTML = '<span class="tag gray">已取消</span>'; }
-    if(actionCell){ actionCell.innerHTML = "<button class=\"text-link\" onclick=\"openModal('operationLogModal')\">查看日志</button>"; }
-    if(timeCell){ timeCell.innerText = '2026-06-15 10:28:16'; }
-    showToast('草稿已取消，仅保留操作日志');
   }
   function openParseModal(loanNo){
     document.getElementById('parseTitle').innerText = '订单' + loanNo + '材料解析';
@@ -3115,7 +3000,7 @@
     return Array.prototype.slice.call(document.querySelectorAll('#batchAttachmentBody [data-attachment-row]'));
   }
   function isAllowedBatchAttachment(fileName){
-    return /\.(pdf|jpg|jpeg|png|gif|bmp|webp|tif|tiff|xlsx|xls|zip|7z|rar)$/i.test(fileName || '');
+    return /\.(pdf|jpg|jpeg|png|gif|bmp|webp|tif|tiff|xlsx|xls|zip)$/i.test(fileName || '');
   }
   function getBatchAttachmentTime(){
     var now = new Date();
@@ -3160,7 +3045,7 @@
     var files = Array.prototype.slice.call(input.files || []);
     if(!files.length){ return; }
     if(files.some(function(file){ return !isAllowedBatchAttachment(file.name); })){
-      showToast('附件格式仅支持pdf、图片、xlsx、xls、zip、7z、rar');
+      showToast('附件格式仅支持pdf、图片、xlsx、xls、zip');
       input.value = '';
       return;
     }

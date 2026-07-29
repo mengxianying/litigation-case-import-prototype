@@ -39,6 +39,8 @@ assert.ok(/DR202605080001[\s\S]*?class="op-actions two-line"[\s\S]*?补充历史
 assert.ok(/openDebtAmountModal\('history'/.test(batchHtml), '一期历史批次应提供编辑功能');
 assert.ok(batchHtml.includes('<span>订单号</span><div class="field-box"><div class="input">精确查询</div></div></label>'), '批次管理筛选区应支持按订单号精确查询');
 assert.ok(batchHtml.includes('<span>债权出让主体</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>'), '批次管理筛选区应支持按债权出让主体模糊查询');
+assert.ok(batchHtml.includes('data-options="全部|导入中|导入完成|导入失败"'), '二期导入状态仅保留导入中、导入完成和导入失败');
+assert.ok(!batchHtml.includes('创新租赁草稿批次01') && !batchHtml.includes('>继续编辑</button>'), '二期批次列表不应保留草稿示例或继续编辑入口');
 
 const newImportFull = html.match(/<section id="newImportFull"[\s\S]*?<section id="detail"/);
 assert.ok(newImportFull, '缺少二期新建导入批次页面');
@@ -46,6 +48,8 @@ assert.ok(newImportFull[0].includes('<input class="input text-input" id="importT
 assert.ok(newImportFull[0].includes('债权出让主体</span><div class="field-box"><input class="input text-input" id="importTransferorFull"'), '二期新建批次应展示债权出让主体字段');
 assert.ok(newImportFull[0].includes('必填，最多50字符。'), '债权出让主体应限制最多50字');
 assert.ok(newImportFull[0].includes('onclick="submitPhase2Import()">导入</button>'), '二期新建批次导入按钮应提交异步处理任务');
+assert.ok(!newImportFull[0].includes('>保存草稿</button>'), '二期新建批次不应保留保存草稿按钮');
+assert.ok(newImportFull[0].includes('材料包仅支持zip'), '二期新建批次材料包仅支持ZIP');
 assert.ok(html.includes('id="phase2ImportProcessingModal"'), '二期应提供导入处理中提示框');
 assert.ok(html.includes('<td>异步处理中</td><td><span class="tag info">导入中</span>'), '二期导入提示框应展示异步处理中和导入中');
 assert.ok(html.includes('function submitPhase2Import()'), '原型应提供二期导入提交流程');
@@ -59,12 +63,13 @@ assert.ok(batchEditModal[0].includes('<input class="input text-input" id="batchT
 assert.ok(html.includes('batchTransferorOverrides[currentEditingBatchKey] = transferor;'), '编辑保存后应保留债权出让主体修改值');
 assert.ok(batchEditModal[0].includes('id="batchAttachmentBox"'), '编辑批次信息应提供批次附件区域');
 assert.ok(batchEditModal[0].includes('onclick="uploadBatchAttachment()">上传附件</button>'), '批次附件区域应提供上传附件按钮');
-assert.ok(batchEditModal[0].includes('最多上传10个文件，支持pdf、图片、xlsx、xls、zip、7z、rar。'), '批次附件应限制数量和文件格式');
+assert.ok(batchEditModal[0].includes('最多上传10个文件，支持pdf、图片、xlsx、xls、zip。'), '批次附件应限制数量且压缩文件仅支持ZIP');
 assert.ok(batchEditModal[0].includes('下载</button>') && batchEditModal[0].includes('删除</button>'), '批次附件应支持下载和删除');
 assert.ok(!batchEditModal[0].includes('重新上传</button>'), '批次附件列表不应提供重新上传操作');
 assert.ok(html.includes('function uploadBatchAttachment()'), '原型应提供批次附件上传交互');
 assert.ok(html.includes('function deleteBatchAttachment('), '原型应提供批次附件删除交互');
 assert.ok(!html.includes('function replaceBatchAttachment('), '原型不应保留批次附件重新上传交互');
+assert.ok(!html.includes('accept=".pdf,image/*,.xlsx,.xls,.zip,.7z,.rar"'), '批次附件上传不应再接受RAR或7Z');
 assert.ok(html.includes('批次附件不参与订单材料解析和材料完整度校验。'), '备注应说明批次附件不参与材料解析');
 assert.ok(html.includes('债权出让主体支持模糊查询；订单号精确匹配批次内任一订单。'), '批次管理备注应明确新增筛选字段的匹配规则');
 
@@ -126,6 +131,7 @@ assert.ok(html.includes("download.style.display = 'none';"), '待补材料和异
 assert.ok(!html.includes('导出当前筛选待补材料明细'), '待补材料页签不应保留单独导出按钮');
 assert.ok(!html.includes('导出当前筛选异常文件明细'), '异常文件页签不应保留单独导出按钮');
 assert.ok(html.includes('导入结果明细、待补材料明细、失败分类说明、口径说明'), '订单结果导出应与批次下载明细使用相同四张Sheet');
+assert.ok(html.includes('下载明细按订单当前最终结果导出') && html.includes('后续再次上传Excel即使字段校验失败'), '下载明细备注应明确待材料激活订单后续Excel失败时保留最终结果');
 assert.ok(!detailHtml.includes('<th>来源</th>'), '待补材料列表不展示来源列');
 const unmatchedPane = html.match(/<div id="unmatchedPane"[\s\S]*?<section id="stateMachine"/);
 assert.ok(unmatchedPane, '应存在异常文件列表');
@@ -149,6 +155,8 @@ assert.ok(html.includes("selector.innerHTML = '<option value=\"\">请选择导�
 assert.ok(!html.includes('function setPhase2RuleDetailTab'), '单选规则详情不应保留多规则页签切换');
 assert.ok(html.includes('导入规则为单选') && html.includes('模板仅包含当前所选规则对应的字段和材料规则Sheet'), '新建批次备注应同步单选规则与模板口径');
 assert.ok(!html.includes('是否强制覆盖') && !html.includes('强制覆盖'), '原型不应保留强制覆盖逻辑、字段或文案');
+assert.ok(!html.includes('id="draftSavedModal"') && !html.includes('id="draftCancelModal"'), '原型不应保留草稿相关弹框');
+assert.ok(!html.includes('function saveDraft(') && !html.includes('function continueDraft('), '原型不应保留草稿相关脚本');
 
 const stateMachine = html.match(/<section id="stateMachine"[\s\S]*?<\/section>\s*<\/main>/);
 assert.ok(stateMachine, '缺少状态机说明页面');

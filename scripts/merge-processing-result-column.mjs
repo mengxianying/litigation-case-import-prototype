@@ -5,6 +5,7 @@ const file = '法诉案件导入_导入结果明细.xlsx';
 const workbook = await SpreadsheetFile.importXlsx(await FileBlob.load(file));
 const resultSheet = workbook.worksheets.getItemAt(0);
 const failureSheet = workbook.worksheets.getItemAt(1);
+const scopeSheet = workbook.worksheets.items.find((sheet) => sheet.name === '口径说明');
 let missingMaterialSheet = workbook.worksheets.items.find((sheet) => sheet.name === '待补材料明细');
 if (!missingMaterialSheet) {
   missingMaterialSheet = workbook.worksheets.add('待补材料明细');
@@ -46,6 +47,7 @@ resultSheet.getRange('L1:L1001').format.columnWidth = 16;
 resultSheet.getRange('M1:M1001').format.columnWidth = 16;
 resultSheet.getRange('O1:O1001').format.columnWidth = 48;
 resultSheet.getRange('R1:R1001').format.columnWidth = 28;
+resultSheet.getRange('E2:G18').format.numberFormat = '@';
 
 // Keep the final four columns visually consistent with the existing result-detail table.
 const resultHeader = resultSheet.getRange('N1:R1');
@@ -98,6 +100,7 @@ missingBody.format.rowHeight = 32;
   missingMaterialSheet.getRange(`${column}:${column}`).format.columnWidth = Number(width);
 });
 missingMaterialSheet.getRange('I1:I1001').format.columnWidth = 28;
+missingMaterialSheet.getRange('A2:A7').format.numberFormat = '@';
 missingMaterialSheet.freezePanes.freezeRows(1);
 missingMaterialSheet.tables.deleteAll();
 const missingMaterialTable = missingMaterialSheet.tables.add('A1:I7', true);
@@ -127,8 +130,56 @@ failureSheet.getRange('A15:E16').values = [
   ]
 ];
 
+failureSheet.getRange('A17:E17').values = [[
+  '最终结果保留口径',
+  '订单已为导入成功且待材料激活，后续再次上传Excel但本次字段校验失败。',
+  '本次记录失败；不覆盖订单最终结果',
+  '下载明细仍为导入成功 / 待材料激活 / 待补必填',
+  '本次Excel失败写入批次处理记录；下载明细按订单当前最终结果展示，处理结果保留当前缺失材料说明。'
+]];
+failureSheet.getRange('A1:E17').format.borders = { preset: 'all', style: 'thin', color: '#D9E2EC' };
+failureSheet.getRange('A17:E17').format.wrapText = true;
+failureSheet.getRange('A17:E17').format.verticalAlignment = 'center';
+failureSheet.getRange('A17:E17').format.rowHeight = 52;
+
+if (scopeSheet) {
+  const scopeRows = [
+    ['口径项', '统一口径', '二期处理规则'],
+    ['适用范围', '本明细用于二期案件导入及一期历史批次补充材料后的结果排查。', '一期已生效案件不回退；二期在原有案件基础上补齐材料处理能力。'],
+    ['导入规则', '导入字段、必填项和材料要求均以选中的导入规则为准。', '前端可查看规则详情；规则配置由后台维护，订单字段与材料规则按资产方、业务类型生效。'],
+    ['Excel上传校验', '列头须与模板一致，列顺序可调整，额外列忽略；同一文件内订单编号重复时整份文件上传失败。', '列头不一致、缺少模板列、文件超限或单文件重复订单均在上传阶段拦截，不创建导入任务。'],
+    ['点击导入校验', '订单必填字段为空、订单编号为空、格式或金额不合法等，按订单维度校验。', '校验失败仅影响对应订单，其余订单继续处理；失败原因写入导入结果明细。'],
+    ['材料包上传', '新建二期批次须同时上传Excel和材料包；材料包仅支持zip。', '未上传材料包或上传非zip格式时整批不能提交；材料包解析异常不影响其它订单的字段处理。'],
+    ['草稿与批次状态', '本期不提供保存草稿；未提交页面取消后不创建批次。', '批次导入状态仅为导入中、导入完成、导入失败。'],
+    ['异步处理', '点击导入后创建异步任务，页面展示“导入中”；任务结束后进入导入完成或导入失败。', '确认提示后返回案件导入管理，可进入导入处理详情或下载明细查看处理结果。'],
+    ['案件状态', '已生效：字段及必填材料均满足；待材料激活：字段通过但缺少必填材料；导入失败：订单字段或业务校验未通过。', '待材料激活订单补齐必填材料并解析通过后自动变更为已生效。'],
+    ['材料状态', '材料齐全、待补必填、待补非必填、未生成四种状态；待补材料展示当前缺失材料名称。', '缺少非必填材料不影响案件生效；材料异常文件在“异常文件”中查看。'],
+    ['批量补传', '同一批次可分多次上传，每次订单Excel最多500条。', '支持新增订单及材料、失败订单重新导入、仅补缺失材料、仅补订单Excel；处理过程归集在原批次。'],
+    ['最终结果导出', '下载明细按订单当前最终结果导出，不按最后一次上传动作覆盖既有结果。', '待材料激活订单后续Excel校验失败时，仍展示导入成功、待材料激活、待补必填；本次失败仅写入批次处理记录。'],
+    ['重复与覆盖', '跨批次同一资产方订单不允许重复导入；同批次再次导入时按订单当前案件状态判断是否可覆盖。', '案件已流转的订单不可覆盖；未流转且满足条件的订单可使用新上传Excel字段更新。'],
+    ['主续订单', '首次导入续租订单时，主订单须同批导入且为已结清状态；首次导入主订单后，不允许再导入对应续租订单。', '主子订单同批复导且案件均未流转时可更新；仅已有主订单或单独导入续租订单时按主续关系异常阻断。'],
+    ['历史批次补材', '一期历史案件仅导入Excel，案件已生效；材料状态初始为待初始化（一期）。', '可通过补充历史材料上传ZIP材料包；解析后更新材料状态，不影响待委外及后续法诉流程。'],
+    ['下载明细', '批次管理“下载明细”与导入处理详情“导出当前筛选订单明细”使用同一模板。', '工作簿包含导入结果明细、待补材料明细、失败分类说明、口径说明。'],
+    ['法诉材料导出', '一期历史案件在未补齐材料前不支持导出法诉材料。', '历史案件补充材料包且解析完成后，可在法诉系统现有功能中按既有能力导出法诉材料。'],
+    ['批次信息与附件', '债权出让主体为文本输入，最多50字；附件用于留存债权转让协议、转账回单、补充协议等。', '单批次最多10个附件，支持pdf、图片、xlsx、xls、zip；已上传附件支持下载、删除。']
+  ];
+  scopeSheet.getRange('A1:C18').values = scopeRows;
+  scopeSheet.getRange('A1:C18').format.borders = { preset: 'all', style: 'thin', color: '#D9E2EC' };
+  scopeSheet.getRange('A2:C18').format.font = { color: '#202B38' };
+  scopeSheet.getRange('A2:C18').format.wrapText = true;
+  scopeSheet.getRange('A2:C18').format.verticalAlignment = 'center';
+}
+
 const output = await SpreadsheetFile.exportXlsx(workbook);
 await output.save(file);
-const preview = await workbook.render({ sheetName: '导入结果明细', range: 'A1:R18', format: 'png', scale: 1 });
-await writeFile('/private/tmp/法诉案件导入_导入结果明细_预览.png', new Uint8Array(await preview.arrayBuffer()));
+const previewRanges = {
+  '导入结果明细': 'A1:R18',
+  '失败分类说明': 'A1:E17',
+  '口径说明': 'A1:C18',
+  '待补材料明细': 'A1:I7'
+};
+for (const [sheetName, range] of Object.entries(previewRanges)) {
+  const preview = await workbook.render({ sheetName, range, format: 'png', scale: 1 });
+  await writeFile(`/private/tmp/${sheetName}_预览.png`, new Uint8Array(await preview.arrayBuffer()));
+}
 console.log('已将处理结果合并至原失败原因列，并统一两张Sheet口径');
