@@ -37,6 +37,7 @@ resultSheet.getRange('R1:R18').values = rows.map((row, index) => [index === 0 ? 
 const resultAll = resultSheet.getRange('A1:R18');
 const resultBodyAll = resultSheet.getRange('A2:R18');
 resultAll.format.borders = { preset: 'all', style: 'thin', color: '#D9E2EC' };
+resultBodyAll.format.fill = '#FFFFFF';
 resultBodyAll.format.font = { color: '#202B38' };
 resultBodyAll.format.verticalAlignment = 'center';
 resultBodyAll.format.wrapText = true;
@@ -69,6 +70,7 @@ resultBody.format.rowHeight = 32;
 resultSheet.tables.deleteAll();
 const resultTable = resultSheet.tables.add('A1:R18', true);
 resultTable.style = 'TableStyleLight1';
+resultTable.showBandedRows = false;
 
 const missingMaterialRows = [
   ['订单编号', '客户姓名', '标准材料类别', '缺失材料名称', '材料要求', '案件状态', '处理结果', '导入时间'],
@@ -92,6 +94,7 @@ missingHeader.format.verticalAlignment = 'center';
 missingHeader.format.wrapText = true;
 missingHeader.format.rowHeight = 26;
 missingBody.format.font = { color: '#202B38' };
+missingBody.format.fill = '#FFFFFF';
 missingBody.format.verticalAlignment = 'center';
 missingBody.format.wrapText = true;
 missingBody.format.rowHeight = 32;
@@ -105,6 +108,7 @@ missingMaterialSheet.freezePanes.freezeRows(1);
 missingMaterialSheet.tables.deleteAll();
 const missingMaterialTable = missingMaterialSheet.tables.add('A1:I7', true);
 missingMaterialTable.style = 'TableStyleLight1';
+missingMaterialTable.showBandedRows = false;
 
 failureSheet.getRange('A9:E9').values = [[
   '重复订单',
@@ -138,6 +142,7 @@ failureSheet.getRange('A17:E17').values = [[
   '本次Excel失败写入批次处理记录；下载明细按订单当前最终结果展示，处理结果保留当前缺失材料说明。'
 ]];
 failureSheet.getRange('A1:E17').format.borders = { preset: 'all', style: 'thin', color: '#D9E2EC' };
+failureSheet.getRange('A2:E17').format.fill = '#FFFFFF';
 failureSheet.getRange('A17:E17').format.wrapText = true;
 failureSheet.getRange('A17:E17').format.verticalAlignment = 'center';
 failureSheet.getRange('A17:E17').format.rowHeight = 52;
@@ -165,9 +170,16 @@ if (scopeSheet) {
   ];
   scopeSheet.getRange('A1:C18').values = scopeRows;
   scopeSheet.getRange('A1:C18').format.borders = { preset: 'all', style: 'thin', color: '#D9E2EC' };
+  scopeSheet.getRange('A2:C18').format.fill = '#FFFFFF';
   scopeSheet.getRange('A2:C18').format.font = { color: '#202B38' };
   scopeSheet.getRange('A2:C18').format.wrapText = true;
   scopeSheet.getRange('A2:C18').format.verticalAlignment = 'center';
+}
+
+for (const sheet of workbook.worksheets.items) {
+  for (const table of sheet.tables.items) {
+    table.showBandedRows = false;
+  }
 }
 
 const output = await SpreadsheetFile.exportXlsx(workbook);

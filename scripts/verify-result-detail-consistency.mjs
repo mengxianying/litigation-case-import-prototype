@@ -1,7 +1,18 @@
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
 import { FileBlob, SpreadsheetFile } from '@oai/artifact-tool';
 
-const workbook = await SpreadsheetFile.importXlsx(await FileBlob.load('法诉案件导入_导入结果明细.xlsx'));
+const workbookPath = '法诉案件导入_导入结果明细.xlsx';
+const tableFiles = execFileSync('unzip', ['-Z1', workbookPath], { encoding: 'utf8' })
+  .split('\n')
+  .filter((name) => /^xl\/tables\/table\d+\.xml$/.test(name));
+assert.ok(tableFiles.length > 0, '下载明细应包含Excel表格');
+for (const tableFile of tableFiles) {
+  const tableXml = execFileSync('unzip', ['-p', workbookPath, tableFile], { encoding: 'utf8' });
+  assert.doesNotMatch(tableXml, /showRowStripes="1"/, `${tableFile} 不应启用灰白交替的带状行`);
+}
+
+const workbook = await SpreadsheetFile.importXlsx(await FileBlob.load(workbookPath));
 const resultDetail = await workbook.inspect({
   kind: 'table',
   range: "'导入结果明细'!A1:R18",
