@@ -18,8 +18,10 @@ assert.ok(rows.slice(1).every(row => ['雅安欣天下办公设备租赁有限�
 assert.ok(rows.slice(1).every(row => ['导入成功', '导入失败'].includes(row[7])), '导入结果只能为成功或失败');
 assert.equal(rows[1][14], '成功');
 assert.equal(rows[14][14], '同批次覆盖成功：使用后传Excel字段覆盖已有订单。');
-assert.equal(rows[15][7], '导入失败');
-assert.equal(rows[15][11], '重复订单');
+assert.equal(rows[15][7], '导入成功');
+assert.equal(rows[15][8], '已生效');
+assert.equal(rows[15][9], '材料齐全');
+assert.ok(rows[15].slice(11, 14).every(value => value == null || value === ''));
 assert.equal(rows[15][14], '重复跳过：该订单已分配或已流转，不可覆盖。');
 assert.match(rows[16][14], /^主子订单更新成功/);
 assert.equal(rows[12][11], '缺少必填材料');
@@ -57,6 +59,7 @@ assert.match(failureText, /主子订单更新成功/);
 assert.match(failureText, /导入结果=导入成功/);
 assert.match(failureText, /最终结果保留口径/);
 assert.match(failureText, /本次Excel失败写入批次处理记录/);
+assert.match(failureText, /同批次重复跳过：导入结果=导入成功/);
 
 const scopeDetail = await workbook.inspect({
   kind: 'table',

@@ -55,6 +55,7 @@ assert.ok(html.includes('<td>异步处理中</td><td><span class="tag info">导�
 assert.ok(html.includes('function submitPhase2Import()'), '原型应提供二期导入提交流程');
 assert.ok(html.includes("switchTab('taskFull')"), '二期导入提示确认后应返回二期案件导入管理列表');
 assert.ok(html.includes('提交成功后弹出“导入处理中”，处理阶段显示“异步处理中”，页面提示显示“导入中”。'), '二期备注应明确导入中的弹框口径');
+assert.ok(html.includes('ZIP必须可正常解压并至少包含一层订单文件夹') && html.includes('订单文件夹可以为空，但不允许继续嵌套子文件夹') && html.includes('匹配到多个同订单号文件夹时仅处理首个'), '二期备注应明确ZIP目录前置校验和多文件夹处理规则');
 assert.ok(html.includes("activePage && activePage.id === 'newImportFull' ? 'taskFull' : 'task'"), '二期新建导入确认取消后应返回二期案件导入管理，一期仍返回一期列表');
 
 const batchEditModal = html.match(/<div id="debtAmountModal"[\s\S]*?<div id="coverageRecordModal"/);
@@ -143,6 +144,15 @@ assert.ok(html.includes('订单结果的材料状态展示为未生成且不展�
 assert.ok(detailHtml.includes('26012915050167612348</td><td>丁磊</td><td>6,990.00</td><td><span class="tag warn">待材料激活</span></td><td><span class="tag bad">待补必填</span>'), '同一订单缺少多项材料时，订单结果应只展示一条汇总记录');
 assert.ok(detailHtml.includes('26012915050167612348</td><td>丁磊</td><td>主合同</td><td>租赁服务合同</td><td><span class="tag bad">必填</span>') && detailHtml.includes('26012915050167612348</td><td>丁磊</td><td>订单信息</td><td>订单详情-物流</td><td><span class="tag warn">非必填</span>'), '同一订单缺少两项材料时，待补材料应按材料展示两条记录');
 assert.ok(html.includes('同一订单缺少多项材料时展示多条记录'), '备注应说明待补材料按材料多行展示');
+assert.ok(html.includes('材料匹配名称用于匹配订单文件夹内的文件名') && html.includes('是否支持e签宝验签截图') && html.includes('关联外部资产方'), '材料规则备注应明确材料匹配名称和e签宝配置');
+assert.ok(html.includes('创新资产方的合同大类材料需要生成e签宝验签截图'), '材料规则备注应明确创新合同材料的e签宝验签要求');
+assert.ok(html.includes('本次Excel字段处理完成后') && html.includes('字段校验未通过的订单不解析材料'), '详情备注应明确同步重新识别的执行顺序和数据范围');
+assert.ok(html.includes('已生效且未分配、未流转的订单补传必填或非必填材料时') && html.includes('允许自动覆盖') && html.includes('已分配或已流转时自动跳过'), '详情备注应明确已生效订单补传材料的覆盖边界');
+assert.ok(!html.includes('已生效案件仅可补非必填材料') && !html.includes('仅允许补非必填材料') && !html.includes('已生效订单仅补非必填材料'), '二期原型不应残留已生效订单只能补非必填材料的旧口径');
+assert.ok(html.includes('同一订单发生多次覆盖时，查看覆盖记录仅保留最近一次覆盖结果'), '详情备注应明确覆盖记录只保留最近一次');
+assert.ok(html.includes('只有当前案件状态为已生效的订单再次上传并替换字段或材料时才记为覆盖') && html.includes('原导入失败或待材料激活订单后续处理成功属于状态更新'), '详情备注应明确覆盖与状态更新的边界');
+assert.ok(html.includes('导入解析始终使用订单固化的规则快照') && html.includes('法诉材料导出项按导出时最新材料规则配置生成'), '详情备注应区分导入解析快照和法诉材料导出实时规则');
+assert.ok(!html.includes('系统使用本次文件和当前规则重新解析历史异常文件') && !html.includes('系统按当前规则和订单信息再次解析'), '历史异常材料重新识别不应误用最新规则配置');
 
 assert.ok(newImportFull[0].includes('id="importAssetOwnerFull"'), '二期新建批次应提供外部资产方联动选择');
 assert.ok(newImportFull[0].includes('<select id="importRuleFull" class="native-select" aria-label="导入规则单选"') && newImportFull[0].includes('<option value="创新旧合同模式">创新旧合同模式</option>'), '二期导入规则应使用原生单选下拉并展示规则选项');
@@ -170,6 +180,13 @@ assert.ok(html.includes('function startHistoryMaterialProcessing()'), '提交历
 assert.ok(html.includes('id="batchReidentifyOption"'), '批量补传弹框应标记重新识别选项区域');
 assert.ok(html.includes("reidentifyOption.style.display = historyMode ? 'none' : ''"), '首次补充历史材料时应隐藏重新识别历史异常文件选项');
 assert.ok(stateMachine[0].includes('二期案件导入全流程状态机'), '状态机页面应提供二期端到端流程示例');
+assert.ok(stateMachine[0].includes('id="orderFinalStateMachine"'), '状态机页面应提供订单从一期到多次导入的最终状态机');
+assert.ok(stateMachine[0].includes('订单当前最终状态') && stateMachine[0].includes('本次处理结果'), '多次导入状态机应拆分最终状态和本次处理结果');
+assert.ok(stateMachine[0].includes('一期字段校验通过') && stateMachine[0].includes('一期字段校验失败'), '多次导入状态机应覆盖一期成功和失败订单');
+assert.ok(stateMachine[0].includes('仅上传Excel且字段通过') && stateMachine[0].includes('待材料激活 + 待补必填'), '原失败订单仅补Excel成功后应转为待材料激活和待补必填');
+assert.ok(stateMachine[0].includes('已分配或已流转') && stateMachine[0].includes('重复跳过，本次未更新'), '多次导入状态机应覆盖已流转订单重复跳过');
+assert.ok(stateMachine[0].includes('失败尝试不回退已成立的最终状态'), '状态机应明确失败尝试不回退订单最终状态');
+assert.ok(stateMachine[0].includes('案件导入列表按订单编号去重') && stateMachine[0].includes('批次处理记录保留每次上传结果'), '状态机应明确列表统计与批次记录的不同口径');
 assert.ok(stateMachine[0].includes('运营人员') && stateMachine[0].includes('导入服务') && stateMachine[0].includes('案件与材料'), '全流程状态机应按操作与系统职责分泳道展示');
 ['新建导入批次', '上传资产明细和材料包', '上传前置校验', '异步处理', '订单与材料解析', '导入处理详情', '批量补传', '案件生效 / 材料待办'].forEach(function(term){
   assert.ok(stateMachine[0].includes(term), '全流程状态机缺少关键步骤：' + term);

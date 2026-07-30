@@ -176,6 +176,39 @@
     .flow-node.warn-node b{color:#8a5a00}
     .flow-return{margin-top:7px;font-size:12px;color:#c67a00;line-height:1.45}
     .overall-flow-note{padding:12px 16px;background:#f7fbff;color:#486685;border-top:1px solid #d8e2ee;line-height:1.55}
+    .state-track-note{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 20px 14px}
+    .state-track-item{border:1px solid #d8e2ee;background:#f8fafc;border-radius:4px;padding:12px 14px;color:#536273;line-height:1.55}
+    .state-track-item b{display:block;margin-bottom:3px;color:#26384d}
+    .state-track-item.final{border-color:#b8d7ff;background:#f4f9ff;color:#2d5f91}
+    .state-track-item.final b{color:#174f89}
+    .state-flow-board{margin:0 20px 16px;border:1px solid #d8e2ee;border-radius:4px;overflow:hidden;background:#fbfcfe}
+    .state-flow-head,.state-flow-row{display:grid;grid-template-columns:minmax(150px,.9fr) 30px minmax(190px,1.08fr) 30px minmax(210px,1.2fr) 30px minmax(260px,1.45fr);align-items:stretch}
+    .state-flow-head{background:#f3f6fa;border-bottom:1px solid #d8e2ee;color:#4b5563;font-weight:600;text-align:center}
+    .state-flow-head>div{min-height:42px;display:flex;align-items:center;justify-content:center;border-right:1px solid #d8e2ee;padding:0 8px}
+    .state-flow-head>div:last-child{border-right:0}
+    .state-flow-row{border-bottom:1px solid #e5eaf0}
+    .state-flow-row:last-child{border-bottom:0}
+    .state-flow-cell{padding:12px;min-width:0;background:#fff;border-right:1px solid #e5eaf0}
+    .state-flow-cell:last-child{border-right:0}
+    .state-flow-arrow{display:flex;align-items:center;justify-content:center;background:#fbfcfe;color:#4097f7;font-size:22px;font-weight:700}
+    .state-flow-node{height:100%;min-height:76px;border:1px solid #d9dfe8;background:#f8fafc;border-radius:4px;padding:10px 12px;color:#536273;line-height:1.5}
+    .state-flow-node b{display:block;margin-bottom:4px;color:#334155}
+    .state-flow-node small{display:block;color:#708090;line-height:1.45}
+    .state-flow-node.source{border-color:#b8d7ff;background:#f4f9ff;color:#2d5f91}
+    .state-flow-node.source b{color:#174f89}
+    .state-flow-node.success{border-color:#ccebdc;background:#f4fbf7;color:#39705a}
+    .state-flow-node.success b{color:#19724a}
+    .state-flow-node.warning{border-color:#f1cf7c;background:#fffaf0;color:#8a5a00}
+    .state-flow-node.warning b{color:#8a5a00}
+    .state-flow-node.failure{border-color:#f0c2c2;background:#fff7f7;color:#9b3c3c}
+    .state-flow-node.failure b{color:#b42318}
+    .state-outcome{padding:6px 0;border-top:1px dashed #d8e2ee}
+    .state-outcome:first-child{padding-top:0;border-top:0}
+    .state-outcome:last-child{padding-bottom:0}
+    .state-writeback{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 20px 18px}
+    .state-writeback-item{border:1px solid #d8e2ee;background:#fff;border-radius:4px;padding:12px;color:#536273;line-height:1.5}
+    .state-writeback-item b{display:block;margin-bottom:5px;color:#26384d}
+    .state-writeback-item strong{color:#174f89}
     .split{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;padding:0 20px 18px}
     .box{border:1px solid #e1e5ea;background:#fff;border-radius:4px;padding:12px}
     .box h4{margin:0 0 10px;font-size:15px}
@@ -595,7 +628,7 @@
                 <thead><tr><th>操作阶段</th><th>处理规则</th><th>结果</th></tr></thead>
                 <tbody>
                   <tr><td>点击导入</td><td>检查页面必填、资产明细、材料包、规则状态、锁定字段和必填材料。</td><td>字段和必填材料均通过的订单生成已生效案件并进入待委外；字段通过但缺必填材料的订单为待材料激活。</td></tr>
-                  <tr><td>材料处理</td><td>待材料激活案件可补当前规则缺失的必填和非必填材料；已生效案件仅可补非必填材料。</td><td>必填材料补齐并复核通过后自动生效；非必填材料补齐后仅更新材料完整度。</td></tr>
+                  <tr><td>材料处理</td><td>待材料激活案件可补订单固化规则快照中缺失的必填和非必填材料；已生效且未分配、未流转的案件也可补必填和非必填材料。</td><td>待材料激活案件补齐必填材料并复核通过后自动生效；已生效案件按规则快照自动覆盖材料，已分配或已流转时跳过。</td></tr>
                 </tbody>
               </table>
             </div>
@@ -912,6 +945,58 @@
           <div class="overall-flow-note"><b>一期历史批次分支：</b>已生效的一期案件从“补充历史材料”进入，仅上传材料包；创新历史批次固定使用“创新旧合同模式&创新新合同模式规则”解析。提交后材料状态变为“材料处理中”，操作切换为“处理详情、编辑、下载明细”。解析完成后可为材料齐全或待补材料，但案件结果始终保持已生效、导入状态始终保持导入完成。</div>
         </div>
       </div>
+      <div class="panel" id="orderFinalStateMachine">
+        <div class="panel-title">订单从一期到多次导入的最终状态机 <small>区分订单当前最终状态与每次上传的本次处理结果</small></div>
+        <div class="state-track-note">
+          <div class="state-track-item final"><b>轨道一：订单当前最终状态</b>订单结果页、案件导入列表和下载明细使用。只在产生新的有效结果时更新，失败尝试不回退已成立的最终状态。</div>
+          <div class="state-track-item"><b>轨道二：本次处理结果</b>批次处理记录使用。每次上传均独立记录成功、失败、覆盖或重复跳过，用于追溯本次操作，不直接覆盖订单最终状态。</div>
+        </div>
+        <div class="state-flow-board">
+          <div class="state-flow-head"><div>订单来源</div><div></div><div>初始结果</div><div></div><div>后续操作与判定</div><div></div><div>订单当前最终状态</div></div>
+          <div class="state-flow-row">
+            <div class="state-flow-cell"><div class="state-flow-node source"><b>一期字段校验通过</b>一期已生成并生效案件，仅缺少二期材料处理链路。</div></div>
+            <div class="state-flow-arrow">&rarr;</div>
+            <div class="state-flow-cell"><div class="state-flow-node success"><b>已生效 + 待初始化（一期）</b>订单结果页材料状态为未生成；案件导入列表材料处理为待初始化（一期）。</div></div>
+            <div class="state-flow-arrow">&rarr;</div>
+            <div class="state-flow-cell"><div class="state-flow-node"><b>补充历史材料</b>上传ZIP材料包并按固化规则解析；无论材料结果如何，均不回退一期案件。</div></div>
+            <div class="state-flow-arrow">&rarr;</div>
+            <div class="state-flow-cell"><div class="state-flow-node success"><div class="state-outcome"><b>材料齐全</b>已生效 + 材料齐全</div><div class="state-outcome"><b>缺必填材料</b>已生效 + 待补必填</div><div class="state-outcome"><b>仅缺非必填</b>已生效 + 待补非必填</div></div></div>
+          </div>
+          <div class="state-flow-row">
+            <div class="state-flow-cell"><div class="state-flow-node source"><b>一期字段校验失败</b>或二期首次导入字段失败，尚无有效案件。</div></div>
+            <div class="state-flow-arrow">&rarr;</div>
+            <div class="state-flow-cell"><div class="state-flow-node failure"><b>导入失败 + 未生成</b>订单未生成案件，允许在原批次继续批量补传。</div></div>
+            <div class="state-flow-arrow">&rarr;</div>
+            <div class="state-flow-cell"><div class="state-flow-node"><div class="state-outcome"><b>仅上传Excel且字段通过</b>本次未上传材料包，按必填材料尚未补齐处理。</div><div class="state-outcome"><b>再次字段失败</b>没有产生新的有效结果。</div></div></div>
+            <div class="state-flow-arrow">&rarr;</div>
+            <div class="state-flow-cell"><div class="state-flow-node warning"><div class="state-outcome"><b>待材料激活 + 待补必填</b>导入结果更新为导入成功，但不生成案件、不进入待委外；补齐必填材料后转已生效。</div><div class="state-outcome"><b>仍为导入失败 + 未生成</b>本次失败写入批次处理记录。</div></div></div>
+          </div>
+          <div class="state-flow-row">
+            <div class="state-flow-cell"><div class="state-flow-node source"><b>二期首次导入</b>同时上传订单Excel和ZIP材料包。</div></div>
+            <div class="state-flow-arrow">&rarr;</div>
+            <div class="state-flow-cell"><div class="state-flow-node"><b>字段与业务校验</b>校验字段、金额、主续关系和重复订单。</div></div>
+            <div class="state-flow-arrow">&rarr;</div>
+            <div class="state-flow-cell"><div class="state-flow-node"><b>材料规则校验</b>字段通过后，再判断必填和非必填材料是否齐全。</div></div>
+            <div class="state-flow-arrow">&rarr;</div>
+            <div class="state-flow-cell"><div class="state-flow-node"><div class="state-outcome"><b>字段失败</b>导入失败 + 未生成</div><div class="state-outcome"><b>缺必填材料</b>待材料激活 + 待补必填</div><div class="state-outcome"><b>仅缺非必填</b>已生效 + 待补非必填</div><div class="state-outcome"><b>材料齐全</b>已生效 + 材料齐全</div></div></div>
+          </div>
+          <div class="state-flow-row">
+            <div class="state-flow-cell"><div class="state-flow-node source"><b>已有有效最终状态</b>当前为待材料激活或已生效。</div></div>
+            <div class="state-flow-arrow">&rarr;</div>
+            <div class="state-flow-cell"><div class="state-flow-node"><b>同批次再次导入</b>可上传Excel、材料包或两者；跨批次重复直接阻断。</div></div>
+            <div class="state-flow-arrow">&rarr;</div>
+            <div class="state-flow-cell"><div class="state-flow-node"><div class="state-outcome"><b>未分配且未流转</b>允许校验并更新字段或材料。</div><div class="state-outcome"><b>已分配或已流转</b>不允许覆盖已有案件。</div><div class="state-outcome"><b>本次校验失败</b>只产生本次失败记录。</div></div></div>
+            <div class="state-flow-arrow">&rarr;</div>
+            <div class="state-flow-cell"><div class="state-flow-node"><div class="state-outcome"><b>更新成功</b>按新字段和材料重新计算最终状态，并提供查看覆盖记录。</div><div class="state-outcome"><b>重复跳过，本次未更新</b>继续展示原案件状态和材料状态。</div><div class="state-outcome"><b>失败但最终状态不变</b>例如待材料激活订单后续Excel失败，仍保持待材料激活 + 待补必填。</div></div></div>
+          </div>
+        </div>
+        <div class="state-writeback">
+          <div class="state-writeback-item"><b>订单结果页</b><strong>展示订单当前实际状态</strong><br>案件状态和材料状态不因一次失败重传而回退；处理结果可提示本次重复跳过或覆盖成功。</div>
+          <div class="state-writeback-item"><b>案件导入列表</b><strong>案件导入列表按订单编号去重</strong><br>已生效、待材料激活、导入失败按当前最终状态统计；同一订单只进入一个数量。</div>
+          <div class="state-writeback-item"><b>批次处理记录</b><strong>批次处理记录保留每次上传结果</strong><br>已流转订单再次导入，本次计失败并记录重复跳过；不改变列表中的已生效数量。</div>
+          <div class="state-writeback-item"><b>下载明细</b><strong>按订单最终状态导出</strong><br>保留当前案件和材料状态；各次失败、覆盖和重复跳过通过批次处理记录追溯。</div>
+        </div>
+      </div>
       <div class="panel">
         <div class="panel-title">一期历史批次补充材料状态机 <small>仅说明一期存量案件在二期补充材料后的状态和页面更新</small></div>
         <div class="history-material-flow">
@@ -946,7 +1031,7 @@
             <tbody>
               <tr><td><span class="tag gray">待初始化（一期）</span></td><td>二期上线时识别到一期历史批次。</td><td>材料处理=待初始化（一期）；案件结果保持已生效；导入状态=导入完成。</td><td>补充历史材料、编辑、下载明细</td></tr>
               <tr><td><span class="tag info">材料处理中</span></td><td>上传材料包并点击“提交材料包”。</td><td>创新历史批次固化“创新旧合同模式&创新新合同模式规则”快照；材料处理更新为材料处理中；案件结果和导入状态不变。</td><td>处理详情、编辑、下载明细</td></tr>
-              <tr><td><span class="tag ok">材料齐全</span></td><td>异步解析完成，全部匹配到当前规则要求的材料。</td><td>材料状态更新为材料齐全；导入结果明细同步更新案件状态、材料状态和待补材料。</td><td>处理详情、编辑、下载明细</td></tr>
+              <tr><td><span class="tag ok">材料齐全</span></td><td>异步解析完成，全部匹配到订单固化规则快照要求的材料。</td><td>材料状态更新为材料齐全；导入结果明细同步更新案件状态、材料状态和待补材料。</td><td>处理详情、编辑、下载明细</td></tr>
               <tr><td><span class="tag warn">待补必填 / 待补非必填</span></td><td>异步解析完成，存在缺失或未匹配的材料。</td><td>材料状态更新为待补必填或待补非必填；待补材料写入导入结果明细，异常文件在详情中查看。</td><td>处理详情、编辑、下载明细；后续在处理详情通过批量补传继续处理</td></tr>
             </tbody>
           </table>
@@ -968,7 +1053,7 @@
               <tr><th>新建导入批次</th><td>二期新建</td><td>新建中</td><td>上传资产明细、上传材料包、下载模板、导入、取消</td><td>首次导入时资产明细和ZIP材料包均必传；材料包未上传整批阻断。</td></tr>
               <tr><th>导入处理详情</th><td>批量补传</td><td>订单结果</td><td>上传订单Excel、上传材料包、同步重新识别、导出订单明细</td><td>同一批次可多次上传，订单Excel单次最多500条；跨批次重复始终阻断。</td></tr>
               <tr><th>导入处理详情</th><td>材料补传</td><td>待材料激活</td><td>上传材料包</td><td>可补缺失必填和非必填材料；必填补齐并复核通过后自动生效。</td></tr>
-              <tr><th>导入处理详情</th><td>材料补传</td><td>已生效且待补非必填</td><td>上传材料包</td><td>仅允许补非必填材料，不改变案件生效状态。</td></tr>
+              <tr><th>导入处理详情</th><td>材料补传</td><td>已生效且未分配、未流转</td><td>上传材料包</td><td>可补必填和非必填材料并自动覆盖，不改变案件生效状态；已分配或已流转时跳过。</td></tr>
               <tr><th>导入处理详情</th><td>异常文件</td><td>存在历史异常文件</td><td>上传订单Excel或材料包、同步重新识别</td><td>不支持人工绑定、重新绑定、单文件上传或空文件重新识别。</td></tr>
               <tr><th>案件导入管理</th><td>一期历史批次</td><td>待初始化（一期）</td><td>补充历史材料、下载明细</td><td>仅上传材料包；首次提交确认并固化规则快照，不改变案件已生效状态。</td></tr>
               <tr><th>导入规则配置</th><td>二期规则</td><td>规则维护</td><td>查询、新建、编辑、停用</td><td>材料包含规则重叠或材料名称跨类别重复时，保存并启用必须阻断。</td></tr>
@@ -1106,6 +1191,8 @@
         <p><b>2.</b>待材料激活的前提是材料包已上传并完成解析：字段校验通过但包内缺必填材料时，订单进入待材料激活，补齐并复核通过后自动生效；非必填材料缺失仅进入待补传清单。</p>
         <p><b>3.</b>二期不提供保存草稿。点击取消仅放弃当前未提交内容并返回列表，不创建批次；点击导入并通过前置校验后才创建批次和异步任务。</p>
         <p><b>4.</b>材料包仅支持zip；rar、7z等格式在上传时直接拦截，不进入解压和解析流程。</p>
+        <p><b>5.</b>ZIP目录前置校验：ZIP必须可正常解压并至少包含一层订单文件夹，结构为“ZIP / 订单号文件夹 / 材料文件”。订单文件夹可以为空，但不允许继续嵌套子文件夹；不符合时整包阻断，不创建任务。</p>
+        <p><b>6.</b>Excel字段校验通过后按订单号匹配订单文件夹；匹配到多个同订单号文件夹时仅处理首个，其余文件夹不参与本次解析并记录异常。</p>
       </section>
       <section class="anno-block">
         <h3>按钮操作</h3>
@@ -1191,6 +1278,8 @@
         <p><b>4.</b>默认精确匹配；包含匹配仅用于兼容固定前缀或后缀差异。保存时如两个包含规则互相包含，系统阻断保存并提示调整为精确匹配或补充更明确名称。</p>
         <p><b>5.</b>必填材料缺失时，字段通过的订单为待材料激活，不进入待委外；补齐并复核通过后自动生效。非必填材料缺失进入材料补充页，不阻断案件生效。</p>
         <p><b>6.</b>字段配置和材料规则不在运营页面提供删除入口；如需删除规则项，由技术或配置管理员在后台处理，避免误删已在使用的资产方规则。</p>
+        <p><b>7.</b>“资产方材料名称”的技术含义为材料匹配名称：材料匹配名称用于匹配订单文件夹内的文件名，再据此确定标准材料类别；它不是上传后的材料展示名称。</p>
+        <p><b>8.</b>电子签章材料增加“是否支持e签宝验签截图”配置，并关联外部资产方。创新资产方的合同大类材料需要生成e签宝验签截图，供法诉材料模块后续导出使用；导出入口不在本原型内。</p>
       </section>
       <section class="anno-block">
         <h3>按钮操作</h3>
@@ -1337,7 +1426,7 @@
         <p><b>3.</b>不生成案件：基础必填缺失、字段格式错误、金额异常、主子订单校验失败、跨批次重复等订单级失败。</p>
         <p><b>4.</b>一期历史批次补充材料不改变案件生效状态；材料解析通过后可在法诉材料模块导出法诉材料，本页不提供导出入口。</p>
         <p><b>5.</b>失败订单、同批次新增订单和材料问题均通过“批量补传”处理：上传订单Excel可新增或重传订单，上传材料包可补齐材料，两者同时上传时联合解析；原失败记录保留。</p>
-        <p><b>6.</b>待材料激活可补必填和非必填材料；已生效案件仅补订单固化的规则快照中配置为非必填的材料。</p>
+        <p><b>6.</b>待材料激活可补必填和非必填材料。已生效且未分配、未流转的订单补传必填或非必填材料时，按订单固化的规则快照校验并允许自动覆盖；已分配或已流转时自动跳过，不改变原案件及材料状态。</p>
       </section>
       <section class="anno-block">
         <h3>材料解析规则</h3>
@@ -1345,6 +1434,7 @@
         <p><b>2.</b>后续补传或重传：已存在订单始终按首次导入时固化的规则快照重新解析；补传仅更新材料解析结果、材料状态和待补材料，不因规则配置调整改变历史订单口径。</p>
         <p><b>3.</b>同批次新增订单：沿用该批次创建时选定的单一导入规则。后续规则配置变更不影响本批次已导入订单。</p>
         <p><b>4.</b>主订单和续租订单分别按各自材料规则校验；成对导入时，主、续订单的必填材料均通过后才生成并生效。任一订单缺少必填材料时，主、续订单均不生成案件，案件状态统一为待材料激活、材料状态统一为待补必填。</p>
+        <p><b>5.</b>导入解析始终使用订单固化的规则快照；法诉材料导出项按导出时最新材料规则配置生成，因此后续配置调整可能使导出项与导入时的材料要求不同。法诉材料导出仍在现有法诉材料模块完成。</p>
       </section>
       <section class="anno-block">
         <h3>订单结果状态流转</h3>
@@ -1360,20 +1450,22 @@
         <p><b>3.</b>查看覆盖记录展示系统自动覆盖的字段及文件变更，不会再次执行覆盖；文件处理结果包括“同名文件已替换”“同类型文件已覆盖”“不同名文件已自动补充”。</p>
         <p><b>4.</b>重复跳过：同批次已有案件已分配或已流转时，系统自动跳过；案件状态仍为已生效，分配/流转限制写在处理结果和导出明细。</p>
         <p><b>5.</b>补充材料统一通过“批量补传”上传，由系统按批次、订单编号和材料规则重新识别。</p>
+        <p><b>6.</b>同一订单发生多次覆盖时，查看覆盖记录仅保留最近一次覆盖结果；每次提交的处理情况仍保留在批次处理记录中。</p>
+        <p><b>7.</b>只有当前案件状态为已生效的订单再次上传并替换字段或材料时才记为覆盖；原导入失败或待材料激活订单后续处理成功属于状态更新，不生成覆盖记录。</p>
       </section>
       <section class="anno-block">
         <h3>按钮操作</h3>
         <p><b>1.</b>导出当前筛选订单明细：仅在“订单结果”页签展示。勾选订单时导出所选订单；未勾选时导出当前筛选结果。导出文件与案件导入管理的下载明细使用同一模板，包含“导入结果明细、待补材料明细、失败分类说明、口径说明”四张Sheet；导入结果仅为成功/失败，“处理结果”展示失败、待补、覆盖、更新或重复跳过的具体说明，普通成功订单显示“成功”；待补材料明细同步导出当前订单关联的全部缺失材料。导出按订单当前最终结果生成；待材料激活订单后续Excel校验失败只进入该次批次处理记录，不覆盖导出中的既有最终结果。该文件不是法诉材料导出。</p>
         <p><b>2.</b>批量补传：订单Excel、材料包可任选其一或同时上传，至少上传一个；订单Excel用于新增本批次订单、重传失败订单或补充异常文件所需订单信息，材料包用于补齐材料或重新上传规范材料。</p>
-        <p><b>3.</b>同步重新识别历史异常文件：在批量补传弹框中按需勾选。系统使用本次上传的订单/材料和当前规则重解析历史异常文件；未上传任何文件时不允许仅重新识别。</p>
-        <p><b>4.</b>待材料激活可补必填和非必填材料；已生效订单只补其固化规则快照中配置为非必填的材料；一期历史批次按固化快照补材料且保持已生效。文件名支持预览/下载，不提供人工绑定、重新绑定或单个文件上传。</p>
+        <p><b>3.</b>同步重新识别历史异常文件：在批量补传弹框中按需勾选。本次Excel字段处理完成后，系统再结合本次材料和批次历史异常材料按订单固化规则重新匹配；字段校验未通过的订单不解析材料。未上传任何文件时不允许仅重新识别。</p>
+        <p><b>4.</b>待材料激活可补必填和非必填材料；已生效且未分配、未流转的订单可补必填和非必填材料并按规则自动覆盖，已分配或已流转时自动跳过；一期历史批次按固化快照补材料且保持已生效。文件名支持预览/下载，不提供人工绑定、重新绑定或单个文件上传。</p>
         <p><b>5.</b>查看材料解析：仅当订单已通过Excel字段校验且本次或历史已上传材料包并产生材料解析结果时展示；字段校验失败订单、一期历史订单未补传材料包前均不展示。弹框只读、按文件一行展示，材料文件名可点击预览或下载；材料规则校验通过时检查结果为“通过”，不通过时为“异常文件”。未上传的材料不在此弹框展示，统一在待补材料页处理。</p>
-        <p><b>6.</b>查看覆盖记录：仅当同批次重复订单满足未分配、未流转条件并被系统自动覆盖后展示；未发生覆盖、字段校验失败、跨批次重复或已分配/已流转而重复跳过的订单均不展示。弹框仅用于追溯覆盖字段、同名文件变更和处理时间，不可再次执行覆盖。</p>
+        <p><b>6.</b>查看覆盖记录：仅当案件已生效，且同批次重复订单满足未分配、未流转条件并被系统自动覆盖后展示；原导入失败或待材料激活订单后续处理成功仅更新状态，不展示覆盖记录。未发生覆盖、字段校验失败、跨批次重复或已分配/已流转而重复跳过的订单均不展示。弹框仅用于追溯覆盖字段、同名文件变更和处理时间，不可再次执行覆盖。</p>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
             <tr><th>订单结果</th><td>导出当前筛选订单明细、批量补传、查看材料解析、查看覆盖记录</td><td>导出文件与批次下载明细使用相同四张Sheet；订单结果可按案件状态、材料状态和待补材料筛选后导出，并同步导出关联的待补材料明细。查看材料解析仅在已产生材料解析结果时展示；查看覆盖记录仅在同批次自动覆盖成功后展示，两个弹框均为只读。</td></tr>
-            <tr><th>待补材料</th><td>勾选材料、批量补传</td><td>上传材料包补齐材料；必填材料补齐复核通过后自动生效，已生效订单仅补非必填材料。</td></tr>
+            <tr><th>待补材料</th><td>勾选材料、批量补传</td><td>上传材料包补齐材料；必填材料补齐复核通过后自动生效。已生效且未分配、未流转的订单可补必填和非必填材料，已分配或已流转时自动跳过。</td></tr>
             <tr><th>异常文件</th><td>文件预览/下载、勾选文件、批量补传</td><td>上传订单Excel或规范材料包后，可勾选同步重新识别历史异常文件；不支持人工绑定、重新绑定或逐条重试。</td></tr>
           </tbody>
         </table>
@@ -1399,6 +1491,13 @@
         <p><b>1.</b>先按页面名称定位页面，再按模块和状态/场景确认可操作按钮。</p>
         <p><b>2.</b>批次状态用于案件导入管理列表；订单处理状态用于导入处理详情页；规则状态用于导入规则配置页。</p>
         <p><b>3.</b>若后续新增按钮或状态，应统一补充到本页，不再分散维护在各业务页面。</p>
+      </section>
+      <section class="anno-block">
+        <h3>多次导入口径</h3>
+        <p><b>1.</b>订单当前最终状态用于订单结果页、案件导入列表和下载明细；本次处理结果用于批次处理记录，两者不得互相覆盖。</p>
+        <p><b>2.</b>原导入失败订单仅补传Excel且字段通过时，更新为“导入成功 + 待材料激活 + 待补必填”；未上传材料包不生成案件、不进入待委外。</p>
+        <p><b>3.</b>已分配或已流转订单再次导入时，本次处理结果为失败并标记“重复跳过”，订单最终状态、案件导入列表数量和原案件均不变。</p>
+        <p><b>4.</b>待材料激活或已生效订单后续导入失败时，只记录本次失败；失败尝试不回退已成立的订单最终状态。</p>
       </section>
     </div>
     <div class="anno-page" data-anno="default">
@@ -1668,7 +1767,7 @@
         <tbody>
           <tr><td>1</td><td>处理订单问题</td><td>字段失败订单通过批量补传上传修正版Excel；同批次重复订单未分配且未流转时自动覆盖，已分配或已流转时重复跳过。</td></tr>
           <tr><td>2</td><td>批量补传</td><td>一级文件夹按订单编号_姓名整理，二级材料文件按订单编号_材料名称_序号整理。</td></tr>
-          <tr><td>3</td><td>系统重新识别</td><td>无法识别归属的文件进入未匹配材料池；运营可点击“重新识别”，系统按当前规则和订单信息再次解析，不做人工绑定。</td></tr>
+          <tr><td>3</td><td>系统重新识别</td><td>无法识别归属的文件进入未匹配材料池；运营发起批量补传并勾选同步重新识别后，系统按订单固化规则快照和订单信息再次解析，不做人工绑定。</td></tr>
           <tr><td>4</td><td>状态更新</td><td>批量补传后系统自动刷新材料完整度；非必填材料补齐后从待补传材料清单移除。</td></tr>
         </tbody>
       </table>
@@ -3190,9 +3289,9 @@
     document.getElementById('historyMaterialRuleBox').style.display = historyMode ? '' : 'none';
     var supplementNote = '仅订单Excel：新增或重传订单；仅材料包：补齐材料或重新上传规范材料；两者同时上传：按本次订单和材料一起解析。';
     if(currentSupplementTab === 'missing'){
-      supplementNote += ' 待材料激活订单可补缺失必填和非必填材料；已生效订单仅补非必填材料。';
+      supplementNote += ' 待材料激活订单可补缺失必填和非必填材料；已生效且未分配、未流转的订单也可补必填和非必填材料并自动覆盖，已分配或已流转时跳过。';
     }else if(currentSupplementTab === 'unmatched'){
-      supplementNote += ' 勾选同步重新识别后，系统使用本次文件和当前规则重新解析历史异常文件；未上传文件不可仅重新识别。';
+      supplementNote += ' 勾选同步重新识别后，本次Excel字段处理完成，再使用本次文件、历史异常文件和订单固化规则快照重新匹配；字段校验未通过的订单不解析材料。未上传文件不可仅重新识别。';
     }else{
       supplementNote += ' 跨批次重复订单直接阻断；同批次仅未分配且未流转订单自动覆盖。';
     }
