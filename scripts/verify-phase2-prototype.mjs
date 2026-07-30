@@ -4,7 +4,6 @@ import { readFileSync } from 'node:fs';
 const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const requiredTerms = [
   '待材料激活',
-  '待初始化（一期）',
   '规则快照',
   '待补传材料',
   '未匹配材料',
@@ -19,7 +18,10 @@ assert.ok(batchManagement, '缺少二期案件导入管理页面');
 const batchHtml = batchManagement[0];
 
 assert.ok(batchHtml.includes('<th colspan="3">案件结果</th>'), '案件结果应使用分组表头明确三类数量的归属');
-assert.ok(batchHtml.includes('>材料处理</th>'), '材料状态应明确为材料处理结果');
+assert.ok(batchHtml.includes('>材料状态</th>'), '案件导入管理应明确展示材料状态');
+assert.ok(!html.includes('待初始化（一期）') && !html.includes('材料处理中'), '二期原型材料状态不应保留待初始化（一期）或材料处理中');
+assert.ok(html.includes('未生成 / 材料齐全 / 待补必填 / 待补非必填'), '二期原型应统一四种材料状态枚举');
+assert.ok(html.includes('一期导入成功但尚未补充材料') && html.includes('字段导入失败') && html.includes('先校验必填材料') && html.includes('必填材料齐全后再校验非必填材料'), '二期原型应明确四种材料状态的判断顺序');
 assert.ok(batchHtml.includes('>导入状态</th>'), '批次任务状态应统一命名为导入状态');
 assert.ok(/<th[^>]*>已生效<\/th><th[^>]*>待材料激活<\/th><th[^>]*>导入失败<\/th>/.test(batchHtml), '案件结果应与详情案件状态统一为已生效、待材料激活和导入失败');
 assert.ok(!batchHtml.includes('class="case-result compact"'), '案件结果不应使用混合语义的单行摘要');
@@ -33,7 +35,7 @@ const taskAnnotationHtml = taskAnnotation[0];
 assert.ok(!taskAnnotationHtml.includes('<tr><th>材料要求</th>'), '状态枚举不应保留材料要求行');
 assert.ok(!taskAnnotationHtml.includes('<tr><th>异常文件<br>识别问题</th>'), '状态枚举不应保留异常文件识别问题行');
 assert.ok(taskAnnotationHtml.includes('<tr><th>导入失败</th><td>处理详情、编辑、下载明细</td>'), '导入失败批次应支持编辑');
-assert.ok(taskAnnotationHtml.includes('一期历史批次<br>待初始化（一期）'), '状态机应说明一期历史批次的操作');
+assert.ok(taskAnnotationHtml.includes('一期历史批次<br>未生成'), '状态机应说明一期历史批次初始材料状态为未生成');
 assert.ok(/DR202606090006[\s\S]*?class="op-actions two-line"[\s\S]*?处理详情[\s\S]*?编辑[\s\S]*?class="text-link download-detail"[\s\S]*?下载明细/.test(batchHtml), '导入完成行应将处理详情和编辑放在第一行，下载明细放在第二行');
 assert.ok(/DR202605080001[\s\S]*?class="op-actions two-line"[\s\S]*?补充历史材料[\s\S]*?编辑[\s\S]*?class="text-link download-detail"[\s\S]*?下载明细/.test(batchHtml), '一期历史批次应将下载明细放在第二行');
 assert.ok(/openDebtAmountModal\('history'/.test(batchHtml), '一期历史批次应提供编辑功能');
@@ -105,9 +107,15 @@ assert.ok(detailHtml.includes('<span class="tag gray">未生成</span>'), '详�
 assert.ok(detailHtml.includes('>查看覆盖记录</button>'), '自动覆盖订单应提供查看覆盖记录入口');
 assert.ok(!detailHtml.includes('>覆盖记录</button>'), '自动覆盖订单不应使用含义不清的覆盖记录名称');
 assert.ok(html.includes('id="coverageRecordModal"'), '应提供查看覆盖记录弹框');
+const coverageMaterialTable = html.match(/<table id="coverageMaterialUpdates">[\s\S]*?<\/table>/);
+assert.ok(coverageMaterialTable, '查看覆盖记录应提供材料文件更新表格');
+assert.ok(coverageMaterialTable[0].includes('<th>文件名称</th><th>覆盖前上传时间</th><th>覆盖后上传时间</th><th>处理结果</th>'), '材料文件更新表头应明确前后两列均为上传时间');
+assert.ok(!coverageMaterialTable[0].includes('<th>覆盖方式</th>'), '材料文件更新不应保留覆盖方式列');
+assert.ok(coverageMaterialTable[0].includes('2026-05-28 16:42:10</td><td>2026-06-10 20:22:18</td><td><span class="tag info">更新</span>') && coverageMaterialTable[0].includes('<td>-</td><td>2026-06-10 20:22:18</td><td><span class="tag ok">新增</span>'), '覆盖前后应展示上传时间，处理结果只区分更新和新增');
+assert.ok(!/同名文件已替换|同类型文件已覆盖|不同名文件已自动补充/.test(coverageMaterialTable[0]), '材料文件更新不应保留旧处理结果分类');
 assert.ok(html.includes('本记录仅用于追溯本次自动覆盖的结果，不会再次执行覆盖或修改案件。'), '覆盖记录弹框应明确为只读追溯');
 assert.ok(html.includes('function openCoverageRecord('), '原型应提供查看覆盖记录交互');
-assert.ok(html.includes('查看覆盖记录展示系统自动覆盖的字段及文件变更，不会再次执行覆盖'), '详情页备注应说明查看覆盖记录的效果');
+assert.ok(html.includes('查看覆盖记录展示系统自动覆盖的字段及材料文件变更，不会再次执行覆盖') && html.includes('处理结果仅分为“更新”和“新增”'), '详情页备注应说明查看覆盖记录的效果和结果分类');
 assert.ok(html.includes('<span class="tag info">同批次覆盖成功</span> 使用后传Excel字段覆盖已有订单。'), '查看覆盖记录应展示与下载明细一致的自动覆盖结果');
 assert.ok(html.includes('处理结果与下载明细Excel的处理结果列保持一致：普通已生效且材料齐全的订单为“成功”'), '详情页备注应明确普通成功订单的处理结果');
 assert.ok(!parseModal[0].includes('处理说明'), '材料解析弹框不应展示处理说明列');
@@ -140,7 +148,7 @@ assert.ok(unmatchedPane[0].includes('<th style="width:210px">订单号</th><th>�
 assert.ok(html.includes('待补材料和异常文件仅取字段校验通过订单的材料') && html.includes('异常文件按文件一行展示，表示已关联订单但材料规则校验不通过的文件'), '备注应明确待补材料和异常文件的数据范围');
 assert.ok(html.includes("oneLabel:'订单号', oneValue:'支持模糊查询'") && html.includes("twoLabel:'文件名', twoValue:'支持模糊查询'"), '异常文件筛选应按订单号和文件名展示');
 assert.ok(detailHtml.includes('26012915050167612001') && detailHtml.includes('<td>吴静</td><td>主合同</td><td>租赁服务合同</td><td><span class="tag bad">必填</span></td><td><span class="tag ok">已生效</span>'), '一期历史订单解析出缺失材料后应进入待补材料列表，案件保持已生效');
-assert.ok(html.includes('订单结果的材料状态展示为未生成且不展示查看材料解析'), '备注应说明一期历史订单未解析时不进入待补材料');
+assert.ok(html.includes('导入成功订单展示“已生效 / 未生成”') && html.includes('待补材料和异常文件初始为空'), '备注应说明一期历史订单未解析时的状态和列表范围');
 assert.ok(detailHtml.includes('26012915050167612348</td><td>丁磊</td><td>6,990.00</td><td><span class="tag warn">待材料激活</span></td><td><span class="tag bad">待补必填</span>'), '同一订单缺少多项材料时，订单结果应只展示一条汇总记录');
 assert.ok(detailHtml.includes('26012915050167612348</td><td>丁磊</td><td>主合同</td><td>租赁服务合同</td><td><span class="tag bad">必填</span>') && detailHtml.includes('26012915050167612348</td><td>丁磊</td><td>订单信息</td><td>订单详情-物流</td><td><span class="tag warn">非必填</span>'), '同一订单缺少两项材料时，待补材料应按材料展示两条记录');
 assert.ok(html.includes('同一订单缺少多项材料时展示多条记录'), '备注应说明待补材料按材料多行展示');
@@ -171,12 +179,13 @@ assert.ok(!html.includes('function saveDraft(') && !html.includes('function cont
 const stateMachine = html.match(/<section id="stateMachine"[\s\S]*?<\/section>\s*<\/main>/);
 assert.ok(stateMachine, '缺少状态机说明页面');
 assert.ok(stateMachine[0].includes('一期历史批次补充材料状态机'), '状态机页面应单独展示历史批次补充材料流程');
-assert.ok(stateMachine[0].includes('待初始化（一期）') && stateMachine[0].includes('材料处理中'), '历史材料状态机应展示初始状态和处理中状态');
+assert.ok(stateMachine[0].includes('一期历史批次补充材料状态机') && stateMachine[0].includes('材料状态保持未生成') && stateMachine[0].includes('批次处理记录显示“处理中”'), '历史材料状态机应使用未生成承接初始和异步处理阶段');
 assert.ok(stateMachine[0].includes('材料齐全') && stateMachine[0].includes('待补必填 / 待补非必填'), '历史材料状态机应展示解析结果分支');
 assert.ok(stateMachine[0].includes('案件结果保持已生效'), '历史材料状态机应明确不影响一期已生效案件');
 assert.ok(batchHtml.includes('id="historyMaterialStatus"'), '历史批次材料状态应支持提交后回写');
 assert.ok(batchHtml.includes('id="historyBatchActions"'), '历史批次操作区应支持状态变化后回写');
-assert.ok(html.includes('function startHistoryMaterialProcessing()'), '提交历史材料后应触发历史材料处理中状态');
+assert.ok(html.includes('function startHistoryMaterialProcessing()'), '提交历史材料后应触发历史材料异步处理流程');
+assert.ok(html.includes("status.innerHTML = '<span class=\"tag gray\">未生成</span>'"), '历史材料提交后案件导入管理材料状态应保持未生成');
 assert.ok(html.includes('id="batchReidentifyOption"'), '批量补传弹框应标记重新识别选项区域');
 assert.ok(html.includes("reidentifyOption.style.display = historyMode ? 'none' : ''"), '首次补充历史材料时应隐藏重新识别历史异常文件选项');
 assert.ok(stateMachine[0].includes('二期案件导入全流程状态机'), '状态机页面应提供二期端到端流程示例');

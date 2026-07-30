@@ -27,6 +27,7 @@ assert.equal(rows[0][14], '处理结果');
 assert.equal(rows[0][17], '业务主体1');
 assert.ok(rows.slice(1).every(row => ['雅安欣天下办公设备租赁有限公司', '雅安青年优品电子商务有限公司'].includes(row[17])), '导入结果明细应展示订单所属业务主体1');
 assert.ok(rows.slice(1).every(row => ['导入成功', '导入失败'].includes(row[7])), '导入结果只能为成功或失败');
+assert.ok(rows.slice(1).every(row => ['未生成', '材料齐全', '待补必填', '待补非必填'].includes(row[9])), '下载明细材料状态只能使用四种统一枚举');
 assert.equal(rows[1][14], '成功');
 assert.equal(rows[14][14], '同批次覆盖成功：使用后传Excel字段覆盖已有订单。');
 assert.equal(rows[15][7], '导入成功');
@@ -86,6 +87,8 @@ assert.doesNotMatch(scopeText, /rar|7z/i, '口径说明不应继续支持RAR或7
 assert.match(scopeText, /按订单当前最终结果导出/, '口径说明应明确下载明细按订单最终结果导出');
 assert.match(scopeText, /待材料激活/, '口径说明应覆盖待材料激活订单的后续Excel失败场景');
 assert.match(scopeText, /批次处理记录/, '口径说明应说明本次失败保留在批次处理记录中');
+assert.match(scopeText, /未生成、材料齐全、待补必填、待补非必填四种状态/, '口径说明应列明四种材料状态');
+assert.doesNotMatch(scopeText, /待初始化（一期）|材料处理中/, '口径说明不应保留已删除的材料状态');
 
 const missingMaterialDetail = await workbook.inspect({
   kind: 'table',

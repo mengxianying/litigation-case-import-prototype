@@ -777,12 +777,12 @@
         <div class="summary compact"><div class="card">资产总数<b>2,184</b></div><div class="card">案件已生效<b>1,632</b></div><div class="card">待材料激活<b>22</b></div><div class="card">导入失败<b>530</b></div></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th rowspan="2" style="width:110px">外部资产方</th><th rowspan="2" style="width:130px">导入批次号</th><th rowspan="2" style="width:165px">批次名称</th><th rowspan="2" style="width:68px">业务类型</th><th rowspan="2" style="width:105px">债权总额</th><th rowspan="2" style="width:105px">债权对价</th><th rowspan="2" style="width:75px">资产总数</th><th colspan="3">案件结果</th><th rowspan="2" style="width:100px">材料处理</th><th rowspan="2" style="width:90px">导入状态</th><th rowspan="2" style="width:130px">首次导入时间</th><th rowspan="2" style="width:200px">操作</th></tr><tr><th style="width:72px">已生效</th><th style="width:94px">待材料激活</th><th style="width:72px">导入失败</th></tr></thead>
+            <thead><tr><th rowspan="2" style="width:110px">外部资产方</th><th rowspan="2" style="width:130px">导入批次号</th><th rowspan="2" style="width:165px">批次名称</th><th rowspan="2" style="width:68px">业务类型</th><th rowspan="2" style="width:105px">债权总额</th><th rowspan="2" style="width:105px">债权对价</th><th rowspan="2" style="width:75px">资产总数</th><th colspan="3">案件结果</th><th rowspan="2" style="width:100px">材料状态</th><th rowspan="2" style="width:90px">导入状态</th><th rowspan="2" style="width:130px">首次导入时间</th><th rowspan="2" style="width:200px">操作</th></tr><tr><th style="width:72px">已生效</th><th style="width:94px">待材料激活</th><th style="width:72px">导入失败</th></tr></thead>
             <tbody>
               <tr><td>创新</td><td><button class="text-link" data-jump="detail">DR202606100001</button></td><td>创新租赁通用规则批次01</td><td>租赁</td><td>12,036,800.00</td><td>8,425,760.00</td><td>1280</td><td class="result-count result-success">1,246</td><td class="result-count result-pending">22</td><td class="result-count result-failure">12</td><td><span class="tag warn">待补必填</span></td><td><span class="tag ok">导入完成</span></td><td>2026-06-10 20:15:32</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">处理详情</button><button class="text-link" onclick="openDebtAmountModal('main','DR202606100001','创新租赁通用规则批次01','创新','租赁','创新租赁通用规则','襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)','12,036,800.00','8,425,760.00')">编辑</button><a class="text-link download-detail" href="./法诉案件导入_导入结果明细.xlsx" download>下载明细</a></div></td></tr>
               <tr><td>转转</td><td>DR202606090006</td><td>转转租赁批次02</td><td>租赁</td><td>3,680,500.00</td><td>2,576,350.00</td><td>386</td><td class="result-count result-success">386</td><td class="result-count result-zero">0</td><td class="result-count result-zero">0</td><td><span class="tag ok">材料齐全</span></td><td><span class="tag ok">导入完成</span></td><td>2026-06-09 18:42:10</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">处理详情</button><button class="text-link" onclick="openDebtAmountModal('zz','DR202606090006','转转租赁批次02','转转','租赁','转转租赁规则','武汉小优企业管理有限公司(91420115MACRLKWJ1A)','3,680,500.00','2,576,350.00')">编辑</button><a class="text-link download-detail" href="./法诉案件导入_导入结果明细.xlsx" download>下载明细</a></div></td></tr>
               <tr><td>人人租</td><td>DR202606090005</td><td>人人租租赁批次03</td><td>租赁</td><td>4,982,000.00</td><td>3,487,400.00</td><td>518</td><td class="result-count result-zero">0</td><td class="result-count result-zero">0</td><td class="result-count result-failure">518</td><td><span class="tag gray">未生成</span></td><td><span class="tag bad">导入失败</span></td><td>2026-06-09 11:08:55</td><td><div class="op-actions two-line"><button class="text-link" data-jump="detail">处理详情</button><button class="text-link" onclick="openDebtAmountModal('rrz','DR202606090005','人人租租赁批次03','人人租','租赁','人人租租赁规则','聊城小优企业管理有限公司(91371521MADE8H2E0)','4,982,000.00','3,487,400.00')">编辑</button><a class="text-link download-detail" href="./法诉案件导入_导入结果明细.xlsx" download>下载明细</a></div></td></tr>
-              <tr><td>创新</td><td>DR202605080001</td><td id="taskBatchNameHistory">创新一期历史批次01</td><td>租赁</td><td id="taskTotalDebtHistory">6,280,000.00</td><td id="taskDebtPriceHistory">4,396,000.00</td><td>628</td><td class="result-count result-success">628</td><td class="result-count result-zero">0</td><td class="result-count result-zero">0</td><td id="historyMaterialStatus"><span class="tag gray">待初始化（一期）</span></td><td><span class="tag ok">导入完成</span></td><td>2026-05-08 16:30:21</td><td id="historyBatchActions"><div class="op-actions two-line"><button class="text-link" onclick="openHistoryMaterialSupplement()">补充历史材料</button><button class="text-link" onclick="openDebtAmountModal('history','DR202605080001','创新一期历史批次01','创新','租赁','创新租赁通用规则（一期快照）','襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)','6,280,000.00','4,396,000.00')">编辑</button><a class="text-link download-detail" href="./法诉案件导入_导入结果明细.xlsx" download>下载明细</a></div></td></tr>
+              <tr><td>创新</td><td>DR202605080001</td><td id="taskBatchNameHistory">创新一期历史批次01</td><td>租赁</td><td id="taskTotalDebtHistory">6,280,000.00</td><td id="taskDebtPriceHistory">4,396,000.00</td><td>628</td><td class="result-count result-success">628</td><td class="result-count result-zero">0</td><td class="result-count result-zero">0</td><td id="historyMaterialStatus"><span class="tag gray">未生成</span></td><td><span class="tag ok">导入完成</span></td><td>2026-05-08 16:30:21</td><td id="historyBatchActions"><div class="op-actions two-line"><button class="text-link" onclick="openHistoryMaterialSupplement()">补充历史材料</button><button class="text-link" onclick="openDebtAmountModal('history','DR202605080001','创新一期历史批次01','创新','租赁','创新旧合同模式&创新新合同模式规则','襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)','6,280,000.00','4,396,000.00')">编辑</button><a class="text-link download-detail" href="./法诉案件导入_导入结果明细.xlsx" download>下载明细</a></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -942,7 +942,7 @@
             <div class="flow-route">&rarr;</div>
             <div class="flow-lane-cell case-lane"><div class="flow-node case-node"><b>11. 状态刷新与追溯</b><span>刷新案件状态、材料状态和导入结果明细；自动覆盖仅保留只读的查看覆盖记录。</span></div></div>
           </div>
-          <div class="overall-flow-note"><b>一期历史批次分支：</b>已生效的一期案件从“补充历史材料”进入，仅上传材料包；创新历史批次固定使用“创新旧合同模式&创新新合同模式规则”解析。提交后材料状态变为“材料处理中”，操作切换为“处理详情、编辑、下载明细”。解析完成后可为材料齐全或待补材料，但案件结果始终保持已生效、导入状态始终保持导入完成。</div>
+          <div class="overall-flow-note"><b>一期历史批次分支：</b>已生效的一期案件初始材料状态为“未生成”，从“补充历史材料”进入，仅上传材料包；创新历史批次固定使用“创新旧合同模式&创新新合同模式规则”解析。提交后材料状态保持“未生成”，批次处理记录显示“处理中”，操作切换为“处理详情、编辑、下载明细”。解析完成后更新为材料齐全或待补材料，但案件结果始终保持已生效、导入状态始终保持导入完成。</div>
         </div>
       </div>
       <div class="panel" id="orderFinalStateMachine">
@@ -956,7 +956,7 @@
           <div class="state-flow-row">
             <div class="state-flow-cell"><div class="state-flow-node source"><b>一期字段校验通过</b>一期已生成并生效案件，仅缺少二期材料处理链路。</div></div>
             <div class="state-flow-arrow">&rarr;</div>
-            <div class="state-flow-cell"><div class="state-flow-node success"><b>已生效 + 待初始化（一期）</b>订单结果页材料状态为未生成；案件导入列表材料处理为待初始化（一期）。</div></div>
+            <div class="state-flow-cell"><div class="state-flow-node success"><b>已生效 + 未生成</b>一期字段导入成功但尚未解析材料；订单结果页和案件导入列表的材料状态均为未生成。</div></div>
             <div class="state-flow-arrow">&rarr;</div>
             <div class="state-flow-cell"><div class="state-flow-node"><b>补充历史材料</b>上传ZIP材料包并按固化规则解析；无论材料结果如何，均不回退一期案件。</div></div>
             <div class="state-flow-arrow">&rarr;</div>
@@ -1001,8 +1001,8 @@
         <div class="panel-title">一期历史批次补充材料状态机 <small>仅说明一期存量案件在二期补充材料后的状态和页面更新</small></div>
         <div class="history-material-flow">
           <div class="history-flow-step">
-            <h4>1. 待初始化（一期）</h4>
-            <p><span class="tag gray">待初始化（一期）</span> 一期历史批次尚未建立材料规则快照。</p>
+            <h4>1. 未生成</h4>
+            <p><span class="tag gray">未生成</span> 一期历史批次尚未上传并解析材料。</p>
             <p>案件结果保持已生效；操作为“补充历史材料、编辑、下载明细”。</p>
           </div>
           <div class="history-flow-arrow">&rarr;</div>
@@ -1013,9 +1013,9 @@
           </div>
           <div class="history-flow-arrow">&rarr;</div>
           <div class="history-flow-step">
-            <h4>3. 材料处理中</h4>
-            <p><span class="tag info">材料处理中</span> 系统异步解析和匹配材料。</p>
-            <p>列表材料处理更新为“材料处理中”；操作更新为“处理详情、编辑、下载明细”。</p>
+            <h4>3. 异步处理</h4>
+            <p><span class="tag info">处理中</span> 批次处理记录展示处理进度，系统异步解析和匹配材料。</p>
+            <p>案件导入管理的材料状态保持未生成；操作更新为“处理详情、编辑、下载明细”。</p>
           </div>
           <div class="history-flow-arrow">&rarr;</div>
           <div class="history-flow-step">
@@ -1029,8 +1029,8 @@
           <table>
             <thead><tr><th style="width:170px">流程状态</th><th style="width:220px">触发条件</th><th>列表或数据更新</th><th style="width:220px">操作区更新</th></tr></thead>
             <tbody>
-              <tr><td><span class="tag gray">待初始化（一期）</span></td><td>二期上线时识别到一期历史批次。</td><td>材料处理=待初始化（一期）；案件结果保持已生效；导入状态=导入完成。</td><td>补充历史材料、编辑、下载明细</td></tr>
-              <tr><td><span class="tag info">材料处理中</span></td><td>上传材料包并点击“提交材料包”。</td><td>创新历史批次固化“创新旧合同模式&创新新合同模式规则”快照；材料处理更新为材料处理中；案件结果和导入状态不变。</td><td>处理详情、编辑、下载明细</td></tr>
+              <tr><td><span class="tag gray">未生成</span></td><td>二期上线时识别到一期历史批次。</td><td>材料状态=未生成；待补材料和异常文件初始为空；案件结果保持已生效，导入状态保持导入完成。</td><td>补充历史材料、编辑、下载明细</td></tr>
+              <tr><td><span class="tag gray">未生成</span></td><td>上传材料包并点击“提交材料包”。</td><td>创新历史批次固化“创新旧合同模式&创新新合同模式规则”快照；材料状态保持未生成，批次处理记录显示“处理中”；案件结果和导入状态不变。</td><td>处理详情、编辑、下载明细</td></tr>
               <tr><td><span class="tag ok">材料齐全</span></td><td>异步解析完成，全部匹配到订单固化规则快照要求的材料。</td><td>材料状态更新为材料齐全；导入结果明细同步更新案件状态、材料状态和待补材料。</td><td>处理详情、编辑、下载明细</td></tr>
               <tr><td><span class="tag warn">待补必填 / 待补非必填</span></td><td>异步解析完成，存在缺失或未匹配的材料。</td><td>材料状态更新为待补必填或待补非必填；待补材料写入导入结果明细，异常文件在详情中查看。</td><td>处理详情、编辑、下载明细；后续在处理详情通过批量补传继续处理</td></tr>
             </tbody>
@@ -1055,7 +1055,7 @@
               <tr><th>导入处理详情</th><td>材料补传</td><td>待材料激活</td><td>上传材料包</td><td>可补缺失必填和非必填材料；必填补齐并复核通过后自动生效。</td></tr>
               <tr><th>导入处理详情</th><td>材料补传</td><td>已生效且未分配、未流转</td><td>上传材料包</td><td>可补必填和非必填材料并自动覆盖，不改变案件生效状态；已分配或已流转时跳过。</td></tr>
               <tr><th>导入处理详情</th><td>异常文件</td><td>存在历史异常文件</td><td>上传订单Excel或材料包、同步重新识别</td><td>不支持人工绑定、重新绑定、单文件上传或空文件重新识别。</td></tr>
-              <tr><th>案件导入管理</th><td>一期历史批次</td><td>待初始化（一期）</td><td>补充历史材料、下载明细</td><td>仅上传材料包；首次提交确认并固化规则快照，不改变案件已生效状态。</td></tr>
+              <tr><th>案件导入管理</th><td>一期历史批次</td><td>未生成</td><td>补充历史材料、下载明细</td><td>仅上传材料包；首次提交确认并固化规则快照，异步处理期间材料状态保持未生成，不改变案件已生效状态。</td></tr>
               <tr><th>导入规则配置</th><td>二期规则</td><td>规则维护</td><td>查询、新建、编辑、停用</td><td>材料包含规则重叠或材料名称跨类别重复时，保存并启用必须阻断。</td></tr>
             </tbody>
           </table>
@@ -1073,7 +1073,7 @@
               <tr><td>导入处理详情</td><td>二期案件状态</td><td><span class="tag warn">待材料激活</span></td><td>字段通过但缺必填材料，案件暂不进入待委外。</td><td>补齐并复核通过后自动生效</td></tr>
               <tr><td>导入处理详情</td><td>二期材料状态</td><td><span class="tag bad">待补必填</span></td><td>字段通过但缺少任一必填材料，案件为待材料激活。</td><td>补齐并复核通过后自动生效</td></tr>
               <tr><td>导入处理详情</td><td>二期材料状态</td><td><span class="tag warn">待补非必填</span></td><td>非必填材料缺失，案件继续保持已生效。</td><td>批量补传后刷新材料完整度</td></tr>
-              <tr><td>案件导入管理</td><td>历史材料状态</td><td><span class="tag gray">待初始化（一期）</span></td><td>一期历史案件尚未建立材料规则快照。</td><td>补充历史材料并固化快照；案件保持已生效</td></tr>
+              <tr><td>案件导入管理</td><td>历史材料状态</td><td><span class="tag gray">未生成</span></td><td>一期历史案件尚未上传并解析材料。</td><td>补充历史材料并固化快照；案件保持已生效</td></tr>
               <tr><td>导入规则配置</td><td>规则状态</td><td><span class="tag ok">启用</span></td><td>规则配置校验通过并保存启用。</td><td>可停用 / 可编辑后继续启用</td></tr>
               <tr><td>导入规则配置</td><td>规则状态</td><td><span class="tag gray">停用</span></td><td>规则被运营或管理员停用。</td><td>可重新启用</td></tr>
             </tbody>
@@ -1134,7 +1134,7 @@
       <section class="anno-block">
         <h3>二期页面定位</h3>
         <p><b>1.</b>本页为二期完整目标态，用于恢复拆分两期前的案件导入管理最终版效果。</p>
-        <p><b>2.</b>二期批次管理承接材料包上传、导入处理详情、待补材料、异常文件和规则配置；列表按案件结果、材料处理、导入状态三层展示。</p>
+        <p><b>2.</b>二期批次管理承接材料包上传、导入处理详情、待补材料、异常文件和规则配置；列表按案件结果、材料状态、导入状态三层展示。</p>
         <p><b>3.</b>一期页面继续保持轻量上线；二期完成后可将本页能力合并回正式案件导入管理。</p>
       </section>
       <section class="anno-block">
@@ -1147,7 +1147,7 @@
         <h3>状态和操作</h3>
         <p><b>1.</b>导入状态表示批次任务进度：导入中、导入完成、导入失败。本期不保存草稿，取消未提交的新建页面不会创建批次。</p>
         <p><b>2.</b>案件结果按订单编号去重展示，并以分组表头列明已生效、待材料激活、导入失败三个数量；与导入处理详情的“案件状态”完全一致。</p>
-        <p><b>3.</b>材料处理只提示下一步：材料齐全、待补必填、待补非必填、材料处理中、待初始化（一期）；未生成表示该批次尚未产生可处理材料。</p>
+        <p><b>3.</b>材料状态统一为：未生成、材料齐全、待补必填、待补非必填。一期导入成功但尚未补充材料、字段导入失败、材料包尚未完成解析时均为未生成；字段导入成功后先校验必填材料，缺少任一必填材料为待补必填，必填材料齐全后再校验非必填材料，缺少非必填材料为待补非必填，全部齐全为材料齐全。处理进度统一在批次处理记录中展示。</p>
         <p><b>4.</b>导入完成后进入处理详情，按订单结果、待补材料和异常文件处理；下载明细统一导出“导入结果明细、待补材料明细、失败分类说明、口径说明”四张Sheet。</p>
         <p><b>5.</b>二期编辑批次信息弹框展示历史上传文件，支持查看资产明细、材料包、失败重传文件的文件名、上传时间和处理结果。</p>
         <p><b>6.</b>导入中显示“解析中”且不可编辑；导入完成、导入失败和一期历史批次均可编辑批次信息。导入失败可进入处理详情后通过批量补传重传订单Excel。</p>
@@ -1158,7 +1158,7 @@
           <thead><tr><th style="width:130px">列表字段</th><th style="width:230px">枚举值</th><th>取数与处理说明</th></tr></thead>
           <tbody>
             <tr><th>案件结果<br>案件状态</th><td>已生效 / 待材料激活 / 导入失败</td><td>主列表按订单编号去重汇总，详情按订单展示。待材料激活表示字段校验通过但缺少必填材料；导入失败表示该订单未生成案件。</td></tr>
-            <tr><th>材料处理<br>材料状态</th><td>未生成 / 材料处理中 / 材料齐全 / 待补必填 / 待补非必填 / 待初始化（一期）</td><td>未生成表示未产出材料处理结果；材料处理中表示历史材料包已提交、等待异步解析；待补必填阻断二期新案件生效，但一期历史案件保持已生效；待初始化（一期）需首次补充材料后固化规则快照。</td></tr>
+            <tr><th>材料状态</th><td>未生成 / 材料齐全 / 待补必填 / 待补非必填</td><td>一期未补材、字段失败或尚无解析结果为未生成；字段成功后按“必填优先、非必填其次”判断。待补必填阻断二期新案件生效，但一期历史案件保持已生效。</td></tr>
             <tr><th>导入状态</th><td>导入中 / 导入完成 / 导入失败</td><td>表示批次任务进度，不等同于订单案件状态。导入完成允许存在部分订单导入失败或待材料激活。</td></tr>
           </tbody>
         </table>
@@ -1168,7 +1168,7 @@
             <tr><th>导入中</th><td>解析中</td><td>任务处理期间不允许编辑或补传，完成后进入导入完成或导入失败。</td></tr>
             <tr><th>导入完成</th><td>处理详情、编辑、下载明细</td><td>处理详情查看订单和材料处理结果；编辑仅改批次级金额和备注。</td></tr>
             <tr><th>导入失败</th><td>处理详情、编辑、下载明细</td><td>编辑可修改批次信息；进入详情后通过“批量补传”上传修正版订单Excel，可按需同步上传材料包。</td></tr>
-            <tr><th>一期历史批次<br>待初始化（一期）</th><td>补充历史材料、编辑、下载明细</td><td>编辑仅修改批次级信息；提交历史材料包后，材料状态变为材料处理中，操作更新为处理详情、编辑、下载明细；案件继续保持已生效。</td></tr>
+            <tr><th>一期历史批次<br>未生成</th><td>补充历史材料、编辑、下载明细</td><td>编辑仅修改批次级信息；提交历史材料包后材料状态仍为未生成，批次处理记录显示处理中，操作更新为处理详情、编辑、下载明细；案件继续保持已生效。</td></tr>
           </tbody>
         </table>
       </section>
@@ -1408,13 +1408,13 @@
         <p><b>1.</b>订单编号、客户姓名支持模糊查询。</p>
         <p><b>2.</b>订单结果按订单编号、客户姓名、案件状态筛选；待补材料按订单编号、标准材料类别、材料要求筛选；异常文件按订单号、文件名筛选。三个页签均支持按业务主体1模糊查询。</p>
         <p><b>3.</b>待补材料和异常文件仅取字段校验通过订单的材料。待补材料按“订单编号+缺失材料名称”一项一行展示；同一订单缺少多项材料时展示多条记录。异常文件按文件一行展示，表示已关联订单但材料规则校验不通过的文件；两个页签均可勾选作为本次补传范围，也可不勾选直接补传整个批次。</p>
-        <p><b>4.</b>一期历史批次进入本页后，订单保持已生效，订单结果的材料状态展示为未生成且不展示查看材料解析；批次主列表的材料处理仍展示待初始化（一期）。创新历史批次首次补充材料时固定使用“创新旧合同模式&创新新合同模式规则”并固化历史材料规则快照。未上传材料包的订单不进入待补材料；材料包解析后确认存在缺失材料时，才在待补材料展示。</p>
+        <p><b>4.</b>一期历史批次进入本页后，导入成功订单展示“已生效 / 未生成”，导入失败订单展示“导入失败 / 未生成”，均不展示查看材料解析；批次主列表材料状态同样展示未生成。待补材料和异常文件初始为空。创新历史批次首次补充材料时固定使用“创新旧合同模式&创新新合同模式规则”并固化历史材料规则快照；材料包解析完成后，再按实际结果更新材料状态并展示待补材料或异常文件。</p>
       </section>
       <section class="anno-block">
         <h3>重点列取数</h3>
         <p><b>1.</b>债权金额取资产明细Excel中的债权金额字段。</p>
         <p><b>2.</b>订单结果不展示逾期天数。</p>
-        <p><b>3.</b>订单结果同时展示案件状态和材料状态：案件状态为已生效、待材料激活、导入失败；材料状态为未生成、材料齐全、待补必填或待补非必填。字段校验失败时材料状态为未生成；字段校验通过时按材料校验结果展示。</p>
+        <p><b>3.</b>订单结果同时展示案件状态和材料状态：案件状态为已生效、待材料激活、导入失败；材料状态为未生成、材料齐全、待补必填或待补非必填。一期导入成功但尚未补充材料、字段导入失败或材料包尚未完成解析时为未生成；字段导入成功后先校验必填材料，缺少任一必填材料为待补必填；必填材料齐全后再校验非必填材料，缺少非必填材料为待补非必填；全部齐全为材料齐全。</p>
         <p><b>4.</b>处理结果与下载明细Excel的处理结果列保持一致：普通已生效且材料齐全的订单为“成功”；待补材料、字段失败、覆盖、更新和重复跳过展示对应处理说明。</p>
         <p><b>5.</b>一期历史订单仅完成Excel导入：字段校验通过的订单展示“已生效 / 未生成 / 成功”，不展示材料解析；导入失败订单展示“导入失败 / 未生成 / 具体失败结果”，失败信息直接在处理结果列展示。</p>
         <p><b>6.</b>一期历史订单首次补传材料并解析后，如存在缺失材料，才进入待补材料列表；案件状态保持“已生效”，材料要求仍按固化的规则快照展示必填或非必填。</p>
@@ -1447,7 +1447,7 @@
         <h3>重复订单处理</h3>
         <p><b>1.</b>重复订单先判断是否为同一批次：不同批次同一外部资产方+订单编号直接阻断并展示原批次号；仅同批次再判断案件是否未分配且未流转。</p>
         <p><b>2.</b>自动覆盖：同批次、未分配且未流转的重复订单自动更新可覆盖字段。待补材料页重复上传文件时，按“订单编号+匹配到的材料类型”覆盖；异常文件页重复上传时，按“订单编号+文件名”覆盖；未命中覆盖键的材料自动补充，保留操作日志。</p>
-        <p><b>3.</b>查看覆盖记录展示系统自动覆盖的字段及文件变更，不会再次执行覆盖；文件处理结果包括“同名文件已替换”“同类型文件已覆盖”“不同名文件已自动补充”。</p>
+        <p><b>3.</b>查看覆盖记录展示系统自动覆盖的字段及材料文件变更，不会再次执行覆盖。材料文件名称展示覆盖后的最新文件名，覆盖前和覆盖后分别展示原文件、本次文件的上传时间；处理结果仅分为“更新”和“新增”：命中同名文件或同材料类型并覆盖原文件为更新，未命中原文件并补充新文件为新增。</p>
         <p><b>4.</b>重复跳过：同批次已有案件已分配或已流转时，系统自动跳过；案件状态仍为已生效，分配/流转限制写在处理结果和导出明细。</p>
         <p><b>5.</b>补充材料统一通过“批量补传”上传，由系统按批次、订单编号和材料规则重新识别。</p>
         <p><b>6.</b>同一订单发生多次覆盖时，查看覆盖记录仅保留最近一次覆盖结果；每次提交的处理情况仍保留在批次处理记录中。</p>
@@ -1460,7 +1460,7 @@
         <p><b>3.</b>同步重新识别历史异常文件：在批量补传弹框中按需勾选。本次Excel字段处理完成后，系统再结合本次材料和批次历史异常材料按订单固化规则重新匹配；字段校验未通过的订单不解析材料。未上传任何文件时不允许仅重新识别。</p>
         <p><b>4.</b>待材料激活可补必填和非必填材料；已生效且未分配、未流转的订单可补必填和非必填材料并按规则自动覆盖，已分配或已流转时自动跳过；一期历史批次按固化快照补材料且保持已生效。文件名支持预览/下载，不提供人工绑定、重新绑定或单个文件上传。</p>
         <p><b>5.</b>查看材料解析：仅当订单已通过Excel字段校验且本次或历史已上传材料包并产生材料解析结果时展示；字段校验失败订单、一期历史订单未补传材料包前均不展示。弹框只读、按文件一行展示，材料文件名可点击预览或下载；材料规则校验通过时检查结果为“通过”，不通过时为“异常文件”。未上传的材料不在此弹框展示，统一在待补材料页处理。</p>
-        <p><b>6.</b>查看覆盖记录：仅当案件已生效，且同批次重复订单满足未分配、未流转条件并被系统自动覆盖后展示；原导入失败或待材料激活订单后续处理成功仅更新状态，不展示覆盖记录。未发生覆盖、字段校验失败、跨批次重复或已分配/已流转而重复跳过的订单均不展示。弹框仅用于追溯覆盖字段、同名文件变更和处理时间，不可再次执行覆盖。</p>
+        <p><b>6.</b>查看覆盖记录：仅当案件已生效，且同批次重复订单满足未分配、未流转条件并被系统自动覆盖后展示；原导入失败或待材料激活订单后续处理成功仅更新状态，不展示覆盖记录。未发生覆盖、字段校验失败、跨批次重复或已分配/已流转而重复跳过的订单均不展示。弹框仅用于追溯覆盖字段、材料文件最新名称、前后上传时间和更新/新增结果，不可再次执行覆盖。</p>
         <table class="button-state-table">
           <thead><tr><th>状态/场景</th><th>可操作按钮</th><th>操作结果/限制</th></tr></thead>
           <tbody>
@@ -1630,12 +1630,12 @@
         </tbody>
       </table>
       <h4 style="margin-top:14px">材料文件更新</h4>
-      <table>
-        <thead><tr><th>文件名称</th><th>覆盖方式</th><th>覆盖前</th><th>覆盖后</th><th>处理结果</th></tr></thead>
+      <table id="coverageMaterialUpdates">
+        <thead><tr><th>文件名称</th><th>覆盖前上传时间</th><th>覆盖后上传时间</th><th>处理结果</th></tr></thead>
         <tbody>
-          <tr><td>26012915050167612332_主合同_01.pdf</td><td>异常文件：订单号+文件名</td><td>2026-05-28 上传</td><td>2026-06-10 上传</td><td>同名文件已替换</td></tr>
-          <tr><td>26012915050167612332_租赁服务合同_02.pdf</td><td>待补材料：订单号+材料类型</td><td>26012915050167612332_租赁服务合同_01.pdf</td><td>2026-06-10 上传</td><td>同类型文件已覆盖</td></tr>
-          <tr><td>26012915050167612332_身份证人像面_01.jpg</td><td>待补材料：未命中材料类型</td><td>-</td><td>2026-06-10 上传</td><td>不同名文件已自动补充</td></tr>
+          <tr><td>26012915050167612332_主合同_01.pdf</td><td>2026-05-28 16:42:10</td><td>2026-06-10 20:22:18</td><td><span class="tag info">更新</span></td></tr>
+          <tr><td>26012915050167612332_租赁服务合同_02.pdf</td><td>2026-05-28 16:43:26</td><td>2026-06-10 20:22:18</td><td><span class="tag info">更新</span></td></tr>
+          <tr><td>26012915050167612332_身份证人像面_01.jpg</td><td>-</td><td>2026-06-10 20:22:18</td><td><span class="tag ok">新增</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -3004,7 +3004,7 @@
       main: ['DR202606100001', document.getElementById('taskBatchName') ? document.getElementById('taskBatchName').innerText : '创新租赁通用规则批次01', '创新', '租赁', '创新租赁通用规则', '襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)', document.getElementById('taskTotalDebt') ? document.getElementById('taskTotalDebt').innerText : '12,036,800.00', document.getElementById('taskDebtPrice') ? document.getElementById('taskDebtPrice').innerText : '8,425,760.00', '湖北创新融资租赁有限公司'],
       zz: ['DR202606090006', document.getElementById('taskBatchNameZz') ? document.getElementById('taskBatchNameZz').innerText : '转转租赁批次02', '转转', '租赁', '转转租赁规则', '武汉小优企业管理有限公司(91420115MACRLKWJ1A)', document.getElementById('taskTotalDebtZz') ? document.getElementById('taskTotalDebtZz').innerText : '3,680,500.00', document.getElementById('taskDebtPriceZz') ? document.getElementById('taskDebtPriceZz').innerText : '2,576,350.00', '北京转转精神科技有限责任公司'],
       rrz: ['DR202606090005', document.getElementById('taskBatchNameRrz') ? document.getElementById('taskBatchNameRrz').innerText : '人人租租赁批次03', '人人租', '租赁', '人人租租赁规则', '聊城小优企业管理有限公司(91371521MADE8H2E0)', document.getElementById('taskTotalDebtRrz') ? document.getElementById('taskTotalDebtRrz').innerText : '4,982,000.00', document.getElementById('taskDebtPriceRrz') ? document.getElementById('taskDebtPriceRrz').innerText : '3,487,400.00', '广州人人租科技有限公司'],
-      history: ['DR202605080001', document.getElementById('taskBatchNameHistory') ? document.getElementById('taskBatchNameHistory').innerText : '创新一期历史批次01', '创新', '租赁', '创新租赁通用规则（一期快照）', '襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)', document.getElementById('taskTotalDebtHistory') ? document.getElementById('taskTotalDebtHistory').innerText : '6,280,000.00', document.getElementById('taskDebtPriceHistory') ? document.getElementById('taskDebtPriceHistory').innerText : '4,396,000.00', '湖北创新融资租赁有限公司']
+      history: ['DR202605080001', document.getElementById('taskBatchNameHistory') ? document.getElementById('taskBatchNameHistory').innerText : '创新一期历史批次01', '创新', '租赁', '创新旧合同模式&创新新合同模式规则', '襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)', document.getElementById('taskTotalDebtHistory') ? document.getElementById('taskTotalDebtHistory').innerText : '6,280,000.00', document.getElementById('taskDebtPriceHistory') ? document.getElementById('taskDebtPriceHistory').innerText : '4,396,000.00', '湖北创新融资租赁有限公司']
     }[currentEditingBatchKey] || [];
     var values = [
       batchNo || fallback[0],
@@ -3345,15 +3345,15 @@
       ? '已提交订单和材料，系统将按本次文件联合解析'
       : (batchUploadState.order ? '已提交订单Excel，系统将处理新增和失败订单' : '已提交材料包，系统将匹配并刷新材料状态');
     if(syncHistory && !isHistory){ result += '，并同步重新识别本批次历史异常文件'; }
-    if(isHistory){ result = '历史材料包已提交，材料状态已更新为材料处理中；案件保持已生效，导入状态保持导入完成'; }
+    if(isHistory){ result = '历史材料包已提交，材料状态保持未生成；可在批次处理记录查看处理中进度，案件保持已生效，导入状态保持导入完成'; }
     showToast(result);
   }
   function startHistoryMaterialProcessing(){
     var status = document.getElementById('historyMaterialStatus');
-    if(status){ status.innerHTML = '<span class="tag info">材料处理中</span>'; }
+    if(status){ status.innerHTML = '<span class="tag gray">未生成</span>'; }
     var actions = document.getElementById('historyBatchActions');
     if(actions){
-      actions.innerHTML = '<div class="op-actions two-line"><button class="text-link" onclick="switchTab(\'detail\')">处理详情</button><button class="text-link" onclick="openDebtAmountModal(\'history\',\'DR202605080001\',\'创新一期历史批次01\',\'创新\',\'租赁\',\'创新租赁通用规则（一期快照）\',\'襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)\',\'6,280,000.00\',\'4,396,000.00\')">编辑</button><a class="text-link download-detail" href="./法诉案件导入_导入结果明细.xlsx" download>下载明细</a></div>';
+      actions.innerHTML = '<div class="op-actions two-line"><button class="text-link" onclick="switchTab(\'detail\')">处理详情</button><button class="text-link" onclick="openDebtAmountModal(\'history\',\'DR202605080001\',\'创新一期历史批次01\',\'创新\',\'租赁\',\'创新旧合同模式&创新新合同模式规则\',\'襄阳鸿飞企业管理有限公司(91420600MACTCY0R42)\',\'6,280,000.00\',\'4,396,000.00\')">编辑</button><a class="text-link download-detail" href="./法诉案件导入_导入结果明细.xlsx" download>下载明细</a></div>';
     }
   }
   function openHistoryMaterialSupplement(){
