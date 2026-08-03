@@ -435,7 +435,7 @@
       <div class="panel">
         <div class="panel-title">查询条件</div>
         <div class="search compact">
-          <label><span>导入批次号</span><div class="field-box"><div class="input">支持模糊查询</div><div class="limit">文本，最多50字符；非必填。</div></div></label>
+          <label><span>导入批次号</span><div class="field-box"><div class="input">支持精确查询</div><div class="limit">文本，最多50字符；非必填。</div></div></label>
           <label><span>批次名称</span><div class="field-box"><div class="input">支持模糊查询</div><div class="limit">文本，最多50字符；非必填。</div></div></label>
           <label><span>外部资产方</span><div class="field-box"><div class="select" data-options="创新">创新<b>⌄</b></div><div class="enum">枚举：创新</div><div class="limit">一期外部资产方固定只有创新。</div></div></label>
           <label><span>业务类型</span><div class="field-box"><div class="select" data-options="全部|租赁">请选择业务类型<b>⌄</b></div><div class="enum">枚举：全部 / 租赁</div><div class="limit">本期仅配置租赁。</div></div></label>
@@ -758,7 +758,7 @@
       <div class="panel">
         <div class="panel-title">查询条件</div>
         <div class="search compact">
-          <label><span>导入批次号</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
+          <label><span>导入批次号</span><div class="field-box"><div class="input">支持精确查询</div></div></label>
           <label><span>批次名称</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
           <label><span>订单号</span><div class="field-box"><div class="input">精确查询</div></div></label>
           <label><span>债权出让主体</span><div class="field-box"><div class="input">支持模糊查询</div></div></label>
@@ -834,8 +834,8 @@
         </div>
         <div class="summary compact"><div class="card">案件已生效<b>1,246</b></div><div class="card">待材料激活<b>22</b></div><div class="card">待补材料项<b>42</b></div><div class="card">导入失败<b>12</b></div><div class="card">异常文件<b>9</b></div></div>
         <div class="search compact">
-          <label><span id="detailFilterOneLabel">订单编号</span><div class="field-box"><div id="detailFilterOneValue" class="input">loanNo，支持模糊查询</div><div class="limit">最多50字符。</div></div></label>
-          <label id="detailFilterTwoField"><span id="detailFilterTwoLabel">客户姓名</span><div class="field-box"><div id="detailFilterTwoValue" class="input">支持模糊查询</div></div></label>
+          <label><span id="detailFilterOneLabel">订单编号</span><div class="field-box"><div id="detailFilterOneValue" class="input">loanNo，支持精确查询</div><div class="limit">最多50字符。</div></div></label>
+          <label id="detailFilterTwoField"><span id="detailFilterTwoLabel">客户姓名</span><div class="field-box"><div id="detailFilterTwoValue" class="input">支持精确查询</div></div></label>
           <label id="detailFilterThreeField"><span id="detailFilterThreeLabel">案件状态</span><div class="field-box"><div id="detailFilterThreeValue" class="select" data-options="全部|已生效|待材料激活|导入失败">全部<b>⌄</b></div><div id="detailFilterThreeEnum" class="enum">全部 / 已生效 / 待材料激活 / 导入失败</div><div id="detailFilterThreeLimit" class="limit">订单结果按案件状态查询。</div></div></label>
           <label><span>业务主体1</span><div class="field-box"><input id="detailBusinessSubjectFilter" class="input text-input" type="text" maxlength="100" placeholder="支持模糊查询"><div class="limit">三个页签均按订单所属业务主体模糊查询，最多100字符。</div></div></label>
           <div class="search-actions"><button class="primary">查询</button><button>重置</button></div>
@@ -1095,7 +1095,7 @@
       </section>
       <section class="anno-block">
         <h3>筛选区逻辑</h3>
-        <p><b>1.</b>批次号、批次名称支持模糊查询，最多50字符。</p>
+        <p><b>1.</b>批次号支持精确查询；批次名称支持模糊查询，最多50字符。</p>
         <p><b>2.</b>一期外部资产方固定只有创新。</p>
         <p><b>3.</b>业务类型枚举：全部、租赁；本期只配置租赁。</p>
         <p><b>4.</b>一期批次状态枚举：全部、导入中、导入完成、导入失败；不做草稿和材料待处理状态。</p>
@@ -1139,7 +1139,7 @@
       </section>
       <section class="anno-block">
         <h3>筛选区逻辑</h3>
-        <p><b>1.</b>导入批次号、批次名称支持模糊查询；外部资产方、业务类型、导入状态按对应批次字段筛选；导入时间取首次创建导入任务时间。</p>
+        <p><b>1.</b>导入批次号支持精确查询；批次名称支持模糊查询；外部资产方、业务类型、导入状态按对应批次字段筛选；导入时间取首次创建导入任务时间。</p>
         <p><b>2.</b>债权出让主体支持模糊查询；订单号精确匹配批次内任一订单。</p>
         <p><b>3.</b>订单号命中后仍返回所属完整批次，不因一个批次存在多笔订单而拆分为多条批次记录。</p>
       </section>
@@ -3219,19 +3219,19 @@
     }
     var filters = {
       orders: {
-        oneLabel:'订单编号', oneValue:'loanNo，支持模糊查询',
-        twoLabel:'客户姓名', twoValue:'支持模糊查询', twoType:'input',
+        oneLabel:'订单编号', oneValue:'loanNo，支持精确查询',
+        twoLabel:'客户姓名', twoValue:'支持精确查询', twoType:'input',
         threeLabel:'案件状态', threeOptions:'全部|已生效|待材料激活|导入失败',
         threeEnum:'全部 / 已生效 / 待材料激活 / 导入失败', threeLimit:'订单结果按案件状态查询。'
       },
       missing: {
-        oneLabel:'订单编号', oneValue:'loanNo，支持模糊查询',
+        oneLabel:'订单编号', oneValue:'loanNo，支持精确查询',
         twoLabel:'标准材料类别', twoValue:'全部', twoType:'select', twoOptions:'全部|主合同|身份信息|订单信息|担保合同|订单材料|物流信息',
         threeLabel:'材料要求', threeOptions:'全部|必填|非必填',
         threeEnum:'全部 / 必填 / 非必填', threeLimit:'待补材料按材料要求筛选。'
       },
       unmatched: {
-        oneLabel:'订单号', oneValue:'支持模糊查询',
+        oneLabel:'订单号', oneValue:'支持精确查询',
         twoLabel:'文件名', twoValue:'支持模糊查询', twoType:'input',
         threeLabel:'', threeOptions:'全部',
         threeEnum:'', threeLimit:''

@@ -146,7 +146,7 @@ const unmatchedPane = html.match(/<div id="unmatchedPane"[\s\S]*?<section id="st
 assert.ok(unmatchedPane, '应存在异常文件列表');
 assert.ok(unmatchedPane[0].includes('<th style="width:210px">订单号</th><th>文件名</th>') && !unmatchedPane[0].includes('<th>识别问题</th>'), '异常文件列表应展示订单号并移除识别问题列');
 assert.ok(html.includes('待补材料和异常文件仅取字段校验通过订单的材料') && html.includes('异常文件按文件一行展示，表示已关联订单但材料规则校验不通过的文件'), '备注应明确待补材料和异常文件的数据范围');
-assert.ok(html.includes("oneLabel:'订单号', oneValue:'支持模糊查询'") && html.includes("twoLabel:'文件名', twoValue:'支持模糊查询'"), '异常文件筛选应按订单号和文件名展示');
+assert.ok(html.includes("oneLabel:'订单号', oneValue:'支持精确查询'") && html.includes("twoLabel:'文件名', twoValue:'支持模糊查询'"), '异常文件筛选应按订单号精确查询、文件名模糊查询展示');
 assert.ok(detailHtml.includes('26012915050167612001') && detailHtml.includes('<td>吴静</td><td>主合同</td><td>租赁服务合同</td><td><span class="tag bad">必填</span></td><td><span class="tag ok">已生效</span>'), '一期历史订单解析出缺失材料后应进入待补材料列表，案件保持已生效');
 assert.ok(html.includes('导入成功订单展示“已生效 / 未生成”') && html.includes('待补材料和异常文件初始为空'), '备注应说明一期历史订单未解析时的状态和列表范围');
 assert.ok(detailHtml.includes('26012915050167612348</td><td>丁磊</td><td>6,990.00</td><td><span class="tag warn">待材料激活</span></td><td><span class="tag bad">待补必填</span>'), '同一订单缺少多项材料时，订单结果应只展示一条汇总记录');
