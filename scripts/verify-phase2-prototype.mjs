@@ -27,7 +27,7 @@ assert.ok(/<th[^>]*>已生效<\/th><th[^>]*>待材料激活<\/th><th[^>]*>导入
 assert.ok(!batchHtml.includes('class="case-result compact"'), '案件结果不应使用混合语义的单行摘要');
 assert.ok(html.includes('字段状态枚举'), '主列表右侧备注应列出状态枚举');
 assert.ok(html.includes('运营可直接筛选待材料激活、待补必填或待补非必填订单后批量补传'), '二期下载明细备注应说明按状态筛选待补订单的方式');
-assert.ok(html.includes('字段失败、材料待补和重复跳过均按失败分类说明填写处理结果'), '二期下载明细备注应说明失败分类说明Sheet');
+assert.ok(html.includes('字段失败、材料待补和重复跳过均在“处理结果”中写明具体原因'), '二期下载明细备注应说明处理结果列的排查口径');
 assert.ok(html.includes('普通“已生效 + 材料齐全”订单的处理结果为“成功”'), '二期下载明细应明确普通成功订单的处理结果');
 const taskAnnotation = html.match(/<div class="anno-page active" data-anno="taskFull">[\s\S]*?<div class="anno-page" data-anno="newImportFull">/);
 assert.ok(taskAnnotation, '缺少二期案件导入管理备注');
@@ -139,7 +139,7 @@ assert.ok(html.includes("if(target === 'orders')"), '导出按钮应仅在订单
 assert.ok(html.includes("download.style.display = 'none';"), '待补材料和异常文件页签应隐藏导出按钮');
 assert.ok(!html.includes('导出当前筛选待补材料明细'), '待补材料页签不应保留单独导出按钮');
 assert.ok(!html.includes('导出当前筛选异常文件明细'), '异常文件页签不应保留单独导出按钮');
-assert.ok(html.includes('导入结果明细、待补材料明细、失败分类说明、口径说明'), '订单结果导出应与批次下载明细使用相同四张Sheet');
+assert.ok(html.includes('下载明细统一导出“导出结果明细”一张Sheet'), '订单结果导出应与批次下载明细统一使用导出结果明细Sheet');
 assert.ok(html.includes('下载明细按订单当前最终结果导出') && html.includes('后续再次上传Excel即使字段校验失败'), '下载明细备注应明确待材料激活订单后续Excel失败时保留最终结果');
 assert.ok(!detailHtml.includes('<th>来源</th>'), '待补材料列表不展示来源列');
 const unmatchedPane = html.match(/<div id="unmatchedPane"[\s\S]*?<section id="stateMachine"/);
