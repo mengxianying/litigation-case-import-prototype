@@ -168,6 +168,8 @@ assert.ok(!newImportFull[0].includes('class="select multi-rule-select"') && !new
 assert.ok(html.includes("'创新':['创新旧合同模式','创新新合同模式']"), '创新应加载旧合同和新合同两项规则');
 assert.ok(html.includes("'转转':['转转租赁通用规则']"), '转转应仅加载自身导入规则');
 assert.ok(html.includes('function downloadSelectedPhase2Template'), '二期下载模板应按已选规则动态生成文件名');
+assert.ok(html.includes('碎屏保障金额；金额保留2位小数；可为空、可为0、不能小于0；不得填写货币符号'), '碎屏保障应按金额格式校验，允许为空或0且不得为负数');
+assert.ok(html.includes("'碎屏保障':'0.00'"), '下载模板中碎屏保障示例值应为金额0.00');
 assert.ok(html.includes('function selectPhase2Rule(value)') && html.includes('selectedPhase2Rules = value ? [value] : []'), '选择新规则时应替换原规则，确保一次只有一个选中项');
 assert.ok(html.includes("selector.innerHTML = '<option value=\"\">请选择导入规则</option>' + options.map"), '切换资产方时应重建导入规则下拉选项');
 assert.ok(!html.includes('function setPhase2RuleDetailTab'), '单选规则详情不应保留多规则页签切换');
