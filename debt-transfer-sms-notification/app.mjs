@@ -38,7 +38,7 @@ function renameBatch(batch, newName, operator, changedAt) {
 function buildEvidenceManifest(tasks) {
   return tasks
     .filter((task) => task.result === "发送成功" && task.evidence === "已留存")
-    .map((task) => ({ folder: `${task.orderNo}+${task.name}`, files: ["发送凭证.png", "发送记录.pdf"] }));
+    .map((task) => `${task.orderNo}_发送凭证.jpg`);
 }
 
 function resolveEvidenceDownloadTasks(tasks, selectedIds = []) {
@@ -383,14 +383,14 @@ function showEvidenceModal() {
   const manifest = buildEvidenceManifest(targets);
   const skipped = targets.length - manifest.length;
   const selected = state.selectedTaskIds.length > 0;
-  const listing = manifest.length ? manifest.map(({ folder, files }) => `${folder}/\n${files.map((file) => `  ├─ ${file}`).join("\n")}`).join("\n\n") : "当前范围中没有可下载的已留存凭证";
-  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>下载证据压缩包</h2><p>${selected ? "已按选中条目" : "未选择条目，已按当前筛选结果"}导出 <strong>${manifest.length}</strong> 个订单文件夹${skipped ? `；${skipped} 条记录因无凭证而跳过` : ""}。</p><div class="notice">ⓘ 原型演示仅下载目录清单；实际系统将生成 ZIP，并记录下载人、时间、筛选范围和导出条数。</div><pre class="manifest">${escapeHtml(listing)}</pre><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-download" ${manifest.length ? "" : "disabled"}>下载演示清单</button></div></section></div>`;
+  const listing = manifest.length ? manifest.join("\n") : "当前范围中没有可下载的已留存凭证";
+  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>下载证据压缩包</h2><p>${selected ? "已按选中条目" : "未选择条目，已按当前筛选结果"}导出 <strong>${manifest.length}</strong> 个发送凭证${skipped ? `；${skipped} 条记录因无凭证而跳过` : ""}。</p><div class="notice">ⓘ 每个已留存凭证单独导出为“订单号_发送凭证.jpg”；实际系统将生成 ZIP，并记录下载人、时间、筛选范围和导出条数。</div><pre class="manifest">${escapeHtml(listing)}</pre><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-download" ${manifest.length ? "" : "disabled"}>下载演示清单</button></div></section></div>`;
   modalRoot.querySelector("[data-close]").onclick = closeModal;
   modalRoot.querySelector("#confirm-download")?.addEventListener("click", () => downloadManifest(manifest));
 }
 
 function downloadManifest(manifest) {
-  const contents = manifest.map(({ folder, files }) => `${folder}/\n${files.map((file) => `  ${file}`).join("\n")}`).join("\n\n");
+  const contents = manifest.join("\n");
   const url = URL.createObjectURL(new Blob([contents], { type: "text/plain;charset=utf-8" }));
   const link = Object.assign(document.createElement("a"), { href: url, download: "债转短信发送证据包_20260805.zip.txt" });
   link.click();

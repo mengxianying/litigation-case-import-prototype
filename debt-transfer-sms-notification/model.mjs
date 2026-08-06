@@ -49,10 +49,7 @@ export function renameBatch(batch, newName, operator, changedAt) {
 export function buildEvidenceManifest(tasks) {
   return tasks
     .filter((task) => task.result === "发送成功" && task.evidence === "已留存")
-    .map((task) => ({
-      folder: `${task.orderNo}+${task.name}`,
-      files: ["发送凭证.png", "发送记录.pdf"],
-    }));
+    .map((task) => `${task.orderNo}_发送凭证.jpg`);
 }
 
 export function resolveEvidenceDownloadTasks(tasks, selectedIds = []) {
