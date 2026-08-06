@@ -366,7 +366,7 @@ function showRejectionModal() {
 
 function showRenameModal(batchId) {
   const batch = batchById(batchId);
-  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>维护批次名称</h2><p>修改不影响任务归属、导入文件和已留存凭证；系统将记录原名称、修改人和修改时间。</p><div class="form-item"><label class="required" for="rename-value">新批次名称</label><input id="rename-value" maxlength="50" value="${escapeHtml(batch.name)}" /></div><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-rename">保存名称</button></div></section></div>`;
+  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>维护批次名称</h2><div class="form-item"><label class="required" for="rename-value">新批次名称</label><input id="rename-value" maxlength="50" value="${escapeHtml(batch.name)}" /></div><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-rename">保存名称</button></div></section></div>`;
   modalRoot.querySelector("[data-close]").onclick = closeModal;
   modalRoot.querySelector("#confirm-rename").onclick = () => {
     try {
