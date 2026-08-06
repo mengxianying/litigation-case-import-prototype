@@ -156,7 +156,7 @@ const menu = [
   ["□", "法诉材料管理"],
   ["▤", "待委外管理"],
   ["⚖", "诉讼管理"],
-  ["✉", "债转短信通知"],
+  ["✉", "短信通知"],
 ];
 const views = [
   ["batches", "批次管理"],
@@ -194,12 +194,12 @@ function renderWithRightNote(main, title, items) {
 
 function render() {
   menuRoot.innerHTML = menu
-    .map(([icon, text]) => `<button class="nav-item ${text === "债转短信通知" ? "active" : ""}" type="button"><span class="nav-icon">${icon}</span>${text}</button>`)
+    .map(([icon, text]) => `<button class="nav-item ${text === "短信通知" ? "active" : ""}" type="button"><span class="nav-icon">${icon}</span>${text}</button>`)
     .join("");
 
   header.innerHTML = `
-    <div class="breadcrumb"><span>诉讼工作台</span><span>/</span><span>债转短信通知</span></div>
-    <div class="page-title-row"><div><h1>债转短信通知</h1><p class="subtitle">导入短信任务、启动固定手机串行发送，并留存可追溯的发送凭证。</p></div></div>
+    <div class="breadcrumb"><span>诉讼工作台</span><span>/</span><span>短信通知</span></div>
+    <div class="page-title-row"><div><h1>短信通知</h1><p class="subtitle">导入短信任务、启动固定手机串行发送，并留存可追溯的发送凭证。</p></div></div>
     <div class="tabs">${views.map(([id, label]) => `<button class="tab ${state.activeView === id ? "active" : ""}" data-view="${id}">${label}</button>`).join("")}</div>`;
 
   content.innerHTML = state.activeView === "import" ? renderImport() : state.activeView === "batches" ? renderBatches() : renderRecords();
