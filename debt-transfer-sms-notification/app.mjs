@@ -38,7 +38,7 @@ function renameBatch(batch, newName, operator, changedAt) {
 function buildEvidenceManifest(tasks) {
   return tasks
     .filter((task) => task.result === "发送成功")
-    .map((task) => `${task.orderNo}_发送凭证.jpg`);
+    .map((task) => `${task.orderNo}_${task.name}_发送凭证.jpg`);
 }
 
 function buildEvidenceSpreadsheet(tasks) {
@@ -401,7 +401,7 @@ function showEvidenceModal() {
   const spreadsheet = buildEvidenceSpreadsheet(targets);
   const selected = state.selectedTaskIds.length > 0;
   const listing = manifest.length ? manifest.join("\n") : "当前范围内没有发送成功任务";
-  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>下载证据</h2><p>${selected ? "已按选中条目" : "未选择条目，已按当前筛选结果"}生成以下文件。</p><div class="notice">任务列表 Excel：<strong>${spreadsheet.rows.length}</strong> 条，包含列表全部字段。<br />发送凭证压缩包：<strong>${manifest.length}</strong> 张，包含所有发送成功任务的截图。</div><pre class="manifest">${escapeHtml(listing)}</pre><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-download">确认下载</button></div></section></div>`;
+  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal wide-modal evidence-modal"><h2>下载证据</h2><p>${selected ? "已按选中条目" : "未选择条目，已按当前筛选结果"}生成以下文件。</p><div class="evidence-files"><div class="evidence-file"><strong>任务列表 Excel</strong><span>1 个文件，包含列表全部字段，共 ${spreadsheet.rows.length} 条。</span></div><div class="evidence-file"><strong>发送凭证压缩包</strong><span>1 个压缩包，包含所有发送成功任务的 ${manifest.length} 张截图。</span></div></div><p class="helper">截图命名：订单号_姓名_发送凭证.jpg</p><pre class="manifest">${escapeHtml(listing)}</pre><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-download">确认下载</button></div></section></div>`;
   modalRoot.querySelector("[data-close]").onclick = closeModal;
   modalRoot.querySelector("#confirm-download").addEventListener("click", () => downloadEvidenceFiles(spreadsheet, manifest));
 }

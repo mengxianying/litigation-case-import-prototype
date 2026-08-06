@@ -105,6 +105,12 @@ tr:hover td { background: #fafcff; }
 .modal-backdrop { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 20px; background: rgb(0 0 0 / 42%); }
 .modal { width: min(520px, 100%); padding: 22px; border-radius: 8px; background: #fff; box-shadow: 0 12px 42px rgb(0 0 0 / 22%); }
 .wide-modal { width: min(760px, 100%); }
+.evidence-modal { width: min(820px, 100%); }
+.evidence-files { margin-top: 14px; border: 1px solid #f7d9a8; border-radius: 4px; background: var(--warning-soft); }
+.evidence-file { display: flex; align-items: center; gap: 18px; padding: 12px 14px; color: #8d5b00; }
+.evidence-file + .evidence-file { border-top: 1px solid #f7d9a8; }
+.evidence-file strong { width: 150px; color: #745000; }
+.evidence-file span { flex: 1; }
 .compact-table { margin-top: 12px; }
 .compact-table table { min-width: 620px; }
 .pagination { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 14px; color: var(--muted); font-size: 13px; }
