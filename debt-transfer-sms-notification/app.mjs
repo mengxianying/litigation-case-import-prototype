@@ -37,8 +37,25 @@ function renameBatch(batch, newName, operator, changedAt) {
 
 function buildEvidenceManifest(tasks) {
   return tasks
-    .filter((task) => task.result === "发送成功" && task.evidence === "已留存")
+    .filter((task) => task.result === "发送成功")
     .map((task) => `${task.orderNo}_发送凭证.jpg`);
+}
+
+function buildEvidenceSpreadsheet(tasks) {
+  const headers = ["订单编号", "姓名", "手机号", "发送设备编号", "发送手机号", "批次名称", "发送结论", "发送凭证", "重试次数", "最后更新时间"];
+  const rows = tasks.map((task) => [
+    task.orderNo,
+    task.name,
+    task.phone,
+    task.senderDeviceNo,
+    task.senderPhone,
+    batchById(task.batchId)?.name || "-",
+    task.result,
+    task.evidence,
+    task.retry + task.manualRetryCount,
+    task.updatedAt,
+  ]);
+  return { headers, rows };
 }
 
 function resolveEvidenceDownloadTasks(tasks, selectedIds = []) {
@@ -115,7 +132,7 @@ const state = {
   tasks: [
     makeTask(1, "B000", "发送成功", "已留存", 0, "2026-08-01 10:05"),
     makeTask(2, "B000", "发送成功", "已留存", 0, "2026-08-01 10:07"),
-    makeTask(3, "B000", "发送成功", "无凭证", 0, "2026-08-01 10:09"),
+    makeTask(3, "B000", "发送成功", "已留存", 0, "2026-08-01 10:09"),
     makeTask(4, "B000", "发送失败", "无凭证", 2, "2026-08-01 10:12"),
     makeTask(5, "B000", "无响应", "无凭证", 0, "2026-08-01 10:18"),
   ],
@@ -257,12 +274,12 @@ function renderRecords() {
   const allSelected = paginated.items.length > 0 && paginated.items.every((task) => state.selectedTaskIds.includes(task.id));
   const retrySelectedCount = state.tasks.filter((task) => state.selectedTaskIds.includes(task.id) && canManualRetry(task)).length;
   const pagination = `<div class="pagination"><span>共 ${paginated.total} 条</span><label>每页 <select id="page-size"><option value="10" ${state.pageSize === 10 ? "selected" : ""}>10</option><option value="20" ${state.pageSize === 20 ? "selected" : ""}>20</option><option value="50" ${state.pageSize === 50 ? "selected" : ""}>50</option></select> 条</label><button class="button small" data-page="${paginated.page - 1}" ${paginated.page === 1 ? "disabled" : ""}>上一页</button><span>第 ${paginated.page} / ${paginated.totalPages} 页</span><button class="button small" data-page="${paginated.page + 1}" ${paginated.page === paginated.totalPages ? "disabled" : ""}>下一页</button></div>`;
-  const main = `<section class="card records-card"><div class="toolbar"><div class="filters"><div class="filter"><label for="filter-order">订单编号</label><input id="filter-order" placeholder="请输入订单编号" value="${escapeHtml(state.filters.orderNo)}" /></div><div class="filter"><label for="filter-name">客户姓名</label><input id="filter-name" placeholder="请输入客户姓名" value="${escapeHtml(state.filters.name)}" /></div><div class="filter"><label for="filter-batch">批次名称</label><select id="filter-batch"><option value="">全部批次</option>${batchOptions}</select></div><div class="filter"><label for="filter-result">发送结论</label><select id="filter-result"><option value="">全部结论</option><option ${state.filters.result === "发送成功" ? "selected" : ""}>发送成功</option><option ${state.filters.result === "发送失败" ? "selected" : ""}>发送失败</option><option ${state.filters.result === "无响应" ? "selected" : ""}>无响应</option></select></div><div class="filter"><label for="filter-evidence">凭证状态</label><select id="filter-evidence"><option value="">全部状态</option><option ${state.filters.evidence === "已留存" ? "selected" : ""}>已留存</option><option ${state.filters.evidence === "无凭证" ? "selected" : ""}>无凭证</option></select></div></div><div class="toolbar-actions"><button class="button" id="retry-selected" ${retrySelectedCount ? "" : "disabled"}>批量重新发送${retrySelectedCount ? ` (${retrySelectedCount})` : ""}</button><button class="button primary" id="download-evidence">下载证据压缩包</button></div></div><p class="helper">当前筛选结果：${visible.length} 条。选择任务后，下载证据压缩包仅导出选中任务中已留存的凭证；未选择时导出当前筛选结果中的全部已留存凭证。</p><div class="table-wrap"><table><thead><tr><th><input id="select-all-tasks" type="checkbox" ${allSelected ? "checked" : ""} ${paginated.items.length ? "" : "disabled"} aria-label="全选本页任务" /></th><th>订单编号</th><th>姓名</th><th>手机号</th><th>发送设备编号</th><th>发送手机号</th><th>批次名称</th><th>发送结论</th><th>发送凭证</th><th>重试次数</th><th>最后更新时间</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table></div>${pagination}</section>`;
+  const main = `<section class="card records-card"><div class="toolbar"><div class="filters"><div class="filter"><label for="filter-order">订单编号</label><input id="filter-order" placeholder="请输入订单编号" value="${escapeHtml(state.filters.orderNo)}" /></div><div class="filter"><label for="filter-name">客户姓名</label><input id="filter-name" placeholder="请输入客户姓名" value="${escapeHtml(state.filters.name)}" /></div><div class="filter"><label for="filter-batch">批次名称</label><select id="filter-batch"><option value="">全部批次</option>${batchOptions}</select></div><div class="filter"><label for="filter-result">发送结论</label><select id="filter-result"><option value="">全部结论</option><option ${state.filters.result === "发送成功" ? "selected" : ""}>发送成功</option><option ${state.filters.result === "发送失败" ? "selected" : ""}>发送失败</option><option ${state.filters.result === "无响应" ? "selected" : ""}>无响应</option></select></div><div class="filter"><label for="filter-evidence">凭证状态</label><select id="filter-evidence"><option value="">全部状态</option><option ${state.filters.evidence === "已留存" ? "selected" : ""}>已留存</option><option ${state.filters.evidence === "无凭证" ? "selected" : ""}>无凭证</option></select></div></div><div class="toolbar-actions"><button class="button" id="retry-selected" ${retrySelectedCount ? "" : "disabled"}>批量重新发送${retrySelectedCount ? ` (${retrySelectedCount})` : ""}</button><button class="button primary" id="download-evidence">下载证据</button></div></div><p class="helper">当前筛选结果：${visible.length} 条。选择任务后，下载证据导出选中任务的任务列表和发送成功凭证；未选择时导出当前筛选结果。</p><div class="table-wrap"><table><thead><tr><th><input id="select-all-tasks" type="checkbox" ${allSelected ? "checked" : ""} ${paginated.items.length ? "" : "disabled"} aria-label="全选本页任务" /></th><th>订单编号</th><th>姓名</th><th>手机号</th><th>发送设备编号</th><th>发送手机号</th><th>批次名称</th><th>发送结论</th><th>发送凭证</th><th>重试次数</th><th>最后更新时间</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table></div>${pagination}</section>`;
   return renderWithRightNote(main, "任务处理说明", [
     "每行均可选择；选择仅作用于当前操作。",
-    "选中任务时下载选中任务的已留存凭证；未选择时下载当前筛选结果中的全部已留存凭证。",
+    "下载证据包含任务列表 Excel，以及当前范围内发送成功任务的凭证压缩包。",
     "仅发送失败且未成功的任务可批量重发；单条最多人工重发 1 次；无响应需人工核验。",
-    "仅已留存任务进入证据压缩包；无凭证不导出。",
+    "发送成功任务自动留存发送截图；发送失败和无响应任务不进入凭证压缩包。",
   ]);
 }
 
@@ -381,23 +398,30 @@ function showEvidenceModal() {
   const visible = filterTasks(state.tasks, state.filters);
   const targets = resolveEvidenceDownloadTasks(visible, state.selectedTaskIds);
   const manifest = buildEvidenceManifest(targets);
-  const skipped = targets.length - manifest.length;
+  const spreadsheet = buildEvidenceSpreadsheet(targets);
   const selected = state.selectedTaskIds.length > 0;
-  const listing = manifest.length ? manifest.join("\n") : "当前范围中没有可下载的已留存凭证";
-  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>下载证据压缩包</h2><p>${selected ? "已按选中条目" : "未选择条目，已按当前筛选结果"}导出 <strong>${manifest.length}</strong> 个发送凭证${skipped ? `；${skipped} 条记录因无凭证而跳过` : ""}。</p><div class="notice">ⓘ 每个已留存凭证单独导出为“订单号_发送凭证.jpg”；实际系统将生成 ZIP，并记录下载人、时间、筛选范围和导出条数。</div><pre class="manifest">${escapeHtml(listing)}</pre><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-download" ${manifest.length ? "" : "disabled"}>下载演示清单</button></div></section></div>`;
+  const listing = manifest.length ? manifest.join("\n") : "当前范围内没有发送成功任务";
+  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>下载证据</h2><p>${selected ? "已按选中条目" : "未选择条目，已按当前筛选结果"}生成以下文件。</p><div class="notice">任务列表 Excel：<strong>${spreadsheet.rows.length}</strong> 条，包含列表全部字段。<br />发送凭证压缩包：<strong>${manifest.length}</strong> 张，包含所有发送成功任务的截图。</div><pre class="manifest">${escapeHtml(listing)}</pre><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-download">确认下载</button></div></section></div>`;
   modalRoot.querySelector("[data-close]").onclick = closeModal;
-  modalRoot.querySelector("#confirm-download")?.addEventListener("click", () => downloadManifest(manifest));
+  modalRoot.querySelector("#confirm-download").addEventListener("click", () => downloadEvidenceFiles(spreadsheet, manifest));
 }
 
-function downloadManifest(manifest) {
-  const contents = manifest.join("\n");
-  const url = URL.createObjectURL(new Blob([contents], { type: "text/plain;charset=utf-8" }));
-  const link = Object.assign(document.createElement("a"), { href: url, download: "债转短信发送证据包_20260805.zip.txt" });
+function downloadEvidenceFiles(spreadsheet, manifest) {
+  const csv = "\uFEFF" + [spreadsheet.headers, ...spreadsheet.rows].map((row) => row.map(escapeCsvCell).join(",")).join("\n");
+  triggerDownload(new Blob([csv], { type: "text/csv;charset=utf-8" }), "短信通知任务列表.csv");
+  triggerDownload(new Blob([manifest.join("\n")], { type: "text/plain;charset=utf-8" }), "短信通知发送凭证压缩包清单.txt");
+  closeModal();
+  showToast("已下载任务列表 Excel 和发送凭证压缩包演示清单");
+}
+
+function triggerDownload(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const link = Object.assign(document.createElement("a"), { href: url, download: filename });
   link.click();
   URL.revokeObjectURL(url);
-  closeModal();
-  showToast("已下载原型演示清单，实际系统将生成证据 ZIP 包");
 }
+
+function escapeCsvCell(value) { return `"${String(value ?? "").replaceAll('"', '""')}"`; }
 
 function downloadTemplate() {
   const contents = "\uFEFF订单编号,客户姓名,手机号,短信内容\nDZ2026080001,客户示例,13800000000,【债转通知】请填写实际短信内容";
