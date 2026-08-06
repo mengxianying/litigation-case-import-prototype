@@ -113,6 +113,7 @@ tr:hover td { background: #fafcff; }
 .page-with-note { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 14px; align-items: start; }
 .page-main { min-width: 0; }
 .records-card { margin-top: 14px; }
+.records-card > .helper { display: none; }
 .right-note { position: sticky; top: 16px; margin-top: 14px; padding: 16px; border: 1px solid #f3c969; border-radius: 4px; color: #76530e; background: #fff8db; font-size: 12px; line-height: 1.65; }
 .right-note h3 { margin: 0 0 8px; color: #5f4308; font-size: 15px; }
 .right-note h4 { margin: 0 0 10px; color: #8d5b00; font-size: 13px; }
