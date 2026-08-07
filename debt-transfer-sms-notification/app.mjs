@@ -233,7 +233,7 @@ function renderImport() {
     <section class="card">
       <div class="toolbar"><h2 class="section-title" style="margin:0">新建发送批次</h2><button class="button" id="back-to-batches">返回批次管理</button></div>
       <div class="form-grid"><div class="form-item"><label class="required" for="batch-name">批次名称</label><input id="batch-name" maxlength="50" value="${escapeHtml(state.draftName)}" /><p class="helper">发送后仍可在“批次管理”中维护名称，系统将记录每次修改。</p></div></div>
-      <div class="form-item" style="margin-top:20px"><label class="required">Excel 文件</label><div class="upload-box"><label class="upload-label" for="excel-file">⇧<strong>点击上传或拖拽 Excel 文件</strong><span class="helper">支持 .xlsx；当前仅演示上传与校验结果</span></label><input id="excel-file" type="file" /></div><div class="file-actions"><p class="helper">已选择：<strong id="file-name">${escapeHtml(state.fileName)}</strong></p><button class="link" id="download-template">下载模板</button></div></div>
+      <div class="form-item" style="margin-top:20px"><label class="required">Excel 文件</label><div class="upload-box"><label class="upload-label" for="excel-file">⇧<strong>点击上传或拖拽 Excel 文件</strong><span class="helper">支持 .xlsx；上传后自动校验</span></label><input id="excel-file" type="file" /></div><div class="file-actions"><p class="helper">已选择：<strong id="file-name">${escapeHtml(state.fileName)}</strong></p><button class="link" id="download-template">下载模板</button></div></div>
     </section>
     <section class="card validation-panel">
       <div class="validation-line"><div class="validation-file"><strong>${escapeHtml(state.fileName)}</strong>${tag("校验完成", "status-success")}</div><div class="validation-stats"><span>共 <b>120</b> 条</span><span class="good">可发送 <b>119</b> 条</span><span class="bad">问题 <b>1</b> 条</span></div></div>
@@ -243,7 +243,12 @@ function renderImport() {
     </section>`;
   return renderWithRightNote(main, "导入规则说明", [
     "导入文件须包含订单编号、客户姓名、手机号、短信内容四项必填字段。",
-    "校验通过的任务进入固定手机串行发送队列；问题数据不进入队列。",
+    "上传 Excel 后自动校验，不设置独立“开始校验”按钮。",
+    "文件选择后先做文件类型、大小、表头和必填字段检查，再自动发起后台完整校验。",
+    "校验期间显示“正在校验”和进度；完成后展示总数、可发送数、问题数及问题清单。",
+    "重新上传自动重新校验；仅校验服务异常时提供“重新校验”。",
+    "执行发送前实时复核订单是否结清、手机号和发送资格；不通过的数据剔除并提示原因。",
+    "问题数据不可进入发送队列。",
     "重复触达以订单编号、姓名、手机号、短信内容四项完全一致为判断条件。",
   ]);
 }
