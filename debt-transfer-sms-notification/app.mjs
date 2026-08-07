@@ -255,7 +255,7 @@ function renderBatches() {
     return `<tr><td><strong>${escapeHtml(batch.name)}</strong></td><td>${escapeHtml(batch.fileName)}</td><td>${batch.importedAt}</td><td>${batch.total}</td><td>${batch.success}</td><td>${batch.failed}</td><td>${batch.noResponse}</td><td>${tag(batch.status, statusClass)}</td><td>${batch.updatedAt}</td><td><button class="link" data-action="rename" data-id="${batch.id}">维护名称</button>　<button class="link" data-action="batch-tasks" data-id="${batch.id}">查看任务</button></td></tr>`;
   }).join("");
   const tableRows = rows || '<tr><td colspan="10" class="empty">暂无符合搜索条件的批次</td></tr>';
-  const main = `<section class="card"><div class="toolbar"><div><h2 class="section-title" style="margin-bottom:4px">批次管理</h2></div><button class="button primary" id="open-import">任务导入</button></div><div class="filters batch-filters"><div class="filter"><label for="batch-filter-order">订单编号</label><input id="batch-filter-order" placeholder="精确输入订单编号" value="${escapeHtml(state.batchFilters.orderNo)}" /></div><div class="filter"><label for="batch-filter-name">客户姓名</label><input id="batch-filter-name" placeholder="精确输入客户姓名" value="${escapeHtml(state.batchFilters.name)}" /></div><div class="filter"><label for="batch-filter-phone">手机号</label><input id="batch-filter-phone" placeholder="精确输入手机号" value="${escapeHtml(state.batchFilters.phone)}" /></div><div class="filter"><label for="batch-filter-name-keyword">批次名称</label><input id="batch-filter-name-keyword" placeholder="模糊输入批次名称" value="${escapeHtml(state.batchFilters.batchName)}" /></div></div><div class="table-wrap"><table><thead><tr><th>批次名称</th><th>原文件名</th><th>导入时间</th><th>总任务</th><th>成功</th><th>失败</th><th>等待结果</th><th>执行状态</th><th>最后更新时间</th><th>操作</th></tr></thead><tbody>${tableRows}</tbody></table></div></section>`;
+  const main = `<section class="card"><div class="toolbar"><div><h2 class="section-title" style="margin-bottom:4px">批次管理</h2></div><button class="button primary" id="open-import">任务导入</button></div><div class="filters batch-filters"><div class="filter"><label for="batch-filter-order">订单编号</label><input id="batch-filter-order" data-batch-filter placeholder="精确输入订单编号" value="${escapeHtml(state.batchFilters.orderNo)}" /></div><div class="filter"><label for="batch-filter-name">客户姓名</label><input id="batch-filter-name" data-batch-filter placeholder="精确输入客户姓名" value="${escapeHtml(state.batchFilters.name)}" /></div><div class="filter"><label for="batch-filter-phone">手机号</label><input id="batch-filter-phone" data-batch-filter placeholder="精确输入手机号" value="${escapeHtml(state.batchFilters.phone)}" /></div><div class="filter"><label for="batch-filter-name-keyword">批次名称</label><input id="batch-filter-name-keyword" data-batch-filter placeholder="模糊输入批次名称" value="${escapeHtml(state.batchFilters.batchName)}" /></div><div class="filter-actions"><button class="button primary" id="batch-search">查询</button><button class="button" id="batch-reset">重置</button></div></div><div class="table-wrap"><table><thead><tr><th>批次名称</th><th>原文件名</th><th>导入时间</th><th>总任务</th><th>成功</th><th>失败</th><th>等待结果</th><th>执行状态</th><th>最后更新时间</th><th>操作</th></tr></thead><tbody>${tableRows}</tbody></table></div></section>`;
   return renderWithRightNote(main, "批次查询说明", [
     "订单编号、客户姓名、手机号均为精确查询；批次名称支持模糊查询。",
     "订单号命中批次内任一任务时，返回该任务所属的完整批次。",
@@ -278,7 +278,7 @@ function renderRecords() {
   const allSelected = paginated.items.length > 0 && paginated.items.every((task) => state.selectedTaskIds.includes(task.id));
   const retrySelectedCount = state.tasks.filter((task) => state.selectedTaskIds.includes(task.id) && canManualRetry(task)).length;
   const pagination = `<div class="pagination"><span>共 ${paginated.total} 条</span><label>每页 <select id="page-size"><option value="10" ${state.pageSize === 10 ? "selected" : ""}>10</option><option value="20" ${state.pageSize === 20 ? "selected" : ""}>20</option><option value="50" ${state.pageSize === 50 ? "selected" : ""}>50</option></select> 条</label><button class="button small" data-page="${paginated.page - 1}" ${paginated.page === 1 ? "disabled" : ""}>上一页</button><span>第 ${paginated.page} / ${paginated.totalPages} 页</span><button class="button small" data-page="${paginated.page + 1}" ${paginated.page === paginated.totalPages ? "disabled" : ""}>下一页</button></div>`;
-  const main = `<section class="card records-card"><div class="toolbar"><div class="filters"><div class="filter"><label for="filter-order">订单编号</label><input id="filter-order" placeholder="请输入订单编号" value="${escapeHtml(state.filters.orderNo)}" /></div><div class="filter"><label for="filter-name">客户姓名</label><input id="filter-name" placeholder="请输入客户姓名" value="${escapeHtml(state.filters.name)}" /></div><div class="filter"><label for="filter-batch">批次名称</label><select id="filter-batch"><option value="">全部批次</option>${batchOptions}</select></div><div class="filter"><label for="filter-result">发送状态</label><select id="filter-result"><option value="">全部状态</option><option ${state.filters.result === "发送中" ? "selected" : ""}>发送中</option><option ${state.filters.result === "发送成功" ? "selected" : ""}>发送成功</option><option ${state.filters.result === "发送失败" ? "selected" : ""}>发送失败</option><option ${state.filters.result === "等待结果" ? "selected" : ""}>等待结果</option></select></div><div class="filter"><label for="filter-evidence">凭证状态</label><select id="filter-evidence"><option value="">全部状态</option><option ${state.filters.evidence === "已留存" ? "selected" : ""}>已留存</option><option ${state.filters.evidence === "无凭证" ? "selected" : ""}>无凭证</option></select></div></div><div class="toolbar-actions"><button class="button" id="retry-selected" ${retrySelectedCount ? "" : "disabled"}>批量重新发送${retrySelectedCount ? ` (${retrySelectedCount})` : ""}</button><button class="button primary" id="download-evidence">下载证据</button></div></div><p class="helper">当前筛选结果：${visible.length} 条。选择任务后，下载证据导出选中任务的任务列表和发送成功凭证；未选择时导出当前筛选结果。</p><div class="table-wrap"><table><thead><tr><th><input id="select-all-tasks" type="checkbox" ${allSelected ? "checked" : ""} ${paginated.items.length ? "" : "disabled"} aria-label="全选本页任务" /></th><th>订单编号</th><th>姓名</th><th>手机号</th><th>发送设备编号</th><th>发送手机号</th><th>批次名称</th><th>发送状态</th><th>发送凭证</th><th>重试次数</th><th>最后更新时间</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table></div>${pagination}</section>`;
+  const main = `<section class="card records-card"><div class="toolbar records-toolbar"><div class="filters"><div class="filter"><label for="filter-order">订单编号</label><input id="filter-order" data-task-filter placeholder="请输入订单编号" value="${escapeHtml(state.filters.orderNo)}" /></div><div class="filter"><label for="filter-name">客户姓名</label><input id="filter-name" data-task-filter placeholder="请输入客户姓名" value="${escapeHtml(state.filters.name)}" /></div><div class="filter"><label for="filter-batch">批次名称</label><select id="filter-batch" data-task-filter><option value="">全部批次</option>${batchOptions}</select></div><div class="filter"><label for="filter-result">发送状态</label><select id="filter-result" data-task-filter><option value="">全部状态</option><option ${state.filters.result === "发送中" ? "selected" : ""}>发送中</option><option ${state.filters.result === "发送成功" ? "selected" : ""}>发送成功</option><option ${state.filters.result === "发送失败" ? "selected" : ""}>发送失败</option><option ${state.filters.result === "等待结果" ? "selected" : ""}>等待结果</option></select></div><div class="filter"><label for="filter-evidence">凭证状态</label><select id="filter-evidence" data-task-filter><option value="">全部状态</option><option ${state.filters.evidence === "已留存" ? "selected" : ""}>已留存</option><option ${state.filters.evidence === "无凭证" ? "selected" : ""}>无凭证</option></select></div></div><div class="toolbar-actions"><button class="button primary" id="task-search">查询</button><button class="button" id="task-reset">重置</button><span class="toolbar-divider"></span><button class="button" id="retry-selected" ${retrySelectedCount ? "" : "disabled"}>批量重新发送${retrySelectedCount ? ` (${retrySelectedCount})` : ""}</button><button class="button primary" id="download-evidence">下载证据</button></div></div><p class="helper">当前筛选结果：${visible.length} 条。选择任务后，下载证据导出选中任务的任务列表和发送成功凭证；未选择时导出当前筛选结果。</p><div class="table-wrap"><table><thead><tr><th><input id="select-all-tasks" type="checkbox" ${allSelected ? "checked" : ""} ${paginated.items.length ? "" : "disabled"} aria-label="全选本页任务" /></th><th>订单编号</th><th>姓名</th><th>手机号</th><th>发送设备编号</th><th>发送手机号</th><th>批次名称</th><th>发送状态</th><th>发送凭证</th><th>重试次数</th><th>最后更新时间</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table></div>${pagination}</section>`;
   return renderGroupedRightNote(main, "任务处理说明", [
     {
       title: "状态说明",
@@ -333,8 +333,48 @@ function bindEvents() {
   document.querySelectorAll("[data-page]").forEach((button) => button.addEventListener("click", () => { state.page = Number(button.dataset.page); render(); }));
   document.querySelector("#page-size")?.addEventListener("change", (event) => { state.pageSize = Number(event.target.value); state.page = 1; render(); });
   document.querySelector("#retry-selected")?.addEventListener("click", showRetryModal);
-  [["order", "orderNo"], ["name", "name"], ["phone", "phone"], ["name-keyword", "batchName"]].forEach(([id, field]) => document.querySelector(`#batch-filter-${id}`)?.addEventListener("input", (event) => { state.batchFilters[field] = event.target.value; render(); }));
-  ["order", "name", "batch", "result", "evidence"].forEach((key) => document.querySelector(`#filter-${key}`)?.addEventListener(key === "order" || key === "name" ? "input" : "change", (event) => { state.filters[key === "order" ? "orderNo" : key === "batch" ? "batchId" : key] = event.target.value; state.selectedTaskIds = []; state.page = 1; render(); }));
+  document.querySelector("#batch-search")?.addEventListener("click", applyBatchSearch);
+  document.querySelector("#batch-reset")?.addEventListener("click", resetBatchSearch);
+  document.querySelector("#task-search")?.addEventListener("click", applyTaskSearch);
+  document.querySelector("#task-reset")?.addEventListener("click", resetTaskSearch);
+  document.querySelectorAll("[data-batch-filter], [data-task-filter]").forEach((field) => field.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") (field.hasAttribute("data-batch-filter") ? applyBatchSearch : applyTaskSearch)();
+  }));
+}
+
+function applyBatchSearch() {
+  state.batchFilters = {
+    orderNo: document.querySelector("#batch-filter-order")?.value.trim() || "",
+    name: document.querySelector("#batch-filter-name")?.value.trim() || "",
+    phone: document.querySelector("#batch-filter-phone")?.value.trim() || "",
+    batchName: document.querySelector("#batch-filter-name-keyword")?.value.trim() || "",
+  };
+  render();
+}
+
+function resetBatchSearch() {
+  state.batchFilters = { orderNo: "", name: "", phone: "", batchName: "" };
+  render();
+}
+
+function applyTaskSearch() {
+  state.filters = {
+    orderNo: document.querySelector("#filter-order")?.value.trim() || "",
+    name: document.querySelector("#filter-name")?.value.trim() || "",
+    batchId: document.querySelector("#filter-batch")?.value || "",
+    result: document.querySelector("#filter-result")?.value || "",
+    evidence: document.querySelector("#filter-evidence")?.value || "",
+  };
+  state.selectedTaskIds = [];
+  state.page = 1;
+  render();
+}
+
+function resetTaskSearch() {
+  state.filters = { orderNo: "", name: "", batchId: "", result: "", evidence: "" };
+  state.selectedTaskIds = [];
+  state.page = 1;
+  render();
 }
 
 function showRetryModal() {
