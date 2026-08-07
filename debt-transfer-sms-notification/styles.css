@@ -125,6 +125,9 @@ tr:hover td { background: #fafcff; }
 .right-note h4 { margin: 0 0 10px; color: #8d5b00; font-size: 13px; }
 .right-note p { margin: 0 0 10px; }
 .right-note p:last-child { margin-bottom: 0; }
+.note-group { margin-top: 14px; padding-top: 12px; border-top: 1px solid #f0dba3; }
+.note-group:first-of-type { margin-top: 0; padding-top: 0; border-top: 0; }
+.note-group h5 { margin: 0 0 8px; color: #8d5b00; font-size: 12px; }
 .modal h2 { margin: 0; font-size: 18px; }
 .modal p { color: #4b5563; }
 .modal .button-row { margin-top: 22px; }

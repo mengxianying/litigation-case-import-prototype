@@ -206,7 +206,11 @@ function evidenceTag(evidence) {
 }
 
 function renderWithRightNote(main, title, items) {
-  return `<div class="page-with-note"><div class="page-main">${main}</div><aside class="right-note"><h3>备注说明</h3><h4>${title}</h4>${items.map((item, index) => `<p><b>${index + 1}.</b> ${item}</p>`).join("")}</aside></div>`;
+  return `<div class="page-with-note"><div class="page-main">${main}</div><aside class="right-note"><h3>开发备注（正式上线不展示）</h3><h4>${title}</h4>${items.map((item, index) => `<p><b>${index + 1}.</b> ${item}</p>`).join("")}</aside></div>`;
+}
+
+function renderGroupedRightNote(main, title, groups) {
+  return `<div class="page-with-note"><div class="page-main">${main}</div><aside class="right-note"><h3>开发备注（正式上线不展示）</h3><h4>${title}</h4>${groups.map((group) => `<section class="note-group"><h5>${group.title}</h5>${group.items.map((item, index) => `<p><b>${index + 1}.</b> ${item}</p>`).join("")}</section>`).join("")}</aside></div>`;
 }
 
 function render() {
@@ -275,11 +279,31 @@ function renderRecords() {
   const retrySelectedCount = state.tasks.filter((task) => state.selectedTaskIds.includes(task.id) && canManualRetry(task)).length;
   const pagination = `<div class="pagination"><span>共 ${paginated.total} 条</span><label>每页 <select id="page-size"><option value="10" ${state.pageSize === 10 ? "selected" : ""}>10</option><option value="20" ${state.pageSize === 20 ? "selected" : ""}>20</option><option value="50" ${state.pageSize === 50 ? "selected" : ""}>50</option></select> 条</label><button class="button small" data-page="${paginated.page - 1}" ${paginated.page === 1 ? "disabled" : ""}>上一页</button><span>第 ${paginated.page} / ${paginated.totalPages} 页</span><button class="button small" data-page="${paginated.page + 1}" ${paginated.page === paginated.totalPages ? "disabled" : ""}>下一页</button></div>`;
   const main = `<section class="card records-card"><div class="toolbar"><div class="filters"><div class="filter"><label for="filter-order">订单编号</label><input id="filter-order" placeholder="请输入订单编号" value="${escapeHtml(state.filters.orderNo)}" /></div><div class="filter"><label for="filter-name">客户姓名</label><input id="filter-name" placeholder="请输入客户姓名" value="${escapeHtml(state.filters.name)}" /></div><div class="filter"><label for="filter-batch">批次名称</label><select id="filter-batch"><option value="">全部批次</option>${batchOptions}</select></div><div class="filter"><label for="filter-result">发送状态</label><select id="filter-result"><option value="">全部状态</option><option ${state.filters.result === "发送中" ? "selected" : ""}>发送中</option><option ${state.filters.result === "发送成功" ? "selected" : ""}>发送成功</option><option ${state.filters.result === "发送失败" ? "selected" : ""}>发送失败</option><option ${state.filters.result === "等待结果" ? "selected" : ""}>等待结果</option></select></div><div class="filter"><label for="filter-evidence">凭证状态</label><select id="filter-evidence"><option value="">全部状态</option><option ${state.filters.evidence === "已留存" ? "selected" : ""}>已留存</option><option ${state.filters.evidence === "无凭证" ? "selected" : ""}>无凭证</option></select></div></div><div class="toolbar-actions"><button class="button" id="retry-selected" ${retrySelectedCount ? "" : "disabled"}>批量重新发送${retrySelectedCount ? ` (${retrySelectedCount})` : ""}</button><button class="button primary" id="download-evidence">下载证据</button></div></div><p class="helper">当前筛选结果：${visible.length} 条。选择任务后，下载证据导出选中任务的任务列表和发送成功凭证；未选择时导出当前筛选结果。</p><div class="table-wrap"><table><thead><tr><th><input id="select-all-tasks" type="checkbox" ${allSelected ? "checked" : ""} ${paginated.items.length ? "" : "disabled"} aria-label="全选本页任务" /></th><th>订单编号</th><th>姓名</th><th>手机号</th><th>发送设备编号</th><th>发送手机号</th><th>批次名称</th><th>发送状态</th><th>发送凭证</th><th>重试次数</th><th>最后更新时间</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table></div>${pagination}</section>`;
-  return renderWithRightNote(main, "任务处理说明", [
-    "每行均可选择；选择仅作用于当前操作。",
-    "下载证据包含任务列表 Excel，以及当前范围内发送成功任务的凭证压缩包。",
-    "仅发送失败且未成功的任务可批量重发；单条最多人工重发 1 次；等待结果需人工核验。",
-    "发送成功任务自动留存发送截图；发送失败和等待结果任务不进入凭证压缩包。",
+  return renderGroupedRightNote(main, "任务处理说明", [
+    {
+      title: "状态说明",
+      items: [
+        "发送中：任务已批量提交至前端，由前端逐条发送，尚未返回最终结果。",
+        "等待结果：前端已发起发送，但暂未回传成功或失败结果，需等待结果回传或人工核验。",
+        "发送成功、发送失败：已取得最终发送结果。",
+      ],
+    },
+    {
+      title: "手工批量重发",
+      items: [
+        "仅发送失败且最新一次未发送成功的任务可手工批量重发。",
+        "发送成功、发送中、等待结果的任务均不可再次触发手工批量重发。",
+        "单条任务最多人工重发 1 次；重发操作保留原发送记录，并新增人工批量重发记录。",
+      ],
+    },
+    {
+      title: "证据下载",
+      items: [
+        "每行均可选择；选择仅作用于当前操作。未选择任务时，下载当前筛选范围内的全部任务。",
+        "下载证据包含任务列表 Excel，以及当前操作范围内发送成功任务的凭证压缩包。",
+        "发送成功任务自动留存发送截图；截图命名为：订单号_姓名_发送凭证.jpg。",
+      ],
+    },
   ]);
 }
 
