@@ -31,6 +31,7 @@ button { cursor: pointer; }
 .sidebar-footer { margin-top: auto; padding: 16px 22px 12px; border-top: 1px solid #173555; color: #9aa8b9; font-size: 12px; }
 .sidebar-footer span { color: #7590aa; }
 .workspace { min-width: 0; padding: 18px 28px 40px; }
+#page-content { overflow-x: auto; padding-bottom: 12px; }
 .breadcrumb { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 13px; }
 .page-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-top: 10px; }
 h1 { margin: 0; font-size: 22px; line-height: 1.25; }
@@ -120,18 +121,18 @@ tr:hover td { background: #fafcff; }
 .pagination { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 14px; color: var(--muted); font-size: 13px; }
 .pagination label { display: flex; align-items: center; gap: 4px; }
 .pagination select { width: 58px; height: 28px; padding: 0 6px; }
-.page-with-note { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 14px; align-items: start; }
+.page-with-note { display: grid; grid-template-columns: minmax(max(1180px, calc(100vw - 256px)), 1fr) 520px; width: max-content; min-width: 1700px; gap: 24px; align-items: start; }
 .page-main { min-width: 0; }
 .records-card { margin-top: 14px; }
 .records-card > .helper { display: none; }
-.right-note { position: sticky; top: 16px; margin-top: 14px; padding: 16px; border: 1px solid #f3c969; border-radius: 4px; color: #76530e; background: #fff8db; font-size: 12px; line-height: 1.65; }
-.right-note h3 { margin: 0 0 8px; color: #5f4308; font-size: 15px; }
-.right-note h4 { margin: 0 0 10px; color: #8d5b00; font-size: 13px; }
+.right-note { position: static; width: 520px; margin-top: 14px; padding: 20px 22px; border: 1px solid #e2be00; border-radius: 0; color: #513f00; background: #ffe533; font-size: 13px; line-height: 1.7; }
+.right-note h3 { margin: 0 0 14px; color: #ff5252; font-size: 22px; text-align: center; }
+.right-note h4 { margin: 0 0 10px; color: #463600; font-size: 16px; }
 .right-note p { margin: 0 0 10px; }
 .right-note p:last-child { margin-bottom: 0; }
-.note-group { margin-top: 14px; padding-top: 12px; border-top: 1px solid #f0dba3; }
+.note-group { margin-top: 16px; padding-top: 14px; border-top: 1px solid #dfb900; }
 .note-group:first-of-type { margin-top: 0; padding-top: 0; border-top: 0; }
-.note-group h5 { margin: 0 0 8px; color: #8d5b00; font-size: 12px; }
+.note-group h5 { margin: 0 0 8px; color: #463600; font-size: 15px; }
 .modal h2 { margin: 0; font-size: 18px; }
 .modal p { color: #4b5563; }
 .modal .button-row { margin-top: 22px; }
@@ -160,6 +161,4 @@ tr:hover td { background: #fafcff; }
   .metrics { grid-template-columns: repeat(2, 1fr); }
   .form-grid { grid-template-columns: 1fr; }
   .validation-line { align-items: flex-start; flex-direction: column; padding-bottom: 10px; }
-  .page-with-note { grid-template-columns: 1fr; }
-  .right-note { position: static; }
 }
