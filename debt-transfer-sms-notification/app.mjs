@@ -233,23 +233,50 @@ function renderImport() {
     <section class="card">
       <div class="toolbar"><h2 class="section-title" style="margin:0">新建发送批次</h2><button class="button" id="back-to-batches">返回批次管理</button></div>
       <div class="form-grid"><div class="form-item"><label class="required" for="batch-name">批次名称</label><input id="batch-name" maxlength="50" value="${escapeHtml(state.draftName)}" /><p class="helper">发送后仍可在“批次管理”中维护名称，系统将记录每次修改。</p></div></div>
-      <div class="form-item" style="margin-top:20px"><label class="required">Excel 文件</label><div class="upload-box"><label class="upload-label" for="excel-file">⇧<strong>点击上传或拖拽 Excel 文件</strong><span class="helper">支持 .xlsx；上传后自动校验</span></label><input id="excel-file" type="file" /></div><div class="file-actions"><p class="helper">已选择：<strong id="file-name">${escapeHtml(state.fileName)}</strong></p><button class="link" id="download-template">下载模板</button></div></div>
+      <div class="form-item" style="margin-top:20px"><label class="required">Excel 文件</label><div class="upload-box"><label class="upload-label" for="excel-file">⇧<strong>点击上传或拖拽 Excel 文件</strong><span class="helper">支持 .xlsx；单批最多 5000 条；上传后自动校验</span></label><input id="excel-file" type="file" /></div><div class="file-actions"><p class="helper">已选择：<strong id="file-name">${escapeHtml(state.fileName)}</strong></p><button class="link" id="download-template">下载模板</button></div></div>
     </section>
     <section class="card validation-panel">
       <div class="validation-line"><div class="validation-file"><strong>${escapeHtml(state.fileName)}</strong>${tag("校验完成", "status-success")}</div><div class="validation-stats"><span>共 <b>120</b> 条</span><span class="good">可发送 <b>119</b> 条</span><span class="bad">问题 <b>1</b> 条</span></div></div>
-      <p class="validation-scope">已校验：必填字段、订单状态、手机号、重复触达（四项完全一致）、短信内容。</p>
+      <p class="validation-scope">文件与表头校验通过后，已校验：必填字段、订单状态、手机号、重复触达（四项完全一致）、短信内容。</p>
       <div class="issue-list"><div class="issue-header"><h2 class="section-title">校验问题清单</h2><span class="muted">问题数据不会进入发送队列</span></div><div class="table-wrap"><table><thead><tr><th>Excel 行号</th><th>订单编号</th><th>校验项</th><th>问题原因</th></tr></thead><tbody><tr><td>121</td><td>-</td><td>${tag("必填字段", "status-failed")}</td><td>订单编号、姓名、手机号、短信内容为空</td></tr></tbody></table></div></div>
       <div class="button-row"><button class="button" id="show-rejection">查看全部问题</button><button class="button primary" id="execute-send" ${batch.status !== "待执行" ? "disabled" : ""}>${batch.status === "待执行" ? "执行发送 119 条" : "已启动发送"}</button></div>
     </section>`;
-  return renderWithRightNote(main, "导入规则说明", [
-    "导入文件须包含订单编号、客户姓名、手机号、短信内容四项必填字段。",
-    "上传 Excel 后自动校验，不设置独立“开始校验”按钮。",
-    "文件选择后先做文件类型、大小、表头和必填字段检查，再自动发起后台完整校验。",
-    "校验期间显示“正在校验”和进度；完成后展示总数、可发送数、问题数及问题清单。",
-    "重新上传自动重新校验；仅校验服务异常时提供“重新校验”。",
-    "执行发送前实时复核订单是否结清、手机号和发送资格；不通过的数据剔除并提示原因。",
-    "问题数据不可进入发送队列。",
-    "重复触达以订单编号、姓名、手机号、短信内容四项完全一致为判断条件。",
+  return renderGroupedRightNote(main, "导入规则说明", [
+    {
+      title: "文件与数量限制",
+      items: [
+        "仅支持可正常读取、未损坏且未加密的 .xlsx 文件。",
+        "每个批次最多导入 5000 条非空数据（不含表头），一次执行发送最多 5000 条。",
+        "超过 5000 条时整份文件校验失败，不自动截断或拆分，不创建任务；提示拆分文件后重新上传。",
+      ],
+    },
+    {
+      title: "表格格式校验",
+      items: [
+        "订单编号、客户姓名、手机号、短信内容四个必填表头必须各出现一次，名称须完全一致；顺序不限，其他扩展列忽略。",
+        "表头缺失、名称不一致、重复、为空或使用合并单元格时，判定表格格式校验失败。",
+        "表头校验失败时，状态显示“文件校验失败”，列出期望表头和具体差异；不进入逐行校验，不展示可发送数，不创建任务，并禁用“执行发送”。",
+        "重新上传符合模板的文件后自动重新校验。",
+      ],
+    },
+    {
+      title: "自动校验流程",
+      items: [
+        "上传 Excel 后自动校验，不设置独立“开始校验”按钮。",
+        "文件选择后先做文件类型、大小、表头和必填字段检查，再自动发起后台完整校验。",
+        "校验期间显示“正在校验”和进度；完成后展示总数、可发送数、问题数及问题清单。",
+        "重新上传自动重新校验；仅校验服务异常时提供“重新校验”。",
+      ],
+    },
+    {
+      title: "业务校验与发送",
+      items: [
+        "导入文件须包含订单编号、客户姓名、手机号、短信内容四项必填字段。",
+        "重复触达以订单编号、姓名、手机号、短信内容四项完全一致为判断条件。",
+        "问题数据不可进入发送队列。",
+        "执行发送前实时复核订单是否结清、手机号和发送资格；不通过的数据剔除并提示原因。",
+      ],
+    },
   ]);
 }
 
