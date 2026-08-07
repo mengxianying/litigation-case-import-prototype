@@ -552,7 +552,7 @@ function showErrorWorkbookModal() {
 
 function downloadErrorDetailsWorkbook() {
   const link = document.createElement("a");
-  link.href = "./assets/短信通知_导入错误明细.xlsx?v=20260807-reference-style";
+  link.href = "./assets/短信通知_导入错误明细.xlsx?v=20260807-compact-columns";
   link.download = "短信通知_导入错误明细.xlsx";
   document.body.append(link);
   link.click();
