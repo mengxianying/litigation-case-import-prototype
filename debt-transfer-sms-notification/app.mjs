@@ -544,9 +544,19 @@ function showErrorWorkbookModal() {
   modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal wide-modal error-workbook-modal"><h2>下载错误明细</h2><p>将生成 <strong>短信通知_导入错误明细.xlsx</strong>，包含 4000 条问题数据和以下两个 Sheet。</p><div class="workbook-sheets"><div class="workbook-sheet"><span class="excel-mark">XLSX</span><div><strong>错误数据明细</strong><p>原 Excel 行号、订单编号、客户姓名、手机号、短信内容、校验项、问题原因。同一行存在多个错误时，每个问题单独一行。</p></div></div><div class="workbook-sheet"><span class="excel-mark">SHEET</span><div><strong>错误类型说明</strong><p>类型编码、校验项、错误场景、判定规则、处理结果。</p></div></div></div><div class="table-wrap error-type-table"><table><thead><tr><th>类型编码</th><th>校验项</th><th>错误场景</th><th>判定规则</th><th>处理结果</th></tr></thead><tbody>${errorTypeRows}</tbody></table></div><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-error-download">确认下载</button></div></section></div>`;
   modalRoot.querySelector("[data-close]").onclick = closeModal;
   modalRoot.querySelector("#confirm-error-download").onclick = () => {
+    downloadErrorDetailsWorkbook();
     closeModal();
-    showToast("原型演示：错误明细 Excel 已生成，包含 2 个 Sheet");
+    showToast("已开始下载错误明细 Excel");
   };
+}
+
+function downloadErrorDetailsWorkbook() {
+  const link = document.createElement("a");
+  link.href = "./assets/短信通知_导入错误明细.xlsx";
+  link.download = "短信通知_导入错误明细.xlsx";
+  document.body.append(link);
+  link.click();
+  link.remove();
 }
 
 function showRenameModal(batchId) {
