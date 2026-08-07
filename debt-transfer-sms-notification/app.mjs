@@ -93,6 +93,7 @@ const now = "2026-08-05 14:30";
 
 const state = {
   activeView: "batches",
+  validationDemo: "success",
   draftName: "债转短信_20260805_1430",
   fileName: "整理完后.xlsx",
   batches: [
@@ -210,7 +211,7 @@ function renderWithRightNote(main, title, items) {
 }
 
 function renderGroupedRightNote(main, title, groups) {
-  return `<div class="page-with-note"><div class="page-main">${main}</div><aside class="right-note"><h3>备注说明</h3>${title ? `<h4>${title}</h4>` : ""}${groups.map((group) => `<section class="note-group"><h5>${group.title}</h5>${group.items.map((item, index) => `<p><b>${index + 1}.</b> ${item}</p>`).join("")}</section>`).join("")}</aside></div>`;
+  return `<div class="page-with-note"><div class="page-main">${main}</div><aside class="right-note"><h3>备注说明</h3>${title ? `<h4>${title}</h4>` : ""}${groups.map((group) => `<section class="note-group"><h5>${group.title}</h5>${group.controls || ""}${group.items.map((item, index) => `<p><b>${index + 1}.</b> ${item}</p>`).join("")}</section>`).join("")}</aside></div>`;
 }
 
 function render() {
@@ -235,13 +236,13 @@ function renderImport() {
       <div class="form-grid"><div class="form-item"><label class="required" for="batch-name">批次名称</label><input id="batch-name" maxlength="50" value="${escapeHtml(state.draftName)}" /><p class="helper">发送后仍可在“批次管理”中维护名称，系统将记录每次修改。</p></div></div>
       <div class="form-item" style="margin-top:20px"><label class="required">Excel 文件</label><div class="upload-box"><label class="upload-label" for="excel-file">⇧<strong>点击上传或拖拽 Excel 文件</strong><span class="helper">支持 .xlsx；单批最多 5000 条；上传后自动校验</span></label><input id="excel-file" type="file" /></div><div class="file-actions"><p class="helper">已选择：<strong id="file-name">${escapeHtml(state.fileName)}</strong></p><button class="link" id="download-template">下载模板</button></div></div>
     </section>
-    <section class="card validation-panel">
-      <div class="validation-line"><div class="validation-file"><strong>${escapeHtml(state.fileName)}</strong>${tag("校验完成", "status-success")}</div><div class="validation-stats"><span>共 <b>120</b> 条</span><span class="good">可发送 <b>119</b> 条</span><span class="bad">问题 <b>1</b> 条</span></div></div>
-      <p class="validation-scope">文件与表头校验通过后，已校验：必填字段、订单状态、手机号、重复触达（四项完全一致）、短信内容。</p>
-      <div class="issue-list"><div class="issue-header"><h2 class="section-title">校验问题清单</h2><span class="muted">问题数据不会进入发送队列</span></div><div class="table-wrap"><table><thead><tr><th>Excel 行号</th><th>订单编号</th><th>校验项</th><th>问题原因</th></tr></thead><tbody><tr><td>121</td><td>-</td><td>${tag("必填字段", "status-failed")}</td><td>订单编号、姓名、手机号、短信内容为空</td></tr></tbody></table></div></div>
-      <div class="button-row"><button class="button" id="show-rejection">查看全部问题</button><button class="button primary" id="execute-send" ${batch.status !== "待执行" ? "disabled" : ""}>${batch.status === "待执行" ? "执行发送 119 条" : "已启动发送"}</button></div>
-    </section>`;
+    ${renderValidationPanel(batch)}`;
   return renderGroupedRightNote(main, "导入规则说明", [
+    {
+      title: "状态演示（仅供原型查看）",
+      controls: `<div class="note-demo-switch" role="group" aria-label="校验结果状态演示"><button class="note-demo-button ${state.validationDemo === "success" ? "active" : ""}" data-validation-demo="success">正常结果</button><button class="note-demo-button ${state.validationDemo === "format" ? "active" : ""}" data-validation-demo="format">格式错误</button><button class="note-demo-button ${state.validationDemo === "content" ? "active" : ""}" data-validation-demo="content">内容错误</button></div>`,
+      items: ["此切换仅用于演示不同校验结果，正式上线页面不展示。"],
+    },
     {
       title: "文件与数量限制",
       items: [
@@ -269,6 +270,15 @@ function renderImport() {
       ],
     },
     {
+      title: "校验结果与处理",
+      items: [
+        "格式错误采用文件级红色提示，展示表头差异；整份文件阻断，不展示可发送数和逐行问题，不创建任务，并禁用执行发送。",
+        "内容错误采用黄色提示，展示总数、可发送数、问题数和逐行问题；错误数据不进入队列，有效数据仍可执行发送。",
+        "内容校验后可发送数为 0 时，显示“无可发送数据”并禁用执行发送。",
+        "校验服务异常不归类为格式错误或内容错误，应单独提示服务异常并提供“重新校验”。",
+      ],
+    },
+    {
       title: "业务校验与发送",
       items: [
         "导入文件须包含订单编号、客户姓名、手机号、短信内容四项必填字段。",
@@ -278,6 +288,36 @@ function renderImport() {
       ],
     },
   ]);
+}
+
+function renderValidationPanel(batch) {
+  const isPending = batch.status === "待执行";
+  if (state.validationDemo === "format") {
+    return `<section class="card validation-panel">
+      <div class="validation-line"><div class="validation-file"><strong>${escapeHtml(state.fileName)}</strong>${tag("文件校验失败", "status-failed")}</div></div>
+      <div class="format-error-panel"><div><strong>表格格式不正确，无法继续校验</strong><p>必填表头与导入模板不一致，请按差异修改文件后重新上传。</p></div><button class="button small" id="replace-file">重新上传</button></div>
+      <div class="table-wrap format-diff-table"><table><thead><tr><th>问题类型</th><th>期望表头</th><th>实际情况</th></tr></thead><tbody><tr><td>缺少表头</td><td>手机号</td><td>未找到</td></tr><tr><td>表头名称错误</td><td>短信内容</td><td>实际为“短信文案”</td></tr></tbody></table></div>
+      <div class="button-row"><button class="button primary" id="execute-send" disabled title="请先上传符合模板的文件">执行发送</button></div>
+    </section>`;
+  }
+
+  const hasContentErrors = state.validationDemo === "content";
+  const statusText = hasContentErrors ? "校验完成，存在问题" : "校验完成";
+  const statusClass = hasContentErrors ? "status-awaiting-receipt" : "status-success";
+  const validationStats = hasContentErrors
+    ? '<div class="validation-stats"><span>共 <b>120</b> 条</span><span class="good">可发送 <b>117</b> 条</span><span class="bad">问题 <b>3</b> 条</span></div>'
+    : '<div class="validation-stats"><span>共 <b>120</b> 条</span><span class="good">可发送 <b>119</b> 条</span><span class="bad">问题 <b>1</b> 条</span></div>';
+  const executeLabel = hasContentErrors ? "执行发送 117 条" : "执行发送 119 条";
+  const problemRows = hasContentErrors
+    ? `<tr><td>18</td><td>DZ2026080017</td><td>${tag("手机号", "status-failed")}</td><td>手机号格式错误</td></tr><tr><td>76</td><td>DZ2026080075</td><td>${tag("订单状态", "status-failed")}</td><td>订单已结清，不允许发送</td></tr><tr><td>121</td><td>-</td><td>${tag("必填字段", "status-failed")}</td><td>订单编号、客户姓名、手机号、短信内容为空</td></tr>`
+    : `<tr><td>121</td><td>-</td><td>${tag("必填字段", "status-failed")}</td><td>订单编号、姓名、手机号、短信内容为空</td></tr>`;
+  return `<section class="card validation-panel">
+    <div class="validation-line"><div class="validation-file"><strong>${escapeHtml(state.fileName)}</strong>${tag(statusText, statusClass)}</div>${validationStats}</div>
+    ${hasContentErrors ? '<div class="content-warning-line"><strong>部分数据未通过校验</strong><span>问题数据不会进入发送队列，其余 117 条可继续发送。</span></div>' : ""}
+    <p class="validation-scope">文件与表头校验通过后，已校验：必填字段、订单状态、手机号、重复触达（四项完全一致）、短信内容。</p>
+    <div class="issue-list"><div class="issue-header"><h2 class="section-title">校验问题清单</h2><span class="muted">问题数据不会进入发送队列</span></div><div class="table-wrap"><table><thead><tr><th>Excel 行号</th><th>订单编号</th><th>校验项</th><th>问题原因</th></tr></thead><tbody>${problemRows}</tbody></table></div></div>
+    <div class="button-row"><button class="button" id="show-rejection">查看全部问题</button><button class="button primary" id="execute-send" ${!isPending ? "disabled" : ""}>${isPending ? executeLabel : "已启动发送"}</button></div>
+  </section>`;
 }
 
 function renderBatches() {
@@ -351,7 +391,9 @@ function bindEvents() {
   document.querySelectorAll("[data-view]").forEach((button) => button.addEventListener("click", () => { state.activeView = button.dataset.view; render(); }));
   document.querySelector("#open-import")?.addEventListener("click", () => { state.activeView = "import"; render(); });
   document.querySelector("#back-to-batches")?.addEventListener("click", () => { state.activeView = "batches"; render(); });
-  document.querySelector("#excel-file")?.addEventListener("change", (event) => { state.fileName = event.target.files?.[0]?.name || state.fileName; render(); showToast("文件已选择，正在使用演示校验结果"); });
+  document.querySelector("#excel-file")?.addEventListener("change", (event) => { state.fileName = event.target.files?.[0]?.name || state.fileName; state.validationDemo = "success"; render(); showToast("文件已选择，已自动完成校验"); });
+  document.querySelector("#replace-file")?.addEventListener("click", () => document.querySelector("#excel-file")?.click());
+  document.querySelectorAll("[data-validation-demo]").forEach((button) => button.addEventListener("click", () => { state.validationDemo = button.dataset.validationDemo; render(); }));
   document.querySelector("#download-template")?.addEventListener("click", downloadTemplate);
   document.querySelector("#batch-name")?.addEventListener("input", (event) => { state.draftName = event.target.value; });
   document.querySelector("#show-rejection")?.addEventListener("click", showRejectionModal);
@@ -451,19 +493,26 @@ function startManualRetry(tasks, batchName) {
 function showExecuteModal() {
   const name = state.draftName.trim();
   if (!name) return showToast("请先填写批次名称");
-  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>确认执行发送？</h2><p>将以批次“<strong>${escapeHtml(name)}</strong>”创建 119 条有效任务，并立即启动固定手机串行 Job。拒绝的 1 条空行不会进入发送队列。</p><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-send">确认并启动 Job</button></div></section></div>`;
+  if (state.validationDemo === "format") return showToast("请先上传符合模板的文件");
+  const sendableCount = state.validationDemo === "content" ? 117 : 119;
+  const rejectedCount = state.validationDemo === "content" ? 3 : 1;
+  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>确认执行发送？</h2><p>将以批次“<strong>${escapeHtml(name)}</strong>”创建 ${sendableCount} 条有效任务，并立即启动固定手机串行 Job。未通过校验的 ${rejectedCount} 条数据不会进入发送队列。</p><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-send">确认并启动 Job</button></div></section></div>`;
   modalRoot.querySelector("[data-close]").onclick = closeModal;
   modalRoot.querySelector("#confirm-send").onclick = startJob;
 }
 
 function startJob() {
   const batch = batchById("B001");
+  const sendableCount = state.validationDemo === "content" ? 117 : 119;
   batch.name = state.draftName.trim();
   batch.fileName = state.fileName;
+  batch.total = sendableCount;
+  batch.valid = sendableCount;
+  batch.rejected = state.validationDemo === "content" ? 3 : 1;
   batch.status = "发送中";
   batch.updatedAt = "2026-08-05 14:32";
   if (!state.tasks.some((task) => task.batchId === "B001")) {
-    for (let index = 1; index <= 119; index += 1) {
+    for (let index = 1; index <= sendableCount; index += 1) {
       const result = index % 23 === 0 ? "待回执" : index % 17 === 0 ? "发送失败" : "发送成功";
       const evidence = result === "发送成功" && index % 19 !== 0 ? "已留存" : "无凭证";
       state.tasks.unshift(makeTask(index, "B001", result, evidence, result === "发送失败" ? 2 : 0, "2026-08-05 14:32"));
