@@ -99,25 +99,6 @@ const contentErrorTypes = [
   { code: "PHONE_INVALID", item: "手机号", scenario: "手机号格式错误", rule: "不符合 11 位中国大陆手机号规范", result: "该行不进入发送队列" },
   { code: "DUPLICATE_TOUCH", item: "重复触达", scenario: "重复触达", rule: "订单编号、客户姓名、手机号、短信内容四项完全一致", result: "该行不进入发送队列" },
 ];
-const contentErrorSummary = [
-  ["必填字段", 1500],
-  ["订单状态", 1100],
-  ["手机号", 900],
-  ["重复触达", 500],
-];
-const contentErrorPreview = [
-  [18, "DZ2026080017", "手机号", "手机号格式错误"],
-  [76, "DZ2026080075", "订单状态", "订单已结清，不允许发送"],
-  [121, "-", "必填字段", "订单编号、客户姓名、手机号、短信内容为空"],
-  [238, "DZ2026080237", "重复触达", "订单编号、客户姓名、手机号、短信内容四项完全一致"],
-  [509, "DZ2026080508", "手机号", "手机号格式错误"],
-  [884, "-", "必填字段", "手机号为空"],
-  [1260, "DZ2026081259", "订单状态", "订单已结清，不允许发送"],
-  [2076, "DZ2026082075", "重复触达", "订单编号、客户姓名、手机号、短信内容四项完全一致"],
-  [3321, "-", "必填字段", "短信内容为空"],
-  [4988, "DZ2026084987", "手机号", "手机号格式错误"],
-];
-
 const state = {
   activeView: "batches",
   validationDemo: "success",
@@ -292,7 +273,7 @@ function renderImport() {
       items: [
         "上传 Excel 后自动校验，不设置独立“开始校验”按钮。",
         "文件选择后先做文件类型、大小、表头和必填字段检查，再自动发起后台完整校验。",
-        "校验期间显示“正在校验”和进度；完成后展示总数、可发送数和问题数；仅内容错误展示问题清单。",
+        "校验期间显示“正在校验”和进度；完成后展示总数、可发送数和问题数；内容错误可下载错误明细。",
         "重新上传自动重新校验；仅校验服务异常时提供“重新校验”。",
       ],
     },
@@ -302,11 +283,11 @@ function renderImport() {
         "正常结果仅用于全部数据校验通过的场景：总条数等于可发送数、问题数为 0，且不展示问题清单。",
         "任一数据存在必填字段缺失、订单已结清、手机号格式错误或重复触达等逐行问题时，统一归类为内容错误。",
         "格式错误仅采用文件级红色提示说明原因和处理方式，不额外展示重新上传按钮或表头差异表；整份文件阻断，不展示可发送数和逐行问题，不创建任务，并禁用执行发送。",
-        "内容错误采用黄色提示，展示总数、可发送数、问题数和错误类型分布；主页面最多预览前 10 条问题，不渲染完整长列表或大量分页。",
-        "完整问题通过“下载错误明细”导出；错误 Excel 包含“错误数据明细”和“错误类型说明”两个 Sheet。",
+        "内容错误采用黄色提示，展示总数、可发送数和问题数；页面不展示错误类型分布和问题数据预览；完整问题统一通过“下载错误明细”查看。",
+        "错误 Excel 包含“错误数据明细”和“错误类型说明”两个 Sheet。",
         "错误数据明细保留原 Excel 行号和原始业务字段；同一行存在多个错误时，每个问题单独一行。",
         "错误类型说明列出：订单编号为空、客户姓名为空、手机号为空、短信内容为空、订单已结清、手机号格式错误、重复触达。格式错误不生成错误明细 Excel。",
-        "问题数据不进入队列，有效数据仍可执行发送；问题类型数量按命中行统计，同一行可命中多个类型，因此类型数量之和可能大于问题数据条数。",
+        "问题数据不进入队列，有效数据仍可执行发送。",
         "内容校验后可发送数为 0 时，显示“无可发送数据”并禁用执行发送。",
         "校验服务异常不归类为格式错误或内容错误，应单独提示服务异常并提供“重新校验”。",
       ],
@@ -340,19 +321,11 @@ function renderValidationPanel(batch) {
     ? '<div class="validation-stats"><span>共 <b>5000</b> 条</span><span class="good">可发送 <b>1000</b> 条</span><span class="bad">问题 <b>4000</b> 条</span></div>'
     : '<div class="validation-stats"><span>共 <b>120</b> 条</span><span class="good">可发送 <b>120</b> 条</span><span class="bad">问题 <b>0</b> 条</span></div>';
   const executeLabel = hasContentErrors ? "执行发送 1000 条" : "执行发送 120 条";
-  const issueSummary = hasContentErrors
-    ? `<div class="issue-summary"><strong>问题类型分布</strong>${contentErrorSummary.map(([item, count]) => `<span>${item}<b>${count}</b></span>`).join("")}<small>同一行可命中多个类型</small></div>`
-    : "";
-  const issueList = hasContentErrors
-    ? `<div class="issue-list"><div class="issue-header"><h2 class="section-title">问题数据预览（前 10 条）</h2><span class="muted">完整 4000 条请下载错误明细</span></div><div class="table-wrap"><table><thead><tr><th>Excel 行号</th><th>订单编号</th><th>校验项</th><th>问题原因</th></tr></thead><tbody>${contentErrorPreview.map(([row, orderNo, item, reason]) => `<tr><td>${row}</td><td>${orderNo}</td><td>${tag(item, "status-failed")}</td><td>${reason}</td></tr>`).join("")}</tbody></table></div><p class="issue-preview-note">页面固定展示前 10 条，仅用于快速核对；完整问题及全部错误类型请下载 Excel。</p></div>`
-    : "";
   return `<section class="card validation-panel">
     <div class="validation-line"><div class="validation-file"><strong>${escapeHtml(state.fileName)}</strong>${tag(statusText, statusClass)}</div>${validationStats}</div>
     ${hasContentErrors ? '<div class="content-warning-line"><strong>部分数据未通过校验</strong><span>4000 条问题数据不会进入发送队列，其余 1000 条可继续发送。</span></div>' : ""}
     ${hasContentErrors ? "" : '<div class="validation-success-line">全部数据校验通过，可执行发送。</div>'}
     <p class="validation-scope">文件与表头校验通过后，已校验：必填字段、订单状态、手机号、重复触达（四项完全一致）、短信内容。</p>
-    ${issueSummary}
-    ${issueList}
     <div class="button-row">${hasContentErrors ? '<button class="button" id="download-error-details">下载错误明细</button>' : ""}<button class="button primary" id="execute-send" ${!isPending ? "disabled" : ""}>${isPending ? executeLabel : "已启动发送"}</button></div>
   </section>`;
 }
