@@ -90,6 +90,33 @@ function resolveFinalFailureReason(task) {
 
 const sampleMessage = "【债转通知】您好，您申请的租赁业务相关应付款已由宁波晓程企业管理有限公司代为偿还，现依法向您进行债务追偿。请及时关注并处理。";
 const now = "2026-08-05 14:30";
+const contentErrorTypes = [
+  { code: "REQUIRED_ORDER_NO", item: "必填字段", scenario: "订单编号为空", rule: "订单编号未填写或仅包含空格", result: "该行不进入发送队列" },
+  { code: "REQUIRED_NAME", item: "必填字段", scenario: "客户姓名为空", rule: "客户姓名未填写或仅包含空格", result: "该行不进入发送队列" },
+  { code: "REQUIRED_PHONE", item: "必填字段", scenario: "手机号为空", rule: "手机号未填写或仅包含空格", result: "该行不进入发送队列" },
+  { code: "REQUIRED_MESSAGE", item: "必填字段", scenario: "短信内容为空", rule: "短信内容未填写或仅包含空格", result: "该行不进入发送队列" },
+  { code: "ORDER_SETTLED", item: "订单状态", scenario: "订单已结清", rule: "订单实时状态为已结清", result: "不允许发送" },
+  { code: "PHONE_INVALID", item: "手机号", scenario: "手机号格式错误", rule: "不符合 11 位中国大陆手机号规范", result: "该行不进入发送队列" },
+  { code: "DUPLICATE_TOUCH", item: "重复触达", scenario: "重复触达", rule: "订单编号、客户姓名、手机号、短信内容四项完全一致", result: "该行不进入发送队列" },
+];
+const contentErrorSummary = [
+  ["必填字段", 1500],
+  ["订单状态", 1100],
+  ["手机号", 900],
+  ["重复触达", 500],
+];
+const contentErrorPreview = [
+  [18, "DZ2026080017", "手机号", "手机号格式错误"],
+  [76, "DZ2026080075", "订单状态", "订单已结清，不允许发送"],
+  [121, "-", "必填字段", "订单编号、客户姓名、手机号、短信内容为空"],
+  [238, "DZ2026080237", "重复触达", "订单编号、客户姓名、手机号、短信内容四项完全一致"],
+  [509, "DZ2026080508", "手机号", "手机号格式错误"],
+  [884, "-", "必填字段", "手机号为空"],
+  [1260, "DZ2026081259", "订单状态", "订单已结清，不允许发送"],
+  [2076, "DZ2026082075", "重复触达", "订单编号、客户姓名、手机号、短信内容四项完全一致"],
+  [3321, "-", "必填字段", "短信内容为空"],
+  [4988, "DZ2026084987", "手机号", "手机号格式错误"],
+];
 
 const state = {
   activeView: "batches",
@@ -256,7 +283,7 @@ function renderImport() {
       items: [
         "订单编号、客户姓名、手机号、短信内容四个必填表头必须各出现一次，名称须完全一致；顺序不限，其他扩展列忽略。",
         "表头缺失、名称不一致、重复、为空或使用合并单元格时，判定表格格式校验失败。",
-        "表头校验失败时，状态显示“文件校验失败”，列出期望表头和具体差异；不进入逐行校验，不展示可发送数，不创建任务，并禁用“执行发送”。",
+        "表头校验失败时，状态显示“文件校验失败”，用红色提示说明格式不正确并引导按模板修改后重新上传；不进入逐行校验，不展示可发送数，不创建任务，并禁用“执行发送”。",
         "重新上传符合模板的文件后自动重新校验。",
       ],
     },
@@ -272,8 +299,12 @@ function renderImport() {
     {
       title: "校验结果与处理",
       items: [
-        "格式错误采用文件级红色提示，展示表头差异；整份文件阻断，不展示可发送数和逐行问题，不创建任务，并禁用执行发送。",
-        "内容错误采用黄色提示，展示总数、可发送数、问题数和逐行问题；错误数据不进入队列，有效数据仍可执行发送。",
+        "格式错误仅采用文件级红色提示说明原因和处理方式，不额外展示重新上传按钮或表头差异表；整份文件阻断，不展示可发送数和逐行问题，不创建任务，并禁用执行发送。",
+        "内容错误采用黄色提示，展示总数、可发送数、问题数和错误类型分布；主页面最多预览前 10 条问题，不渲染完整长列表或大量分页。",
+        "完整问题通过“下载错误明细”导出；错误 Excel 包含“错误数据明细”和“错误类型说明”两个 Sheet。",
+        "错误数据明细保留原 Excel 行号和原始业务字段；同一行存在多个错误时，每个问题单独一行。",
+        "错误类型说明列出：订单编号为空、客户姓名为空、手机号为空、短信内容为空、订单已结清、手机号格式错误、重复触达。格式错误不生成错误明细 Excel。",
+        "问题数据不进入队列，有效数据仍可执行发送；问题类型数量按命中行统计，同一行可命中多个类型，因此类型数量之和可能大于问题数据条数。",
         "内容校验后可发送数为 0 时，显示“无可发送数据”并禁用执行发送。",
         "校验服务异常不归类为格式错误或内容错误，应单独提示服务异常并提供“重新校验”。",
       ],
@@ -295,8 +326,7 @@ function renderValidationPanel(batch) {
   if (state.validationDemo === "format") {
     return `<section class="card validation-panel">
       <div class="validation-line"><div class="validation-file"><strong>${escapeHtml(state.fileName)}</strong>${tag("文件校验失败", "status-failed")}</div></div>
-      <div class="format-error-panel"><div><strong>表格格式不正确，无法继续校验</strong><p>必填表头与导入模板不一致，请按差异修改文件后重新上传。</p></div><button class="button small" id="replace-file">重新上传</button></div>
-      <div class="table-wrap format-diff-table"><table><thead><tr><th>问题类型</th><th>期望表头</th><th>实际情况</th></tr></thead><tbody><tr><td>缺少表头</td><td>手机号</td><td>未找到</td></tr><tr><td>表头名称错误</td><td>短信内容</td><td>实际为“短信文案”</td></tr></tbody></table></div>
+      <div class="format-error-panel"><strong>表格格式不正确，无法继续校验</strong><p>必填表头与导入模板不一致，请按模板修改文件后重新上传。</p></div>
       <div class="button-row"><button class="button primary" id="execute-send" disabled title="请先上传符合模板的文件">执行发送</button></div>
     </section>`;
   }
@@ -305,18 +335,22 @@ function renderValidationPanel(batch) {
   const statusText = hasContentErrors ? "校验完成，存在问题" : "校验完成";
   const statusClass = hasContentErrors ? "status-awaiting-receipt" : "status-success";
   const validationStats = hasContentErrors
-    ? '<div class="validation-stats"><span>共 <b>120</b> 条</span><span class="good">可发送 <b>117</b> 条</span><span class="bad">问题 <b>3</b> 条</span></div>'
+    ? '<div class="validation-stats"><span>共 <b>5000</b> 条</span><span class="good">可发送 <b>1000</b> 条</span><span class="bad">问题 <b>4000</b> 条</span></div>'
     : '<div class="validation-stats"><span>共 <b>120</b> 条</span><span class="good">可发送 <b>119</b> 条</span><span class="bad">问题 <b>1</b> 条</span></div>';
-  const executeLabel = hasContentErrors ? "执行发送 117 条" : "执行发送 119 条";
+  const executeLabel = hasContentErrors ? "执行发送 1000 条" : "执行发送 119 条";
   const problemRows = hasContentErrors
-    ? `<tr><td>18</td><td>DZ2026080017</td><td>${tag("手机号", "status-failed")}</td><td>手机号格式错误</td></tr><tr><td>76</td><td>DZ2026080075</td><td>${tag("订单状态", "status-failed")}</td><td>订单已结清，不允许发送</td></tr><tr><td>121</td><td>-</td><td>${tag("必填字段", "status-failed")}</td><td>订单编号、客户姓名、手机号、短信内容为空</td></tr>`
+    ? contentErrorPreview.map(([row, orderNo, item, reason]) => `<tr><td>${row}</td><td>${orderNo}</td><td>${tag(item, "status-failed")}</td><td>${reason}</td></tr>`).join("")
     : `<tr><td>121</td><td>-</td><td>${tag("必填字段", "status-failed")}</td><td>订单编号、姓名、手机号、短信内容为空</td></tr>`;
+  const issueSummary = hasContentErrors
+    ? `<div class="issue-summary"><strong>问题类型分布</strong>${contentErrorSummary.map(([item, count]) => `<span>${item}<b>${count}</b></span>`).join("")}<small>同一行可命中多个类型</small></div>`
+    : "";
   return `<section class="card validation-panel">
     <div class="validation-line"><div class="validation-file"><strong>${escapeHtml(state.fileName)}</strong>${tag(statusText, statusClass)}</div>${validationStats}</div>
-    ${hasContentErrors ? '<div class="content-warning-line"><strong>部分数据未通过校验</strong><span>问题数据不会进入发送队列，其余 117 条可继续发送。</span></div>' : ""}
+    ${hasContentErrors ? '<div class="content-warning-line"><strong>部分数据未通过校验</strong><span>4000 条问题数据不会进入发送队列，其余 1000 条可继续发送。</span></div>' : ""}
     <p class="validation-scope">文件与表头校验通过后，已校验：必填字段、订单状态、手机号、重复触达（四项完全一致）、短信内容。</p>
-    <div class="issue-list"><div class="issue-header"><h2 class="section-title">校验问题清单</h2><span class="muted">问题数据不会进入发送队列</span></div><div class="table-wrap"><table><thead><tr><th>Excel 行号</th><th>订单编号</th><th>校验项</th><th>问题原因</th></tr></thead><tbody>${problemRows}</tbody></table></div></div>
-    <div class="button-row"><button class="button" id="show-rejection">查看全部问题</button><button class="button primary" id="execute-send" ${!isPending ? "disabled" : ""}>${isPending ? executeLabel : "已启动发送"}</button></div>
+    ${issueSummary}
+    <div class="issue-list"><div class="issue-header"><h2 class="section-title">${hasContentErrors ? "问题数据预览（前 10 条）" : "校验问题清单"}</h2><span class="muted">${hasContentErrors ? "完整 4000 条请下载错误明细" : "问题数据不会进入发送队列"}</span></div><div class="table-wrap"><table><thead><tr><th>Excel 行号</th><th>订单编号</th><th>校验项</th><th>问题原因</th></tr></thead><tbody>${problemRows}</tbody></table></div>${hasContentErrors ? '<p class="issue-preview-note">页面固定展示前 10 条，仅用于快速核对；完整问题及全部错误类型请下载 Excel。</p>' : ""}</div>
+    <div class="button-row">${hasContentErrors ? '<button class="button" id="download-error-details">下载错误明细</button>' : ""}<button class="button primary" id="execute-send" ${!isPending ? "disabled" : ""}>${isPending ? executeLabel : "已启动发送"}</button></div>
   </section>`;
 }
 
@@ -392,11 +426,10 @@ function bindEvents() {
   document.querySelector("#open-import")?.addEventListener("click", () => { state.activeView = "import"; render(); });
   document.querySelector("#back-to-batches")?.addEventListener("click", () => { state.activeView = "batches"; render(); });
   document.querySelector("#excel-file")?.addEventListener("change", (event) => { state.fileName = event.target.files?.[0]?.name || state.fileName; state.validationDemo = "success"; render(); showToast("文件已选择，已自动完成校验"); });
-  document.querySelector("#replace-file")?.addEventListener("click", () => document.querySelector("#excel-file")?.click());
   document.querySelectorAll("[data-validation-demo]").forEach((button) => button.addEventListener("click", () => { state.validationDemo = button.dataset.validationDemo; render(); }));
   document.querySelector("#download-template")?.addEventListener("click", downloadTemplate);
   document.querySelector("#batch-name")?.addEventListener("input", (event) => { state.draftName = event.target.value; });
-  document.querySelector("#show-rejection")?.addEventListener("click", showRejectionModal);
+  document.querySelector("#download-error-details")?.addEventListener("click", showErrorWorkbookModal);
   document.querySelector("#execute-send")?.addEventListener("click", showExecuteModal);
   document.querySelectorAll("[data-action='rename']").forEach((button) => button.addEventListener("click", () => showRenameModal(button.dataset.id)));
   document.querySelectorAll("[data-action='batch-tasks']").forEach((button) => button.addEventListener("click", () => { state.filters.batchId = button.dataset.id; state.activeView = "records"; render(); }));
@@ -494,8 +527,8 @@ function showExecuteModal() {
   const name = state.draftName.trim();
   if (!name) return showToast("请先填写批次名称");
   if (state.validationDemo === "format") return showToast("请先上传符合模板的文件");
-  const sendableCount = state.validationDemo === "content" ? 117 : 119;
-  const rejectedCount = state.validationDemo === "content" ? 3 : 1;
+  const sendableCount = state.validationDemo === "content" ? 1000 : 119;
+  const rejectedCount = state.validationDemo === "content" ? 4000 : 1;
   modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>确认执行发送？</h2><p>将以批次“<strong>${escapeHtml(name)}</strong>”创建 ${sendableCount} 条有效任务，并立即启动固定手机串行 Job。未通过校验的 ${rejectedCount} 条数据不会进入发送队列。</p><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-send">确认并启动 Job</button></div></section></div>`;
   modalRoot.querySelector("[data-close]").onclick = closeModal;
   modalRoot.querySelector("#confirm-send").onclick = startJob;
@@ -503,7 +536,7 @@ function showExecuteModal() {
 
 function startJob() {
   const batch = batchById("B001");
-  const sendableCount = state.validationDemo === "content" ? 117 : 119;
+  const sendableCount = state.validationDemo === "content" ? 1000 : 119;
   batch.name = state.draftName.trim();
   batch.fileName = state.fileName;
   batch.total = sendableCount;
@@ -529,9 +562,14 @@ function startJob() {
   window.setTimeout(() => { batch.status = "已完成"; batch.updatedAt = "2026-08-05 14:36"; render(); showToast("演示 Job 已完成，发送凭证已同步留存"); }, 2400);
 }
 
-function showRejectionModal() {
-  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>校验问题明细</h2><div class="table-wrap"><table><thead><tr><th>Excel 行号</th><th>订单编号</th><th>校验项</th><th>问题原因</th></tr></thead><tbody><tr><td>121</td><td>-</td><td>${tag("必填字段", "status-failed")}</td><td>订单编号、姓名、手机号和短信内容为空</td></tr></tbody></table></div><div class="button-row"><button class="button primary" data-close>我知道了</button></div></section></div>`;
+function showErrorWorkbookModal() {
+  const errorTypeRows = contentErrorTypes.map((type) => `<tr><td>${type.code}</td><td>${type.item}</td><td>${type.scenario}</td><td>${type.rule}</td><td>${type.result}</td></tr>`).join("");
+  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal wide-modal error-workbook-modal"><h2>下载错误明细</h2><p>将生成 <strong>短信通知_导入错误明细.xlsx</strong>，包含 4000 条问题数据和以下两个 Sheet。</p><div class="workbook-sheets"><div class="workbook-sheet"><span class="excel-mark">XLSX</span><div><strong>错误数据明细</strong><p>原 Excel 行号、订单编号、客户姓名、手机号、短信内容、校验项、问题原因。同一行存在多个错误时，每个问题单独一行。</p></div></div><div class="workbook-sheet"><span class="excel-mark">SHEET</span><div><strong>错误类型说明</strong><p>类型编码、校验项、错误场景、判定规则、处理结果。</p></div></div></div><div class="table-wrap error-type-table"><table><thead><tr><th>类型编码</th><th>校验项</th><th>错误场景</th><th>判定规则</th><th>处理结果</th></tr></thead><tbody>${errorTypeRows}</tbody></table></div><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-error-download">确认下载</button></div></section></div>`;
   modalRoot.querySelector("[data-close]").onclick = closeModal;
+  modalRoot.querySelector("#confirm-error-download").onclick = () => {
+    closeModal();
+    showToast("原型演示：错误明细 Excel 已生成，包含 2 个 Sheet");
+  };
 }
 
 function showRenameModal(batchId) {

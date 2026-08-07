@@ -70,17 +70,20 @@ input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 2px 
 .validation-stats .good, .validation-stats .good b { color: var(--success); }
 .validation-stats .bad, .validation-stats .bad b { color: var(--danger); }
 .validation-scope { margin: 10px 0; color: var(--muted); font-size: 12px; }
-.format-error-panel { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 12px; padding: 10px 12px; border: 1px solid #f0b1ae; border-radius: 4px; color: #a52828; background: var(--danger-soft); }
+.format-error-panel { margin-top: 12px; padding: 10px 12px; border: 1px solid #f0b1ae; border-radius: 4px; color: #a52828; background: var(--danger-soft); }
 .format-error-panel p { margin: 2px 0 0; color: #a84a46; font-size: 12px; }
-.format-error-panel .button { flex: 0 0 auto; border-color: #e49a96; color: #a52828; background: #fff; }
-.format-diff-table { margin-top: 10px; }
-.format-diff-table table { min-width: 620px; }
 .content-warning-line { display: flex; align-items: center; gap: 12px; margin-top: 10px; padding: 8px 12px; border-left: 3px solid #e4a11b; color: #8d5b00; background: var(--warning-soft); font-size: 12px; }
 .content-warning-line strong { flex: 0 0 auto; }
+.issue-summary { display: flex; align-items: center; gap: 20px; margin-top: 10px; padding: 9px 12px; border: 1px solid #eceff3; background: #fafbfc; color: #526071; font-size: 12px; }
+.issue-summary > strong { color: var(--text); font-size: 13px; }
+.issue-summary span { display: inline-flex; align-items: baseline; gap: 6px; }
+.issue-summary span b { color: var(--danger); font-size: 14px; }
+.issue-summary small { margin-left: auto; color: var(--muted); }
 .issue-list { margin-top: 8px; }
 .issue-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .issue-header .section-title { margin: 0; }
 .issue-list .table-wrap { margin-top: 8px; }
+.issue-preview-note { margin: 8px 0 0; color: var(--muted); font-size: 12px; text-align: right; }
 .notice { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 8px 12px; border: 1px solid #f7d9a8; border-radius: 4px; color: #8d5b00; background: var(--warning-soft); }
 .button-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px; }
 .button { padding: 7px 14px; border: 1px solid #d9dfe7; border-radius: 4px; color: #374151; background: #fff; }
@@ -125,6 +128,15 @@ tr:hover td { background: #fafcff; }
 .evidence-file + .evidence-file { border-top: 1px solid #f7d9a8; }
 .evidence-file strong { width: 150px; color: #745000; }
 .evidence-file span { flex: 1; }
+.error-workbook-modal { width: min(920px, 100%); max-height: calc(100vh - 40px); overflow: auto; }
+.workbook-sheets { margin-top: 14px; border: 1px solid #cfe7da; background: #f4fbf7; }
+.workbook-sheet { display: flex; align-items: flex-start; gap: 12px; padding: 11px 14px; }
+.workbook-sheet + .workbook-sheet { border-top: 1px solid #cfe7da; }
+.workbook-sheet p { margin: 2px 0 0; font-size: 12px; }
+.excel-mark { display: inline-grid; flex: 0 0 auto; width: 44px; min-height: 24px; place-items: center; border-radius: 3px; color: #fff; background: #17864b; font-size: 9px; font-weight: 700; }
+.error-type-table { margin-top: 12px; }
+.error-type-table table { min-width: 840px; }
+.error-type-table td:nth-child(4) { white-space: normal; text-align: left; }
 .compact-table { margin-top: 12px; }
 .compact-table table { min-width: 620px; }
 .pagination { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 14px; color: var(--muted); font-size: 13px; }
