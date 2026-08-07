@@ -256,13 +256,21 @@ function renderBatches() {
   }).join("");
   const tableRows = rows || '<tr><td colspan="10" class="empty">暂无符合搜索条件的批次</td></tr>';
   const main = `<section class="card"><div class="toolbar"><div><h2 class="section-title" style="margin-bottom:4px">批次管理</h2></div><button class="button primary" id="open-import">任务导入</button></div><div class="filters batch-filters"><div class="filter"><label for="batch-filter-order">订单编号</label><input id="batch-filter-order" data-batch-filter placeholder="精确输入订单编号" value="${escapeHtml(state.batchFilters.orderNo)}" /></div><div class="filter"><label for="batch-filter-name">客户姓名</label><input id="batch-filter-name" data-batch-filter placeholder="精确输入客户姓名" value="${escapeHtml(state.batchFilters.name)}" /></div><div class="filter"><label for="batch-filter-phone">手机号</label><input id="batch-filter-phone" data-batch-filter placeholder="精确输入手机号" value="${escapeHtml(state.batchFilters.phone)}" /></div><div class="filter"><label for="batch-filter-name-keyword">批次名称</label><input id="batch-filter-name-keyword" data-batch-filter placeholder="模糊输入批次名称" value="${escapeHtml(state.batchFilters.batchName)}" /></div><div class="filter-actions"><button class="button primary" id="batch-search">查询</button><button class="button" id="batch-reset">重置</button></div></div><div class="table-wrap"><table><thead><tr><th>批次名称</th><th>原文件名</th><th>导入时间</th><th>总任务</th><th>成功</th><th>失败</th><th>待回执</th><th>执行状态</th><th>最后更新时间</th><th>操作</th></tr></thead><tbody>${tableRows}</tbody></table></div></section>`;
-  return renderWithRightNote(main, "批次查询说明", [
-    "订单编号、客户姓名、手机号均为精确查询；批次名称支持模糊查询。",
-    "订单号命中批次内任一任务时，返回该任务所属的完整批次。",
-    "批次名称可维护，名称变更不影响任务归属、发送记录及证据凭证。",
-    "待执行：已导入、校验完成，尚未点击执行发送。",
-    "发送中：已启动 JOB，正在按固定手机串行发送。",
-    "已完成：该批次内任务全部处理结束。",
+  return renderGroupedRightNote(main, "批次管理说明", [
+    {
+      title: "批次查询说明",
+      items: [
+        "订单编号、客户姓名、手机号均为精确查询；批次名称支持模糊查询。",
+        "订单号命中批次内任一任务时，返回该任务所属的完整批次。",
+      ],
+    },
+    {
+      title: "列表区说明",
+      items: [
+        "批次名称可维护，名称变更不影响任务归属、发送记录及证据凭证。",
+        "执行状态：【待执行：已导入、校验完成，尚未点击执行发送。发送中：已启动 JOB，正在按固定手机串行发送。已完成：该批次内任务全部处理结束。】",
+      ],
+    },
   ]);
 }
 
