@@ -210,7 +210,7 @@ function renderWithRightNote(main, title, items) {
 }
 
 function renderGroupedRightNote(main, title, groups) {
-  return `<div class="page-with-note"><div class="page-main">${main}</div><aside class="right-note"><h3>备注说明</h3><h4>${title}</h4>${groups.map((group) => `<section class="note-group"><h5>${group.title}</h5>${group.items.map((item, index) => `<p><b>${index + 1}.</b> ${item}</p>`).join("")}</section>`).join("")}</aside></div>`;
+  return `<div class="page-with-note"><div class="page-main">${main}</div><aside class="right-note"><h3>备注说明</h3>${title ? `<h4>${title}</h4>` : ""}${groups.map((group) => `<section class="note-group"><h5>${group.title}</h5>${group.items.map((item, index) => `<p><b>${index + 1}.</b> ${item}</p>`).join("")}</section>`).join("")}</aside></div>`;
 }
 
 function render() {
@@ -256,7 +256,7 @@ function renderBatches() {
   }).join("");
   const tableRows = rows || '<tr><td colspan="10" class="empty">暂无符合搜索条件的批次</td></tr>';
   const main = `<section class="card"><div class="toolbar"><div><h2 class="section-title" style="margin-bottom:4px">批次管理</h2></div><button class="button primary" id="open-import">任务导入</button></div><div class="filters batch-filters"><div class="filter"><label for="batch-filter-order">订单编号</label><input id="batch-filter-order" data-batch-filter placeholder="精确输入订单编号" value="${escapeHtml(state.batchFilters.orderNo)}" /></div><div class="filter"><label for="batch-filter-name">客户姓名</label><input id="batch-filter-name" data-batch-filter placeholder="精确输入客户姓名" value="${escapeHtml(state.batchFilters.name)}" /></div><div class="filter"><label for="batch-filter-phone">手机号</label><input id="batch-filter-phone" data-batch-filter placeholder="精确输入手机号" value="${escapeHtml(state.batchFilters.phone)}" /></div><div class="filter"><label for="batch-filter-name-keyword">批次名称</label><input id="batch-filter-name-keyword" data-batch-filter placeholder="模糊输入批次名称" value="${escapeHtml(state.batchFilters.batchName)}" /></div><div class="filter-actions"><button class="button primary" id="batch-search">查询</button><button class="button" id="batch-reset">重置</button></div></div><div class="table-wrap"><table><thead><tr><th>批次名称</th><th>原文件名</th><th>导入时间</th><th>总任务</th><th>成功</th><th>失败</th><th>待回执</th><th>执行状态</th><th>最后更新时间</th><th>操作</th></tr></thead><tbody>${tableRows}</tbody></table></div></section>`;
-  return renderGroupedRightNote(main, "批次管理说明", [
+  return renderGroupedRightNote(main, "", [
     {
       title: "批次查询说明",
       items: [
