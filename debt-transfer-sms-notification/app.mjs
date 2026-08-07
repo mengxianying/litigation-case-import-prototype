@@ -130,9 +130,9 @@ const state = {
       fileName: "整理完后.xlsx",
       importedAt: "2026-08-05 14:30",
       importer: "当前用户",
-      total: 119,
-      valid: 119,
-      rejected: 1,
+      total: 120,
+      valid: 120,
+      rejected: 0,
       success: 0,
       failed: 0,
       awaitingReceipt: 0,
@@ -292,13 +292,15 @@ function renderImport() {
       items: [
         "上传 Excel 后自动校验，不设置独立“开始校验”按钮。",
         "文件选择后先做文件类型、大小、表头和必填字段检查，再自动发起后台完整校验。",
-        "校验期间显示“正在校验”和进度；完成后展示总数、可发送数、问题数及问题清单。",
+        "校验期间显示“正在校验”和进度；完成后展示总数、可发送数和问题数；仅内容错误展示问题清单。",
         "重新上传自动重新校验；仅校验服务异常时提供“重新校验”。",
       ],
     },
     {
       title: "校验结果与处理",
       items: [
+        "正常结果仅用于全部数据校验通过的场景：总条数等于可发送数、问题数为 0，且不展示问题清单。",
+        "任一数据存在必填字段缺失、订单已结清、手机号格式错误或重复触达等逐行问题时，统一归类为内容错误。",
         "格式错误仅采用文件级红色提示说明原因和处理方式，不额外展示重新上传按钮或表头差异表；整份文件阻断，不展示可发送数和逐行问题，不创建任务，并禁用执行发送。",
         "内容错误采用黄色提示，展示总数、可发送数、问题数和错误类型分布；主页面最多预览前 10 条问题，不渲染完整长列表或大量分页。",
         "完整问题通过“下载错误明细”导出；错误 Excel 包含“错误数据明细”和“错误类型说明”两个 Sheet。",
@@ -336,20 +338,21 @@ function renderValidationPanel(batch) {
   const statusClass = hasContentErrors ? "status-awaiting-receipt" : "status-success";
   const validationStats = hasContentErrors
     ? '<div class="validation-stats"><span>共 <b>5000</b> 条</span><span class="good">可发送 <b>1000</b> 条</span><span class="bad">问题 <b>4000</b> 条</span></div>'
-    : '<div class="validation-stats"><span>共 <b>120</b> 条</span><span class="good">可发送 <b>119</b> 条</span><span class="bad">问题 <b>1</b> 条</span></div>';
-  const executeLabel = hasContentErrors ? "执行发送 1000 条" : "执行发送 119 条";
-  const problemRows = hasContentErrors
-    ? contentErrorPreview.map(([row, orderNo, item, reason]) => `<tr><td>${row}</td><td>${orderNo}</td><td>${tag(item, "status-failed")}</td><td>${reason}</td></tr>`).join("")
-    : `<tr><td>121</td><td>-</td><td>${tag("必填字段", "status-failed")}</td><td>订单编号、姓名、手机号、短信内容为空</td></tr>`;
+    : '<div class="validation-stats"><span>共 <b>120</b> 条</span><span class="good">可发送 <b>120</b> 条</span><span class="bad">问题 <b>0</b> 条</span></div>';
+  const executeLabel = hasContentErrors ? "执行发送 1000 条" : "执行发送 120 条";
   const issueSummary = hasContentErrors
     ? `<div class="issue-summary"><strong>问题类型分布</strong>${contentErrorSummary.map(([item, count]) => `<span>${item}<b>${count}</b></span>`).join("")}<small>同一行可命中多个类型</small></div>`
+    : "";
+  const issueList = hasContentErrors
+    ? `<div class="issue-list"><div class="issue-header"><h2 class="section-title">问题数据预览（前 10 条）</h2><span class="muted">完整 4000 条请下载错误明细</span></div><div class="table-wrap"><table><thead><tr><th>Excel 行号</th><th>订单编号</th><th>校验项</th><th>问题原因</th></tr></thead><tbody>${contentErrorPreview.map(([row, orderNo, item, reason]) => `<tr><td>${row}</td><td>${orderNo}</td><td>${tag(item, "status-failed")}</td><td>${reason}</td></tr>`).join("")}</tbody></table></div><p class="issue-preview-note">页面固定展示前 10 条，仅用于快速核对；完整问题及全部错误类型请下载 Excel。</p></div>`
     : "";
   return `<section class="card validation-panel">
     <div class="validation-line"><div class="validation-file"><strong>${escapeHtml(state.fileName)}</strong>${tag(statusText, statusClass)}</div>${validationStats}</div>
     ${hasContentErrors ? '<div class="content-warning-line"><strong>部分数据未通过校验</strong><span>4000 条问题数据不会进入发送队列，其余 1000 条可继续发送。</span></div>' : ""}
+    ${hasContentErrors ? "" : '<div class="validation-success-line">全部数据校验通过，可执行发送。</div>'}
     <p class="validation-scope">文件与表头校验通过后，已校验：必填字段、订单状态、手机号、重复触达（四项完全一致）、短信内容。</p>
     ${issueSummary}
-    <div class="issue-list"><div class="issue-header"><h2 class="section-title">${hasContentErrors ? "问题数据预览（前 10 条）" : "校验问题清单"}</h2><span class="muted">${hasContentErrors ? "完整 4000 条请下载错误明细" : "问题数据不会进入发送队列"}</span></div><div class="table-wrap"><table><thead><tr><th>Excel 行号</th><th>订单编号</th><th>校验项</th><th>问题原因</th></tr></thead><tbody>${problemRows}</tbody></table></div>${hasContentErrors ? '<p class="issue-preview-note">页面固定展示前 10 条，仅用于快速核对；完整问题及全部错误类型请下载 Excel。</p>' : ""}</div>
+    ${issueList}
     <div class="button-row">${hasContentErrors ? '<button class="button" id="download-error-details">下载错误明细</button>' : ""}<button class="button primary" id="execute-send" ${!isPending ? "disabled" : ""}>${isPending ? executeLabel : "已启动发送"}</button></div>
   </section>`;
 }
@@ -527,21 +530,22 @@ function showExecuteModal() {
   const name = state.draftName.trim();
   if (!name) return showToast("请先填写批次名称");
   if (state.validationDemo === "format") return showToast("请先上传符合模板的文件");
-  const sendableCount = state.validationDemo === "content" ? 1000 : 119;
-  const rejectedCount = state.validationDemo === "content" ? 4000 : 1;
-  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>确认执行发送？</h2><p>将以批次“<strong>${escapeHtml(name)}</strong>”创建 ${sendableCount} 条有效任务，并立即启动固定手机串行 Job。未通过校验的 ${rejectedCount} 条数据不会进入发送队列。</p><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-send">确认并启动 Job</button></div></section></div>`;
+  const sendableCount = state.validationDemo === "content" ? 1000 : 120;
+  const rejectedCount = state.validationDemo === "content" ? 4000 : 0;
+  const rejectedText = rejectedCount ? `未通过校验的 ${rejectedCount} 条数据不会进入发送队列。` : "";
+  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal"><h2>确认执行发送？</h2><p>将以批次“<strong>${escapeHtml(name)}</strong>”创建 ${sendableCount} 条有效任务，并立即启动固定手机串行 Job。${rejectedText}</p><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-send">确认并启动 Job</button></div></section></div>`;
   modalRoot.querySelector("[data-close]").onclick = closeModal;
   modalRoot.querySelector("#confirm-send").onclick = startJob;
 }
 
 function startJob() {
   const batch = batchById("B001");
-  const sendableCount = state.validationDemo === "content" ? 1000 : 119;
+  const sendableCount = state.validationDemo === "content" ? 1000 : 120;
   batch.name = state.draftName.trim();
   batch.fileName = state.fileName;
   batch.total = sendableCount;
   batch.valid = sendableCount;
-  batch.rejected = state.validationDemo === "content" ? 3 : 1;
+  batch.rejected = state.validationDemo === "content" ? 4000 : 0;
   batch.status = "发送中";
   batch.updatedAt = "2026-08-05 14:32";
   if (!state.tasks.some((task) => task.batchId === "B001")) {
