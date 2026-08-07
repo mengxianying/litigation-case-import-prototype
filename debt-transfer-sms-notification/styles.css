@@ -102,7 +102,7 @@ tr:hover td { background: #fafcff; }
 .tag { display: inline-flex; align-items: center; min-height: 23px; padding: 2px 8px; border-radius: 4px; font-size: 12px; white-space: nowrap; }
 .status-success, .evidence-ready { color: var(--success); background: var(--success-soft); }
 .status-failed { color: var(--danger); background: var(--danger-soft); }
-.status-no-response, .evidence-pending { color: var(--warning); background: var(--warning-soft); }
+.status-awaiting-receipt, .evidence-pending { color: var(--warning); background: var(--warning-soft); }
 .status-running { color: var(--primary); background: var(--primary-soft); }
 .status-pending, .evidence-na { color: #687386; background: #f0f2f5; }
 .muted { color: var(--muted); }

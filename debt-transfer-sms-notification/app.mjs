@@ -107,7 +107,7 @@ const state = {
       rejected: 1,
       success: 0,
       failed: 0,
-      noResponse: 0,
+      awaitingReceipt: 0,
       status: "待执行",
       updatedAt: "2026-08-05 14:30",
       renameLogs: [],
@@ -123,7 +123,7 @@ const state = {
       rejected: 0,
       success: 3,
       failed: 1,
-      noResponse: 1,
+      awaitingReceipt: 1,
       status: "已完成",
       updatedAt: "2026-08-01 10:18",
       renameLogs: [{ oldName: "债转短信_20260801_1000", newName: "八月债转通知试运行", operator: "王小组", changedAt: "2026-08-01 10:20" }],
@@ -134,7 +134,7 @@ const state = {
     makeTask(2, "B000", "发送成功", "已留存", 0, "2026-08-01 10:07"),
     makeTask(3, "B000", "发送成功", "已留存", 0, "2026-08-01 10:09"),
     makeTask(4, "B000", "发送失败", "无凭证", 2, "2026-08-01 10:12"),
-    makeTask(5, "B000", "等待结果", "无凭证", 0, "2026-08-01 10:18"),
+    makeTask(5, "B000", "待回执", "无凭证", 0, "2026-08-01 10:18"),
   ],
   selectedTaskId: null,
   selectedTaskIds: [],
@@ -196,7 +196,7 @@ function tag(text, className) {
 }
 
 function resultTag(result) {
-  const classes = { "发送中": "status-running", "发送成功": "status-success", "发送失败": "status-failed", "等待结果": "status-no-response" };
+  const classes = { "发送中": "status-running", "发送成功": "status-success", "发送失败": "status-failed", "待回执": "status-awaiting-receipt" };
   return tag(result, classes[result] || "status-pending");
 }
 
@@ -252,10 +252,10 @@ function renderBatches() {
   const visibleBatches = filterBatches(state.batches, state.tasks, state.batchFilters);
   const rows = visibleBatches.map((batch) => {
     const statusClass = batch.status === "发送中" ? "status-running" : batch.status === "待执行" ? "status-pending" : "status-success";
-    return `<tr><td><strong>${escapeHtml(batch.name)}</strong></td><td>${escapeHtml(batch.fileName)}</td><td>${batch.importedAt}</td><td>${batch.total}</td><td>${batch.success}</td><td>${batch.failed}</td><td>${batch.noResponse}</td><td>${tag(batch.status, statusClass)}</td><td>${batch.updatedAt}</td><td><button class="link" data-action="rename" data-id="${batch.id}">维护名称</button>　<button class="link" data-action="batch-tasks" data-id="${batch.id}">查看任务</button></td></tr>`;
+    return `<tr><td><strong>${escapeHtml(batch.name)}</strong></td><td>${escapeHtml(batch.fileName)}</td><td>${batch.importedAt}</td><td>${batch.total}</td><td>${batch.success}</td><td>${batch.failed}</td><td>${batch.awaitingReceipt}</td><td>${tag(batch.status, statusClass)}</td><td>${batch.updatedAt}</td><td><button class="link" data-action="rename" data-id="${batch.id}">维护名称</button>　<button class="link" data-action="batch-tasks" data-id="${batch.id}">查看任务</button></td></tr>`;
   }).join("");
   const tableRows = rows || '<tr><td colspan="10" class="empty">暂无符合搜索条件的批次</td></tr>';
-  const main = `<section class="card"><div class="toolbar"><div><h2 class="section-title" style="margin-bottom:4px">批次管理</h2></div><button class="button primary" id="open-import">任务导入</button></div><div class="filters batch-filters"><div class="filter"><label for="batch-filter-order">订单编号</label><input id="batch-filter-order" data-batch-filter placeholder="精确输入订单编号" value="${escapeHtml(state.batchFilters.orderNo)}" /></div><div class="filter"><label for="batch-filter-name">客户姓名</label><input id="batch-filter-name" data-batch-filter placeholder="精确输入客户姓名" value="${escapeHtml(state.batchFilters.name)}" /></div><div class="filter"><label for="batch-filter-phone">手机号</label><input id="batch-filter-phone" data-batch-filter placeholder="精确输入手机号" value="${escapeHtml(state.batchFilters.phone)}" /></div><div class="filter"><label for="batch-filter-name-keyword">批次名称</label><input id="batch-filter-name-keyword" data-batch-filter placeholder="模糊输入批次名称" value="${escapeHtml(state.batchFilters.batchName)}" /></div><div class="filter-actions"><button class="button primary" id="batch-search">查询</button><button class="button" id="batch-reset">重置</button></div></div><div class="table-wrap"><table><thead><tr><th>批次名称</th><th>原文件名</th><th>导入时间</th><th>总任务</th><th>成功</th><th>失败</th><th>等待结果</th><th>执行状态</th><th>最后更新时间</th><th>操作</th></tr></thead><tbody>${tableRows}</tbody></table></div></section>`;
+  const main = `<section class="card"><div class="toolbar"><div><h2 class="section-title" style="margin-bottom:4px">批次管理</h2></div><button class="button primary" id="open-import">任务导入</button></div><div class="filters batch-filters"><div class="filter"><label for="batch-filter-order">订单编号</label><input id="batch-filter-order" data-batch-filter placeholder="精确输入订单编号" value="${escapeHtml(state.batchFilters.orderNo)}" /></div><div class="filter"><label for="batch-filter-name">客户姓名</label><input id="batch-filter-name" data-batch-filter placeholder="精确输入客户姓名" value="${escapeHtml(state.batchFilters.name)}" /></div><div class="filter"><label for="batch-filter-phone">手机号</label><input id="batch-filter-phone" data-batch-filter placeholder="精确输入手机号" value="${escapeHtml(state.batchFilters.phone)}" /></div><div class="filter"><label for="batch-filter-name-keyword">批次名称</label><input id="batch-filter-name-keyword" data-batch-filter placeholder="模糊输入批次名称" value="${escapeHtml(state.batchFilters.batchName)}" /></div><div class="filter-actions"><button class="button primary" id="batch-search">查询</button><button class="button" id="batch-reset">重置</button></div></div><div class="table-wrap"><table><thead><tr><th>批次名称</th><th>原文件名</th><th>导入时间</th><th>总任务</th><th>成功</th><th>失败</th><th>待回执</th><th>执行状态</th><th>最后更新时间</th><th>操作</th></tr></thead><tbody>${tableRows}</tbody></table></div></section>`;
   return renderWithRightNote(main, "批次查询说明", [
     "订单编号、客户姓名、手机号均为精确查询；批次名称支持模糊查询。",
     "订单号命中批次内任一任务时，返回该任务所属的完整批次。",
@@ -278,13 +278,13 @@ function renderRecords() {
   const allSelected = paginated.items.length > 0 && paginated.items.every((task) => state.selectedTaskIds.includes(task.id));
   const retrySelectedCount = state.tasks.filter((task) => state.selectedTaskIds.includes(task.id) && canManualRetry(task)).length;
   const pagination = `<div class="pagination"><span>共 ${paginated.total} 条</span><label>每页 <select id="page-size"><option value="10" ${state.pageSize === 10 ? "selected" : ""}>10</option><option value="20" ${state.pageSize === 20 ? "selected" : ""}>20</option><option value="50" ${state.pageSize === 50 ? "selected" : ""}>50</option></select> 条</label><button class="button small" data-page="${paginated.page - 1}" ${paginated.page === 1 ? "disabled" : ""}>上一页</button><span>第 ${paginated.page} / ${paginated.totalPages} 页</span><button class="button small" data-page="${paginated.page + 1}" ${paginated.page === paginated.totalPages ? "disabled" : ""}>下一页</button></div>`;
-  const main = `<section class="card records-card"><div class="toolbar records-toolbar"><div class="filters"><div class="filter"><label for="filter-order">订单编号</label><input id="filter-order" data-task-filter placeholder="请输入订单编号" value="${escapeHtml(state.filters.orderNo)}" /></div><div class="filter"><label for="filter-name">客户姓名</label><input id="filter-name" data-task-filter placeholder="请输入客户姓名" value="${escapeHtml(state.filters.name)}" /></div><div class="filter"><label for="filter-batch">批次名称</label><select id="filter-batch" data-task-filter><option value="">全部批次</option>${batchOptions}</select></div><div class="filter"><label for="filter-result">发送状态</label><select id="filter-result" data-task-filter><option value="">全部状态</option><option ${state.filters.result === "发送中" ? "selected" : ""}>发送中</option><option ${state.filters.result === "发送成功" ? "selected" : ""}>发送成功</option><option ${state.filters.result === "发送失败" ? "selected" : ""}>发送失败</option><option ${state.filters.result === "等待结果" ? "selected" : ""}>等待结果</option></select></div><div class="filter"><label for="filter-evidence">凭证状态</label><select id="filter-evidence" data-task-filter><option value="">全部状态</option><option ${state.filters.evidence === "已留存" ? "selected" : ""}>已留存</option><option ${state.filters.evidence === "无凭证" ? "selected" : ""}>无凭证</option></select></div></div><div class="toolbar-actions"><button class="button primary" id="task-search">查询</button><button class="button" id="task-reset">重置</button><span class="toolbar-divider"></span><button class="button" id="retry-selected" ${retrySelectedCount ? "" : "disabled"}>批量重新发送${retrySelectedCount ? ` (${retrySelectedCount})` : ""}</button><button class="button primary" id="download-evidence">下载证据</button></div></div><p class="helper">当前筛选结果：${visible.length} 条。选择任务后，下载证据导出选中任务的任务列表和发送成功凭证；未选择时导出当前筛选结果。</p><div class="table-wrap"><table><thead><tr><th><input id="select-all-tasks" type="checkbox" ${allSelected ? "checked" : ""} ${paginated.items.length ? "" : "disabled"} aria-label="全选本页任务" /></th><th>订单编号</th><th>姓名</th><th>手机号</th><th>发送设备编号</th><th>发送手机号</th><th>批次名称</th><th>发送状态</th><th>发送凭证</th><th>重试次数</th><th>最后更新时间</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table></div>${pagination}</section>`;
+  const main = `<section class="card records-card"><div class="toolbar records-toolbar"><div class="filters"><div class="filter"><label for="filter-order">订单编号</label><input id="filter-order" data-task-filter placeholder="请输入订单编号" value="${escapeHtml(state.filters.orderNo)}" /></div><div class="filter"><label for="filter-name">客户姓名</label><input id="filter-name" data-task-filter placeholder="请输入客户姓名" value="${escapeHtml(state.filters.name)}" /></div><div class="filter"><label for="filter-batch">批次名称</label><select id="filter-batch" data-task-filter><option value="">全部批次</option>${batchOptions}</select></div><div class="filter"><label for="filter-result">发送状态</label><select id="filter-result" data-task-filter><option value="">全部状态</option><option ${state.filters.result === "发送中" ? "selected" : ""}>发送中</option><option ${state.filters.result === "待回执" ? "selected" : ""}>待回执</option><option ${state.filters.result === "发送成功" ? "selected" : ""}>发送成功</option><option ${state.filters.result === "发送失败" ? "selected" : ""}>发送失败</option></select></div><div class="filter"><label for="filter-evidence">凭证状态</label><select id="filter-evidence" data-task-filter><option value="">全部状态</option><option ${state.filters.evidence === "已留存" ? "selected" : ""}>已留存</option><option ${state.filters.evidence === "无凭证" ? "selected" : ""}>无凭证</option></select></div></div><div class="toolbar-actions"><button class="button primary" id="task-search">查询</button><button class="button" id="task-reset">重置</button><span class="toolbar-divider"></span><button class="button" id="retry-selected" ${retrySelectedCount ? "" : "disabled"}>批量重新发送${retrySelectedCount ? ` (${retrySelectedCount})` : ""}</button><button class="button primary" id="download-evidence">下载证据</button></div></div><p class="helper">当前筛选结果：${visible.length} 条。选择任务后，下载证据导出选中任务的任务列表和发送成功凭证；未选择时导出当前筛选结果。</p><div class="table-wrap"><table><thead><tr><th><input id="select-all-tasks" type="checkbox" ${allSelected ? "checked" : ""} ${paginated.items.length ? "" : "disabled"} aria-label="全选本页任务" /></th><th>订单编号</th><th>姓名</th><th>手机号</th><th>发送设备编号</th><th>发送手机号</th><th>批次名称</th><th>发送状态</th><th>发送凭证</th><th>重试次数</th><th>最后更新时间</th><th>操作</th></tr></thead><tbody>${rows}</tbody></table></div>${pagination}</section>`;
   return renderGroupedRightNote(main, "任务处理说明", [
     {
       title: "状态说明",
       items: [
-        "发送中：任务已批量提交至前端，由前端逐条发送，尚未返回最终结果。",
-        "等待结果：前端已发起发送，但暂未回传成功或失败结果，需等待结果回传或人工核验。",
+        "发送中：任务已进入前端固定手机的串行处理队列，尚未真正发出短信。",
+        "待回执：手机已发起发送，等待手机或通道回传最终成功或失败结果。",
         "发送成功、发送失败：已取得最终发送结果。",
       ],
     },
@@ -292,7 +292,7 @@ function renderRecords() {
       title: "手工批量重发",
       items: [
         "仅发送失败且最新一次未发送成功的任务可手工批量重发。",
-        "发送成功、发送中、等待结果的任务均不可再次触发手工批量重发。",
+        "发送成功、发送中、待回执的任务均不可再次触发手工批量重发。",
         "单条任务最多人工重发 1 次；重发操作保留原发送记录，并新增人工批量重发记录。",
       ],
     },
@@ -424,13 +424,13 @@ function startJob() {
   batch.updatedAt = "2026-08-05 14:32";
   if (!state.tasks.some((task) => task.batchId === "B001")) {
     for (let index = 1; index <= 119; index += 1) {
-      const result = index % 23 === 0 ? "等待结果" : index % 17 === 0 ? "发送失败" : "发送成功";
+      const result = index % 23 === 0 ? "待回执" : index % 17 === 0 ? "发送失败" : "发送成功";
       const evidence = result === "发送成功" && index % 19 !== 0 ? "已留存" : "无凭证";
       state.tasks.unshift(makeTask(index, "B001", result, evidence, result === "发送失败" ? 2 : 0, "2026-08-05 14:32"));
     }
     batch.success = state.tasks.filter((task) => task.batchId === "B001" && task.result === "发送成功").length;
     batch.failed = state.tasks.filter((task) => task.batchId === "B001" && task.result === "发送失败").length;
-    batch.noResponse = state.tasks.filter((task) => task.batchId === "B001" && task.result === "等待结果").length;
+    batch.awaitingReceipt = state.tasks.filter((task) => task.batchId === "B001" && task.result === "待回执").length;
   }
   closeModal();
   state.activeView = "records";
