@@ -206,11 +206,11 @@ function evidenceTag(evidence) {
 }
 
 function renderWithRightNote(main, title, items) {
-  return `<div class="page-with-note"><div class="page-main">${main}</div><aside class="right-note"><h3>开发备注（正式上线不展示）</h3><h4>${title}</h4>${items.map((item, index) => `<p><b>${index + 1}.</b> ${item}</p>`).join("")}</aside></div>`;
+  return `<div class="page-with-note"><div class="page-main">${main}</div><aside class="right-note"><h3>备注说明</h3><h4>${title}</h4>${items.map((item, index) => `<p><b>${index + 1}.</b> ${item}</p>`).join("")}</aside></div>`;
 }
 
 function renderGroupedRightNote(main, title, groups) {
-  return `<div class="page-with-note"><div class="page-main">${main}</div><aside class="right-note"><h3>开发备注（正式上线不展示）</h3><h4>${title}</h4>${groups.map((group) => `<section class="note-group"><h5>${group.title}</h5>${group.items.map((item, index) => `<p><b>${index + 1}.</b> ${item}</p>`).join("")}</section>`).join("")}</aside></div>`;
+  return `<div class="page-with-note"><div class="page-main">${main}</div><aside class="right-note"><h3>备注说明</h3><h4>${title}</h4>${groups.map((group) => `<section class="note-group"><h5>${group.title}</h5>${group.items.map((item, index) => `<p><b>${index + 1}.</b> ${item}</p>`).join("")}</section>`).join("")}</aside></div>`;
 }
 
 function render() {
