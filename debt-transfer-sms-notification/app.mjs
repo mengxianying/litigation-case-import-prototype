@@ -604,7 +604,7 @@ function escapeCsvCell(value) { return `"${String(value ?? "").replaceAll('"', '
 function downloadTemplate() {
   const contents = "\uFEFF订单编号,客户姓名,手机号,短信内容\nDZ2026080001,客户示例,13800000000,【债转通知】请填写实际短信内容";
   const url = URL.createObjectURL(new Blob([contents], { type: "text/csv;charset=utf-8" }));
-  const link = Object.assign(document.createElement("a"), { href: url, download: "债转短信通知导入模板.csv" });
+  const link = Object.assign(document.createElement("a"), { href: url, download: "通知短信导入模板.csv" });
   link.click();
   URL.revokeObjectURL(url);
   showToast("导入模板已下载");
