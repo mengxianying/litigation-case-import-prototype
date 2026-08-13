@@ -37,7 +37,7 @@ function renameBatch(batch, newName, operator, changedAt) {
 
 function buildEvidenceManifest(tasks) {
   return tasks
-    .filter((task) => task.result === "发送成功")
+    .filter((task) => task.result === "发送成功" && task.evidence === "已留存")
     .map((task) => `${task.orderNo}_${task.name}_发送凭证.jpg`);
 }
 
@@ -46,7 +46,7 @@ function buildEvidenceSpreadsheet(tasks) {
   const rows = tasks.map((task) => [
     task.orderNo,
     task.name,
-    task.phone,
+    task.phoneFull,
     task.senderDeviceNo,
     task.senderPhone,
     batchById(task.batchId)?.name || "-",
@@ -363,7 +363,7 @@ function renderRecords() {
   const batchOptions = state.batches.map((batch) => `<option value="${batch.id}" ${state.filters.batchId === batch.id ? "selected" : ""}>${escapeHtml(batch.name)}</option>`).join("");
   const rows = paginated.items.length ? paginated.items.map((task) => {
     const checked = state.selectedTaskIds.includes(task.id) ? "checked" : "";
-    return `<tr><td><input type="checkbox" data-task-select="${task.id}" ${checked} aria-label="选择${task.orderNo}" /></td><td>${task.orderNo}</td><td>${task.name}</td><td>${task.phone}</td><td>${task.senderDeviceNo}</td><td>${task.senderPhone}</td><td>${escapeHtml(batchById(task.batchId)?.name || "-")}</td><td>${resultTag(task.result)}</td><td>${evidenceTag(task.evidence)}</td><td>${task.retry + task.manualRetryCount}</td><td>${task.updatedAt}</td><td><button class="link" data-action="detail" data-id="${task.id}">查看详情</button></td></tr>`;
+    return `<tr><td><input type="checkbox" data-task-select="${task.id}" ${checked} aria-label="选择${task.orderNo}" /></td><td>${task.orderNo}</td><td>${task.name}</td><td>${task.phoneFull}</td><td>${task.senderDeviceNo}</td><td>${task.senderPhone}</td><td>${escapeHtml(batchById(task.batchId)?.name || "-")}</td><td>${resultTag(task.result)}</td><td>${evidenceTag(task.evidence)}</td><td>${task.retry + task.manualRetryCount}</td><td>${task.updatedAt}</td><td><button class="link" data-action="detail" data-id="${task.id}">查看详情</button></td></tr>`;
   }).join("") : '<tr><td colspan="12" class="empty">暂无符合当前筛选条件的任务</td></tr>';
   const allSelected = paginated.items.length > 0 && paginated.items.every((task) => state.selectedTaskIds.includes(task.id));
   const retrySelectedCount = state.tasks.filter((task) => state.selectedTaskIds.includes(task.id) && canManualRetry(task)).length;
@@ -390,8 +390,9 @@ function renderRecords() {
       title: "证据下载",
       items: [
         "每行均可选择；选择仅作用于当前操作。未选择任务时，下载当前筛选范围内的全部任务。",
-        "下载证据包含任务列表 Excel，以及当前操作范围内发送成功任务的凭证压缩包。",
-        "发送成功任务自动留存发送截图；截图命名为：订单号_姓名_发送凭证.jpg。",
+        "下载证据生成 1 个“短信通知证据.zip”；压缩包根目录包含“短信通知任务列表.xlsx”和符合条件的发送凭证截图。",
+        "任务列表导出当前操作范围内全部任务，手机号使用明文；仅发送成功且凭证状态为已留存的任务打包截图。",
+        "截图不单独创建文件夹，命名为：订单号_姓名_发送凭证.jpg。",
       ],
     },
   ]);
@@ -579,27 +580,120 @@ function showEvidenceModal() {
   const spreadsheet = buildEvidenceSpreadsheet(targets);
   const selected = state.selectedTaskIds.length > 0;
   const listing = manifest.length ? manifest.join("\n") : "当前范围内没有发送成功任务";
-  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal wide-modal evidence-modal"><h2>下载证据</h2><p>${selected ? "已按选中条目" : "未选择条目，已按当前筛选结果"}生成以下文件。</p><div class="evidence-files"><div class="evidence-file"><strong>任务列表 Excel</strong><span>1 个文件，包含列表全部字段，共 ${spreadsheet.rows.length} 条。</span></div><div class="evidence-file"><strong>发送凭证压缩包</strong><span>1 个压缩包，包含所有发送成功任务的 ${manifest.length} 张截图。</span></div></div><p class="helper">截图命名：订单号_姓名_发送凭证.jpg</p><pre class="manifest">${escapeHtml(listing)}</pre><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-download">确认下载</button></div></section></div>`;
+  modalRoot.innerHTML = `<div class="modal-backdrop"><section class="modal wide-modal evidence-modal"><h2>下载证据</h2><p>${selected ? "已按选中条目" : "未选择条目，已按当前筛选结果"}生成 <strong>短信通知证据.zip</strong>。</p><div class="evidence-files"><div class="evidence-file"><strong>短信通知任务列表.xlsx</strong><span>包含当前导出范围的全部字段和 ${spreadsheet.rows.length} 条任务，手机号为明文。</span></div><div class="evidence-file"><strong>发送凭证截图</strong><span>包含发送成功且凭证已留存任务的 ${manifest.length} 张 JPG 截图，与 Excel 位于压缩包根目录。</span></div></div><p class="helper">截图命名：订单号_姓名_发送凭证.jpg</p><pre class="manifest">${escapeHtml(listing)}</pre><div class="button-row"><button class="button" data-close>取消</button><button class="button primary" id="confirm-download">确认下载</button></div></section></div>`;
   modalRoot.querySelector("[data-close]").onclick = closeModal;
-  modalRoot.querySelector("#confirm-download").addEventListener("click", () => downloadEvidenceFiles(spreadsheet, manifest));
+  modalRoot.querySelector("#confirm-download").addEventListener("click", () => downloadEvidenceFiles(spreadsheet, targets));
 }
 
-function downloadEvidenceFiles(spreadsheet, manifest) {
-  const csv = "\uFEFF" + [spreadsheet.headers, ...spreadsheet.rows].map((row) => row.map(escapeCsvCell).join(",")).join("\n");
-  triggerDownload(new Blob([csv], { type: "text/csv;charset=utf-8" }), "短信通知任务列表.csv");
-  triggerDownload(new Blob([manifest.join("\n")], { type: "text/plain;charset=utf-8" }), "短信通知发送凭证压缩包清单.txt");
-  closeModal();
-  showToast("已下载任务列表 Excel 和发送凭证压缩包演示清单");
+async function downloadEvidenceFiles(spreadsheet, tasks) {
+  const button = modalRoot.querySelector("#confirm-download");
+  if (button) { button.disabled = true; button.textContent = "正在生成..."; }
+  try {
+    const template = await fetch("./assets/短信通知任务列表模板.xlsx?v=20260813-evidence-zip").then((response) => {
+      if (!response.ok) throw new Error("任务列表模板加载失败");
+      return response.arrayBuffer();
+    });
+    const evidenceZip = new JSZip();
+    evidenceZip.file("短信通知任务列表.xlsx", await buildTaskWorkbook(template, spreadsheet));
+    const evidenceTasks = tasks.filter((task) => task.result === "发送成功" && task.evidence === "已留存");
+    for (const task of evidenceTasks) {
+      evidenceZip.file(`${task.orderNo}_${task.name}_发送凭证.jpg`, await buildEvidenceJpeg(task));
+    }
+    const zipBytes = await evidenceZip.generateAsync({ type: "uint8array", compression: "DEFLATE", compressionOptions: { level: 6 } });
+    const blob = new Blob([zipBytes], { type: "application/zip" });
+    triggerDownload(blob, "短信通知证据.zip");
+    closeModal();
+    showToast(`已下载证据压缩包：1 个 Excel，${evidenceTasks.length} 张凭证截图`);
+  } catch (error) {
+    showToast(error.message || "证据压缩包生成失败，请重试");
+    if (button) { button.disabled = false; button.textContent = "确认下载"; }
+  }
+}
+
+async function buildTaskWorkbook(template, spreadsheet) {
+  const workbookZip = await JSZip.loadAsync(template);
+  const sheetPath = "xl/worksheets/sheet1.xml";
+  const sheetXml = await workbookZip.file(sheetPath).async("string");
+  const headerRow = sheetXml.match(/<x:row r="1"[\s\S]*?<\/x:row>/)?.[0];
+  if (!headerRow) throw new Error("任务列表模板格式不正确");
+  const rows = spreadsheet.rows.map((row, rowIndex) => buildWorksheetRow(row, rowIndex + 2)).join("");
+  const lastRow = Math.max(1, spreadsheet.rows.length + 1);
+  const updatedXml = sheetXml
+    .replace(/<x:sheetData>[\s\S]*?<\/x:sheetData>/, `<x:sheetData>${headerRow}${rows}</x:sheetData>`)
+    .replace(/<x:autoFilter[^>]*\/>/, "")
+    .replace("</x:worksheet>", `<x:autoFilter ref="A1:J${lastRow}" /></x:worksheet>`);
+  workbookZip.file(sheetPath, updatedXml);
+  return workbookZip.generateAsync({ type: "arraybuffer", compression: "DEFLATE", compressionOptions: { level: 6 } });
+}
+
+function buildWorksheetRow(values, rowNumber) {
+  const cells = values.map((value, index) => {
+    const cell = `${String.fromCharCode(65 + index)}${rowNumber}`;
+    return typeof value === "number"
+      ? `<x:c r="${cell}" s="6"><x:v>${value}</x:v></x:c>`
+      : `<x:c r="${cell}" s="6" t="inlineStr"><x:is><x:t>${escapeXml(value)}</x:t></x:is></x:c>`;
+  }).join("");
+  return `<x:row r="${rowNumber}" ht="24" customHeight="1">${cells}</x:row>`;
+}
+
+function buildEvidenceJpeg(task) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 720;
+  canvas.height = 1120;
+  const context = canvas.getContext("2d");
+  context.fillStyle = "#f5f6f8";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.fillStyle = "#ffffff";
+  context.fillRect(32, 32, 656, 1056);
+  context.fillStyle = "#1f2937";
+  context.font = "bold 28px sans-serif";
+  context.fillText("短信发送凭证", 64, 92);
+  context.font = "20px sans-serif";
+  context.fillText(`收件手机号：${task.phoneFull}`, 64, 140);
+  context.fillText(`订单编号：${task.orderNo}`, 64, 176);
+  context.fillText(`发送时间：${task.updatedAt}`, 64, 212);
+  context.fillStyle = "#e8f5e9";
+  roundRect(context, 64, 260, 592, 420, 18);
+  context.fill();
+  context.fillStyle = "#202b38";
+  context.font = "24px sans-serif";
+  drawWrappedText(context, task.message, 92, 312, 536, 38);
+  context.fillStyle = "#6b7280";
+  context.font = "18px sans-serif";
+  context.fillText("发送状态：发送成功", 92, 638);
+  return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error("凭证截图生成失败")), "image/jpeg", 0.9));
+}
+
+function drawWrappedText(context, text, x, y, maxWidth, lineHeight) {
+  let line = "";
+  for (const char of String(text)) {
+    const next = line + char;
+    if (context.measureText(next).width > maxWidth && line) {
+      context.fillText(line, x, y);
+      line = char;
+      y += lineHeight;
+    } else line = next;
+  }
+  if (line) context.fillText(line, x, y);
+}
+
+function roundRect(context, x, y, width, height, radius) {
+  context.beginPath();
+  context.roundRect(x, y, width, height, radius);
+}
+
+function escapeXml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;" })[char]);
 }
 
 function triggerDownload(blob, filename) {
   const url = URL.createObjectURL(blob);
   const link = Object.assign(document.createElement("a"), { href: url, download: filename });
+  document.body.append(link);
   link.click();
-  URL.revokeObjectURL(url);
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
-
-function escapeCsvCell(value) { return `"${String(value ?? "").replaceAll('"', '""')}"`; }
 
 function downloadTemplate() {
   const contents = "\uFEFF订单编号,客户姓名,手机号,短信内容\nDZ2026080001,客户示例,13800000000,【债转通知】请填写实际短信内容";

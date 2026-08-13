@@ -49,7 +49,25 @@ export function renameBatch(batch, newName, operator, changedAt) {
 export function buildEvidenceManifest(tasks) {
   return tasks
     .filter((task) => task.result === "发送成功" && task.evidence === "已留存")
-    .map((task) => `${task.orderNo}_发送凭证.jpg`);
+    .map((task) => `${task.orderNo}_${task.name}_发送凭证.jpg`);
+}
+
+export function buildEvidenceSpreadsheet(tasks, batches = []) {
+  const batchNames = new Map(batches.map((batch) => [batch.id, batch.name]));
+  const headers = ["订单编号", "姓名", "手机号", "发送设备编号", "发送手机号", "批次名称", "发送状态", "发送凭证", "重试次数", "最后更新时间"];
+  const rows = tasks.map((task) => [
+    task.orderNo,
+    task.name,
+    task.phoneFull,
+    task.senderDeviceNo,
+    task.senderPhone,
+    batchNames.get(task.batchId) || "-",
+    task.result,
+    task.evidence,
+    (task.retry || 0) + (task.manualRetryCount || 0),
+    task.updatedAt,
+  ]);
+  return { headers, rows };
 }
 
 export function resolveEvidenceDownloadTasks(tasks, selectedIds = []) {
@@ -76,16 +94,16 @@ export function createManualRetryRecord(task, { batchName, operator, startedAt }
 
   return {
     ...task,
-    result: "重发中",
+    result: "发送中",
     manualRetryCount: 1,
-    retryQueueStatus: "重发中",
+    retryQueueStatus: "发送中",
     retryBatchName: batchName,
     updatedAt: startedAt,
     sendLogs: [
       ...(task.sendLogs || []),
       {
         type: "人工批量重发",
-        result: "重发中",
+        result: "发送中",
         batchName,
         operator,
         at: startedAt,
